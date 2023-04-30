@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="Balloon" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="バルーン" source="./Data/Image/Unit/Balloon.png" 
+		  hp="30" attack="50" speed="125" ></Data>
+	
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<!--1-->
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0">
+		</Skill>
+		<!--2-->
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
+		</Skill>
+		<!--3-->
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0">
+		</Skill>
+		<!--4-->
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
+		</Skill>
+		<!--5-->
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0">
+		</Skill>
+		<!--6-->
+		<Skill name="いやな音" type="MISS" target="ENEMY" times="0.0">
+		</Skill>
+		<!--7-->
+		<Skill name="セロハン" type="HEAL" target="SELF" times="0.5">
+		</Skill>
+		<!--8-->
+		<Skill name="セロハン" type="HEAL" target="SELF" times="0.5">
+		</Skill>
+	</Cmd>
+
+</Unit>

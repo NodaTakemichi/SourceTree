@@ -1,0 +1,188 @@
+#include<algorithm>
+#include<iostream>
+#include<tuple>
+#include "./PlayerUnit.h"
+#include "./EnemyUnit.h"
+#include "UnitManager.h"
+
+//シングルトン
+/*
+UnitManager* UnitManager::mInstance = nullptr;
+void UnitManager::CreateInstance(void)
+{
+	if (mInstance == nullptr)
+	{
+		mInstance = new UnitManager();
+	}
+	mInstance->Init();
+}
+UnitManager& UnitManager::GetInstance(void)
+{
+	return *mInstance;
+}
+*/
+
+UnitManager::UnitManager()
+{
+}
+
+UnitManager::~UnitManager()
+{
+}
+
+void UnitManager::Init(void)
+{
+	//ユニットの生成
+	CreateUnit();
+
+	//スピード降順ソート
+	SpeedSort();
+
+	//ユニットの行動整理
+	ChangeActivUnit();
+
+
+}
+
+void UnitManager::Update(void)
+{
+
+
+	//ユニットの更新
+	for (auto& unit : units_)
+	{
+		unit->Update();
+	}
+
+}
+
+void UnitManager::Draw(void)
+{
+	//ユニットの描画
+	for (auto& unit : units_)
+	{
+		unit->Draw();
+
+	}
+}
+
+void UnitManager::Release(void)
+{
+	//ユニットの破棄
+	for (auto& unit : units_)
+	{
+		unit->Release();
+		delete unit;
+	}
+	units_.clear();
+}
+
+std::vector<Command*> UnitManager::GetCommand(void)
+{
+	//行動ユニットのコマンドを渡す
+	//各ユニットから,行動が出来て最もスピードが速いユニットを探す。
+	for (auto& unit : units_)
+	{
+		if (unit->IsAct())return unit->GetCommands();
+	}
+}
+
+UnitBase* UnitManager::GetActivUnit(void)
+{
+	//各ユニットから,行動が出来て最もスピードが速いユニットを探す。
+	for (auto& unit : units_)
+	{
+		if (unit->IsAct())return unit;
+	}
+}
+
+void UnitManager::CreateUnit(void)
+{
+	//ユニットの生成
+
+	//味方
+		PlayerUnit* pUnit = new PlayerUnit("./Data/UnitData/スライム.xml", 1);
+		pUnit->Init();
+		units_.push_back(pUnit);
+
+		pUnit = new PlayerUnit("./Data/UnitData/リーダースライム.xml", 2);
+		pUnit->Init();
+		units_.push_back(pUnit);
+
+		pUnit = new PlayerUnit("./Data/UnitData/バルーン.xml", 3);
+		pUnit->Init();
+		units_.push_back(pUnit);
+
+	//敵
+		EnemyUnit* eUnit = new EnemyUnit("./Data/UnitData/フェアリースネイク.xml", 1);
+		eUnit->Init();
+		units_.push_back(eUnit);
+
+		eUnit = new EnemyUnit("./Data/UnitData/ゴースト.xml", 2);
+		eUnit->Init();
+		units_.push_back(eUnit);
+
+		eUnit = new EnemyUnit("./Data/UnitData/ゴーレム.xml", 3);
+		eUnit->Init();
+		units_.push_back(eUnit);
+		
+}
+
+void UnitManager::SpeedSort(void)
+{
+	//ユニットの配列を、スピードが大きい順にソートする。
+
+	//スピード速度の比較
+	auto compare = [&](UnitBase* x, UnitBase* y) {
+		auto speedX = x->GetSpeed();
+		auto speedY = y->GetSpeed();
+		return  speedX > speedY;
+	};
+	//ソート
+	std::sort(units_.begin(), units_.end(), compare);
+}
+
+void UnitManager::ChangeActivUnit(void)
+{
+	//全ユニットを、行動中ユニットから外す
+	NotActUnitAll();
+
+	//各ユニットから,行動が出来て最もスピードが速いユニットを探す。
+	for (auto& unit : units_)
+	{
+		if (!unit->IsAlive())continue;	//死亡時、処理をしない
+		if (unit->IsActed())continue;	//行動済みの場合、処理をしない
+
+		//行動済み状態にする
+		unit->SetActed(true);
+		//行動中ユニットにする
+		unit->SetAct(true);
+
+		//行動できる中で、最も行動速度が速いユニットを行動ユニットにする
+		return;
+	}
+
+	//すべて行動不可の場合、生存ユニットを行動可能状態にする
+	for (auto& unit : units_)
+	{
+		if (!unit->IsAlive())continue;	//死亡時、処理をしない
+
+		//行動可能状態にする
+		unit->SetActed(false);
+	}
+	//もう一度、ユニット検索を行う。
+	ChangeActivUnit();
+
+	//return;
+}
+
+
+void UnitManager::NotActUnitAll(void)
+{
+	for (auto& unit : units_)
+	{
+		//行動中ユニットから外す
+		unit->SetAct(false);
+	}
+
+}

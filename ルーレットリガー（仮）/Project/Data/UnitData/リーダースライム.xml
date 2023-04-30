@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="LeaderSlime" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="リーダースライム" source="./Data/Image/Unit/LeaderSlime.png" 
+		  hp="30" attack="50" speed="10" ></Data>
+
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<!--1-->
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0">
+		</Skill>
+		<!--2-->
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
+		</Skill>
+		<!--3-->
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
+		</Skill>
+		<!--4-->
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
+		</Skill>
+		<!--5-->
+		<Skill name="溶解液" type="ATTACK" target="ENEMY" times="2.0">
+		</Skill>
+		<!--6-->
+		<Skill name="溶解液" type="ATTACK" target="ENEMY" times="2.0">
+		</Skill>
+		<!--7-->
+		<Skill name="溶かす" type="ATTACK" target="ENEMY" times="1,5">
+		</Skill>
+		<!--8-->
+		<Skill name="溶かす" type="ATTACK" target="ENEMY" times="1.5">
+		</Skill>
+	</Cmd>
+
+	
+			
+</Unit>

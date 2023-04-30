@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="Ghost" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="ゴースト" source="./Data/Image/Unit/Ghost.png" 
+		  hp="30" attack="50" speed="40" ></Data>
+
+
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<!--1-->
+		<Skill name="みつめている" type="MISS" target="NONE" times="0.0">
+		</Skill>
+		<!--2-->
+		<Skill name="みつめている" type="MISS" target="NONE" times="0.0">
+		</Skill>
+		<!--3-->
+		<Skill name="かげがうすい" type="BUFF" target="SELF" times="0.0">
+		</Skill>
+		<!--4-->
+		<Skill name="かげがうすい" type="BUFF" target="SELF" times="0.0">
+		</Skill>
+		<!--5-->
+		<Skill name="とりつく" type="BUFF" target="ENEMY" times="0.0">
+		</Skill>
+		<!--6-->
+		<Skill name="とりつく" type="BUFF" target="ENEMY" times="0.0">
+		</Skill>
+		<!--7-->
+		<Skill name="たたる" type="ATTACK" target="ENEMY" times="1,0">
+		</Skill>
+		<!--8-->
+		<Skill name="たたる" type="ATTACK" target="ENEMY" times="1.0">
+		</Skill>
+	</Cmd>
+	
+			
+</Unit>
