@@ -2,7 +2,7 @@
 <Unit name="FairySnake" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="フェアリースネイク" source="./Data/Image/Unit/FairySnake.png" 
-		  hp="30" attack="50" speed="30" ></Data>
+		  hp="150" attack="30" speed="30" ></Data>
 
 
 	<!--ユニットのコマンド-->

@@ -16,12 +16,6 @@ public:
 	////インスタンスの取得
 	//static UnitManager& GetInstance(void);
 
-	enum class UNIT_TYPE
-	{
-		PLAYER,
-		ENEMY,
-	};
-
 
 	UnitManager();
 	~UnitManager();
@@ -41,6 +35,9 @@ public:
 
 	//行動ユニットを変更する関数
 	void ChangeActivUnit(void);
+	
+	//ユニットが全滅かどうか判断
+	bool IsAnniUnit(void);
 
 private:
 	//静的インスタンス

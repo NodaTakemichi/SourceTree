@@ -2,7 +2,7 @@
 <Unit name="Balloon" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="バルーン" source="./Data/Image/Unit/Balloon.png" 
-		  hp="30" attack="50" speed="125" ></Data>
+		  hp="40" attack="15" speed="45" ></Data>
 	
 	<!--ユニットのコマンド-->
 	<Cmd>

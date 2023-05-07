@@ -3,7 +3,11 @@
 #include <EffekseerForDXLib.h>
 #include "../Application.h"
 #include "../Common/Fader.h"
+
 #include "../Scene/GameScene.h"
+#include "../Scene/GameScene.h"
+
+
 #include "../Utility/Measure.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
@@ -36,8 +40,7 @@ void SceneManager::Init(void)
 	mScene = new GameScene();
 	mScene->Init();
 
-	mSceneID = SCENE_ID::TITLE;
-	//mSceneID = SCENE_ID::GAME;
+	mSceneID = SCENE_ID::GAME;
 	mWaitSceneID = SCENE_ID::NONE;
 
 	mIsSceneChanging = false;
@@ -104,8 +107,6 @@ void SceneManager::Draw(void)
 	case SCENE_ID::GAME:
 		break;
 	case SCENE_ID::RESULT:
-		break;
-	case SCENE_ID::TUTORIAL:
 		break;
 	}
 
@@ -199,15 +200,9 @@ void SceneManager::DoChangeScene(void)
 	case SCENE_ID::GAME:
 		mScene = new GameScene();
 		break;
-	case SCENE_ID::EVENT:
-		break;
-	case SCENE_ID::BATTLE:
-		break;
 	case SCENE_ID::RESULT:
 		//mScene = new ResultScene();
 		break;
-	case SCENE_ID::TUTORIAL:
-		//mScene = new TutorialScene();
 		break;
 	default:
 		break;

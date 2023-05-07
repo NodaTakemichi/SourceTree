@@ -1,5 +1,9 @@
+#include <algorithm>
 #include "../../Common/GetAttr.h"
 #include "./UI/UnitUI.h"
+
+#include"../../_debug/_DebugConOut.h"
+
 #include "UnitBase.h"
 
 UnitBase::UnitBase()
@@ -17,6 +21,17 @@ void UnitBase::Init(void)
 	SetActed(false);
 	SetAct(false);
 	SetTargeted(false);
+
+	//テクスチャ―シェーダーの登録
+	//psHpColor_ = LoadPixelShader("./Data/Shader/HpShader.cso");
+	psTex_ = LoadPixelShader("./x64/Debug/Texture.cso");
+	psMonotone_ = LoadPixelShader("./x64/Debug/Monotone.cso");
+
+	//ピクセルシェーダー用の定数バッファの作成
+	psTexConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 4);
+
+	//現在のシェーダー
+	nowPs_ = psTex_;
 }
 
 void UnitBase::Update(void)
@@ -36,40 +51,37 @@ void UnitBase::Draw(void)
 void UnitBase::Release(void)
 {
 	//解放
-	DeleteGraph(img_);
-}
-
-void UnitBase::SetActed(bool acted)
-{
-	isActed_ = acted;
-}
-
-void UnitBase::SetAlive(bool alive)
-{
-	isAlive_ = alive;
-}
-
-void UnitBase::SetAct(bool act)
-{
-	isAct_ = act;
-}
-
-void UnitBase::SetTargeted(bool target)
-{
-	isTargeted_ = target;
+	DeleteGraph(unitImg_);
 }
 
 void UnitBase::Damage(int dmg)
 {
+	//直前HPの記憶
+	beforHp_ = hp_;
+
 	//ダメージ計算
 	hp_ -= dmg;
 
 	//死亡判定
 	if (CheckDead())
 	{
+		TRACE("死亡しました\n");
+
+		//シェーダーの変更
+		nowPs_ = psMonotone_;
+
 		//死亡状態にする
 		SetAlive(false);
 	}
+}
+
+void UnitBase::Heal(int heal)
+{
+	//HP計算(HP上限あり)
+	hp_ += heal;
+
+	hp_ = (std::min)(hp_, maxHp_);
+
 }
 
 bool UnitBase::CheckDead(void)
@@ -131,12 +143,14 @@ std::string UnitBase::LoadData(std::string fileName)
 	{
 		//技の名前取得
 		if (!getAttr(skill, "name", name))name = std::string();
-		//技のタイプ取得
+
+			//技のタイプ取得
 		if (!getAttr(skill, "type", type))type = std::string();
 		//技の技対象取得
 		if (!getAttr(skill, "target", target))target = std::string();
 		//技の倍率取得
 		if (!getAttr(skill, "times", times))times = 0.0;
+
 
 		//コマンドの生成
 		Command::Par par = {
@@ -150,11 +164,43 @@ std::string UnitBase::LoadData(std::string fileName)
 
 
 	//最大HP
-	maxHp_ = hp_;
+	maxHp_ = beforHp_= hp_;
 
 	//画像の登録
-	img_ = LoadGraph(source.c_str());
+	unitImg_ = LoadGraph(source.c_str());
 	return std::string();
+
+}
+
+void UnitBase::DrawUnitShader(const int& shader, const float& revers)
+{
+	//シェーダーの設定
+	SetUsePixelShader(shader);
+
+	//シェーダーにテクスチャを転送
+	SetUseTextureToShader(0, unitImg_);
+
+	//シェーダー用の定数バッファ
+	auto& cBuf = psTexConstBuf_;
+
+
+	//ピクセルシェーダー用の定数バッファのアドレスを取得
+	COLOR_F* cbBuf =
+		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
+	cbBuf->r = revers;
+
+
+	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
+	UpdateShaderConstantBuffer(cBuf);
+
+	//ピクセルシェーダー用の定数バッファを定数バッファレジスタにセット
+	SetShaderConstantBuffer(cBuf, DX_SHADERTYPE_PIXEL, 3);
+
+	//描画
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
+	DrawPolygonIndexed2DToShader(mVertex, 4, mIndex, 2);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 
 }
 
@@ -166,6 +212,81 @@ void UnitBase::CreateCommand(Command::Par* par)
 	commands_.push_back(cmd);
 }
 
+void UnitBase::MakeSquereVertex(Vector2 pos)
+{
+	//三角形のポリゴンを2つ作って、くっつけている
+
+	int cnt = 0;
+	float sX = static_cast<float>(pos.x);
+	float sY = static_cast<float>(pos.y);
+	float eX = static_cast<float>(pos.x + DRAWING_SIZE - 1);
+	float eY = static_cast<float>(pos.y + DRAWING_SIZE - 1);
+
+	// ４頂点の初期化
+	for (int i = 0; i < 4; i++)
+	{
+		mVertex[i].rhw = 1.0f;
+		mVertex[i].dif = GetColorU8(255, 255, 255, 255);
+		mVertex[i].spc = GetColorU8(255, 255, 255, 255);
+		mVertex[i].su = 0.0f;
+		mVertex[i].sv = 0.0f;
+	}
+
+	// 左上
+	mVertex[cnt].pos = VGet(sX, sY, 0.0f);
+	mVertex[cnt].u = 0.0f;
+	mVertex[cnt].v = 0.0f;
+	cnt++;
+
+	// 右上
+	mVertex[cnt].pos = VGet(eX, sY, 0.0f);
+	mVertex[cnt].u = 1.0f;
+	mVertex[cnt].v = 0.0f;
+	cnt++;
+
+	// 右下
+	mVertex[cnt].pos = VGet(eX, eY, 0.0f);
+	mVertex[cnt].u = 1.0f;
+	mVertex[cnt].v = 1.0f;
+	cnt++;
+
+	// 左下
+	mVertex[cnt].pos = VGet(sX, eY, 0.0f);
+	mVertex[cnt].u = 0.0f;
+	mVertex[cnt].v = 1.0f;
+
+	/*
+	　～～～～～～
+		0-----1
+		|     |
+		|     |
+		3-----2
+	　～～～～～～
+		0-----1
+		|  ／
+		|／
+		3
+	　～～～～～～
+			  1
+		   ／ |
+		 ／   |
+		3-----2
+	　～～～～～～
+	*/
+
+
+	// 頂点インデックス
+	cnt = 0;
+	mIndex[cnt++] = 0;
+	mIndex[cnt++] = 1;
+	mIndex[cnt++] = 3;
+
+	mIndex[cnt++] = 1;
+	mIndex[cnt++] = 2;
+	mIndex[cnt++] = 3;
+
+}
+
 void UnitBase::SetDrawingPos(int x)
 {
 	
@@ -175,6 +296,8 @@ void UnitBase::SetDrawingPos(int x)
 	if (unitNum_ == 1)pos_ = { x, topY + spanY };
 	else if (unitNum_ == 2)pos_ = { x,topY };
 	else if (unitNum_ == 3)pos_ = { x,topY + spanY * 2 };
+
+	MakeSquereVertex(pos_);
 	
 	return;
 }

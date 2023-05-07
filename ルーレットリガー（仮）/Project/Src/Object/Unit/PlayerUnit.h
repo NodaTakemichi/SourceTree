@@ -8,9 +8,9 @@ public:
     PlayerUnit(std::string unitFile,int unitNum);
     ~PlayerUnit();
 
-    void Init(void);
-    void Update(void);
-    void Draw(void);
+    void Init(void)override;
+    void Update(void)override;
+    void Draw(void)override;
     //void Release(void);
 
 

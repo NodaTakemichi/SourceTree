@@ -1,11 +1,12 @@
 #pragma once
+#include<vector>
 #include<string>
 class Command
 {
 public:
 
 	//技のタイプ
-	enum class SKILL_TYPE
+	enum class CMD_TYPE
 	{
 		NONE = 0, 
 		MISS,
@@ -16,8 +17,9 @@ public:
 		END
 	};
 
+
 	//技の対象
-	enum class SKILL_TARGET
+	enum class CMD_TARGET
 	{
 		NONE = 0,
 		ENEMY,
@@ -25,7 +27,7 @@ public:
 		ENEMY_RAND,
 		SELF,
 		PLAYER,
-		PLAUER_ALL,
+		PLAYER_ALL,
 		END
 	};
 
@@ -57,25 +59,28 @@ public:
 	//倍率の取得
 	const float& GetTimes(void) { return par_.times_; }
 
-	//スキルタイプの取得
-	const SKILL_TYPE& GetSkillType(void) { return type_; }
+	//コマンドタイプの取得
+	const CMD_TYPE& GetCmdType(void) { return type_; }
 
 	//ターゲットの取得
-	const SKILL_TARGET& GetSkillTarget(void) { return target_; }
+	const CMD_TARGET& GetCmdTarget(void) { return target_; }
 
 private:
 	//情報
 	Par par_;
 
-	//スキルタイプ
-	SKILL_TYPE type_;
+	//コマンドタイプ
+	CMD_TYPE type_;
+	//std::vector<CMD_TYPE>types_;
+
+
 	//ターゲット
-	SKILL_TARGET target_;
+	CMD_TARGET target_;
 
 
 	//スキルタイプ、ターゲットをキャストする
-	void CastSkillType(std::string type);
-	void CastSkillTarget(std::string target);
+	void CastCmdType(std::string type);
+	void CastCmdTarget(std::string target);
 
 
 

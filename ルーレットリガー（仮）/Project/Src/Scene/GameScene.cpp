@@ -9,6 +9,7 @@
 #include "../System/BattleSystem.h"
 
 #include "../Object/Unit/UnitManager.h"
+#include "../Object/Unit/UnitBase.h"
 #include "../Object/Roulette.h"
 #include "../Object/GameUI.h"
 #include "../Object/Unit/Command.h"
@@ -58,8 +59,6 @@ void GameScene::Init(void)
 
 void GameScene::Update(void)
 {
-
-
 	//デルタタイム
 	auto delta = SceneManager::GetInstance().GetDeltaTime();
 	mTotalTime += delta;
@@ -76,8 +75,8 @@ void GameScene::Update(void)
 
 	//更新
 	unitMng_->Update();
-	roulette_->Update();
 	GameUi_->Update();
+
 
 	//フェーズ別更新
 	switch (phase_)
@@ -96,6 +95,10 @@ void GameScene::Update(void)
 	case GameScene::GAME_PHASE::TURN_END:
 		UpdateTurnEnd();
 		break;
+	case GameScene::GAME_PHASE::GAME_END:
+		//決着：ゲームシーン終了
+
+		break;
 	default:
 		break;
 	}
@@ -104,7 +107,7 @@ void GameScene::Update(void)
 void GameScene::Draw(void)
 {
 	//背景
-	//DrawGraph(0, 0, bgImg_, true);
+	DrawGraph(0, 0, bgImg_, true);
 	//フレーム
 	DrawGraph(0, 0, frameImg_, true);
 
@@ -127,13 +130,16 @@ void GameScene::Draw(void)
 		break;
 	case GameScene::GAME_PHASE::TURN_END:
 		break;
+	case GameScene::GAME_PHASE::GAME_END:
+		//結果の表示
+		_dbgDrawFormatString(0, 0, 0xffffff, "ゲーム終了");
+		break;
 }
 
 
 #ifdef DEBUG
 	auto cx = Application::SCREEN_SIZE_X;
 	auto cy = Application::SCREEN_SIZE_Y;
-
 	auto span = 20;
 	for (size_t i = 0; i < 60; i++)
 	{
@@ -143,7 +149,6 @@ void GameScene::Draw(void)
 		//Y
 		DrawLine(i * span,0, i * span, cy, 0x0000ff);
 	}
-
 #endif // _DEBUG
 
 }
@@ -157,6 +162,8 @@ void GameScene::Release(void)
 	delete roulette_;
 	GameUi_->Release();
 	delete GameUi_;
+	battleSys_->Release();
+	delete battleSys_;
 
 	//画像解放
 	DeleteGraph(bgImg_);
@@ -166,27 +173,24 @@ void GameScene::Release(void)
 
 void GameScene::UpdateRouTime(void)
 {
+	//ルーレットの更新
+	roulette_->Update();
+
+	//ルーレットの停止走査（ユニットによって自動か手動か決める）
+	roulette_->StopRoulette(actUnitAoutm_);
+
+
 	//ルーレットが停止したら、フェーズ移動
 	if (roulette_->GetRouStop())
 	{
-
-		//決定したコマンドをゲームUIに受け渡す
-		std::string cmd = roulette_->GetCmd()->GetName();
-		GameUi_->SetCmdName(cmd);
-
-		//バトルデータに情報を渡す
-		battleSys_->SetBattleData(unitMng_->GetActivUnit(), 
-			roulette_->GetCmd(), unitMng_->GetUnits());
-
 		ChangeGamePhase(GAME_PHASE::AIM);
 	}
 }
 
 void GameScene::UpdateAIM(void)
 {	
-
 	//対象を選択したら、バトルフェーズに進む
-	if (battleSys_->SelectUnit())
+	if (battleSys_->SelectUnit(actUnitAoutm_))
 	{
 		ChangeGamePhase(GAME_PHASE::BATTLE);
 	}
@@ -194,48 +198,78 @@ void GameScene::UpdateAIM(void)
 
 void GameScene::UpdateBattle(void)
 {
+	//ダメージ処理
+	battleSys_->CmdProcess();
+
 	//バトルが終了したら、ターン終了に進む
 	if (true)ChangeGamePhase(GAME_PHASE::TURN_END);
-
 }
 
 void GameScene::UpdateTurnEnd(void)
 {
-	//ターン終了時に場面整理を行い、ルーレットフェーズに進む
-	if (true)ChangeGamePhase(GAME_PHASE::RULLET_TIME);
+	//全滅か判断
+	//全滅ならばゲーム終了、そうでないならばルーレットフェーズに進む。
+	if (unitMng_->IsAnniUnit())ChangeGamePhase(GAME_PHASE::GAME_END);
+	else ChangeGamePhase(GAME_PHASE::RULLET_TIME);
 }
 
 void GameScene::ChangeGamePhase(GAME_PHASE phase)
 {
-
+	//フェーズ
 	phase_ = phase;
 
 	switch (phase_)
 	{
-	case GameScene::GAME_PHASE::BATTLE_START:
+	case GameScene::GAME_PHASE::BATTLE_START: {
 		break;
-	case GameScene::GAME_PHASE::RULLET_TIME:
+	}
+	case GameScene::GAME_PHASE::RULLET_TIME:{
+		//行動ユニット
+		auto actUnit = unitMng_->GetActivUnit();
+		//ルーレットの停止が手動か自動か判断
+		actUnitAoutm_ = (actUnit->GetUnitType() == UnitBase::UNIT_TYPE::ENEMY);
 
 		//ルーレットにコマンド技をセット
 		roulette_->SetCommand(unitMng_->GetCommand());
 		//ルーレット状況のリセット
 		roulette_->ResetRouSpin();
 
+		//選択ユニットのリセット
+		battleSys_->ResetSelectUnits();
+
 		break;
-	case GameScene::GAME_PHASE::AIM:
+	}
+	case GameScene::GAME_PHASE::AIM: {
+		//決定したコマンドをゲームUIに受け渡す
+		std::string cmd = roulette_->GetCmd()->GetName();
+		GameUi_->SetCmdName(cmd);
+
+		//バトルデータに各情報を渡す
+		battleSys_->SetBattleData(unitMng_->GetActivUnit(),
+			roulette_->GetCmd(), unitMng_->GetUnits());
+
+		//ホイールのリセット
+		GetMouseWheelRotVol();
+
 		//コマンドの選択対象を判断する
 		battleSys_->CheckSelectTarget();
 
-		//ホイールの初期化
-		GetMouseWheelRotVol();
+		//操作が自動の場合、ユニットをランダムに決める
+		if (actUnitAoutm_)battleSys_->SetRandUnit();
 
 		break;
-	case GameScene::GAME_PHASE::BATTLE:
+	}
+	case GameScene::GAME_PHASE::BATTLE: {
 		break;
-	case GameScene::GAME_PHASE::TURN_END:
+	}
+	case GameScene::GAME_PHASE::TURN_END: {
 		//行動ユニットの整理
 		unitMng_->ChangeActivUnit();
 		break;
+	}
+	case GameScene::GAME_PHASE::GAME_END: {
+		break;
+	}
 	default:
 		break;
 	}

@@ -23,6 +23,7 @@ Roulette::~Roulette()
 void Roulette::Init(void)
 {
 	//初期化
+	angle = 0.0;
 	ResetRouSpin();
 
 	//画像登録
@@ -36,21 +37,8 @@ void Roulette::Init(void)
 
 void Roulette::Update(void)
 {
-	//デルタタイム
-	auto delta = SceneManager::GetInstance().GetDeltaTime();
-	//mTotalTime += delta;
-
 	//ルーレットの回転処理
 	RotateProcess();
-
-
-	auto& ins = InputManager::GetInstance();
-	//左クリック検知
-	if (ins.IsTrgMouseLeft())
-	{
-		isRouSpin_ = false;
-	}
-
 }
 
 void Roulette::Draw(void)
@@ -117,6 +105,27 @@ void Roulette::Release(void)
 	DeleteFontToHandle(fontHandle_);
 }
 
+void Roulette::StopRoulette(const bool& autom)
+{
+	if (!isRouSpin_)return;		//既にブレーキ状態なら、処理をしない
+
+	bool stop = false;
+	//手動か自動か判断する
+	if (autom)
+	{
+		//時間が来たらブレーキ状態にする
+		stop = AsoUtility::OverTime(totalTime_, STOP_WAIT_TIME_ROU);
+	}
+	else
+	{
+		//左クリック検知時、ブレーキ状態にする
+		auto& ins = InputManager::GetInstance();
+		stop = ins.IsTrgMouseLeft();
+	}
+
+	if (stop)isRouSpin_ = false;
+}
+
 void Roulette::SetCommand(std::vector<Command*> cmd)
 {
 	cmdNames_ = cmd;
@@ -124,10 +133,11 @@ void Roulette::SetCommand(std::vector<Command*> cmd)
 
 void Roulette::ResetRouSpin(void)
 {
-	angle = 0.0;
+	//angle = 0.0;		//ルーレットの回転状態を戻さない
 	rotPower_ = 0.0;
 	isStop_ = false;
 	isRouSpin_ = true;
+	totalTime_ = 0.0f;
 }
 
 Command* Roulette::GetCmd(void)
@@ -155,22 +165,18 @@ Command* Roulette::GetCmd(void)
 
 void Roulette::RotateProcess(void)
 {
-	//回転状態か判断
-	if (isRouSpin_)
-	{
-		//回転速度を加算
-		rotPower_ = ROT_SPEED_MAX;
-	}
-	else
-	{
-		//減速
-		rotPower_ += 0.2f;
-	}
+	//減速量
+	const float decSpeed = 0.2f;
 
-	//ルーレットの回転速度の判定
+	//回転量の計算（回転かブレーキで速度変更）
+	//回転状態：最高速度、ブレーキ状態：減速した値
+	rotPower_ = isRouSpin_ ? ROT_SPEED_MAX : rotPower_ + decSpeed;
+
+
+	//停止状態か判断
 	if (rotPower_ < 0)
 	{
-		//回転
+		//回転量を加える
 		angle += rotPower_;
 	}
 	else

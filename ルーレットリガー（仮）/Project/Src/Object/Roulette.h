@@ -9,6 +9,9 @@ public:
 	//回転速度
 	const float ROT_SPEED_MAX = -16.0f;
 
+	//ルーレット停止までの待機時間
+	const float STOP_WAIT_TIME_ROU = 0.8f;
+
 	Roulette();
 	~Roulette();
 
@@ -16,6 +19,9 @@ public:
 	void Update(void);
 	void Draw(void);
 	void Release(void);
+
+	//ルーレットを止める指示出し関数
+	void StopRoulette(const bool& autom);		//true：自動、false：手動
 
 	//ルーレットにコマンド技をセットする
 	void SetCommand(std::vector<Command*> cmd);
@@ -46,12 +52,14 @@ private:
 	//ルーレットが停止状態か判断
 	bool isStop_;
 
-
 	//フォントハンドル
 	int fontHandle_;
 
 	//コマンド技
 	std::vector<Command*>cmdNames_;
+
+	//待機時間
+	float totalTime_;
 
 	//ルーレットの回転処理
 	void RotateProcess(void);

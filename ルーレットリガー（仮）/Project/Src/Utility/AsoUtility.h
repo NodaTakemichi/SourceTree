@@ -62,7 +62,6 @@ public:
 	static float Lerp(float start, float end, float t);
 	static double Lerp(double start, double end, double t);
 	static Vector2 Lerp(const Vector2& start, const Vector2& end, float t);
-	static VECTOR Lerp(const VECTOR& start, const VECTOR& end, float t);
 
 	// 角度の線形補間
 	static double LerpDeg(double start, double end, double t);
@@ -71,37 +70,36 @@ public:
 	static COLOR_F Lerp(const COLOR_F& start, const COLOR_F& end, float t);
 
 	// ベジェ曲線
-	static Vector2 Bezier(const Vector2& p1, const Vector2& p2, const Vector2& p3, float t);
-	static VECTOR Bezier(const VECTOR& p1, const VECTOR& p2, const VECTOR& p3, float t);
-	
-
-	static VECTOR RotXZPos(const VECTOR& centerPos, const VECTOR& radiusPos, float rad);
+	static Vector2 Bezier(const Vector2& p1, const Vector2& p2, const Vector2& p3, float t);	
 
 	// ベクトルの長さ
 	static double Magnitude(const Vector2& v);
-	static double Magnitude(const VECTOR& v);
+	//static double Magnitude(const VECTOR& v);
 	static int SqrMagnitude(const Vector2& v);
-	static double SqrMagnitude(const VECTOR& v);
+	//static double SqrMagnitude(const VECTOR& v);
 	static double Distance(const Vector2& v1, const Vector2& v2);
-	static double Distance(const VECTOR& v1, const VECTOR& v2);
-	static double SqrMagnitude(const VECTOR& v1, const VECTOR& v2);
+	//static double Distance(const VECTOR& v1, const VECTOR& v2);
+	//static double SqrMagnitude(const VECTOR& v1, const VECTOR& v2);
 
-	// 球体同士の衝突判定
-	static bool IsHitSpheres(const VECTOR& pos1, float radius1, const VECTOR& pos2, float radius2);
-
-	// 比較
-	static bool Equals(const VECTOR& v1, const VECTOR& v2);
-	static bool EqualsVZero(const VECTOR& v1);
-
+	//// 球体同士の衝突判定
+	//static bool IsHitSpheres(const VECTOR& pos1, float radius1, const VECTOR& pos2, float radius2);
+	//// 比較
+	//static bool Equals(const VECTOR& v1, const VECTOR& v2);
+	//static bool EqualsVZero(const VECTOR& v1);
 	// 正規化
 	static VECTOR Normalize(const Vector2& v);
-	static VECTOR VNormalize(const VECTOR& v);
+	//static VECTOR VNormalize(const VECTOR& v);
+	//// 2つのベクトルの間の角度
+	//static double AngleDeg(const VECTOR& from, const VECTOR& to);
+	//// 描画系
+	//static void DrawLineDir(const VECTOR& pos, const VECTOR& dir, int color, float len = 50.0f);
 
-	// 2つのベクトルの間の角度
-	static double AngleDeg(const VECTOR& from, const VECTOR& to);
 
-	// 描画系
-	static void DrawLineDir(const VECTOR& pos, const VECTOR& dir, int color, float len = 50.0f);
+	//ラップアラウンド
+	static int Wrap(const int& num, const int& min, const int& max);
+
+	//待機時間
+	static bool OverTime(float& totalTime, const float& waitTime);
 
 };
 

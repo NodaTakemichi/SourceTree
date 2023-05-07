@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="LeaderSlime" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="フロストレオ" source="./Data/Image/Unit/フロストレオ.png" 
+		  hp="210" attack="45" speed="40" ></Data>
+
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<!--1-->
+		<Skill name="ミス" type="MISS" target="NONE" times="1.0">
+		</Skill>
+		<!--2-->
+		<Skill name="ブリザード" type="ATTACK" target="ENEMY_ALL" times="2.0">
+		</Skill>
+		<!--3-->
+		<Skill name="ブリザード" type="ATTACK" target="ENEMY_ALL" times="2.0">
+		</Skill>
+		<!--4-->
+		<Skill name="こごえるいき" type="ATTACK" target="ENEMY_ALL" times="1.5">
+		</Skill>
+		<!--5-->
+		<Skill name="こごえるいき" type="ATTACK" target="ENEMY_ALL" times="1.5">
+		</Skill>
+		<!--6-->
+		<Skill name="いあつ" type="BUFF" target="ENEMY" times="0.0">
+		</Skill>
+		<!--7-->
+		<Skill name="かみつく" type="ATTACK" target="ENEMY" times="1,2">
+		</Skill>
+		<!--8-->
+		<Skill name="かみつく" type="ATTACK" target="ENEMY" times="1.2">
+		</Skill>
+	</Cmd>
+
+	
+			
+</Unit>

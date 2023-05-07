@@ -18,10 +18,7 @@ public:
 		TITLE,
 		SELECT,
 		GAME,
-		EVENT,
-		BATTLE,
 		RESULT,
-		TUTORIAL
 	};
 	
 	// インスタンスの生成

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="LeaderSlime" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="アークデーモン" source="./Data/Image/Unit/アークデーモン.png" 
+		  hp="250" attack="40" speed="50" ></Data>
+
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<!--1-->
+		<Skill name="ペイン" type="ATTACK" target="ENEMY" times="1.5">
+		</Skill>
+		<!--2-->
+		<Skill name="ペイン" type="ATTACK" target="ENEMY" times="1.5">
+		</Skill>
+		<!--3-->
+		<Skill name="デュアル" type="ATTACK" target="ENEMY" times="1.0">
+		</Skill>
+		<!--4-->
+		<Skill name="デュアル" type="ATTACK" target="ENEMY" times="1.0">
+		</Skill>
+		<!--5-->
+		<Skill name="バインド" type="BUFF" target="ENEMY" times="0.0">
+		</Skill>
+		<!--6-->
+		<Skill name="バインド" type="BUFF" target="ENEMY" times="0.0">
+		</Skill>
+		<!--7-->
+		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1,5">
+		</Skill>
+		<!--8-->
+		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1.5">
+		</Skill>
+	</Cmd>
+
+	
+			
+</Unit>

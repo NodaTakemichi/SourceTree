@@ -15,12 +15,12 @@ public:
 	enum class GAME_PHASE
 	{
 		BATTLE_START,
-
 		RULLET_TIME,
 		AIM,
 		BATTLE,
-
 		TURN_END,
+		GAME_END
+
 	};
 
 
@@ -67,6 +67,9 @@ private:
 
 	//フェーズ変更
 	void ChangeGamePhase(GAME_PHASE phase);
+
+	//行動ユニットの操作が自動か手動か判断
+	bool actUnitAoutm_;
 
 
 };

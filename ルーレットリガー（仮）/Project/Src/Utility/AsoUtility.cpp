@@ -4,6 +4,9 @@
 #include <vector>
 #include <math.h>
 #include <DxLib.h>
+#include"../Manager/SceneManager.h"
+#include"../_debug/_DebugConOut.h"
+
 #include "AsoUtility.h"
 
 int AsoUtility::Round(float v)
@@ -221,22 +224,6 @@ Vector2 AsoUtility::Lerp(const Vector2& start, const Vector2& end, float t)
     return ret;
 }
 
-VECTOR AsoUtility::Lerp(const VECTOR& start, const VECTOR& end, float t)
-{
-    // 線形補間
-    if (t >= 1.0f)
-    {
-        return end;
-    }
-
-    VECTOR ret = start;
-    ret.x += t * (end.x - start.x);
-    ret.y += t * (end.y - start.y);
-    ret.z += t * (end.z - start.z);
-
-    return ret;
-}
-
 double AsoUtility::LerpDeg(double start, double end, double t)
 {
 
@@ -293,95 +280,95 @@ Vector2 AsoUtility::Bezier(const Vector2& p1, const Vector2& p2, const Vector2& 
     return Lerp(a, b, t);
 }
 
-VECTOR AsoUtility::Bezier(const VECTOR& p1, const VECTOR& p2, const VECTOR& p3, float t)
-{
-    VECTOR a = Lerp(p1, p2, t);
-    VECTOR b = Lerp(p2, p3, t);
-    return Lerp(a, b, t);
-}
-
-VECTOR AsoUtility::RotXZPos(const VECTOR& centerPos, const VECTOR& radiusPos, float rad)
-{
-    // 実装しなくてよい
-    float x = ((radiusPos.x - centerPos.x) * cosf(rad)) - ((radiusPos.z - centerPos.z) * sinf(rad));
-    float z = ((radiusPos.x - centerPos.x) * sinf(rad)) + ((radiusPos.z - centerPos.z) * cosf(rad));
-    return VGet(centerPos.x + x, radiusPos.y, centerPos.z + z);
-}
+//VECTOR AsoUtility::Bezier(const VECTOR& p1, const VECTOR& p2, const VECTOR& p3, float t)
+//{
+//    VECTOR a = Lerp(p1, p2, t);
+//    VECTOR b = Lerp(p2, p3, t);
+//    return Lerp(a, b, t);
+//}
+//
+//VECTOR AsoUtility::RotXZPos(const VECTOR& centerPos, const VECTOR& radiusPos, float rad)
+//{
+//    // 実装しなくてよい
+//    float x = ((radiusPos.x - centerPos.x) * cosf(rad)) - ((radiusPos.z - centerPos.z) * sinf(rad));
+//    float z = ((radiusPos.x - centerPos.x) * sinf(rad)) + ((radiusPos.z - centerPos.z) * cosf(rad));
+//    return VGet(centerPos.x + x, radiusPos.y, centerPos.z + z);
+//}
 
 double AsoUtility::Magnitude(const Vector2& v)
 {
     return sqrt((v.x * v.x) + (v.y * v.y));
 }
 
-double AsoUtility::Magnitude(const VECTOR& v)
-{
-    return sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
-}
+//double AsoUtility::Magnitude(const VECTOR& v)
+//{
+//    return sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
+//}
 
 int AsoUtility::SqrMagnitude(const Vector2& v)
 {
     return v.x * v.x + v.y * v.y;
 }
 
-double AsoUtility::SqrMagnitude(const VECTOR& v)
-{
-    return v.x * v.x + v.y * v.y + v.z * v.z;
-}
+//double AsoUtility::SqrMagnitude(const VECTOR& v)
+//{
+//    return v.x * v.x + v.y * v.y + v.z * v.z;
+//}
 
 double AsoUtility::Distance(const Vector2& v1, const Vector2& v2)
 {
     return sqrt(pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2));
 }
 
-double AsoUtility::Distance(const VECTOR& v1, const VECTOR& v2)
-{
-    return sqrt(pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2) + pow(v2.z - v1.z, 2));
-}
-
-double AsoUtility::SqrMagnitude(const VECTOR& v1, const VECTOR& v2)
-{
-    return pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2) + pow(v2.z - v1.z, 2);
-}
-
-bool AsoUtility::IsHitSpheres(const VECTOR& pos1, float radius1, const VECTOR& pos2, float radius2)
-{
-    // 球体同士の衝突判定
-    bool ret = false;
-
-    // お互いの半径の合計
-    float radius = radius1 + radius2;
-
-    // 座標の差からお互いの距離を取る
-    VECTOR diff = VSub(pos2, pos1);
-
-    // 三平方の定理で比較(SqrMagnitudeと同じ)
-    float dis = (diff.x * diff.x) + (diff.y * diff.y) + (diff.z * diff.z);
-    if (dis < (radius * radius))
-    {
-        ret = true;
-    }
-
-    return ret;
-}
-
-bool AsoUtility::Equals(const VECTOR& v1, const VECTOR& v2)
-{
-    if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
-    {
-        return true;
-    }
-    return false;
-}
-
-bool AsoUtility::EqualsVZero(const VECTOR& v1)
-{
-    const VECTOR& v2 = VECTOR_ZERO;
-    if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
-    {
-        return true;
-    }
-    return false;
-}
+//double AsoUtility::Distance(const VECTOR& v1, const VECTOR& v2)
+//{
+//    return sqrt(pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2) + pow(v2.z - v1.z, 2));
+//}
+//
+//double AsoUtility::SqrMagnitude(const VECTOR& v1, const VECTOR& v2)
+//{
+//    return pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2) + pow(v2.z - v1.z, 2);
+//}
+//
+//bool AsoUtility::IsHitSpheres(const VECTOR& pos1, float radius1, const VECTOR& pos2, float radius2)
+//{
+//    // 球体同士の衝突判定
+//    bool ret = false;
+//
+//    // お互いの半径の合計
+//    float radius = radius1 + radius2;
+//
+//    // 座標の差からお互いの距離を取る
+//    VECTOR diff = VSub(pos2, pos1);
+//
+//    // 三平方の定理で比較(SqrMagnitudeと同じ)
+//    float dis = (diff.x * diff.x) + (diff.y * diff.y) + (diff.z * diff.z);
+//    if (dis < (radius * radius))
+//    {
+//        ret = true;
+//    }
+//
+//    return ret;
+//}
+//
+//bool AsoUtility::Equals(const VECTOR& v1, const VECTOR& v2)
+//{
+//    if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
+//    {
+//        return true;
+//    }
+//    return false;
+//}
+//
+//bool AsoUtility::EqualsVZero(const VECTOR& v1)
+//{
+//    const VECTOR& v2 = VECTOR_ZERO;
+//    if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
+//    {
+//        return true;
+//    }
+//    return false;
+//}
 
 VECTOR AsoUtility::Normalize(const Vector2& v)
 {
@@ -397,48 +384,79 @@ VECTOR AsoUtility::Normalize(const Vector2& v)
     return ret;
 }
 
-VECTOR AsoUtility::VNormalize(const VECTOR& v)
+int AsoUtility::Wrap(const int& num, const int& min, const int& max)
 {
-    if (AsoUtility::EqualsVZero(v))
+    //ゼロ除算回避
+    if ((max - min) == 0)return 0;
+
+    //エラー
+    if (min > max)
     {
-        // Quaternion計算でゼロを渡して、
-        // エラー(-1, -1, -1)が返ってくると困る
-        return v;
+        TRACE("エラー：最小値が最大値を上回っています");
+        return 0;
     }
-    return VNorm(v);
+
+    const int n = (num - min) % (max - min);
+    return  (n >= 0) ? (n + min) : (n + max);
 }
 
-double AsoUtility::AngleDeg(const VECTOR& from, const VECTOR& to)
+bool AsoUtility::OverTime(float& totalTime, const float& waitTime)
 {
-    // sqrt(a) * sqrt(b) = sqrt(a * b) -- valid for real numbers
-    auto fLen = SqrMagnitude(from);
-    auto tLen = SqrMagnitude(to);
-    auto denominator = sqrt(fLen * tLen);
-    if (denominator < kEpsilonNormalSqrt)
+    //デルタタイム
+    auto delta = SceneManager::GetInstance().GetDeltaTime();
+    totalTime += delta;
+
+    //合計時間が超過しているか判断
+    if (totalTime >= waitTime)
     {
-        return 0.0f;
+        return true;
     }
 
-    //float dot = std::clamp(Dot(from, to) / denominator, -1.0f, 1.0f);
-    //auto dot = Dot(from, to) / denominator;
-    auto dot = VDot(from, to) / denominator;
-    if (dot < -1.0f)
-    {
-        dot = -1.0f;
-    }
-    if (dot > 1.0f)
-    {
-        dot = 1.0f;
-    }
-
-    return acos(dot) * (180.0 / DX_PI);
+    return false;
 }
 
-void AsoUtility::DrawLineDir(const VECTOR& pos, const VECTOR& dir, int color, float len)
-{
-    auto nDir = AsoUtility::VNormalize(dir);
-    auto sPos = VAdd(pos, VScale(nDir, -len));
-    auto ePos = VAdd(pos, VScale(nDir, len));
-    DrawLine3D(sPos, ePos, color);
-    DrawSphere3D(ePos, 5.0f, 5, color, color, true);
-}
+//VECTOR AsoUtility::VNormalize(const VECTOR& v)
+//{
+//    if (AsoUtility::EqualsVZero(v))
+//    {
+//        // Quaternion計算でゼロを渡して、
+//        // エラー(-1, -1, -1)が返ってくると困る
+//        return v;
+//    }
+//    return VNorm(v);
+//}
+//
+//double AsoUtility::AngleDeg(const VECTOR& from, const VECTOR& to)
+//{
+//    // sqrt(a) * sqrt(b) = sqrt(a * b) -- valid for real numbers
+//    auto fLen = SqrMagnitude(from);
+//    auto tLen = SqrMagnitude(to);
+//    auto denominator = sqrt(fLen * tLen);
+//    if (denominator < kEpsilonNormalSqrt)
+//    {
+//        return 0.0f;
+//    }
+//
+//    //float dot = std::clamp(Dot(from, to) / denominator, -1.0f, 1.0f);
+//    //auto dot = Dot(from, to) / denominator;
+//    auto dot = VDot(from, to) / denominator;
+//    if (dot < -1.0f)
+//    {
+//        dot = -1.0f;
+//    }
+//    if (dot > 1.0f)
+//    {
+//        dot = 1.0f;
+//    }
+//
+//    return acos(dot) * (180.0 / DX_PI);
+//}
+//
+//void AsoUtility::DrawLineDir(const VECTOR& pos, const VECTOR& dir, int color, float len)
+//{
+//    auto nDir = AsoUtility::VNormalize(dir);
+//    auto sPos = VAdd(pos, VScale(nDir, -len));
+//    auto ePos = VAdd(pos, VScale(nDir, len));
+//    DrawLine3D(sPos, ePos, color);
+//    DrawSphere3D(ePos, 5.0f, 5, color, color, true);
+//}

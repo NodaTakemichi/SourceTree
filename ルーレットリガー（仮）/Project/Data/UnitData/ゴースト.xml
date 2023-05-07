@@ -2,7 +2,7 @@
 <Unit name="Ghost" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="ゴースト" source="./Data/Image/Unit/Ghost.png" 
-		  hp="30" attack="50" speed="40" ></Data>
+		  hp="50" attack="15" speed="40" ></Data>
 
 
 	<!--ユニットのコマンド-->

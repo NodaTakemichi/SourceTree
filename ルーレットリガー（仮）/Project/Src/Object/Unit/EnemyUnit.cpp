@@ -29,7 +29,7 @@ void EnemyUnit::Init(void)
 	SetDrawingPos(ScreenX - DRAWING_SIZE - DRAWING_OFFSET_X);
 
 	//UI情報の初期化
-	unitUi_ = new EnemyUI(pos_, &name_);
+	unitUi_ = new EnemyUI(pos_, name_, hp_, maxHp_, beforHp_);
 	unitUi_->Init();
 
 
@@ -48,9 +48,8 @@ void EnemyUnit::Draw(void)
 	//バイリニア補間モード
 	SetDrawMode(DX_DRAWMODE_BILINEAR);
 
-	//描画
-	DrawExtendGraph(pos_.x, pos_.y,
-		pos_.x + DRAWING_SIZE, pos_.y + DRAWING_SIZE, img_, true);
+	//シェーダー描画
+	DrawUnitShader(nowPs_, 0.0f);
 
 	//ネアレストネイバー法
 	SetDrawMode(DX_DRAWMODE_NEAREST);

@@ -90,6 +90,9 @@
     <ClCompile Include="Src\Object\Unit\UI\EnemyUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Scene\ResultScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Application.h">
@@ -167,8 +170,13 @@
     <ClInclude Include="Src\Object\Unit\UI\EnemyUI.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Scene\ResultScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\HpShader.hlsl" />
+    <FxCompile Include="Src\Shader\Texture.hlsl" />
+    <FxCompile Include="Src\Shader\Monotone.hlsl" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,9 @@
 #pragma once
 #include<string>
-#include"../UnitBase.h"
 #include"../../../Common/Vector2.h"
+#include "../../../Utility/AsoUtility.h"
+#include "../../../Manager/SceneManager.h"
+#include"../UnitBase.h"
 
 class UnitUI
 {
@@ -17,6 +19,7 @@ public:
 	virtual void Init(void);
 	virtual void Draw(void) = 0;
 	void Release(void);
+
 
 	//行動中のユニットの表示
 	virtual void DrawActUnit(void) = 0;
@@ -35,8 +38,6 @@ protected:
 
 	//ネームフレーム画像
 	int nameFrameImg_;
-	//HPフレーム画像
-	int hpFrameImg_;
 
 	//HPシェーダー
 	//頂点情報
@@ -47,8 +48,20 @@ protected:
 	int psHpColor_;
 	int psHpColorConstBuf_;
 
+	//合計時間
+	float totalTime_;
+	//HP変化中
+	float nowHp_;
+
 	//描画用の四角頂点のの作成
 	void MakeSquereVertex(Vector2 pos);
+
+	//HPのシェーダー描画
+	void DrawHpShader(const float& ratio, const COLOR_F& color);
+
+	//名前の描画
+	void DrawName(const std::string& name,const Vector2& uPos);
+
 
 };
 

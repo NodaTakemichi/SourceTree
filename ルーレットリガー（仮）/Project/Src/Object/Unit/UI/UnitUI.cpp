@@ -18,17 +18,68 @@ void UnitUI::Init(void)
 	//psHpColor_ = LoadPixelShader("./Data/Shader/HpShader.cso");
 	psHpColor_ = LoadPixelShader("./x64/Debug/HpShader.cso");
 	//ピクセルシェーダー用の定数バッファの作成
-	psHpColorConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 4);
+	psHpColorConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 8);
+
+	totalTime_ = 0.0f;
 }
 
 void UnitUI::Release(void)
 {
 	DeleteGraph(nameFrameImg_);
-	DeleteGraph(hpFrameImg_);
 
 	//シェーダーの解放
 	DeleteShader(psHpColor_);
 	DeleteShaderConstantBuffer(psHpColorConstBuf_);
+}
+
+void UnitUI::DrawHpShader(const float& ratio, const COLOR_F& color)
+{
+	//シェーダーの設定
+	SetUsePixelShader(psHpColor_);
+
+	//シェーダー用の定数バッファ
+	auto& cBuf = psHpColorConstBuf_;
+
+
+	//ピクセルシェーダー用の定数バッファのアドレスを取得
+	COLOR_F* cbBuf =
+		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
+	cbBuf->r = color.r;
+	cbBuf->g = color.g;
+	cbBuf->b = color.b;
+	cbBuf->a = color.a;
+	cbBuf++;
+	cbBuf->r = ratio;
+
+	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
+	UpdateShaderConstantBuffer(cBuf);
+
+	//ピクセルシェーダー用の定数バッファを定数バッファレジスタにセット
+	SetShaderConstantBuffer(cBuf, DX_SHADERTYPE_PIXEL, 3);
+
+	//描画
+	DrawPolygonIndexed2DToShader(mVertex, 4, mIndex, 2);
+
+}
+
+void UnitUI::DrawName(const std::string& name, const Vector2& uPos)
+{
+	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
+	Vector2 fPos = { uPos.x - 10,uPos.y + 140 };
+	Vector2 nPos = { uPos.x + unitSize / 2,uPos.y + 152 };
+
+	//名前枠の表示
+	DrawGraph(fPos.x, fPos.y, nameFrameImg_, true);
+
+	//名前　文字列
+	auto n = name.c_str();
+	//文字列の文字数の取得
+	int len = strlen(n);
+	//文字列の（半分の）長さを取得
+	auto fx = GetDrawStringWidth(n, len) / 2;
+	//名前描画
+	DrawString(nPos.x - fx, nPos.y, n, 0xffffff);
+
 }
 
 void UnitUI::MakeSquereVertex(Vector2 pos)

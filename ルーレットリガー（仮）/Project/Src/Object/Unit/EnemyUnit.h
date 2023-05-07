@@ -8,9 +8,9 @@ public:
     EnemyUnit(std::string unitFile, int unitNum);
     ~EnemyUnit();
 
-    void Init(void);
-    void Update(void);
-    void Draw(void);
+    void Init(void)override;
+    void Update(void)override;
+    void Draw(void)override;
     //void Release(void);
 
 

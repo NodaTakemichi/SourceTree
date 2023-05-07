@@ -2,7 +2,7 @@
 <Unit name="Golem" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="ゴーレム" source="./Data/Image/Unit/Golem.png" 
-		  hp="30" attack="50" speed="15" ></Data>
+		  hp="250" attack="60" speed="15" ></Data>
 
 	<!--ユニットのコマンド-->
 	<Cmd>
@@ -19,16 +19,16 @@
 		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
 		</Skill>
 		<!--5-->
-		<Skill name="かいりき" type="ATTACK" target="ENEMY" times="2.0">
+		<Skill name="怪力" type="ATTACK" target="ENEMY" times="1.5">
 		</Skill>
 		<!--6-->
-		<Skill name="かいりき" type="ATTACK" target="ENEMY" times="2.0">
+		<Skill name="怪力" type="ATTACK" target="ENEMY" times="1.5">
 		</Skill>
 		<!--7-->
-		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
+		<Skill name="万力" type="ATTACK" target="ENEMY" times="2.0">
 		</Skill>
 		<!--8-->
-		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
+		<Skill name="万力" type="ATTACK" target="ENEMY" times="2.0">
 		</Skill>
 	</Cmd>
 

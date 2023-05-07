@@ -62,7 +62,6 @@ void UnitManager::Draw(void)
 	for (auto& unit : units_)
 	{
 		unit->Draw();
-
 	}
 }
 
@@ -80,7 +79,6 @@ void UnitManager::Release(void)
 std::vector<Command*> UnitManager::GetCommand(void)
 {
 	//行動ユニットのコマンドを渡す
-	//各ユニットから,行動が出来て最もスピードが速いユニットを探す。
 	for (auto& unit : units_)
 	{
 		if (unit->IsAct())return unit->GetCommands();
@@ -101,24 +99,24 @@ void UnitManager::CreateUnit(void)
 	//ユニットの生成
 
 	//味方
-		PlayerUnit* pUnit = new PlayerUnit("./Data/UnitData/スライム.xml", 1);
+		PlayerUnit* pUnit = new PlayerUnit("./Data/UnitData/フロストレオ.xml", 1);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
-		pUnit = new PlayerUnit("./Data/UnitData/リーダースライム.xml", 2);
+		pUnit = new PlayerUnit("./Data/UnitData/スライム.xml", 2);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
-		pUnit = new PlayerUnit("./Data/UnitData/バルーン.xml", 3);
+		pUnit = new PlayerUnit("./Data/UnitData/リーダースライム.xml", 3);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
 	//敵
-		EnemyUnit* eUnit = new EnemyUnit("./Data/UnitData/フェアリースネイク.xml", 1);
+		EnemyUnit* eUnit = new EnemyUnit("./Data/UnitData/フェアリー.xml", 1);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
-		eUnit = new EnemyUnit("./Data/UnitData/ゴースト.xml", 2);
+		eUnit = new EnemyUnit("./Data/UnitData/アースドラゴン.xml", 2);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
@@ -176,6 +174,37 @@ void UnitManager::ChangeActivUnit(void)
 	//return;
 }
 
+bool UnitManager::IsAnniUnit(void)
+{
+	//片方の生存ユニットを確認できなければ、全滅判定
+
+	bool pUnit = false;
+	bool eUnit = false;
+
+
+	for (auto& unit : units_)
+	{
+		//両陣営、生存している
+		if (pUnit && eUnit)return false;
+
+		//生存ユニット
+		if (!unit->IsAlive())continue;
+
+		if (unit->GetUnitType() == UnitBase::UNIT_TYPE::PLAYER)
+		{
+			pUnit = true;
+		}
+		else
+		{
+			eUnit = true;
+		}
+	}
+
+
+	//排他的論理和
+	//片方陣営が全滅していたら、true
+	return pUnit ^ eUnit;
+}
 
 void UnitManager::NotActUnitAll(void)
 {
@@ -184,5 +213,4 @@ void UnitManager::NotActUnitAll(void)
 		//行動中ユニットから外す
 		unit->SetAct(false);
 	}
-
 }

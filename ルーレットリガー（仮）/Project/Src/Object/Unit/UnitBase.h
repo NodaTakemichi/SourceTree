@@ -20,6 +20,28 @@ public:
 		END
 	};
 
+	//バフのタイプ
+	enum class CMD_TYPE
+	{
+		NONE = 0,
+		PALALYSIS,
+		POISON,
+		CONFUSION,
+		AVOIDANCE,
+
+		P_UP,
+		P_DOWN,
+		S_UP,
+		S_DOWN,
+		D_UP,
+		D_DOWN,
+
+		CMD_DOWN,
+		CMD_BAN,
+		END
+	};
+
+
 	
 	//ゲームシーンで描画するユニットのサイズ
 	static constexpr int DRAWING_SIZE = 180;
@@ -41,23 +63,25 @@ public:
 	//攻撃力の取得関数
 	const int& GetAttack(void) { return attack_; }
 	//コマンド取得関数
-	std::vector<Command*> GetCommands(void) { return commands_; }
+	const std::vector<Command*> GetCommands(void) { return commands_; }
 	//ユニットの順番取得関数
 	const int& GetUnitNum(void) { return unitNum_; }
 	//ユニットのタイプ取得関数
 	const UNIT_TYPE& GetUnitType(void) { return type_; }
 
-	bool IsActed(void) { return isActed_; }	//行動済みかどうか
-	bool IsAlive(void) { return isAlive_; }	//生きているかどうか
-	bool IsAct(void)   { return isAct_; }	//現在、行動状態かどうか
-	bool IsTargeted(void)   { return isTargeted_; }	//現在、ロックオン状態かどうか
+	const bool& IsActed(void) { return isActed_; }	//行動済みかどうか
+	const bool& IsAlive(void) { return isAlive_; }	//生きているかどうか
+	const bool& IsAct(void)   { return isAct_; }	//現在、行動状態かどうか
+	const bool& IsTargeted(void)   { return isTargeted_; }	//現在、ロックオン状態かどうか
 
-	void SetActed(bool acted);	//行動状態をセットする
-	void SetAlive(bool alive);	//生死状態をセットする
-	void SetAct(bool act);		//現在の行動状態をセットする
-	void SetTargeted(bool target);	//現在のロックオン状態をセットする
+	void SetActed(bool acted) { isActed_ = acted; }	//行動状態をセットする
+	void SetAlive(bool alive) { isAlive_ = alive; }	//生死状態をセットする
+	void SetAct(bool act)	  { isAct_ = act; }		//現在の行動状態をセットする
+	void SetTargeted(bool target) { isTargeted_ = target; }	//現在のロックオン状態をセットする
 
 	void Damage(int dmg);		//ダメージ関数
+	void Heal(int heal);		//回復関数
+
 	bool CheckDead(void);		//死亡判定
 
 protected:
@@ -68,12 +92,13 @@ protected:
 	std::string unitFile_;
 
 	//ユニット画像
-	int img_;
+	int unitImg_;
 	//ユニットの名前
 	std::string name_;
 
 	//ヒットポイント
 	int hp_;
+	int beforHp_;
 	int maxHp_;
 	//ユニット：攻撃力
 	int attack_;
@@ -101,20 +126,38 @@ protected:
 	//現在、行動状態かどうかの判断
 	bool isAct_;
 
+	//頂点情報
+	VERTEX2DSHADER mVertex[4];
+	WORD mIndex[6];
+	
+	//現在のシェーダーハンドル
+	int nowPs_;
+	//シェーダーハンドル
+	int psTex_;
+	int psTexConstBuf_;
 
-	//ユニットデータの取得（xmlデータの読み込み）
-	std::string LoadData(std::string fileName);
+	int psMonotone_;
+	int psMonotoneConstBuf_;
 
-	//コマンドの生成
-	void CreateCommand(Command::Par* par);
+	//描画用の四角頂点のの作成
+	void MakeSquereVertex(Vector2 pos);
 
 	//表示する座標のセット
 	void SetDrawingPos(int posX);
 
+	//ユニットデータの取得（xmlデータの読み込み）
+	std::string LoadData(std::string fileName);
+
+
+	//シェーダ―によるユニット描画
+	void DrawUnitShader(const int& shader ,const float& revers);
 
 
 private:
 
+
+	//コマンドの生成
+	void CreateCommand(Command::Par* par);
 
 };
 

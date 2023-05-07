@@ -2,7 +2,7 @@
 <Unit name="Slime" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="スライム" source="./Data/Image/Unit/Slime.png" 
-		  hp="30" attack="50" speed="20" ></Data>
+		  hp="70" attack="15" speed="20" ></Data>
 
 	<!--ユニットのコマンド-->
 	<Cmd>
@@ -10,13 +10,13 @@
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0">
 		</Skill>
 		<!--2-->
-		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
+		<Skill name="とける" type="HEAL" target="SELF" times="1.0">
 		</Skill>
 		<!--3-->
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0">
 		</Skill>
 		<!--4-->
-		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
+		<Skill name="とける" type="HEAL" target="SELF" times="1.0">
 		</Skill>
 		<!--5-->
 		<Skill name="とける" type="HEAL" target="SELF" times="1.0">

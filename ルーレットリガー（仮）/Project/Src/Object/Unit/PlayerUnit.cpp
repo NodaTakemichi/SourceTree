@@ -30,7 +30,7 @@ void PlayerUnit::Init(void)
 
 
 	//UI情報の初期化
-	unitUi_ = new PlayerUI(pos_, &name_);
+	unitUi_ = new PlayerUI(pos_, name_, hp_, maxHp_,beforHp_);
 	unitUi_->Init();
 
 	//初期化
@@ -55,12 +55,12 @@ void PlayerUnit::Draw(void)
 	//バイリニア補間モード
 	SetDrawMode(DX_DRAWMODE_BILINEAR);
 
-	//描画
-	DrawExtendGraph(pos_.x + DRAWING_SIZE, pos_.y,
-		pos_.x, pos_.y + DRAWING_SIZE, img_, true);
+	//シェーダー描画
+	DrawUnitShader(nowPs_,1.0f);
 
 	//ネアレストネイバー法
 	SetDrawMode(DX_DRAWMODE_NEAREST);
+
 
 	//UI描画
 	unitUi_->Draw();
