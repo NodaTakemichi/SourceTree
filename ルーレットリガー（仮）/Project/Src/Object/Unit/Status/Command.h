@@ -1,6 +1,7 @@
 #pragma once
 #include<vector>
 #include<string>
+#include"./Buff.h"
 class Command
 {
 public:
@@ -43,6 +44,8 @@ public:
 		//技：倍率
 		float times_;
 
+		//バフタイプ(キャスト前)
+		std::string buff_;
 	};
 
 	Command(Par* par);
@@ -65,22 +68,27 @@ public:
 	//ターゲットの取得
 	const CMD_TARGET& GetCmdTarget(void) { return target_; }
 
+	//バフのタイプの取得
+	const Buff::BUFF_TYPE& GetCmdBuff(void) { return buff_; }
+
 private:
 	//情報
 	Par par_;
 
 	//コマンドタイプ
 	CMD_TYPE type_;
-	//std::vector<CMD_TYPE>types_;
-
 
 	//ターゲット
 	CMD_TARGET target_;
 
+	//ターゲット
+	Buff::BUFF_TYPE buff_;
 
-	//スキルタイプ、ターゲットをキャストする
+
+	//スキルタイプ、ターゲット、バフタイプをキャストする
 	void CastCmdType(std::string type);
 	void CastCmdTarget(std::string target);
+	void CastCmdBuff(std::string buff);
 
 
 

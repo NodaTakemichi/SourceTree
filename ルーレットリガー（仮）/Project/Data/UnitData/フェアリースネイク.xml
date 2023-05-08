@@ -8,28 +8,36 @@
 	<!--ユニットのコマンド-->
 	<Cmd>
 		<!--1-->
-		<Skill name="ささやき" type="BUFF" target="ENEMY" times="0.0">
+		<Skill name="ささやき" type="BUFF" target="ENEMY" times="1.0" 
+			   buff="P_DOWN">
 		</Skill>
 		<!--2-->
-		<Skill name="ささやき" type="BUFF" target="ENEMY" times="0.0">
+		<Skill name="ささやき" type="BUFF" target="ENEMY" times="1.0"
+			   buff="P_DOWN" >
 		</Skill>
 		<!--3-->
-		<Skill name="あまいささやき" type="BUFF" target="PLAYER" times="0.0">
+		<Skill name="あまいささやき" type="BUFF" target="PLAYER" times="1.0"
+			   buff="P_UP" >
 		</Skill>
 		<!--4-->
-		<Skill name="あまいささやき" type="BUFF" target="PLAYER" times="0.0">
+		<Skill name="あまいささやき" type="BUFF" target="PLAYER" times="1.0"
+			   buff="P_UP">
 		</Skill>
 		<!--5-->
-		<Skill name="ゆうわく" type="BUFF" target="ENEMY" times="0.0">
+		<Skill name="ゆうわく" type="BUFF" target="ENEMY" times="1.0"
+			   buff="D_DOWN" >
 		</Skill>
 		<!--6-->
-		<Skill name="ゆうわく" type="BUFF" target="ENEMY" times="0.0">
+		<Skill name="ゆうわく" type="BUFF" target="ENEMY" times="1.0"
+			   buff="D_DOWN" >
 		</Skill>
 		<!--7-->
-		<Skill name="あざむく" type="BUFF" target="SELF" times="0.0">
+		<Skill name="あざむく" type="BUFF" target="SELF" times="1.0"
+			   buff="AVOIDANCE" >
 		</Skill>
 		<!--8-->
-		<Skill name="あざむく" type="BUFF" target="SELF" times="0.0s">
+		<Skill name="あざむく" type="BUFF" target="SELF" times="1.0s"
+			   buff="AVOIDANCE" >
 		</Skill>
 	</Cmd>
 	

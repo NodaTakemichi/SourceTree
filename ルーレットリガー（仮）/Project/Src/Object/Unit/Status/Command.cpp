@@ -1,4 +1,4 @@
-#include"../../_debug/_DebugConOut.h"
+#include"../../../_debug/_DebugConOut.h"
 #include "Command.h"
 
 Command::Command(Par* par)
@@ -15,6 +15,7 @@ void Command::Init(void)
 	//振り分け
 	CastCmdType(par_.type_);
 	CastCmdTarget(par_.target_);
+	CastCmdBuff(par_.buff_);
 }
 
 void Command::Release(void)
@@ -51,6 +52,33 @@ void Command::CastCmdTarget(std::string target)
 		
 		TRACE(target.c_str());
 		TRACE("：コマンドターゲットを割り振れません\n");
+	}
+
+	return;
+}
+
+void Command::CastCmdBuff(std::string buff)
+{
+	if (buff == "NONE")				buff_ = Buff::BUFF_TYPE::NONE;
+	else if (buff == "PALALYSIS")	buff_ = Buff::BUFF_TYPE::PALALYSIS;
+	else if (buff == "POISON")		buff_ = Buff::BUFF_TYPE::POISON;
+	else if (buff == "CONFUSION")	buff_ = Buff::BUFF_TYPE::CONFUSION;
+	else if (buff == "AVOIDANCE")	buff_ = Buff::BUFF_TYPE::AVOIDANCE;
+
+	else if (buff == "P_UP")	buff_ = Buff::BUFF_TYPE::P_UP;
+	else if (buff == "P_DOWN")	buff_ = Buff::BUFF_TYPE::P_DOWN;
+	else if (buff == "S_UP")	buff_ = Buff::BUFF_TYPE::S_UP;
+	else if (buff == "S_DOWN")	buff_ = Buff::BUFF_TYPE::S_DOWN;
+	else if (buff == "D_UP")	buff_ = Buff::BUFF_TYPE::D_UP;
+	else if (buff == "D_DOWN")	buff_ = Buff::BUFF_TYPE::D_DOWN;
+
+	else if (buff == "CMD_BAN")	buff_ = Buff::BUFF_TYPE::CMD_BAN;
+
+	else
+	{
+
+		TRACE(buff.c_str());
+		TRACE("：バフを割り振れません\n");
 	}
 
 	return;

@@ -3,14 +3,19 @@
 #include<string>
 #include<vector>
 #include"../../Common/Vector2.h"
-#include "./Command.h"
+#include "./Status/Command.h"
+#include "./Status/Buff.h"
+
 
 class UnitUI;
-class Par;
 
 class UnitBase
 {
 public:
+	//ゲームシーンで描画するユニットのサイズ
+	static constexpr int DRAWING_SIZE = 180;
+	//ゲームシーンで描画するユニットのオフセット値
+	static constexpr int DRAWING_OFFSET_X = 50;
 
 	//ユニットのタイプ
 	enum class UNIT_TYPE
@@ -20,33 +25,6 @@ public:
 		END
 	};
 
-	//バフのタイプ
-	enum class CMD_TYPE
-	{
-		NONE = 0,
-		PALALYSIS,
-		POISON,
-		CONFUSION,
-		AVOIDANCE,
-
-		P_UP,
-		P_DOWN,
-		S_UP,
-		S_DOWN,
-		D_UP,
-		D_DOWN,
-
-		CMD_DOWN,
-		CMD_BAN,
-		END
-	};
-
-
-	
-	//ゲームシーンで描画するユニットのサイズ
-	static constexpr int DRAWING_SIZE = 180;
-	//ゲームシーンで描画するユニットのオフセット値
-	static constexpr int DRAWING_OFFSET_X = 50;
 
 
 	UnitBase();
@@ -69,6 +47,7 @@ public:
 	//ユニットのタイプ取得関数
 	const UNIT_TYPE& GetUnitType(void) { return type_; }
 
+
 	const bool& IsActed(void) { return isActed_; }	//行動済みかどうか
 	const bool& IsAlive(void) { return isAlive_; }	//生きているかどうか
 	const bool& IsAct(void)   { return isAct_; }	//現在、行動状態かどうか
@@ -79,12 +58,19 @@ public:
 	void SetAct(bool act)	  { isAct_ = act; }		//現在の行動状態をセットする
 	void SetTargeted(bool target) { isTargeted_ = target; }	//現在のロックオン状態をセットする
 
-	void Damage(int dmg);		//ダメージ関数
-	void Heal(int heal);		//回復関数
+	void Damage(const int& dmg);				//ダメージ関数
+	void Heal(const int& heal);					//回復関数
+	void GiveBuff(const Buff::BUFF_TYPE& type);	//バフ付与関数
 
 	bool CheckDead(void);		//死亡判定
 
 protected:
+	//ユニットUI
+	UnitUI* unitUi_;
+
+	//バフ
+	Buff* buff_;
+
 	//ユニットのタイプ
 	UNIT_TYPE type_;
 
@@ -113,8 +99,6 @@ protected:
 	//表示座標
 	Vector2 pos_;
 
-	//ユニットUI
-	UnitUI* unitUi_;
 
 	//行動済みかどうかの判断
 	bool isActed_;

@@ -5,7 +5,7 @@
 #include"../Manager/SceneManager.h"
 #include"../Manager/InputManager.h"
 
-#include"./Unit/Command.h"
+#include"./Unit/Status/Command.h"
 
 #include"../_debug/_DebugConOut.h"
 #include"../_debug/_DebugDispOut.h"

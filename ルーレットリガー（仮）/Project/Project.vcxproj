@@ -157,7 +157,8 @@
     <ClCompile Include="Src\Manager\SceneManager.cpp" />
     <ClCompile Include="Src\Object\Roulette.cpp" />
     <ClCompile Include="Src\Object\GameUI.cpp" />
-    <ClCompile Include="Src\Object\Unit\Command.cpp" />
+    <ClCompile Include="Src\Object\Unit\Status\Buff.cpp" />
+    <ClCompile Include="Src\Object\Unit\Status\Command.cpp" />
     <ClCompile Include="Src\Object\Unit\EnemyUnit.cpp" />
     <ClCompile Include="Src\Object\Unit\UI\EnemyUI.cpp" />
     <ClCompile Include="Src\Object\Unit\UI\PlayerUI.cpp" />
@@ -185,7 +186,8 @@
     <ClInclude Include="Src\Manager\SceneManager.h" />
     <ClInclude Include="Src\Object\Roulette.h" />
     <ClInclude Include="Src\Object\GameUI.h" />
-    <ClInclude Include="Src\Object\Unit\Command.h" />
+    <ClInclude Include="Src\Object\Unit\Status\Buff.h" />
+    <ClInclude Include="Src\Object\Unit\Status\Command.h" />
     <ClInclude Include="Src\Object\Unit\EnemyUnit.h" />
     <ClInclude Include="Src\Object\Unit\UI\EnemyUI.h" />
     <ClInclude Include="Src\Object\Unit\UI\PlayerUI.h" />

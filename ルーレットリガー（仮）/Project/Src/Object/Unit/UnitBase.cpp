@@ -16,6 +16,10 @@ UnitBase::~UnitBase()
 
 void UnitBase::Init(void)
 {
+	//バフ
+	buff_ = new Buff();
+	buff_->Init();
+
 	//生死状態、行動状態、現在行動状態をセットする
 	SetAlive(true);
 	SetActed(false);
@@ -50,11 +54,15 @@ void UnitBase::Draw(void)
 
 void UnitBase::Release(void)
 {
+	//ポインタ
+	unitUi_->Release();
+	buff_->Release();
+
 	//解放
 	DeleteGraph(unitImg_);
 }
 
-void UnitBase::Damage(int dmg)
+void UnitBase::Damage(const int& dmg)
 {
 	//直前HPの記憶
 	beforHp_ = hp_;
@@ -75,13 +83,19 @@ void UnitBase::Damage(int dmg)
 	}
 }
 
-void UnitBase::Heal(int heal)
+void UnitBase::Heal(const int& heal)
 {
+	//直前HPの記憶
+	beforHp_ = hp_;
+
 	//HP計算(HP上限あり)
 	hp_ += heal;
-
 	hp_ = (std::min)(hp_, maxHp_);
+}
 
+void UnitBase::GiveBuff(const Buff::BUFF_TYPE& type)
+{
+	buff_->SetBuff(type);
 }
 
 bool UnitBase::CheckDead(void)
@@ -127,12 +141,14 @@ std::string UnitBase::LoadData(std::string fileName)
 	if (!getAttr(data, "attack", attack_))return std::string();
 	//ユニットのスピード取得
 	if (!getAttr(data, "speed", speed_))return std::string();
+	//ユニットのスピード取得
+	if (!getAttr(data, "speed", speed_))return std::string();
 #pragma endregion
 
 	
 
 	//ユニットのコマンド技取得
-	std::string name, type, target;
+	std::string name, type, target,buff;
 	double times = 0.0;
 
 	auto cmd = unit->first_node("Cmd");
@@ -143,13 +159,15 @@ std::string UnitBase::LoadData(std::string fileName)
 	{
 		//技の名前取得
 		if (!getAttr(skill, "name", name))name = std::string();
-
-			//技のタイプ取得
+		//技のタイプ取得
 		if (!getAttr(skill, "type", type))type = std::string();
 		//技の技対象取得
 		if (!getAttr(skill, "target", target))target = std::string();
 		//技の倍率取得
 		if (!getAttr(skill, "times", times))times = 0.0;
+
+		//バフの種類取得
+		if (!getAttr(skill, "buff", buff))buff = "NONE";
 
 
 		//コマンドの生成
@@ -157,7 +175,8 @@ std::string UnitBase::LoadData(std::string fileName)
 			name,
 			type,
 			target,
-			static_cast<float>(times)
+			static_cast<float>(times),
+			buff
 		};
 		CreateCommand(&par);
 	}

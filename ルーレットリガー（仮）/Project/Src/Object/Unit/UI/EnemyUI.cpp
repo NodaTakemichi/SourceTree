@@ -50,13 +50,14 @@ void EnemyUI::Draw(void)
 
 
 	auto test = 1.0f;
+	auto changeTime = 1.0f;
 	//HP変化があるときのみ
-	if (nowHp_ > hp_)
+	if (nowHp_ != hp_)
 	{
 		//（完了する時間ー経過時間）/干渉する時間
 		auto delet = SceneManager::GetInstance().GetDeltaTime();
 		totalTime_ += delet;
-		test = (1.5f - totalTime_) / 1.5f;
+		test = (changeTime - totalTime_) / changeTime;
 		if (test >= 1.0f)
 		{
 			test = 1.0f;
@@ -65,7 +66,6 @@ void EnemyUI::Draw(void)
 		}
 		//BeforHPを入れる
 		nowHp_ = AsoUtility::Lerp(hp_, beforHp_, test);
-
 	}
 	else
 	{
@@ -73,6 +73,30 @@ void EnemyUI::Draw(void)
 		totalTime_ = 0.0f;
 		nowHp_ = hp_;
 	}
+
+	//auto test = 1.0f;
+	////HP変化があるときのみ
+	//if (nowHp_ != hp_)
+	//{
+	//	//（完了する時間ー経過時間）/干渉する時間
+	//	auto delet = SceneManager::GetInstance().GetDeltaTime();
+	//	totalTime_ += delet;
+	//	test = (1.5f - totalTime_) / 1.5f;
+	//	if (test >= 1.0f)
+	//	{
+	//		test = 1.0f;
+	//		totalTime_ = 0.0f;
+	//		nowHp_ = hp_;
+	//	}
+	//	//BeforHPを入れる
+	//	nowHp_ = AsoUtility::Lerp(hp_, beforHp_, test);
+	//}
+	//else
+	//{
+	//	test = 1.0f;
+	//	totalTime_ = 0.0f;
+	//	nowHp_ = hp_;
+	//}
 
 	//HPの割合
 	float ratio = static_cast<float>(nowHp_) / static_cast<float>(maxHp_);

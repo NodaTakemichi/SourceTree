@@ -67,6 +67,8 @@ private:
 	void ProcessDamege(void);
 	//‰ñ•œˆ—
 	void ProcessHeal(void);
+	//ƒoƒt•t—^ˆ—
+	void ProcessBuff(void);
 
 };
 

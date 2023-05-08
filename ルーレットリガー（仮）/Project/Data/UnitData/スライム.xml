@@ -22,7 +22,7 @@
 		<Skill name="‚Æ‚¯‚é" type="HEAL" target="SELF" times="1.0">
 		</Skill>
 		<!--6-->
-		<Skill name="‚Æ‚¯‚é" type="HEAL" target="SELF" times="0.0">
+		<Skill name="‚Æ‚¯‚é" type="HEAL" target="SELF" times="1.0">
 		</Skill>
 		<!--7-->
 		<Skill name="—n‚©‚·" type="ATTACK" target="ENEMY" times="1,5">

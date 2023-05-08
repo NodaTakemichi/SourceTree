@@ -3,7 +3,7 @@
 #include "../Manager/InputManager.h"
 #include "../Utility/AsoUtility.h"
 #include "../Object/Unit/UnitBase.h"
-#include "../Object/Unit/Command.h"
+#include "../Object/Unit/Status/Command.h"
 
 #include "../_debug/_DebugDispOut.h"
 
@@ -50,6 +50,16 @@ void BattleSystem::ProcessHeal(void)
 	for (auto& unit : targetUnits_)
 	{
 		unit->Heal(heal);
+	}
+}
+
+void BattleSystem::ProcessBuff(void)
+{
+	//バフの付与
+	auto buff = actCmd_->GetCmdBuff();
+	for (auto& unit : targetUnits_)
+	{
+		unit->GiveBuff(buff);
 	}
 }
 
@@ -152,8 +162,6 @@ bool BattleSystem::SelectUnit(const bool& autom)
 		//クリックしたら、選択完了
 		return ins.IsTrgMouseLeft();
 	}
-
-
 }
 
 void BattleSystem::CmdProcess(void)
@@ -172,6 +180,7 @@ void BattleSystem::CmdProcess(void)
 		ProcessHeal();
 		break;
 	case Command::CMD_TYPE::BUFF:
+		ProcessBuff();
 		break;
 	case Command::CMD_TYPE::CMD_UP:
 		break;

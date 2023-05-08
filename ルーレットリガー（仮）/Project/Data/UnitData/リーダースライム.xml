@@ -10,7 +10,7 @@
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" >
 		</Skill>
 		<!--2-->
-		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
+		<Skill name="硝酸" type="ATTACK" target="ENEMY" times="1,5">
 		</Skill>
 		<!--3-->
 		<Skill name="ミス" type="MISS" target="NONE" times="0.0">

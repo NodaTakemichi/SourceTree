@@ -51,7 +51,7 @@ protected:
 	//合計時間
 	float totalTime_;
 	//HP変化中
-	float nowHp_;
+	int nowHp_;
 
 	//描画用の四角頂点のの作成
 	void MakeSquereVertex(Vector2 pos);

@@ -2,7 +2,7 @@
 <Unit name="LeaderSlime" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="フェアリー" source="./Data/Image/Unit/フェアリー.png" 
-		  hp="110" attack="30" speed="25" ></Data>
+		  hp="110" attack="30" speed="15" ></Data>
 
 	<!--ユニットのコマンド-->
 	<Cmd>
@@ -25,10 +25,10 @@
 		<Skill name="いやす" type="HEAL" target="PLAYER" times="1.0">
 		</Skill>
 		<!--7-->
-		<Skill name="クリア―" type="BUFF" target="PLAYER" times="0.0">
+		<Skill name="クリア―" type="HEAL" target="PLAYER" times="1.0">
 		</Skill>
 		<!--8-->
-		<Skill name="クリア―" type="BUFF" target="PLAYER" times="0.0">
+		<Skill name="クリア―" type="HEAL" target="PLAYER" times="1.0">
 		</Skill>
 	</Cmd>
 

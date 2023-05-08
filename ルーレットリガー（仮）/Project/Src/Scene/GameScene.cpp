@@ -12,7 +12,7 @@
 #include "../Object/Unit/UnitBase.h"
 #include "../Object/Roulette.h"
 #include "../Object/GameUI.h"
-#include "../Object/Unit/Command.h"
+#include "../Object/Unit/Status/Command.h"
 
 #include "../_debug/_DebugConOut.h"
 #include "../_debug/_DebugDispOut.h"
