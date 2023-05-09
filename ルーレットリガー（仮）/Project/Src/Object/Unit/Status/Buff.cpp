@@ -31,6 +31,8 @@ void Buff::SetBuff(const BUFF_TYPE& type)
 		turn = 3;
 		break;
 	}
+
+
 	
 	//ƒf[ƒ^‘}“ü
 	BuffData data = { type,turn };

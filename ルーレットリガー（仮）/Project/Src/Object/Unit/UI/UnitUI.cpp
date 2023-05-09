@@ -20,7 +20,25 @@ void UnitUI::Init(void)
 	//ピクセルシェーダー用の定数バッファの作成
 	psHpColorConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 8);
 
+	//合計時間
 	totalTime_ = 0.0f;
+
+	//テスト
+	icon_[0] = LoadGraph("./Data/Image/Icon/麻痺.png");
+	icon_[1] = LoadGraph("./Data/Image/Icon/毒.png");
+	icon_[2] = LoadGraph("./Data/Image/Icon/混乱.png");
+	icon_[3] = LoadGraph("./Data/Image/Icon/A_UP.png");
+	icon_[4] = LoadGraph("./Data/Image/Icon/A_DOWN.png");
+	icon_[5] = LoadGraph("./Data/Image/Icon/S_UP.png");
+	icon_[6] = LoadGraph("./Data/Image/Icon/S_DOWN.png");
+	icon_[7] = LoadGraph("./Data/Image/Icon/D_UP.png");
+	icon_[8] = LoadGraph("./Data/Image/Icon/D_DOWN.png");
+
+}
+
+void UnitUI::Draw(void)
+{
+
 }
 
 void UnitUI::Release(void)
@@ -30,6 +48,11 @@ void UnitUI::Release(void)
 	//シェーダーの解放
 	DeleteShader(psHpColor_);
 	DeleteShaderConstantBuffer(psHpColorConstBuf_);
+}
+
+void UnitUI::SetBuffs(std::vector<Buff::BuffData>& buffs)
+{
+	buffs_ = buffs;
 }
 
 void UnitUI::DrawHpShader(const float& ratio, const COLOR_F& color)

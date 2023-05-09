@@ -48,6 +48,50 @@ void EnemyUI::Draw(void)
 		pos.x + HP_GAUGE_X + frame, pos.y + HP_GAUGE_Y + frame,
 		0xffffff, true);
 
+	//バフアイコンの描画
+	int i = 0;
+	for (auto& buff : buffs_)
+	{
+		int num = 0;
+		switch (buff.type)
+		{
+		case Buff::BUFF_TYPE::PALALYSIS:
+			num = 0;
+			break;
+		case Buff::BUFF_TYPE::POISON:
+			num = 1;
+			break;
+		case Buff::BUFF_TYPE::CONFUSION:
+			num = 2;
+			break;
+
+		case Buff::BUFF_TYPE::P_UP:
+			num = 3;
+			break;
+		case Buff::BUFF_TYPE::P_DOWN:
+			num = 4;
+			break;
+		case Buff::BUFF_TYPE::S_UP:
+			num = 5;
+			break;
+		case Buff::BUFF_TYPE::S_DOWN:
+			num = 6;
+			break;
+		case Buff::BUFF_TYPE::D_UP:
+			num = 7;
+			break;
+		case Buff::BUFF_TYPE::D_DOWN:
+			num = 8;
+			break;
+
+		default:
+			break;
+		}
+
+		DrawGraph(pos.x + (i * 50), pos.y - 30, icon_[num], true);
+		i++;
+	}
+
 
 	auto test = 1.0f;
 	auto changeTime = 1.0f;

@@ -42,6 +42,50 @@ void PlayerUI::Draw(void)
 		pos.x + HP_GAUGE_X + frame, pos.y + HP_GAUGE_Y + frame,
 		0xffffff, true);
 
+	//バフアイコンの描画
+	int i = 0;
+	for (auto& buff : buffs_)
+	{
+		int num = 0;
+		switch (buff.type)
+		{
+		case Buff::BUFF_TYPE::PALALYSIS:
+			num = 0;
+			break;
+		case Buff::BUFF_TYPE::POISON:
+			num = 1;
+			break;
+		case Buff::BUFF_TYPE::CONFUSION:
+			num = 2;
+			break;
+
+		case Buff::BUFF_TYPE::P_UP:
+			num = 3;
+			break;
+		case Buff::BUFF_TYPE::P_DOWN:
+			num = 4;
+			break;
+		case Buff::BUFF_TYPE::S_UP:
+			num = 5;
+			break;
+		case Buff::BUFF_TYPE::S_DOWN:
+			num = 6;
+			break;
+		case Buff::BUFF_TYPE::D_UP:
+			num = 7;
+			break;
+		case Buff::BUFF_TYPE::D_DOWN:
+			num = 8;
+			break;
+
+		default:
+			break;
+		}
+
+		DrawGraph(pos.x + (i * 50), pos.y - 30, icon_[num], true);
+		i++;
+	}
+
 
 	auto test = 1.0f;
 	auto changeTime = 1.0f;
@@ -68,36 +112,14 @@ void PlayerUI::Draw(void)
 		nowHp_ = hp_;
 	}
 
-	//auto test = 1.0f;
-	////HP変化があるときのみ
-	//if (nowHp_ > hp_)
-	//{
-	//	//（完了する時間ー経過時間）/干渉する時間
-	//	auto delet = SceneManager::GetInstance().GetDeltaTime();
-	//	totalTime_ += delet;
-	//	test = (1.5f - totalTime_) / 1.5f;
-	//	if (test >= 1.0f)
-	//	{
-	//		test = 1.0f;
-	//		totalTime_ = 0.0f;
-	//		nowHp_ = hp_;
-	//	}
-	//	//BeforHPを入れる
-	//	nowHp_ = AsoUtility::Lerp(hp_, beforHp_, test);
-	//}
-	//else
-	//{
-	//	test = 1.0f;
-	//	totalTime_ = 0.0f;
-	//	nowHp_ = hp_;
-	//}
-
-
 	//HPの割合
 	float ratio = static_cast<float>(nowHp_) / static_cast<float>(maxHp_);
 	//HPシェーダー
 	COLOR_F color = { 0.4f,0.8f,0.4f,1.0f };
 	DrawHpShader(ratio, color);
+
+
+
 
 }
 

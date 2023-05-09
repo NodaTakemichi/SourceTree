@@ -38,7 +38,7 @@ public:
 	void Release(void);
 
 	//バフの取得関数
-	std::vector<BuffData>& GetBuff(void) { return buff_; }
+	const std::vector<BuffData>& GetBuff(void) { return buff_; }
 
 	//バフの付与
 	void SetBuff(const BUFF_TYPE& type);

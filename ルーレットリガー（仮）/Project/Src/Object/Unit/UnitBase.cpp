@@ -96,6 +96,10 @@ void UnitBase::Heal(const int& heal)
 void UnitBase::GiveBuff(const Buff::BUFF_TYPE& type)
 {
 	buff_->SetBuff(type);
+
+	//UI‚É‚àî•ñ‚ð—^‚¦‚é
+	auto test = &(buff_->GetBuff());
+	unitUi_->SetBuffs(test);
 }
 
 bool UnitBase::CheckDead(void)

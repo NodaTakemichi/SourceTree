@@ -1,8 +1,10 @@
 #pragma once
 #include<string>
+#include<vector>
 #include"../../../Common/Vector2.h"
 #include "../../../Utility/AsoUtility.h"
 #include "../../../Manager/SceneManager.h"
+#include "../Status/Buff.h"
 #include"../UnitBase.h"
 
 class UnitUI
@@ -17,7 +19,7 @@ public:
 
 
 	virtual void Init(void);
-	virtual void Draw(void) = 0;
+	virtual void Draw(void);
 	void Release(void);
 
 
@@ -26,6 +28,8 @@ public:
 	//ロックオン
 	virtual void DrawRockOn(void) = 0;
 
+	//所有バフの取得
+	void SetBuffs(std::vector<Buff::BuffData>& buffs);
 
 private:
 
@@ -61,6 +65,12 @@ protected:
 
 	//名前の描画
 	void DrawName(const std::string& name,const Vector2& uPos);
+	
+
+	//画像アイコン（テスト）
+	int icon_[9];
+	//所有バフの取得
+	std::vector<Buff::BuffData&>buffs_;
 
 
 };
