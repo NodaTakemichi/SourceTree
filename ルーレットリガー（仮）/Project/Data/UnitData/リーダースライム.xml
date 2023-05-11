@@ -7,13 +7,16 @@
 	<!--ƒ†ƒjƒbƒg‚ÌƒRƒ}ƒ“ƒh-->
 	<Cmd>
 		<!--1-->
-		<Skill name="‚±‚¤‚°‚«" type="ATTACK" target="ENEMY" times="1.0" >
+		<Skill name="“Å‰t" type="BUFF" target="ENEMY" times="1,0"
+			buff="POISON" >
 		</Skill>
 		<!--2-->
-		<Skill name="ÉŽ_" type="ATTACK" target="ENEMY" times="1,5">
+		<Skill name="“Å‰t" type="BUFF" target="ENEMY" times="1,0"
+			buff="POISON" >
 		</Skill>
 		<!--3-->
-		<Skill name="ƒ~ƒX" type="MISS" target="NONE" times="0.0">
+		<Skill name="“Å‰t" type="BUFF" target="ENEMY" times="1,0"
+			buff="POISON" >
 		</Skill>
 		<!--4-->
 		<Skill name="—n‰ð‰t" type="ATTACK" target="ENEMY_ALL" times="1.5">

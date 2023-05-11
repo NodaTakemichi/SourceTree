@@ -16,10 +16,6 @@ UnitBase::~UnitBase()
 
 void UnitBase::Init(void)
 {
-	//バフ
-	buff_ = new Buff();
-	buff_->Init();
-
 	//生死状態、行動状態、現在行動状態をセットする
 	SetAlive(true);
 	SetActed(false);
@@ -54,21 +50,87 @@ void UnitBase::Draw(void)
 
 void UnitBase::Release(void)
 {
-	//ポインタ
-	unitUi_->Release();
-	buff_->Release();
-
 	//解放
+	unitUi_->Release();
+
+	//画像の解放
 	DeleteGraph(unitImg_);
+}
+
+void UnitBase::TurnEndProcess(void)
+{
+	for (auto& buff : buffs_)
+	{
+		if (!buff->IsAlive())continue;
+
+		//毒ダメージの処理
+		if (buff->CheckOwnBuff(Buff::BUFF_TYPE::POISON))
+		{
+			//HPの 1/8 のダメージ
+			int dmg = maxHp_ / 8;
+			Damage(dmg);
+		}
+
+		//バフのターン数減少処理
+		if (buff->DecBuffTurn())
+		{
+			//持続ターンが終了したら、バフを無効状態にする
+			buff->SetAlive(false);
+		}
+	}
+}
+
+const int& UnitBase::GetSpeed(void)
+{
+	//バフ込みのスピード計算
+	auto nowSpeed = CalcBuffStatus(
+		speed_, Buff::BUFF_TYPE::S_UP, Buff::BUFF_TYPE::S_DOWN);
+
+	return nowSpeed;
+}
+
+const int& UnitBase::GetAttack(void)
+{
+	//バフ込みの攻撃力計算
+	auto nowAttack = CalcBuffStatus(
+		attack_, Buff::BUFF_TYPE::A_UP, Buff::BUFF_TYPE::A_DOWN);
+
+	return nowAttack;
+}
+
+int UnitBase::CalcBuffStatus(const int& status, const Buff::BUFF_TYPE& up, const Buff::BUFF_TYPE& down)
+{
+	float value = static_cast<float>(status);
+
+	//バフの計算
+	for (auto buff : buffs_)
+	{
+		if (!buff->IsAlive())continue;
+
+		//ステータスアップ
+		if (buff->CheckOwnBuff(up))value *= 1.1;
+		//ステータスダウン
+		if (buff->CheckOwnBuff(down))value *= 0.9;
+	}
+
+	return static_cast<int>(floor(value));
 }
 
 void UnitBase::Damage(const int& dmg)
 {
+	TRACE("ダメージ：（%d", dmg);
+
+	//バフ込みのダメージ計算
+	auto calcDmg = CalcBuffStatus(
+		dmg, Buff::BUFF_TYPE::D_DOWN, Buff::BUFF_TYPE::D_UP);
+
+	TRACE("、%d）\n", calcDmg);
+
 	//直前HPの記憶
 	beforHp_ = hp_;
 
 	//ダメージ計算
-	hp_ -= dmg;
+	hp_ -= calcDmg;
 
 	//死亡判定
 	if (CheckDead())
@@ -95,11 +157,11 @@ void UnitBase::Heal(const int& heal)
 
 void UnitBase::GiveBuff(const Buff::BUFF_TYPE& type)
 {
-	buff_->SetBuff(type);
+	//バフの生成
+	CreateBuff(type);
 
-	//UIにも情報を与える
-	auto test = &(buff_->GetBuff());
-	unitUi_->SetBuffs(test);
+	//UIにバフの登録
+	unitUi_->SetBuff(buffs_);
 }
 
 bool UnitBase::CheckDead(void)
@@ -233,6 +295,44 @@ void UnitBase::CreateCommand(Command::Par* par)
 	auto cmd = new Command(par);
 	cmd->Init();
 	commands_.push_back(cmd);
+}
+
+void UnitBase::CreateBuff(const Buff::BUFF_TYPE& type)
+{
+	//反発しあうバフの場合、対消滅させる
+	for (auto& buff : buffs_)
+	{
+
+		auto checkBuff = [&](Buff::BUFF_TYPE get, Buff::BUFF_TYPE give) {
+			if (buff->GetBuff() == get)
+			{
+				if (type == give)
+				{
+					//消滅
+					buff->SetAlive(false);
+
+					//生成せずに、処理を終了
+					return true;
+				}
+			}
+			return false;
+		};
+
+		//反発しあうバフ
+		if (checkBuff(Buff::BUFF_TYPE::A_UP, Buff::BUFF_TYPE::A_DOWN))return;
+		if (checkBuff(Buff::BUFF_TYPE::A_DOWN, Buff::BUFF_TYPE::A_UP))return;
+		if (checkBuff(Buff::BUFF_TYPE::D_UP, Buff::BUFF_TYPE::D_DOWN))return;
+		if (checkBuff(Buff::BUFF_TYPE::D_DOWN, Buff::BUFF_TYPE::D_UP))return;
+		if (checkBuff(Buff::BUFF_TYPE::S_UP, Buff::BUFF_TYPE::S_DOWN))return;
+		if (checkBuff(Buff::BUFF_TYPE::S_DOWN, Buff::BUFF_TYPE::S_UP))return;
+
+	}
+
+	//バフの生成
+	auto buff = new Buff(type);
+	buff->Init();
+	buffs_.push_back(buff);
+
 }
 
 void UnitBase::MakeSquereVertex(Vector2 pos)

@@ -6,7 +6,6 @@
 #include "./Status/Command.h"
 #include "./Status/Buff.h"
 
-
 class UnitUI;
 
 class UnitBase
@@ -35,17 +34,25 @@ public:
 	virtual void Draw(void);
 	void Release(void);
 	
+	//行動終了後の処理
+	void TurnEndProcess(void);
 
 	//スピードの取得関数
-	const int& GetSpeed(void) { return speed_; }
+	const int& GetSpeed(void);
 	//攻撃力の取得関数
-	const int& GetAttack(void) { return attack_; }
-	//コマンド取得関数
-	const std::vector<Command*> GetCommands(void) { return commands_; }
+	const int& GetAttack(void);
+
+	//バフによるステータスの計算
+	int CalcBuffStatus(const int& status,const Buff::BUFF_TYPE& up, const Buff::BUFF_TYPE& down);
+
 	//ユニットの順番取得関数
 	const int& GetUnitNum(void) { return unitNum_; }
 	//ユニットのタイプ取得関数
 	const UNIT_TYPE& GetUnitType(void) { return type_; }
+	//コマンド取得関数
+	const std::vector<Command*> GetCommands(void) { return commands_; }
+	//バフ取得関数
+	const std::vector<Buff*> GetBuffs(void) { return buffs_; }
 
 
 	const bool& IsActed(void) { return isActed_; }	//行動済みかどうか
@@ -68,9 +75,6 @@ protected:
 	//ユニットUI
 	UnitUI* unitUi_;
 
-	//バフ
-	Buff* buff_;
-
 	//ユニットのタイプ
 	UNIT_TYPE type_;
 
@@ -91,8 +95,11 @@ protected:
 	//行動速度
 	int speed_;
 
+
 	//コマンド
 	std::vector<Command*>commands_;
+	//バフ
+	std::vector <Buff*> buffs_;
 
 	//ユニットの順番
 	int unitNum_;
@@ -142,6 +149,9 @@ private:
 
 	//コマンドの生成
 	void CreateCommand(Command::Par* par);
+
+	//バフの生成
+	void CreateBuff(const Buff::BUFF_TYPE& type);
 
 };
 

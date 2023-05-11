@@ -13,6 +13,7 @@
 #include "../Object/Roulette.h"
 #include "../Object/GameUI.h"
 #include "../Object/Unit/Status/Command.h"
+#include "../Object/Unit/Status/Buff.h"
 
 #include "../_debug/_DebugConOut.h"
 #include "../_debug/_DebugDispOut.h"
@@ -179,6 +180,20 @@ void GameScene::UpdateRouTime(void)
 	//ルーレットの停止走査（ユニットによって自動か手動か決める）
 	roulette_->StopRoulette(actUnitAoutm_);
 
+	//バフ判断
+	//行動ユニット
+	auto actUnit = unitMng_->GetActivUnit();
+	for(auto& buff : actUnit->GetBuffs())
+	{
+		if (!buff->IsAlive())continue;
+
+		//麻痺状態の場合、ターンエンドする
+		if(buff->CheckOwnBuff(Buff::BUFF_TYPE::PALALYSIS))
+		{
+			ChangeGamePhase(GAME_PHASE::TURN_END);
+		}
+	}
+
 
 	//ルーレットが停止したら、フェーズ移動
 	if (roulette_->GetRouStop())
@@ -263,6 +278,12 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 		break;
 	}
 	case GameScene::GAME_PHASE::TURN_END: {
+		//ターンエンド時のユニットの処理
+		//行動ユニット
+		auto actUnit = unitMng_->GetActivUnit();
+		actUnit->TurnEndProcess();
+
+
 		//行動ユニットの整理
 		unitMng_->ChangeActivUnit();
 		break;

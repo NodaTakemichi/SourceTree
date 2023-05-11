@@ -3,7 +3,6 @@
 #include<vector>
 #include"../../../Common/Vector2.h"
 #include "../../../Utility/AsoUtility.h"
-#include "../../../Manager/SceneManager.h"
 #include "../Status/Buff.h"
 #include"../UnitBase.h"
 
@@ -14,7 +13,8 @@ public:
 	const int  HP_GAUGE_Y = 120;
 
 
-	UnitUI();
+	UnitUI(Vector2 pos, std::string& name,
+		int& hp, int& maxHp, int& beforHp);
 	virtual ~UnitUI();
 
 
@@ -27,19 +27,22 @@ public:
 	virtual void DrawActUnit(void) = 0;
 	//ロックオン
 	virtual void DrawRockOn(void) = 0;
+	//バフをセットする
+	void SetBuff(std::vector<Buff*> buffs);
 
-	//所有バフの取得
-	void SetBuffs(std::vector<Buff::BuffData>& buffs);
 
 private:
 
 protected:
-	////ユニット座標
-	//Vector2 unitPos_;
-	////ユニットネーム
-	//std::string* name_;
-
-
+	//ユニット座標
+	Vector2 unitPos_;
+	//ユニットネーム
+	std::string& name_;
+	//HP
+	int& hp_;
+	int& maxHp_;
+	int& beforHp_;
+	
 	//ネームフレーム画像
 	int nameFrameImg_;
 
@@ -63,14 +66,23 @@ protected:
 	//HPのシェーダー描画
 	void DrawHpShader(const float& ratio, const COLOR_F& color);
 
+	//HPの減少処理
+	void DecHpGauge(void);
+
+	//HP枠の描画
+	void DrawHpFrame(const Vector2& pos);
+
 	//名前の描画
 	void DrawName(const std::string& name,const Vector2& uPos);
+	
+	//バフアイコンの描画
+	void DrawBuffIcon();
 	
 
 	//画像アイコン（テスト）
 	int icon_[9];
 	//所有バフの取得
-	std::vector<Buff::BuffData&>buffs_;
+	std::vector<Buff*> buffs_;
 
 
 };

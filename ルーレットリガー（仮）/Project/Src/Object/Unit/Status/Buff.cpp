@@ -1,7 +1,8 @@
 #include "Buff.h"
 
-Buff::Buff()
+Buff::Buff(const BUFF_TYPE& buff)
 {
+	buff_ = buff;
 }
 
 Buff::~Buff()
@@ -10,13 +11,15 @@ Buff::~Buff()
 
 void Buff::Init(void)
 {
+	GiveBuff(buff_);
+	isAlive_ = true;
 }
 
 void Buff::Release(void)
 {
 }
 
-void Buff::SetBuff(const BUFF_TYPE& type)
+void Buff::GiveBuff(const BUFF_TYPE& type)
 {
 	//バフの付与
 	//バフの持続ターン
@@ -33,18 +36,21 @@ void Buff::SetBuff(const BUFF_TYPE& type)
 	}
 
 
-	
-	//データ挿入
-	BuffData data = { type,turn };
-	buff_.push_back(data);
+	//データ代入
+	turn_ = turn;
 }
 
 bool Buff::CheckOwnBuff(const BUFF_TYPE& type)
 {
 	//目当てのバフを所有していた場合、trueを返す
-	for (auto& b : buff_)
-	{
-		if (b.type == type)return true;
-	}
+	if (buff_ == type)return true;
+
+	return false;
+}
+
+bool Buff::DecBuffTurn(void)
+{
+	turn_--;
+	if (turn_ <= 0)return true;
 	return false;
 }

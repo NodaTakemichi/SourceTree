@@ -1,7 +1,14 @@
 #include<DxLib.h>
+#include "../../../Manager/SceneManager.h"
+
+#include"../../../_debug/_DebugConOut.h"
+
 #include "UnitUI.h"
 
-UnitUI::UnitUI()
+
+UnitUI::UnitUI(Vector2 pos, std::string& name,
+	int& hp, int& maxHp, int& beforHp) :
+	unitPos_(pos), name_(name), hp_(hp), maxHp_(maxHp), beforHp_(beforHp)
 {
 }
 
@@ -50,7 +57,7 @@ void UnitUI::Release(void)
 	DeleteShaderConstantBuffer(psHpColorConstBuf_);
 }
 
-void UnitUI::SetBuffs(std::vector<Buff::BuffData>& buffs)
+void UnitUI::SetBuff(std::vector<Buff*> buffs)
 {
 	buffs_ = buffs;
 }
@@ -85,6 +92,43 @@ void UnitUI::DrawHpShader(const float& ratio, const COLOR_F& color)
 
 }
 
+void UnitUI::DecHpGauge(void)
+{
+	auto test = 1.0f;
+	auto changeTime = 1.0f;
+	//HP変化があるときのみ
+	if (nowHp_ != hp_)
+	{
+		//（完了する時間ー経過時間）/干渉する時間
+		auto delet = SceneManager::GetInstance().GetDeltaTime();
+		totalTime_ += delet;
+		test = (changeTime - totalTime_) / changeTime;
+		if (test >= 1.0f)
+		{
+			test = 1.0f;
+			totalTime_ = 0.0f;
+			nowHp_ = hp_;
+		}
+		//BeforHPを入れる
+		nowHp_ = AsoUtility::Lerp(hp_, beforHp_, test);
+	}
+	else
+	{
+		test = 1.0f;
+		totalTime_ = 0.0f;
+		nowHp_ = hp_;
+	}
+}
+
+void UnitUI::DrawHpFrame(const Vector2& pos)
+{
+	//HPフレームの描画
+	auto frame = 2;
+	DrawBox(pos.x - frame, pos.y - frame,
+		pos.x + HP_GAUGE_X + frame, pos.y + HP_GAUGE_Y + frame,
+		0xffffff, true);
+}
+
 void UnitUI::DrawName(const std::string& name, const Vector2& uPos)
 {
 	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
@@ -103,6 +147,63 @@ void UnitUI::DrawName(const std::string& name, const Vector2& uPos)
 	//名前描画
 	DrawString(nPos.x - fx, nPos.y, n, 0xffffff);
 
+}
+
+void UnitUI::DrawBuffIcon()
+{
+	//バフアイコンの描画
+	int i = 0;
+	for (auto& buff : buffs_)
+	{
+		if(!buff->IsAlive())continue;
+
+		int num = 0;
+		switch (buff->GetBuff())
+		{
+		case Buff::BUFF_TYPE::PALALYSIS:
+			num = 0;
+			break;
+		case Buff::BUFF_TYPE::POISON:
+			num = 1;
+			break;
+		case Buff::BUFF_TYPE::CONFUSION:
+			num = 2;
+			break;
+
+		case Buff::BUFF_TYPE::A_UP:
+			num = 3;
+			break;
+		case Buff::BUFF_TYPE::A_DOWN:
+			num = 4;
+			break;
+		case Buff::BUFF_TYPE::S_UP:
+			num = 5;
+			break;
+		case Buff::BUFF_TYPE::S_DOWN:
+			num = 6;
+			break;
+		case Buff::BUFF_TYPE::D_UP:
+			num = 7;
+			break;
+		case Buff::BUFF_TYPE::D_DOWN:
+			num = 8;
+			break;
+
+		default:
+			return;
+		}
+
+		//バイリニア補間モード
+		SetDrawMode(DX_DRAWMODE_BILINEAR);
+
+		int s = 32;
+		Vector2 iPos = { unitPos_.x + (i * 36) + 10, unitPos_.y + 130 };
+		DrawExtendGraph(iPos.x, iPos.y, iPos.x + s, iPos.y + s, icon_[num], true);
+		i++;
+
+		//ネアレストネイバー法
+		SetDrawMode(DX_DRAWMODE_NEAREST);
+	}
 }
 
 void UnitUI::MakeSquereVertex(Vector2 pos)

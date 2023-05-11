@@ -65,8 +65,8 @@ void Command::CastCmdBuff(std::string buff)
 	else if (buff == "CONFUSION")	buff_ = Buff::BUFF_TYPE::CONFUSION;
 	else if (buff == "AVOIDANCE")	buff_ = Buff::BUFF_TYPE::AVOIDANCE;
 
-	else if (buff == "P_UP")	buff_ = Buff::BUFF_TYPE::P_UP;
-	else if (buff == "P_DOWN")	buff_ = Buff::BUFF_TYPE::P_DOWN;
+	else if (buff == "P_UP")	buff_ = Buff::BUFF_TYPE::A_UP;
+	else if (buff == "P_DOWN")	buff_ = Buff::BUFF_TYPE::A_DOWN;
 	else if (buff == "S_UP")	buff_ = Buff::BUFF_TYPE::S_UP;
 	else if (buff == "S_DOWN")	buff_ = Buff::BUFF_TYPE::S_DOWN;
 	else if (buff == "D_UP")	buff_ = Buff::BUFF_TYPE::D_UP;

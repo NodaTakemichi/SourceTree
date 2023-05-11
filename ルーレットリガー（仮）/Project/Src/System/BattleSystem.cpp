@@ -1,4 +1,5 @@
 #include <math.h>
+#include <random>
 #include <DxLib.h>
 #include "../Manager/InputManager.h"
 #include "../Utility/AsoUtility.h"
@@ -201,6 +202,12 @@ void BattleSystem::SetRandUnit(void)
 	//‘ÎÛ‚ª‚¢‚È‚¢“G‚Í–³Ž‹
 	auto& target = actCmd_->GetCmdTarget();
 	if (target == Command::CMD_TARGET::NONE)return;
+
+	//ƒ‰ƒ“ƒ_ƒ€’l
+	//std::random_device rd;
+	//std::mt19937 mt(rd());
+	//std::uniform_int_distribution<int> dist(0, selectedUnits_.size());
+	//randUnit_ = dist(mt);
 
 	randUnit_ = rand() % selectedUnits_.size();
 }
