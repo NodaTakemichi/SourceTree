@@ -1,8 +1,7 @@
 #include "Buff.h"
 
-Buff::Buff(const BUFF_TYPE& buff)
+Buff::Buff()
 {
-	buff_ = buff;
 }
 
 Buff::~Buff()
@@ -11,7 +10,7 @@ Buff::~Buff()
 
 void Buff::Init(void)
 {
-	GiveBuff(buff_);
+	CheckBuffTurn(buff_);
 	isAlive_ = true;
 }
 
@@ -19,7 +18,14 @@ void Buff::Release(void)
 {
 }
 
-void Buff::GiveBuff(const BUFF_TYPE& type)
+void Buff::CreateBuff(const BUFF_TYPE& buff)
+{
+	buff_ = buff;
+	CheckBuffTurn(buff_);
+	isAlive_ = true;
+}
+
+void Buff::CheckBuffTurn(const BUFF_TYPE& type)
 {
 	//バフの付与
 	//バフの持続ターン
@@ -27,8 +33,10 @@ void Buff::GiveBuff(const BUFF_TYPE& type)
 	switch (type)
 	{
 	case Buff::BUFF_TYPE::PALALYSIS:
-	case Buff::BUFF_TYPE::AVOIDANCE:
 		turn = 1;
+		break;
+	case Buff::BUFF_TYPE::AVOIDANCE:
+		turn = 2;
 		break;
 	default:
 		turn = 3;

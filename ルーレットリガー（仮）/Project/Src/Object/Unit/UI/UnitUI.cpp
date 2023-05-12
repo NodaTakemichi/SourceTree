@@ -34,12 +34,13 @@ void UnitUI::Init(void)
 	icon_[0] = LoadGraph("./Data/Image/Icon/ñÉ·É.png");
 	icon_[1] = LoadGraph("./Data/Image/Icon/ì≈.png");
 	icon_[2] = LoadGraph("./Data/Image/Icon/ç¨óê.png");
-	icon_[3] = LoadGraph("./Data/Image/Icon/A_UP.png");
-	icon_[4] = LoadGraph("./Data/Image/Icon/A_DOWN.png");
-	icon_[5] = LoadGraph("./Data/Image/Icon/S_UP.png");
-	icon_[6] = LoadGraph("./Data/Image/Icon/S_DOWN.png");
-	icon_[7] = LoadGraph("./Data/Image/Icon/D_UP.png");
-	icon_[8] = LoadGraph("./Data/Image/Icon/D_DOWN.png");
+	icon_[3] = LoadGraph("./Data/Image/Icon/Avoidance.png");
+	icon_[4] = LoadGraph("./Data/Image/Icon/A_UP.png");
+	icon_[5] = LoadGraph("./Data/Image/Icon/A_DOWN.png");
+	icon_[6] = LoadGraph("./Data/Image/Icon/S_UP.png");
+	icon_[7] = LoadGraph("./Data/Image/Icon/S_DOWN.png");
+	icon_[8] = LoadGraph("./Data/Image/Icon/D_UP.png");
+	icon_[9] = LoadGraph("./Data/Image/Icon/D_DOWN.png");
 
 }
 
@@ -169,24 +170,27 @@ void UnitUI::DrawBuffIcon()
 		case Buff::BUFF_TYPE::CONFUSION:
 			num = 2;
 			break;
-
-		case Buff::BUFF_TYPE::A_UP:
+		case Buff::BUFF_TYPE::AVOIDANCE:
 			num = 3;
 			break;
-		case Buff::BUFF_TYPE::A_DOWN:
+
+		case Buff::BUFF_TYPE::A_UP:
 			num = 4;
 			break;
-		case Buff::BUFF_TYPE::S_UP:
+		case Buff::BUFF_TYPE::A_DOWN:
 			num = 5;
 			break;
-		case Buff::BUFF_TYPE::S_DOWN:
+		case Buff::BUFF_TYPE::S_UP:
 			num = 6;
 			break;
-		case Buff::BUFF_TYPE::D_UP:
+		case Buff::BUFF_TYPE::S_DOWN:
 			num = 7;
 			break;
-		case Buff::BUFF_TYPE::D_DOWN:
+		case Buff::BUFF_TYPE::D_UP:
 			num = 8;
+			break;
+		case Buff::BUFF_TYPE::D_DOWN:
+			num = 9;
 			break;
 
 		default:

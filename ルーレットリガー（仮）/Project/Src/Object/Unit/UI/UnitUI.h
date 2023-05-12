@@ -80,7 +80,7 @@ protected:
 	
 
 	//画像アイコン（テスト）
-	int icon_[9];
+	int icon_[10];
 	//所有バフの取得
 	std::vector<Buff*> buffs_;
 

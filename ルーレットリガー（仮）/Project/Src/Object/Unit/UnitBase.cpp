@@ -174,6 +174,16 @@ bool UnitBase::CheckDead(void)
 	return false;
 }
 
+bool UnitBase::CheckOwnBuff(const Buff::BUFF_TYPE& type)
+{
+	for (auto& buff : buffs_)
+	{
+		//指定バフを所有している
+		if (buff->CheckOwnBuff(type))return true;
+	}
+	return false;
+}
+
 std::string UnitBase::LoadData(std::string fileName)
 {
 	//ドキュメントを保存する変数
@@ -218,6 +228,8 @@ std::string UnitBase::LoadData(std::string fileName)
 	double times = 0.0;
 
 	auto cmd = unit->first_node("Cmd");
+
+
 	if (cmd == nullptr)return std::string();
 	for (auto skill = cmd->first_node();
 		skill != nullptr;
@@ -302,6 +314,7 @@ void UnitBase::CreateBuff(const Buff::BUFF_TYPE& type)
 	//反発しあうバフの場合、対消滅させる
 	for (auto& buff : buffs_)
 	{
+		if (!buff->IsAlive())continue;
 
 		auto checkBuff = [&](Buff::BUFF_TYPE get, Buff::BUFF_TYPE give) {
 			if (buff->GetBuff() == get)
@@ -329,10 +342,27 @@ void UnitBase::CreateBuff(const Buff::BUFF_TYPE& type)
 	}
 
 	//バフの生成
-	auto buff = new Buff(type);
-	buff->Init();
+	auto buff = GetValidBuff();
+	buff->CreateBuff(type);
+
+}
+
+Buff* UnitBase::GetValidBuff(void)
+{
+	//使っていないバフがいたら、再利用
+	size_t size = buffs_.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (buffs_[i]->IsAlive())continue;
+		//利用できるバフを返す
+		return buffs_[i];
+	}
+
+	//新しいバフを生成
+	Buff* buff = new Buff();
 	buffs_.push_back(buff);
 
+	return buff;
 }
 
 void UnitBase::MakeSquereVertex(Vector2 pos)

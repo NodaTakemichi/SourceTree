@@ -2,7 +2,7 @@
 <Unit name="Slime" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="スライム" source="./Data/Image/Unit/Slime.png" 
-		  hp="70" attack="15" speed="20" ></Data>
+		  hp="70" attack="15" speed="120" ></Data>
 
 	<!--ユニットのコマンド-->
 	<Cmd>

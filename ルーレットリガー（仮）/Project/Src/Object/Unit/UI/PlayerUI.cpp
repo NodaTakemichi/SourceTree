@@ -34,7 +34,7 @@ void PlayerUI::Draw(void)
 
 
 	//HPが0以下の時、HPゲージを描画しない
-	if (hp_ <= 0)return;
+	if (nowHp_ <= 0)return;
 
 
 	//バフアイコンの描画

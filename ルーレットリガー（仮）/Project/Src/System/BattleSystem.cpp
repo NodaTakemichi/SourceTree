@@ -29,9 +29,7 @@ void BattleSystem::Init(void)
 void BattleSystem::Release(void)
 {
 	targetUnits_.clear();
-
 	selectedUnits_.clear();
-
 }
 
 void BattleSystem::ProcessDamege(void)
@@ -40,6 +38,9 @@ void BattleSystem::ProcessDamege(void)
 	auto dmg = roundf(actUnit_->GetAttack() * actCmd_->GetTimes());
 	for (auto& unit : targetUnits_)
 	{
+		//AVOIDANCE状態のユニットは、ダメージ処理をしない
+		if (unit->CheckOwnBuff(Buff::BUFF_TYPE::AVOIDANCE))continue;
+
 		unit->Damage(dmg);
 	}
 }
@@ -93,6 +94,9 @@ void BattleSystem::ResetSelectUnits(void)
 
 void BattleSystem::CheckSelectTarget(void)
 {
+	//Select配列に入れたユニットを、
+	//全員対象とするか、その中から一体選ぶか判断する
+
 	//コマンドの対象
 	auto& target = actCmd_->GetCmdTarget();
 
@@ -217,7 +221,7 @@ void BattleSystem::SetTargetUnits(const bool& equal)
 	for (auto& unit : units_)
 	{
 		if (!unit->IsAlive())continue;	//死亡状態の場合、処理しない
-
+		
 		//コマンド対象に味方を入れるか、相手を入れるかの判断
 		if (equal)
 		{

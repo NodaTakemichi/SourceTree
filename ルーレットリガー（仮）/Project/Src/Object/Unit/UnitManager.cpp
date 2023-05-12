@@ -103,7 +103,7 @@ void UnitManager::CreateUnit(void)
 		pUnit->Init();
 		units_.push_back(pUnit);
 
-		pUnit = new PlayerUnit("./Data/UnitData/ゴースト.xml", 2);
+		pUnit = new PlayerUnit("./Data/UnitData/リーダースライム.xml", 2);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
@@ -120,7 +120,7 @@ void UnitManager::CreateUnit(void)
 		eUnit->Init();
 		units_.push_back(eUnit);
 
-		eUnit = new EnemyUnit("./Data/UnitData/スライム.xml", 3);
+		eUnit = new EnemyUnit("./Data/UnitData/アースドラゴン.xml", 3);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
@@ -150,6 +150,13 @@ void UnitManager::SpeedSort(void)
 	};
 	//ソート
 	std::sort(units_.begin(), units_.end(), compare);
+
+	////スピード順のソート
+	//std::sort(units_.begin(), units_.end(),
+	//	[](UnitBase* x, UnitBase* y)
+	//	{return  x->GetSpeed() > y->GetSpeed(); }
+	//);
+
 }
 
 void UnitManager::ChangeActivUnit(void)

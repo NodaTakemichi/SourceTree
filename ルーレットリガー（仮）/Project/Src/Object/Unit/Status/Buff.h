@@ -26,11 +26,14 @@ public:
 	};
 
 
-	Buff(const BUFF_TYPE& buff);
+	Buff();
 	~Buff();
 
 	void Init(void);
 	void Release(void);
+
+	//バフの生成関数
+	void CreateBuff(const BUFF_TYPE& buff);
 
 	//生存判定
 	const bool& IsAlive(void)const { return isAlive_; }
@@ -65,7 +68,7 @@ private:
 	int turn_;
 
 	//バフの付与
-	void GiveBuff(const BUFF_TYPE& type);
+	void CheckBuffTurn(const BUFF_TYPE& type);
 
 };
 

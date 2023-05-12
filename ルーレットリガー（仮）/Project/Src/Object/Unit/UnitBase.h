@@ -70,6 +70,8 @@ public:
 	void GiveBuff(const Buff::BUFF_TYPE& type);	//バフ付与関数
 
 	bool CheckDead(void);		//死亡判定
+	bool CheckOwnBuff(const Buff::BUFF_TYPE& type);	//指定のバフを所有してるかどうか
+
 
 protected:
 	//ユニットUI
@@ -152,6 +154,8 @@ private:
 
 	//バフの生成
 	void CreateBuff(const Buff::BUFF_TYPE& type);
+	//有効ばなバフを取得
+	Buff* GetValidBuff(void);
 
 };
 

@@ -53,8 +53,11 @@ void GameScene::Init(void)
 	//フレーム
 	frameImg_ = LoadGraph("./Data/Image/UI/Frame.png");
 
+	//ターン文字
+	turnString_ = "";
 	//フェーズの変更
 	ChangeGamePhase(GAME_PHASE::RULLET_TIME);
+
 
 } 
 
@@ -118,6 +121,7 @@ void GameScene::Draw(void)
 
 	//UI関連
 	GameUi_->Draw();
+	DrawString(460, 40, turnString_.c_str(), 0xffffff);
 
 	//フェーズ別描画
 	switch (phase_)
@@ -251,6 +255,13 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 
 		//選択ユニットのリセット
 		battleSys_->ResetSelectUnits();
+
+		//現在の行動ユニットのターン文字
+		if (actUnit->GetUnitType() == UnitBase::UNIT_TYPE::ENEMY) {
+			turnString_ = "あいてのターン";
+		}else {
+			turnString_ = "おまえのターン";
+		}
 
 		break;
 	}

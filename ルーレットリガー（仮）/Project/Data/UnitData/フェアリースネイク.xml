@@ -36,7 +36,7 @@
 			   buff="AVOIDANCE" >
 		</Skill>
 		<!--8-->
-		<Skill name="‚ ‚´‚Þ‚­" type="BUFF" target="SELF" times="1.0s"
+		<Skill name="‚ ‚´‚Þ‚­" type="BUFF" target="SELF" times="1.0"
 			   buff="AVOIDANCE" >
 		</Skill>
 	</Cmd>

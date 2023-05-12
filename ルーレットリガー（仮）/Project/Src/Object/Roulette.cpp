@@ -47,10 +47,10 @@ void Roulette::Draw(void)
 	int cy = Application::SCREEN_SIZE_Y;
 
 	//矢印描画
-	DrawGraph(cx / 2-50, 200.0f, arrowImg_, true);
+	DrawGraph(cx / 2-50, 150.0f, arrowImg_, true);
 
 	int rouPosX = cx / 2;
-	int rouPosY = 580;
+	int rouPosY = 480;
 
 	//バイリニア補間モード
 	SetDrawMode(DX_DRAWMODE_BILINEAR);
