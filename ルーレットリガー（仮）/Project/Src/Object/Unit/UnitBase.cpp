@@ -66,6 +66,8 @@ void UnitBase::TurnEndProcess(void)
 		//毒ダメージの処理
 		if (buff->CheckOwnBuff(Buff::BUFF_TYPE::POISON))
 		{
+			TRACE("毒ダメージ\n");
+
 			//HPの 1/8 のダメージ
 			int dmg = maxHp_ / 8;
 			Damage(dmg);
@@ -108,9 +110,9 @@ int UnitBase::CalcBuffStatus(const int& status, const Buff::BUFF_TYPE& up, const
 		if (!buff->IsAlive())continue;
 
 		//ステータスアップ
-		if (buff->CheckOwnBuff(up))value *= 1.1;
+		if (buff->CheckOwnBuff(up))value *= 1.2;
 		//ステータスダウン
-		if (buff->CheckOwnBuff(down))value *= 0.9;
+		if (buff->CheckOwnBuff(down))value *= 0.8;
 	}
 
 	return static_cast<int>(floor(value));
@@ -118,19 +120,24 @@ int UnitBase::CalcBuffStatus(const int& status, const Buff::BUFF_TYPE& up, const
 
 void UnitBase::Damage(const int& dmg)
 {
-	TRACE("ダメージ：（%d", dmg);
+	TRACE(name_.c_str());
+	TRACE("\n攻撃値：%d ||", dmg);
 
 	//バフ込みのダメージ計算
 	auto calcDmg = CalcBuffStatus(
 		dmg, Buff::BUFF_TYPE::D_DOWN, Buff::BUFF_TYPE::D_UP);
 
-	TRACE("、%d）\n", calcDmg);
+	TRACE("被ダメ値：%d\n", calcDmg);
 
 	//直前HPの記憶
 	beforHp_ = hp_;
 
 	//ダメージ計算
 	hp_ -= calcDmg;
+
+	//残り体力
+	TRACE("残り体力:%d\n\n",hp_);
+
 
 	//死亡判定
 	if (CheckDead())
@@ -178,6 +185,8 @@ bool UnitBase::CheckOwnBuff(const Buff::BUFF_TYPE& type)
 {
 	for (auto& buff : buffs_)
 	{
+		if (!buff->IsAlive())continue;
+
 		//指定バフを所有している
 		if (buff->CheckOwnBuff(type))return true;
 	}

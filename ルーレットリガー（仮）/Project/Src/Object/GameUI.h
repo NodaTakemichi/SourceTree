@@ -25,5 +25,8 @@ private:
 	//フォント
 	int fontHandle_;
 
+	//コメント窓
+	int commentWindowImg_;
+
 };
 

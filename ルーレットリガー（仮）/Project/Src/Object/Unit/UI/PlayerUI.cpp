@@ -1,7 +1,7 @@
 #include "PlayerUI.h"
 
-PlayerUI::PlayerUI(Vector2 pos, std::string& name,
-	int& hp, int& maxHp, int& beforHp) :
+PlayerUI::PlayerUI(
+	Vector2 pos, std::string& name,int& hp, int& maxHp, int& beforHp) :
 	UnitUI(pos, name, hp, maxHp, beforHp)
 {
 }

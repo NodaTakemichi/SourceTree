@@ -31,7 +31,7 @@ void Roulette::Init(void)
 	rouletteImg_ = LoadGraph("./Data/Image/UI/roulette2.png");
 
 	//フォントの変更
-	fontHandle_=CreateFontToHandle("@ＭＳ 明朝", 20, 10, -1);
+	fontHandle_=CreateFontToHandle("@ＭＳ 明朝", 22, 10, -1);
 
 }
 
@@ -50,7 +50,7 @@ void Roulette::Draw(void)
 	DrawGraph(cx / 2-50, 150.0f, arrowImg_, true);
 
 	int rouPosX = cx / 2;
-	int rouPosY = 480;
+	int rouPosY = 530;
 
 	//バイリニア補間モード
 	SetDrawMode(DX_DRAWMODE_BILINEAR);
@@ -58,9 +58,6 @@ void Roulette::Draw(void)
 	//ルーレット描画
 	DrawRotaGraph(rouPosX, rouPosY,
 		1.0f, AsoUtility::Deg2RadF(angle), rouletteImg_, true, false);
-
-	//フォントサイズの変更
-	SetFontSize(20);
 
 	//各コマンド技の回転幅、相対回転
 	auto rotSpan = AsoUtility::Deg2RadF(
@@ -77,7 +74,7 @@ void Roulette::Draw(void)
 		DrawRotaStringToHandle(
 			rouPosX, rouPosY,		//座標
 			1.0, 1.0,				//拡大率
-			180.0, 10.0,			//回転の中心座標（相対座標）
+			190.0, 10.0,			//回転の中心座標（相対座標）
 			AsoUtility::Deg2RadF(angle) + (i * rotSpan) + rotReltive,	//角度
 			0x0, fontHandle_, 0x0,	//フォント
 			true, name);
@@ -87,8 +84,6 @@ void Roulette::Draw(void)
 	}
 
 
-	//フォントサイズの変更
-	SetFontSize(16);
 	//ネアレストネイバー法
 	SetDrawMode(DX_DRAWMODE_NEAREST);
 

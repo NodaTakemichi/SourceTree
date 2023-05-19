@@ -22,10 +22,12 @@
 		<Skill name="‚±‚²‚¦‚é‚¢‚«" type="ATTACK" target="ENEMY_ALL" times="1.5">
 		</Skill>
 		<!--6-->
-		<Skill name="‚¢‚ ‚Â" type="BUFF" target="ENEMY" times="0.0">
+		<Skill name="‚¢‚ ‚Â" type="BUFF" target="ENEMY" times="1.0"
+			buff="PALALYSIS">
 		</Skill>
 		<!--7-->
-		<Skill name="‚©‚Ý‚Â‚­" type="ATTACK" target="ENEMY" times="1,2">
+		<Skill name="‚¢‚ ‚Â" type="BUFF" target="ENEMY" times="1.0"
+			buff="PALALYSIS">
 		</Skill>
 		<!--8-->
 		<Skill name="‚©‚Ý‚Â‚­" type="ATTACK" target="ENEMY" times="1.2">

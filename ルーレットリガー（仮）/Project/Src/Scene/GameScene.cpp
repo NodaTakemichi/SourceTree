@@ -121,7 +121,7 @@ void GameScene::Draw(void)
 
 	//UI関連
 	GameUi_->Draw();
-	DrawString(460, 40, turnString_.c_str(), 0xffffff);
+	DrawString(580, 40, turnString_.c_str(), 0xffffff);
 
 	//フェーズ別描画
 	switch (phase_)
@@ -187,17 +187,14 @@ void GameScene::UpdateRouTime(void)
 	//バフ判断
 	//行動ユニット
 	auto actUnit = unitMng_->GetActivUnit();
-	for(auto& buff : actUnit->GetBuffs())
+	if (actUnit->CheckOwnBuff(Buff::BUFF_TYPE::PALALYSIS))
 	{
-		if (!buff->IsAlive())continue;
+		TRACE(actUnit->GetUnitName().c_str());
+		TRACE("はマヒしている\n\n");
 
 		//麻痺状態の場合、ターンエンドする
-		if(buff->CheckOwnBuff(Buff::BUFF_TYPE::PALALYSIS))
-		{
-			ChangeGamePhase(GAME_PHASE::TURN_END);
-		}
+		ChangeGamePhase(GAME_PHASE::TURN_END);
 	}
-
 
 	//ルーレットが停止したら、フェーズ移動
 	if (roulette_->GetRouStop())

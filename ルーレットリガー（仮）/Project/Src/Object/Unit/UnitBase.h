@@ -47,6 +47,8 @@ public:
 
 	//ユニットの順番取得関数
 	const int& GetUnitNum(void) { return unitNum_; }
+	//ユニットの名前取得関数
+	const std::string& GetUnitName(void) { return name_; }
 	//ユニットのタイプ取得関数
 	const UNIT_TYPE& GetUnitType(void) { return type_; }
 	//コマンド取得関数

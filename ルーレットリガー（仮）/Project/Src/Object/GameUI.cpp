@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include "../Application.h"
 #include "GameUI.h"
 
 GameUI::GameUI()
@@ -12,10 +13,13 @@ GameUI::~GameUI()
 void GameUI::Init(void)
 {
 	cmdName_ = std::string();
-	cmdPos_ = { 650,350 };
+	cmdPos_ = { 750,190 };
 
 	//フォントの変更
 	fontHandle_ = CreateFontToHandle("ＭＳ 明朝", 30, 20, -1);
+
+	//コメント窓
+	commentWindowImg_ = LoadGraph("./Data/Image/UI/コメントフレーム.png");
 
 }
 
@@ -25,11 +29,16 @@ void GameUI::Update(void)
 
 void GameUI::Draw(void)
 {
-	
+	auto sy = Application::SCREEN_SIZE_Y;
+
+	//コメント窓
+	DrawGraph(0, sy - 130, commentWindowImg_, true);
+
 }
 
 void GameUI::DrawActivSkill(void)
 {
+
 	auto name = cmdName_.c_str();		//文字
 	auto len = GetStringLength(name);	//文字数
 	//幅、高さ、行数
@@ -51,12 +60,16 @@ void GameUI::DrawActivSkill(void)
 	//コマンドネーム
 	auto sDiff = 5;
 	DrawString(cmdPos_.x + sDiff, cmdPos_.y + sDiff, cmdName_.c_str(), 0xffffff);
+
+
 }
 
 
 void GameUI::Release(void)
 {
 	DeleteFontToHandle(fontHandle_);
+
+	DeleteGraph(commentWindowImg_);
 }
 
 void GameUI::SetCmdName(std::string name)

@@ -5,7 +5,6 @@
 
 #include "UnitUI.h"
 
-
 UnitUI::UnitUI(Vector2 pos, std::string& name,
 	int& hp, int& maxHp, int& beforHp) :
 	unitPos_(pos), name_(name), hp_(hp), maxHp_(maxHp), beforHp_(beforHp)
@@ -95,29 +94,25 @@ void UnitUI::DrawHpShader(const float& ratio, const COLOR_F& color)
 
 void UnitUI::DecHpGauge(void)
 {
-	auto test = 1.0f;
-	auto changeTime = 1.0f;
+	auto progress = 1.0f;			//
+	auto changeTime = 1.0f;		//完了時間
 	//HP変化があるときのみ
 	if (nowHp_ != hp_)
 	{
-		//（完了する時間ー経過時間）/干渉する時間
-		auto delet = SceneManager::GetInstance().GetDeltaTime();
-		totalTime_ += delet;
-		test = (changeTime - totalTime_) / changeTime;
-		if (test >= 1.0f)
+		//経過時間
+		totalTime_ += SceneManager::GetInstance().GetDeltaTime();
+		//経過　＝（完了する時間ー経過時間）/完了する時間
+		progress = (changeTime - totalTime_) / changeTime;
+
+		//ダメージ後とダメージ前の線形補間を行う
+		nowHp_ = AsoUtility::Lerp(hp_, beforHp_, progress);
+
+		//超過している
+		if (progress >= 1.0f)
 		{
-			test = 1.0f;
 			totalTime_ = 0.0f;
 			nowHp_ = hp_;
 		}
-		//BeforHPを入れる
-		nowHp_ = AsoUtility::Lerp(hp_, beforHp_, test);
-	}
-	else
-	{
-		test = 1.0f;
-		totalTime_ = 0.0f;
-		nowHp_ = hp_;
 	}
 }
 

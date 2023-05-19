@@ -1,7 +1,7 @@
 #include "EnemyUI.h"
 
-EnemyUI::EnemyUI(Vector2 pos, std::string& name,
-	int& hp, int& maxHp, int& beforHp) :
+EnemyUI::EnemyUI(
+	Vector2 pos, std::string& name,int& hp, int& maxHp, int& beforHp) :
 	UnitUI(pos, name, hp, maxHp, beforHp)
 {
 }
@@ -19,7 +19,7 @@ void EnemyUI::Init(void)
 	//ユニットのサイズ
 	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
 	//HP表示座標
-	Vector2 pos = { unitPos_.x + unitSize - 10, unitPos_.y + 20 };
+	Vector2 pos = { unitPos_.x + unitSize, unitPos_.y + 20 };
 	//四角形ポリゴンの生成(HP用)
 	MakeSquereVertex(pos);
 
@@ -46,7 +46,7 @@ void EnemyUI::Draw(void)
 
 
 	//HP枠の表示
-	Vector2 pos = { unitPos_.x + unitSize - 10,unitPos_.y + 20 };
+	Vector2 pos = { unitPos_.x + unitSize,unitPos_.y + 20 };
 	DrawHpFrame(pos);
 
 	//HPゲージの計算
