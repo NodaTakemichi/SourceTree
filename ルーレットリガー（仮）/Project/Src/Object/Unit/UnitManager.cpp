@@ -99,7 +99,7 @@ void UnitManager::CreateUnit(void)
 	//ユニットの生成
 
 	//味方
-		PlayerUnit* pUnit = new PlayerUnit("./Data/UnitData/フェアリースネイク.xml", 1);
+		PlayerUnit* pUnit = new PlayerUnit("./Data/UnitData/ゴーレム.xml", 1);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
@@ -112,11 +112,11 @@ void UnitManager::CreateUnit(void)
 		units_.push_back(pUnit);
 
 	//敵
-		EnemyUnit* eUnit = new EnemyUnit("./Data/UnitData/フロストレオ.xml", 1);
+		EnemyUnit* eUnit = new EnemyUnit("./Data/UnitData/アークデーモン.xml", 1);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
-		eUnit = new EnemyUnit("./Data/UnitData/スライム.xml", 2);
+		eUnit = new EnemyUnit("./Data/UnitData/フェアリー.xml", 2);
 		eUnit->Init();
 		units_.push_back(eUnit);
 

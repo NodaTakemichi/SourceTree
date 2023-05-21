@@ -94,24 +94,23 @@ void UnitUI::DrawHpShader(const float& ratio, const COLOR_F& color)
 
 void UnitUI::DecHpGauge(void)
 {
-	auto progress = 1.0f;			//
 	auto changeTime = 1.0f;		//完了時間
+
 	//HP変化があるときのみ
 	if (nowHp_ != hp_)
 	{
 		//経過時間
 		totalTime_ += SceneManager::GetInstance().GetDeltaTime();
 		//経過　＝（完了する時間ー経過時間）/完了する時間
-		progress = (changeTime - totalTime_) / changeTime;
+		auto progress = 1.0f - (changeTime - totalTime_) / changeTime;
 
 		//ダメージ後とダメージ前の線形補間を行う
-		nowHp_ = AsoUtility::Lerp(hp_, beforHp_, progress);
+		nowHp_ = AsoUtility::Lerp(beforHp_, hp_, progress);
 
-		//超過している
-		if (progress >= 1.0f)
+		//超過している、もしくはHPが現在HPに追いついた時
+		if (progress >= 1.0f || nowHp_ == hp_)
 		{
 			totalTime_ = 0.0f;
-			nowHp_ = hp_;
 		}
 	}
 }
