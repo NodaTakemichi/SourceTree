@@ -38,22 +38,15 @@ void UnitManager::Init(void)
 	//スピード降順ソート
 	SpeedSort();
 
-	//ユニットの行動整理
-	ChangeActivUnit();
-
-
 }
 
 void UnitManager::Update(void)
 {
-
-
 	//ユニットの更新
 	for (auto& unit : units_)
 	{
 		unit->Update();
 	}
-
 }
 
 void UnitManager::Draw(void)
@@ -99,15 +92,15 @@ void UnitManager::CreateUnit(void)
 	//ユニットの生成
 
 	//味方
-		PlayerUnit* pUnit = new PlayerUnit("./Data/UnitData/ゴーレム.xml", 1);
+		PlayerUnit* pUnit = new PlayerUnit("./Data/UnitData/アースドラゴン.xml", 1);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
-		pUnit = new PlayerUnit("./Data/UnitData/リーダースライム.xml", 2);
+		pUnit = new PlayerUnit("./Data/UnitData/フェアリー.xml", 2);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
-		pUnit = new PlayerUnit("./Data/UnitData/ゴーレム.xml", 3);
+		pUnit = new PlayerUnit("./Data/UnitData/リーダースライム.xml", 3);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
@@ -116,16 +109,16 @@ void UnitManager::CreateUnit(void)
 		eUnit->Init();
 		units_.push_back(eUnit);
 
-		eUnit = new EnemyUnit("./Data/UnitData/フェアリー.xml", 2);
+		eUnit = new EnemyUnit("./Data/UnitData/ゴーレム.xml", 2);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
-		eUnit = new EnemyUnit("./Data/UnitData/アースドラゴン.xml", 3);
+		eUnit = new EnemyUnit("./Data/UnitData/フロストレオ.xml", 3);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
 		//敵の種類
-		//　スライム
+		// スライム
 		// リーダースライム
 		// フロストレオ
 		// アースドラゴン
@@ -150,13 +143,6 @@ void UnitManager::SpeedSort(void)
 	};
 	//ソート
 	std::sort(units_.begin(), units_.end(), compare);
-
-	////スピード順のソート
-	//std::sort(units_.begin(), units_.end(),
-	//	[](UnitBase* x, UnitBase* y)
-	//	{return  x->GetSpeed() > y->GetSpeed(); }
-	//);
-
 }
 
 void UnitManager::ChangeActivUnit(void)

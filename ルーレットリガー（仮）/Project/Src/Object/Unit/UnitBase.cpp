@@ -1,4 +1,6 @@
 #include <algorithm>
+#include "../../Manager/SceneManager.h"
+
 #include "../../Common/GetAttr.h"
 #include "./UI/UnitUI.h"
 
@@ -32,6 +34,9 @@ void UnitBase::Init(void)
 
 	//現在のシェーダー
 	nowPs_ = psTex_;
+
+	//合計時間
+	totalTime_ = 0.0f;
 }
 
 void UnitBase::Update(void)
@@ -57,6 +62,38 @@ void UnitBase::Release(void)
 	DeleteGraph(unitImg_);
 }
 
+bool UnitBase::DecHpProcess(void)
+{
+	//HP変化がある時、減少HPが０以上の時のみ
+	if (nowHp_ != hp_ && nowHp_ >= 0)
+	{
+		auto changeTime = 0.6f;		//完了時間
+
+		//経過時間
+		totalTime_ += SceneManager::GetInstance().GetDeltaTime();
+		//経過　＝（完了する時間ー経過時間）/完了する時間
+		auto progress = 1.0f - (changeTime - totalTime_) / changeTime;
+
+		//ダメージ後とダメージ前の線形補間を行う
+		nowHp_ = AsoUtility::Lerp(beforHp_, hp_, progress);
+
+		//超過している、もしくはHPが現在HPに追いついた時
+		if (progress >= 1.0f || nowHp_ == hp_)
+		{
+			totalTime_ = 0.0f;
+
+			//HP減少：終了
+			return true;
+		}
+
+		//HP減少：未終了
+		return false;
+	}
+
+	//HP減少：無し
+	return true;
+}
+
 void UnitBase::TurnEndProcess(void)
 {
 	for (auto& buff : buffs_)
@@ -68,7 +105,7 @@ void UnitBase::TurnEndProcess(void)
 		{
 			TRACE("毒ダメージ\n");
 
-			//HPの 1/8 のダメージ
+			//最大HPの 1/8 のダメージ
 			int dmg = maxHp_ / 8;
 			Damage(dmg);
 		}
@@ -269,8 +306,8 @@ std::string UnitBase::LoadData(std::string fileName)
 	}
 
 
-	//最大HP
-	maxHp_ = beforHp_= hp_;
+	//HP関連の初期化
+	maxHp_ = beforHp_= nowHp_ = hp_;
 
 	//画像の登録
 	unitImg_ = LoadGraph(source.c_str());
@@ -323,7 +360,11 @@ void UnitBase::CreateBuff(const Buff::BUFF_TYPE& type)
 	//反発しあうバフの場合、対消滅させる
 	for (auto& buff : buffs_)
 	{
+		//死んでいたら、処理をしない
 		if (!buff->IsAlive())continue;
+
+		//重複していた場合、追加しない
+		if (buff->GetBuff() == type)return;
 
 		auto checkBuff = [&](Buff::BUFF_TYPE get, Buff::BUFF_TYPE give) {
 			if (buff->GetBuff() == get)

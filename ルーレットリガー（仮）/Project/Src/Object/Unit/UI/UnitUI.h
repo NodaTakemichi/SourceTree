@@ -13,8 +13,7 @@ public:
 	const int  HP_GAUGE_Y = 120;
 
 
-	UnitUI(Vector2 pos, std::string& name,
-		int& hp, int& maxHp, int& beforHp);
+	UnitUI(Vector2 pos, std::string& name,int& nowHp, int& maxHp);
 	virtual ~UnitUI();
 
 
@@ -38,11 +37,10 @@ protected:
 	Vector2 unitPos_;
 	//ユニットネーム
 	std::string& name_;
-	//HP
-	int& hp_;
+	//最大HP,減少中HP
 	int& maxHp_;
-	int& beforHp_;
-	
+	int& nowHp_;
+
 	//ネームフレーム画像
 	int nameFrameImg_;
 
@@ -54,11 +52,6 @@ protected:
 	//シェーダーハンドル
 	int psHpColor_;
 	int psHpColorConstBuf_;
-
-	//合計時間
-	float totalTime_;
-	//HP変化中
-	int nowHp_;
 
 	//描画用の四角頂点のの作成
 	void MakeSquereVertex(Vector2 pos);

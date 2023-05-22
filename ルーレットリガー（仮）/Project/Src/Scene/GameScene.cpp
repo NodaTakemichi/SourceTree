@@ -214,19 +214,25 @@ void GameScene::UpdateAIM(void)
 
 void GameScene::UpdateBattle(void)
 {
-	//ダメージ処理
-	battleSys_->CmdProcess();
+	//ダメージ減少が終了したかどうか判断
+	bool next = battleSys_->FinishedDecHP();
 
-	//バトルが終了したら、ターン終了に進む
-	if (true)ChangeGamePhase(GAME_PHASE::TURN_END);
+	//バトル（ダメージ減少）が終了したら、ターン終了に進む
+	if (next)ChangeGamePhase(GAME_PHASE::TURN_END);
 }
 
 void GameScene::UpdateTurnEnd(void)
 {
+	//ダメージ減少が終了したかどうか判断（毒ダメージ）
+	bool next = unitMng_->GetActivUnit()->DecHpProcess();
+
 	//全滅か判断
-	//全滅ならばゲーム終了、そうでないならばルーレットフェーズに進む。
+	//全滅ならばゲーム終了、
+	//そうでない且、必要処理終了後ならルーレットフェーズに進む。
 	if (unitMng_->IsAnniUnit())ChangeGamePhase(GAME_PHASE::GAME_END);
-	else ChangeGamePhase(GAME_PHASE::RULLET_TIME);
+	else if (next) {
+		ChangeGamePhase(GAME_PHASE::RULLET_TIME);
+	}
 }
 
 void GameScene::ChangeGamePhase(GAME_PHASE phase)
@@ -239,7 +245,13 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 	case GameScene::GAME_PHASE::BATTLE_START: {
 		break;
 	}
-	case GameScene::GAME_PHASE::RULLET_TIME:{
+	case GameScene::GAME_PHASE::RULLET_TIME: {
+		//選択ユニットのリセット
+		battleSys_->ResetSelectUnits();
+
+		//行動ユニットの整理
+		unitMng_->ChangeActivUnit();
+
 		//行動ユニット
 		auto actUnit = unitMng_->GetActivUnit();
 		//ルーレットの停止が手動か自動か判断
@@ -250,13 +262,12 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 		//ルーレット状況のリセット
 		roulette_->ResetRouSpin();
 
-		//選択ユニットのリセット
-		battleSys_->ResetSelectUnits();
 
 		//現在の行動ユニットのターン文字
 		if (actUnit->GetUnitType() == UnitBase::UNIT_TYPE::ENEMY) {
 			turnString_ = "あいてのターン";
-		}else {
+		}
+		else {
 			turnString_ = "おまえのターン";
 		}
 
@@ -283,24 +294,20 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 		break;
 	}
 	case GameScene::GAME_PHASE::BATTLE: {
+		//ダメージ処理
+		battleSys_->CmdProcess();
+
 		break;
 	}
 	case GameScene::GAME_PHASE::TURN_END: {
-		//ターンエンド時のユニットの処理
-		//行動ユニット
-		auto actUnit = unitMng_->GetActivUnit();
-		actUnit->TurnEndProcess();
+		//行動ユニットのエンド処理
+		unitMng_->GetActivUnit()->TurnEndProcess();
 
-
-		//行動ユニットの整理
-		unitMng_->ChangeActivUnit();
 		break;
 	}
 	case GameScene::GAME_PHASE::GAME_END: {
 		break;
 	}
-	default:
-		break;
 	}
 }
 

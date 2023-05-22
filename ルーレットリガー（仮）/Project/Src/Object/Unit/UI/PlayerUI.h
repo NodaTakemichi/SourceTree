@@ -4,8 +4,7 @@ class PlayerUI :
     public UnitUI
 {
 public:
-	PlayerUI(Vector2 pos, std::string& name,
-		int& hp, int& maxHp, int& beforHp);
+	PlayerUI(Vector2 pos, std::string& name,int& nowHp, int& maxHp);
 	~PlayerUI();
 
 	void Init(void)override;

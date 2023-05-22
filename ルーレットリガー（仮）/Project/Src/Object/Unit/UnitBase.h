@@ -21,10 +21,7 @@ public:
 	{
 		PLAYER,
 		ENEMY,
-		END
 	};
-
-
 
 	UnitBase();
 	virtual ~UnitBase();
@@ -34,6 +31,9 @@ public:
 	virtual void Draw(void);
 	void Release(void);
 	
+	//ダメージ減少処理
+	bool DecHpProcess(void);
+
 	//行動終了後の処理
 	void TurnEndProcess(void);
 
@@ -93,6 +93,7 @@ protected:
 	//ヒットポイント
 	int hp_;
 	int beforHp_;
+	int nowHp_;
 	int maxHp_;
 	//ユニット：攻撃力
 	int attack_;
@@ -117,10 +118,13 @@ protected:
 	bool isAlive_;
 	//狙われているかどうか
 	bool isTargeted_;
-
 	//現在、行動状態かどうかの判断
 	bool isAct_;
 
+	//経過時間
+	float totalTime_;
+
+	//シェーダー関連
 	//頂点情報
 	VERTEX2DSHADER mVertex[4];
 	WORD mIndex[6];

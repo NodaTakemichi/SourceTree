@@ -1,13 +1,11 @@
 #include<DxLib.h>
-#include "../../../Manager/SceneManager.h"
-
 #include"../../../_debug/_DebugConOut.h"
 
 #include "UnitUI.h"
 
-UnitUI::UnitUI(Vector2 pos, std::string& name,
-	int& hp, int& maxHp, int& beforHp) :
-	unitPos_(pos), name_(name), hp_(hp), maxHp_(maxHp), beforHp_(beforHp)
+UnitUI::UnitUI(
+	Vector2 pos, std::string& name,int& nowHp, int& maxHp) :
+	unitPos_(pos), name_(name), nowHp_(nowHp), maxHp_(maxHp)
 {
 }
 
@@ -25,9 +23,6 @@ void UnitUI::Init(void)
 	psHpColor_ = LoadPixelShader("./x64/Debug/HpShader.cso");
 	//ピクセルシェーダー用の定数バッファの作成
 	psHpColorConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 8);
-
-	//合計時間
-	totalTime_ = 0.0f;
 
 	//テスト
 	icon_[0] = LoadGraph("./Data/Image/Icon/麻痺.png");
@@ -94,25 +89,25 @@ void UnitUI::DrawHpShader(const float& ratio, const COLOR_F& color)
 
 void UnitUI::DecHpGauge(void)
 {
-	auto changeTime = 1.0f;		//完了時間
+	//auto changeTime = 1.0f;		//完了時間
 
-	//HP変化があるときのみ
-	if (nowHp_ != hp_)
-	{
-		//経過時間
-		totalTime_ += SceneManager::GetInstance().GetDeltaTime();
-		//経過　＝（完了する時間ー経過時間）/完了する時間
-		auto progress = 1.0f - (changeTime - totalTime_) / changeTime;
+	////HP変化があるときのみ
+	//if (nowHp_ != hp_)
+	//{
+	//	//経過時間
+	//	totalTime_ += SceneManager::GetInstance().GetDeltaTime();
+	//	//経過　＝（完了する時間ー経過時間）/完了する時間
+	//	auto progress = 1.0f - (changeTime - totalTime_) / changeTime;
 
-		//ダメージ後とダメージ前の線形補間を行う
-		nowHp_ = AsoUtility::Lerp(beforHp_, hp_, progress);
+	//	//ダメージ後とダメージ前の線形補間を行う
+	//	nowHp_ = AsoUtility::Lerp(beforHp_, hp_, progress);
 
-		//超過している、もしくはHPが現在HPに追いついた時
-		if (progress >= 1.0f || nowHp_ == hp_)
-		{
-			totalTime_ = 0.0f;
-		}
-	}
+	//	//超過している、もしくはHPが現在HPに追いついた時
+	//	if (progress >= 1.0f || nowHp_ == hp_)
+	//	{
+	//		totalTime_ = 0.0f;
+	//	}
+	//}
 }
 
 void UnitUI::DrawHpFrame(const Vector2& pos)

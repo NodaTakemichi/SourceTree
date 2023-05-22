@@ -1,8 +1,8 @@
 #include "PlayerUI.h"
 
 PlayerUI::PlayerUI(
-	Vector2 pos, std::string& name,int& hp, int& maxHp, int& beforHp) :
-	UnitUI(pos, name, hp, maxHp, beforHp)
+	Vector2 pos, std::string& name,int& nowHp, int& maxHp) :
+	UnitUI(pos, name, nowHp, maxHp)
 {
 }
 
@@ -21,8 +21,6 @@ void PlayerUI::Init(void)
 	Vector2 pos = { unitPos_.x - 20,unitPos_.y + 20 };
 	//四角形ポリゴンの生成(HP用)
 	MakeSquereVertex(pos);
-
-	nowHp_ = hp_;
 
 }
 

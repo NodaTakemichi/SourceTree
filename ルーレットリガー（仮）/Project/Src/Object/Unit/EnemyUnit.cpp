@@ -29,7 +29,7 @@ void EnemyUnit::Init(void)
 	SetDrawingPos(ScreenX - DRAWING_SIZE - DRAWING_OFFSET_X);
 
 	//UIî•ñ‚Ì‰Šú‰»
-	unitUi_ = new EnemyUI(pos_, name_, hp_, maxHp_, beforHp_);
+	unitUi_ = new EnemyUI(pos_, name_, nowHp_, maxHp_);
 	unitUi_->Init();
 
 

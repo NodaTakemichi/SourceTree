@@ -174,8 +174,6 @@ void BattleSystem::CmdProcess(void)
 	auto& type = actCmd_->GetCmdType();
 	switch (type)
 	{
-	case Command::CMD_TYPE::NONE:
-		break;
 	case Command::CMD_TYPE::MISS:
 		break;
 	case Command::CMD_TYPE::ATTACK:
@@ -188,8 +186,6 @@ void BattleSystem::CmdProcess(void)
 		ProcessBuff();
 		break;
 	case Command::CMD_TYPE::CMD_UP:
-		break;
-	case Command::CMD_TYPE::END:
 		break;
 	default:
 		break;
@@ -214,6 +210,20 @@ void BattleSystem::SetRandUnit(void)
 	//randUnit_ = dist(mt);
 
 	randUnit_ = rand() % selectedUnits_.size();
+}
+
+bool BattleSystem::FinishedDecHP(void)
+{
+	bool finish = true;
+
+	for (auto& unit : targetUnits_)
+	{
+		//ユニットのHPを徐々に減少させる処理
+		//一つでも未終了がある場合、finishをfalseにする
+		finish &= unit->DecHpProcess();
+	}
+
+	return finish;
 }
 
 void BattleSystem::SetTargetUnits(const bool& equal)
@@ -309,11 +319,6 @@ bool BattleSystem::SelectInTarget(const bool& autom)
 			return true;
 		}
 	}
-
-
-
-
-
 
 
 	return false;

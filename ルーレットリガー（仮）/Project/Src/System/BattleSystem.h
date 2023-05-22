@@ -32,6 +32,8 @@ public:
 	//選択ユニットからランダムに決める
 	void SetRandUnit(void);
 
+	//HPのダメージ減少が終了したか判断（ture:終了 , false:未終了）
+	bool FinishedDecHP(void);
 
 private:
 	//対象選択までの待機時間
