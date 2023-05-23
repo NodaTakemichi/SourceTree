@@ -19,7 +19,7 @@ void EnemyUI::Init(void)
 	//ユニットのサイズ
 	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
 	//HP表示座標
-	Vector2 pos = { unitPos_.x + unitSize, unitPos_.y + 20 };
+	Vector2 pos = { unitPos_.x + unitSize + 50 , unitPos_.y + 20 };
 	//四角形ポリゴンの生成(HP用)
 	MakeSquereVertex(pos);
 }
@@ -43,11 +43,13 @@ void EnemyUI::Draw(void)
 
 
 	//HP枠の表示
-	Vector2 pos = { unitPos_.x + unitSize,unitPos_.y + 20 };
+	Vector2 pos = { unitPos_.x + unitSize + 50 ,unitPos_.y + 20 };
 	DrawHpFrame(pos);
+	//HPの数値表示
+	DrawFormatString(
+		pos.x - HP_GAUGE_X-10, pos.y + HP_GAUGE_Y - 32,
+		0xffffff, "HP\n%d", nowHp_);
 
-	//HPゲージの計算
-	DecHpGauge();
 	//HPの割合
 	float ratio = static_cast<float>(nowHp_) / static_cast<float>(maxHp_);
 	//HPシェーダー

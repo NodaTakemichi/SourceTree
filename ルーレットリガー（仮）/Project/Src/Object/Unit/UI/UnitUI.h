@@ -30,6 +30,9 @@ public:
 	void SetBuff(std::vector<Buff*> buffs);
 
 
+	//ダメージ表記
+	void SetDmg(const bool& drawing, const int& dmg);
+
 private:
 
 protected:
@@ -43,6 +46,19 @@ protected:
 
 	//ネームフレーム画像
 	int nameFrameImg_;
+
+
+
+	//ダメージフレーム画像
+	int dmgFrameImg_;
+	//ダメージフォント
+	int dmgFontHandle_;
+	//ダメージ描画
+	bool dmgNumDrawing_;	//ダメージを true:表示 , false:非表示
+	//ダメージ値
+	int dmg_;
+
+
 
 	//HPシェーダー
 	//頂点情報
@@ -58,9 +74,6 @@ protected:
 
 	//HPのシェーダー描画
 	void DrawHpShader(const float& ratio, const COLOR_F& color);
-
-	//HPの減少処理
-	void DecHpGauge(void);
 
 	//HP枠の描画
 	void DrawHpFrame(const Vector2& pos);

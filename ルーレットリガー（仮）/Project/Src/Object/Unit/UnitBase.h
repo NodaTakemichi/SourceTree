@@ -14,7 +14,7 @@ public:
 	//ゲームシーンで描画するユニットのサイズ
 	static constexpr int DRAWING_SIZE = 180;
 	//ゲームシーンで描画するユニットのオフセット値
-	static constexpr int DRAWING_OFFSET_X = 50;
+	static constexpr int DRAWING_OFFSET_X = 100;
 
 	//ユニットのタイプ
 	enum class UNIT_TYPE
@@ -160,7 +160,7 @@ private:
 
 	//バフの生成
 	void CreateBuff(const Buff::BUFF_TYPE& type);
-	//有効ばなバフを取得
+	//有効なバフを取得
 	Buff* GetValidBuff(void);
 
 };

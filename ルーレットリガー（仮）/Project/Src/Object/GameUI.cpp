@@ -21,7 +21,7 @@ void GameUI::Init(void)
 
 
 	//フォントの変更
-	fontHandle_ = CreateFontToHandle("ＭＳ 明朝", 30, 20, -1);
+	fontHandle_ = CreateFontToHandle("ＭＳ 明朝", 20, 20, -1);
 
 	//コメント窓
 	commentWindowImg_ = LoadGraph("./Data/Image/UI/コメントフレーム.png");
@@ -73,17 +73,24 @@ void GameUI::DrawActivSkill(void)
 	//枠
 	auto diff = 5;
 	DrawBox(
-		cmdPos_.x - diff, cmdPos_.y - diff,
-		cmdPos_.x + sizeX + diff, cmdPos_.y + sizeY + diff,
+		cmdPos_.x - diff, 
+		cmdPos_.y - diff,
+		cmdPos_.x + sizeX + diff * 2 + 5, 
+		cmdPos_.y + sizeY + diff * 2 + 5,
 		0xffffff, true);
+	//背景
 	DrawBox(
-		cmdPos_.x, cmdPos_.y,
-		cmdPos_.x + sizeX, cmdPos_.y + sizeY,
+		cmdPos_.x, 
+		cmdPos_.y,
+		cmdPos_.x + sizeX + diff + 5, 
+		cmdPos_.y + sizeY + diff + 5,
 		0x0, true);
 
 	//コマンドネーム
 	auto sDiff = 5;
-	DrawString(cmdPos_.x + sDiff, cmdPos_.y + sDiff, cmdName_.c_str(), 0xffffff);
+	DrawStringToHandle(
+		cmdPos_.x + sDiff, cmdPos_.y + sDiff, 
+		cmdName_.c_str(), 0xffffff, fontHandle_);
 
 
 }

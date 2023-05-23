@@ -80,6 +80,10 @@ bool UnitBase::DecHpProcess(void)
 		//超過している、もしくはHPが現在HPに追いついた時
 		if (progress >= 1.0f || nowHp_ == hp_)
 		{
+			//ダメージ表記を表示する
+			unitUi_->SetDmg(false, 0);
+
+
 			totalTime_ = 0.0f;
 
 			//HP減少：終了
@@ -174,6 +178,9 @@ void UnitBase::Damage(const int& dmg)
 
 	//残り体力
 	TRACE("残り体力:%d\n\n",hp_);
+
+	//ダメージ表記を表示する
+	unitUi_->SetDmg(true, calcDmg);
 
 
 	//死亡判定
