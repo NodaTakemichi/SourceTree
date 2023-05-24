@@ -186,10 +186,9 @@ void GameScene::UpdateRouTime(void)
 
 	//バフ判断
 	//行動ユニット
-	auto actUnit = unitMng_->GetActivUnit();
-	if (actUnit->CheckOwnBuff(Buff::BUFF_TYPE::PALALYSIS))
+	if (unitMng_->GetActivUnit()->CheckOwnBuff(Buff::BUFF_TYPE::PALALYSIS))
 	{
-		TRACE(actUnit->GetUnitName().c_str());
+		TRACE(unitMng_->GetActivUnit()->GetUnitName().c_str());
 		TRACE("はマヒしている\n\n");
 
 		//麻痺状態の場合、ターンエンドする
@@ -253,9 +252,8 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 		unitMng_->ChangeActivUnit();
 
 		//行動ユニット
-		auto actUnit = unitMng_->GetActivUnit();
 		//ルーレットの停止が手動か自動か判断
-		actUnitAoutm_ = (actUnit->GetUnitType() == UnitBase::UNIT_TYPE::ENEMY);
+		actUnitAoutm_ = (unitMng_->GetActivUnit()->GetUnitType() == UnitBase::UNIT_TYPE::ENEMY);
 
 		//ルーレットにコマンド技をセット
 		roulette_->SetCommand(unitMng_->GetCommand());
@@ -264,7 +262,7 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 
 
 		//現在の行動ユニットのターン文字
-		if (actUnit->GetUnitType() == UnitBase::UNIT_TYPE::ENEMY) {
+		if (unitMng_->GetActivUnit()->GetUnitType() == UnitBase::UNIT_TYPE::ENEMY) {
 			turnString_ = "あいてのターン";
 		}
 		else {

@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 #include <memory>
+#include <random>
 class SceneBase;
 class Fader;
 class ResourceManager;
@@ -41,6 +42,9 @@ public:
 	// デルタタイムの取得
 	float GetDeltaTime(void) const;
 
+	//乱数の取得
+	int GetRand(const int& min, const int& max);
+
 private:
 
 	// 静的インスタンス
@@ -58,6 +62,10 @@ private:
 	// デルタタイム
 	std::chrono::system_clock::time_point mPreTime;
 	float mDeltaTime;
+
+	//乱数生成器
+	std::random_device rd;
+	std::mt19937 gen;
 
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする

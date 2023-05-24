@@ -1,6 +1,6 @@
 #include <math.h>
-#include <random>
 #include <DxLib.h>
+#include "../Manager/SceneManager.h"
 #include "../Manager/InputManager.h"
 #include "../Utility/AsoUtility.h"
 #include "../Object/Unit/UnitBase.h"
@@ -204,18 +204,12 @@ void BattleSystem::SetRandUnit(void)
 	if (target == Command::CMD_TARGET::NONE)return;
 
 	//ランダム値
-	//std::random_device rd;
-	//std::mt19937 mt(rd());
-	//std::uniform_int_distribution<int> dist(0, selectedUnits_.size());
-	//randUnit_ = dist(mt);
-
-	randUnit_ = rand() % selectedUnits_.size();
+	randUnit_ = SceneManager::GetInstance().GetRand(0, selectedUnits_.size() - 1);
 }
 
 bool BattleSystem::FinishedDecHP(void)
 {
 	bool finish = true;
-
 	for (auto& unit : targetUnits_)
 	{
 		//ユニットのHPを徐々に減少させる処理

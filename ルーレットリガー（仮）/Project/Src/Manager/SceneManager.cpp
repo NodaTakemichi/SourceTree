@@ -47,6 +47,10 @@ void SceneManager::Init(void)
 
 	// デルタタイム
 	mPreTime = std::chrono::system_clock::now();
+
+	//乱数生成器の初期化
+	gen = std::mt19937(rd());
+
 }
 
 
@@ -140,7 +144,6 @@ void SceneManager::ChangeScene(SCENE_ID nextId, bool isFading)
 	{
 		DoChangeScene();
 	}
-
 }
 
 SceneManager::SCENE_ID SceneManager::GetmSceneID(void)
@@ -152,6 +155,13 @@ float SceneManager::GetDeltaTime(void) const
 {
 	//return 1.0f / 60.0f;
 	return mDeltaTime;
+}
+
+int SceneManager::GetRand(const int& min, const int& max)
+{
+	//一様分布
+	std::uniform_int_distribution<> dist(min, max);
+	return	dist(gen);
 }
 
 SceneManager::SceneManager(void)

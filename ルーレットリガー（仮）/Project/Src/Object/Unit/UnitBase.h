@@ -124,6 +124,13 @@ protected:
 	//経過時間
 	float totalTime_;
 
+	//画像の揺れ幅
+	float shakeX_;
+	//振幅度
+	float shakeValue_;
+	//振動による移動値
+	float movePow_;
+
 	//シェーダー関連
 	//頂点情報
 	VERTEX2DSHADER mVertex[4];
@@ -147,13 +154,14 @@ protected:
 	//ユニットデータの取得（xmlデータの読み込み）
 	std::string LoadData(std::string fileName);
 
-
 	//シェーダ―によるユニット描画
 	void DrawUnitShader(const int& shader ,const float& revers);
 
 
 private:
 
+	//ユニットの画像の振動
+	void UnitImgShake(void);
 
 	//コマンドの生成
 	void CreateCommand(Command::Par* par);

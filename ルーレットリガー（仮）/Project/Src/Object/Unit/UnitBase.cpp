@@ -1,5 +1,6 @@
 #include <algorithm>
 #include "../../Manager/SceneManager.h"
+#include "../../Utility/AsoUtility.h"
 
 #include "../../Common/GetAttr.h"
 #include "./UI/UnitUI.h"
@@ -37,10 +38,19 @@ void UnitBase::Init(void)
 
 	//合計時間
 	totalTime_ = 0.0f;
+
+	//揺れ幅
+	shakeX_ = 0.0f;
+	shakeValue_ = 0.0f;
+	movePow_ = 0.0f;
+
 }
 
 void UnitBase::Update(void)
 {
+
+
+
 }
 
 void UnitBase::Draw(void)
@@ -64,10 +74,10 @@ void UnitBase::Release(void)
 
 bool UnitBase::DecHpProcess(void)
 {
-	//HP変化がある時、減少HPが０以上の時のみ
+	//HP変化がある時、現在HPが０以上の時のみ
 	if (nowHp_ != hp_ && nowHp_ >= 0)
 	{
-		auto changeTime = 0.6f;		//完了時間
+		auto changeTime = 0.8f;		//完了時間
 
 		//経過時間
 		totalTime_ += SceneManager::GetInstance().GetDeltaTime();
@@ -82,7 +92,6 @@ bool UnitBase::DecHpProcess(void)
 		{
 			//ダメージ表記を表示する
 			unitUi_->SetDmg(false, 0);
-
 
 			totalTime_ = 0.0f;
 
@@ -168,9 +177,14 @@ void UnitBase::Damage(const int& dmg)
 	auto calcDmg = CalcBuffStatus(
 		dmg, Buff::BUFF_TYPE::D_DOWN, Buff::BUFF_TYPE::D_UP);
 
+	//ダメージの乱数計算
+	float randNum = static_cast<float>(
+		SceneManager::GetInstance().GetRand(90, 100)) / 100.0f;
+	calcDmg = AsoUtility::Round(static_cast<float>(calcDmg) * randNum);
+
 	TRACE("被ダメ値：%d\n", calcDmg);
 
-	//直前HPの記憶
+	//直前HPの保持
 	beforHp_ = hp_;
 
 	//ダメージ計算
@@ -181,6 +195,9 @@ void UnitBase::Damage(const int& dmg)
 
 	//ダメージ表記を表示する
 	unitUi_->SetDmg(true, calcDmg);
+
+	//画像の揺れ幅の決定
+	shakeValue_ = 20.0f;
 
 
 	//死亡判定
@@ -351,6 +368,36 @@ void UnitBase::DrawUnitShader(const int& shader, const float& revers)
 	DrawPolygonIndexed2DToShader(mVertex, 4, mIndex, 2);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
+
+}
+
+void UnitBase::UnitImgShake(void)
+{
+	//画像の振動
+	shakeX_ += movePow_;
+
+	// 値が最大値または最小値を超えた場合、反転させる
+	if ((shakeValue_ * -1) >= shakeX_ || shakeValue_ <= shakeX_)
+	{
+		//反転
+		movePow_ *= -1;
+	}
+
+	//振幅値を徐々に減少させる
+	shakeX_ -= totalTime_;
+
+	//振動を終了させる
+	if (shakeValue_ <= 1.0f)
+	{
+		shakeX_ = 0.0f;
+		return;
+	}
+
+
+	//往復
+	//徐々に減少；shakeValueを減少させる
+	// 終了		：	・・	が一定値を下回れば、shakeXを0する
+	//
 
 }
 

@@ -15,8 +15,9 @@ UnitUI::~UnitUI()
 
 void UnitUI::Init(void)
 {
-	//名前枠の登録
+	//名前枠,ターゲット画像の登録
 	nameFrameImg_ = LoadGraph("./Data/Image/UI/NameFrame.png");
+	targetImg_ = LoadGraph("./Data/Image/UI/target.png");
 
 	//シェーダーの登録
 	//psHpColor_ = LoadPixelShader("./Data/Shader/HpShader.cso");
@@ -39,7 +40,7 @@ void UnitUI::Init(void)
 	//ダメージフレーム画像
 	dmgFrameImg_= LoadGraph("./Data/Image/UI/DmgNum.png");
 	//ダメージフォント
-	dmgFontHandle_= CreateFontToHandle("零フォント", 20, 20, -1);
+	dmgFontHandle_= CreateFontToHandle("零ゴシック", 40, 20, -1);
 	//ダメージ描画
 	dmgNumDrawing_ = false;	//ダメージを true:表示 , false:非表示
 
@@ -50,11 +51,12 @@ void UnitUI::Draw(void)
 	//ダメージ数値の表示
 	if (dmgNumDrawing_)
 	{
-		DrawGraph(unitPos_.x, unitPos_.y, dmgFrameImg_, true);
+		DrawGraph(unitPos_.x - 50, unitPos_.y, dmgFrameImg_, true);
 		//数値
 		DrawFormatStringToHandle(
-			unitPos_.x, unitPos_.y,
-			0xffaaaa, dmgFontHandle_,
+			unitPos_.x ,
+			unitPos_.y + 25,
+			0xff0000, dmgFontHandle_,
 			"%d", dmg_);
 	}
 }

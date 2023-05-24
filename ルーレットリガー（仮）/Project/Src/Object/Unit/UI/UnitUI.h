@@ -46,6 +46,8 @@ protected:
 
 	//ネームフレーム画像
 	int nameFrameImg_;
+	//ターゲット画像
+	int targetImg_;
 
 
 

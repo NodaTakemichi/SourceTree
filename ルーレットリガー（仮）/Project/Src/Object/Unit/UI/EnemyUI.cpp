@@ -56,6 +56,9 @@ void EnemyUI::Draw(void)
 	COLOR_F color = { 0.8f,0.4f,0.4f,1.0f };
 	DrawHpShader(ratio, color);
 
+	//描画
+	UnitUI::Draw();
+
 }
 
 void EnemyUI::DrawActUnit(void)
@@ -70,7 +73,6 @@ void EnemyUI::DrawRockOn(void)
 {
 	//ユニットのサイズ
 	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
-	Vector2 pos = { unitPos_.x - 20,unitPos_.y + unitSize / 2 + 20 };
-	DrawCircle(pos.x, pos.y, 12, 0x8888ff, true);
-
+	Vector2 pos = { unitPos_.x - 100,unitPos_.y + unitSize / 4 };
+	DrawGraph(pos.x, pos.y, targetImg_, true);
 }
