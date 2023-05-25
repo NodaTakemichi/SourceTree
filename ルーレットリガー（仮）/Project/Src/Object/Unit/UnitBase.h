@@ -133,8 +133,8 @@ protected:
 
 	//シェーダー関連
 	//頂点情報
-	VERTEX2DSHADER mVertex[4];
-	WORD mIndex[6];
+	VERTEX2DSHADER vertex_[4];
+	WORD index_[6];
 	
 	//現在のシェーダーハンドル
 	int nowPs_;
@@ -161,7 +161,7 @@ protected:
 private:
 
 	//ユニットの画像の振動
-	void UnitImgShake(void);
+	void UnitImgShake(const float& leap);
 
 	//コマンドの生成
 	void CreateCommand(Command::Par* par);

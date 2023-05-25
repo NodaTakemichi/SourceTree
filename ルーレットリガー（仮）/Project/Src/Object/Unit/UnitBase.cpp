@@ -42,7 +42,7 @@ void UnitBase::Init(void)
 	//揺れ幅
 	shakeX_ = 0.0f;
 	shakeValue_ = 0.0f;
-	movePow_ = 0.0f;
+	movePow_ = 15.0f;
 
 }
 
@@ -87,13 +87,17 @@ bool UnitBase::DecHpProcess(void)
 		//ダメージ後とダメージ前の線形補間を行う
 		nowHp_ = AsoUtility::Lerp(beforHp_, hp_, progress);
 
+		//画像を揺らす
+		if (hp_ < nowHp_)UnitImgShake(progress);
+
 		//超過している、もしくはHPが現在HPに追いついた時
 		if (progress >= 1.0f || nowHp_ == hp_)
 		{
 			//ダメージ表記を表示する
 			unitUi_->SetDmg(false, 0);
-
+			
 			totalTime_ = 0.0f;
+			shakeX_ = 0.0f;
 
 			//HP減少：終了
 			return true;
@@ -197,7 +201,7 @@ void UnitBase::Damage(const int& dmg)
 	unitUi_->SetDmg(true, calcDmg);
 
 	//画像の揺れ幅の決定
-	shakeValue_ = 20.0f;
+	shakeValue_ = 100.0f;
 
 
 	//死亡判定
@@ -356,6 +360,9 @@ void UnitBase::DrawUnitShader(const int& shader, const float& revers)
 		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
 	cbBuf->r = revers;
 
+	//描画座標
+	Vector2 shakePos = { pos_.x + static_cast<int>(shakeX_),pos_.y };
+	MakeSquereVertex(shakePos);
 
 	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
 	UpdateShaderConstantBuffer(cBuf);
@@ -365,39 +372,33 @@ void UnitBase::DrawUnitShader(const int& shader, const float& revers)
 
 	//描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
-	DrawPolygonIndexed2DToShader(mVertex, 4, mIndex, 2);
+	DrawPolygonIndexed2DToShader(vertex_, 4, index_, 2);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 
 }
 
-void UnitBase::UnitImgShake(void)
+void UnitBase::UnitImgShake(const float& leap)
 {
+
 	//画像の振動
 	shakeX_ += movePow_;
 
+
 	// 値が最大値または最小値を超えた場合、反転させる
-	if ((shakeValue_ * -1) >= shakeX_ || shakeValue_ <= shakeX_)
+	if (shakeValue_ <= shakeX_ || (shakeValue_ * -1) >= shakeX_)
 	{
 		//反転
 		movePow_ *= -1;
+
+		//振幅値を減少させる
+		shakeValue_ *= (1.0f - leap);
+
+
+		shakeX_ = movePow_;
+
 	}
 
-	//振幅値を徐々に減少させる
-	shakeX_ -= totalTime_;
-
-	//振動を終了させる
-	if (shakeValue_ <= 1.0f)
-	{
-		shakeX_ = 0.0f;
-		return;
-	}
-
-
-	//往復
-	//徐々に減少；shakeValueを減少させる
-	// 終了		：	・・	が一定値を下回れば、shakeXを0する
-	//
 
 }
 
@@ -482,65 +483,45 @@ void UnitBase::MakeSquereVertex(Vector2 pos)
 	// ４頂点の初期化
 	for (int i = 0; i < 4; i++)
 	{
-		mVertex[i].rhw = 1.0f;
-		mVertex[i].dif = GetColorU8(255, 255, 255, 255);
-		mVertex[i].spc = GetColorU8(255, 255, 255, 255);
-		mVertex[i].su = 0.0f;
-		mVertex[i].sv = 0.0f;
+		vertex_[i].rhw = 1.0f;
+		vertex_[i].dif = GetColorU8(255, 255, 255, 255);
+		vertex_[i].spc = GetColorU8(255, 255, 255, 255);
+		vertex_[i].su = 0.0f;
+		vertex_[i].sv = 0.0f;
 	}
 
 	// 左上
-	mVertex[cnt].pos = VGet(sX, sY, 0.0f);
-	mVertex[cnt].u = 0.0f;
-	mVertex[cnt].v = 0.0f;
+	vertex_[cnt].pos = VGet(sX, sY, 0.0f);
+	vertex_[cnt].u = 0.0f;
+	vertex_[cnt].v = 0.0f;
 	cnt++;
 
 	// 右上
-	mVertex[cnt].pos = VGet(eX, sY, 0.0f);
-	mVertex[cnt].u = 1.0f;
-	mVertex[cnt].v = 0.0f;
+	vertex_[cnt].pos = VGet(eX, sY, 0.0f);
+	vertex_[cnt].u = 1.0f;
+	vertex_[cnt].v = 0.0f;
 	cnt++;
 
 	// 右下
-	mVertex[cnt].pos = VGet(eX, eY, 0.0f);
-	mVertex[cnt].u = 1.0f;
-	mVertex[cnt].v = 1.0f;
+	vertex_[cnt].pos = VGet(eX, eY, 0.0f);
+	vertex_[cnt].u = 1.0f;
+	vertex_[cnt].v = 1.0f;
 	cnt++;
 
 	// 左下
-	mVertex[cnt].pos = VGet(sX, eY, 0.0f);
-	mVertex[cnt].u = 0.0f;
-	mVertex[cnt].v = 1.0f;
-
-	/*
-	　～～～～～～
-		0-----1
-		|     |
-		|     |
-		3-----2
-	　～～～～～～
-		0-----1
-		|  ／
-		|／
-		3
-	　～～～～～～
-			  1
-		   ／ |
-		 ／   |
-		3-----2
-	　～～～～～～
-	*/
-
+	vertex_[cnt].pos = VGet(sX, eY, 0.0f);
+	vertex_[cnt].u = 0.0f;
+	vertex_[cnt].v = 1.0f;
 
 	// 頂点インデックス
 	cnt = 0;
-	mIndex[cnt++] = 0;
-	mIndex[cnt++] = 1;
-	mIndex[cnt++] = 3;
+	index_[cnt++] = 0;
+	index_[cnt++] = 1;
+	index_[cnt++] = 3;
 
-	mIndex[cnt++] = 1;
-	mIndex[cnt++] = 2;
-	mIndex[cnt++] = 3;
+	index_[cnt++] = 1;
+	index_[cnt++] = 2;
+	index_[cnt++] = 3;
 
 }
 
