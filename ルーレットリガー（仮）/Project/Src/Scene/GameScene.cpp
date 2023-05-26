@@ -139,7 +139,7 @@ void GameScene::Draw(void)
 		//結果の表示
 		_dbgDrawFormatString(0, 0, 0xffffff, "ゲーム終了");
 		break;
-}
+	}
 
 
 #ifdef DEBUG
@@ -228,9 +228,9 @@ void GameScene::UpdateTurnEnd(void)
 	//全滅か判断
 	//全滅ならばゲーム終了、
 	//そうでない且、必要処理終了後ならルーレットフェーズに進む。
-	if (unitMng_->IsAnniUnit())ChangeGamePhase(GAME_PHASE::GAME_END);
-	else if (next) {
-		ChangeGamePhase(GAME_PHASE::RULLET_TIME);
+	if (next) {
+		if (unitMng_->IsAnniUnit())ChangeGamePhase(GAME_PHASE::GAME_END);
+		else ChangeGamePhase(GAME_PHASE::RULLET_TIME);
 	}
 }
 

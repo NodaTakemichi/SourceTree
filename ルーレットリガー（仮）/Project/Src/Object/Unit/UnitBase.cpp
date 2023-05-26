@@ -29,6 +29,7 @@ void UnitBase::Init(void)
 	//psHpColor_ = LoadPixelShader("./Data/Shader/HpShader.cso");
 	psTex_ = LoadPixelShader("./x64/Debug/Texture.cso");
 	psMonotone_ = LoadPixelShader("./x64/Debug/Monotone.cso");
+	psBayerDithe_ = LoadPixelShader("./x64/Debug/BayerDithe.cso");
 
 	//ピクセルシェーダー用の定数バッファの作成
 	psTexConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 4);
@@ -42,7 +43,7 @@ void UnitBase::Init(void)
 	//揺れ幅
 	shakeX_ = 0.0f;
 	shakeValue_ = 0.0f;
-	movePow_ = 15.0f;
+	movePow_ = 0.0f;
 
 }
 
@@ -70,6 +71,15 @@ void UnitBase::Release(void)
 
 	//画像の解放
 	DeleteGraph(unitImg_);
+
+	//シェーダーの解放
+	DeleteShader(psTex_);
+	DeleteShader(psMonotone_);
+	DeleteShader(psBayerDithe_);
+	//シェーダーの定数バッファの解放
+	DeleteShaderConstantBuffer(psTexConstBuf_);
+	DeleteShaderConstantBuffer(psMonotoneConstBuf_);
+	DeleteShaderConstantBuffer(psBayerDitheConstBuf_);
 }
 
 bool UnitBase::DecHpProcess(void)
@@ -77,7 +87,7 @@ bool UnitBase::DecHpProcess(void)
 	//HP変化がある時、現在HPが０以上の時のみ
 	if (nowHp_ != hp_ && nowHp_ >= 0)
 	{
-		auto changeTime = 0.8f;		//完了時間
+		auto changeTime = 1.0f;		//完了時間
 
 		//経過時間
 		totalTime_ += SceneManager::GetInstance().GetDeltaTime();
@@ -93,20 +103,17 @@ bool UnitBase::DecHpProcess(void)
 		//超過している、もしくはHPが現在HPに追いついた時
 		if (progress >= 1.0f || nowHp_ == hp_)
 		{
-			//ダメージ表記を表示する
+			//ダメージ表記を非表示する
 			unitUi_->SetDmg(false, 0);
-			
+			//経過時間のリセット
 			totalTime_ = 0.0f;
-			shakeX_ = 0.0f;
 
 			//HP減少：終了
 			return true;
 		}
-
 		//HP減少：未終了
 		return false;
 	}
-
 	//HP減少：無し
 	return true;
 }
@@ -201,7 +208,8 @@ void UnitBase::Damage(const int& dmg)
 	unitUi_->SetDmg(true, calcDmg);
 
 	//画像の揺れ幅の決定
-	shakeValue_ = 100.0f;
+	shakeValue_ = 50.0f;
+	movePow_ = 20.0f;
 
 
 	//死亡判定
@@ -354,11 +362,13 @@ void UnitBase::DrawUnitShader(const int& shader, const float& revers)
 	//シェーダー用の定数バッファ
 	auto& cBuf = psTexConstBuf_;
 
+	auto time = SceneManager::GetInstance().GetTotalTime();
 
 	//ピクセルシェーダー用の定数バッファのアドレスを取得
 	COLOR_F* cbBuf =
 		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
 	cbBuf->r = revers;
+	cbBuf->g = time;
 
 	//描画座標
 	Vector2 shakePos = { pos_.x + static_cast<int>(shakeX_),pos_.y };
@@ -380,26 +390,28 @@ void UnitBase::DrawUnitShader(const int& shader, const float& revers)
 
 void UnitBase::UnitImgShake(const float& leap)
 {
+	if (leap >= 0.6f)
+	{
+		shakeX_ = 0.0f;
+		return;
+	}
 
-	//画像の振動
+	//画像座標の振動値加算
 	shakeX_ += movePow_;
-
 
 	// 値が最大値または最小値を超えた場合、反転させる
 	if (shakeValue_ <= shakeX_ || (shakeValue_ * -1) >= shakeX_)
 	{
 		//反転
-		movePow_ *= -1;
+		movePow_ *= -0.8;
 
 		//振幅値を減少させる
 		shakeValue_ *= (1.0f - leap);
 
-
-		shakeX_ = movePow_;
-
+		auto i = 1;
+		if ((shakeValue_ * -1) >= shakeX_)i = -1;
+		shakeX_=shakeValue_* i + movePow_;
 	}
-
-
 }
 
 void UnitBase::CreateCommand(Command::Par* par)

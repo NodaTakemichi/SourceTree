@@ -30,7 +30,7 @@ void PlayerUnit::Init(void)
 
 
 	//UIî•ñ‚Ì‰Šú‰»
-	unitUi_ = new PlayerUI(pos_, name_, nowHp_, maxHp_);
+	unitUi_ = new PlayerUI(pos_, name_, hp_ ,nowHp_, maxHp_);
 	unitUi_->Init();
 
 	//‰Šú‰»

@@ -1,11 +1,12 @@
 #include<DxLib.h>
 #include"../../../_debug/_DebugConOut.h"
+#include"../../../Manager/SceneManager.h"
 
 #include "UnitUI.h"
 
 UnitUI::UnitUI(
-	Vector2 pos, std::string& name,int& nowHp, int& maxHp) :
-	unitPos_(pos), name_(name), nowHp_(nowHp), maxHp_(maxHp)
+	Vector2 pos, std::string& name, int& hp, int& nowHp, int& maxHp) :
+	unitPos_(pos), name_(name), hp_(hp), nowHp_(nowHp), maxHp_(maxHp)
 {
 }
 
@@ -83,13 +84,17 @@ void UnitUI::SetDmg(const bool& drawing, const int& dmg)
 	return;
 }
 
-void UnitUI::DrawHpShader(const float& ratio, const COLOR_F& color)
+void UnitUI::DrawHpShader(const COLOR_F& color)
 {
 	//シェーダーの設定
 	SetUsePixelShader(psHpColor_);
 
 	//シェーダー用の定数バッファ
 	auto& cBuf = psHpColorConstBuf_;
+
+	//HPの割合
+	float nowRatio = static_cast<float>(nowHp_) / static_cast<float>(maxHp_);
+	float hpRatio = static_cast<float>(hp_) / static_cast<float>(maxHp_);
 
 
 	//ピクセルシェーダー用の定数バッファのアドレスを取得
@@ -100,7 +105,9 @@ void UnitUI::DrawHpShader(const float& ratio, const COLOR_F& color)
 	cbBuf->b = color.b;
 	cbBuf->a = color.a;
 	cbBuf++;
-	cbBuf->r = ratio;
+	cbBuf->r = nowRatio;	//減少HP割合
+	cbBuf->g = hpRatio;		//HP割合
+
 
 	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
 	UpdateShaderConstantBuffer(cBuf);

@@ -136,17 +136,32 @@ protected:
 	VERTEX2DSHADER vertex_[4];
 	WORD index_[6];
 	
+
+
+
 	//現在のシェーダーハンドル
 	int nowPs_;
 	//シェーダーハンドル
+	//通常描画
 	int psTex_;
 	int psTexConstBuf_;
 
+	//モノクロ描画
 	int psMonotone_;
 	int psMonotoneConstBuf_;
 
+	//ベイヤーディザ描画
+	int psBayerDithe_;
+	int psBayerDitheConstBuf_;
+
 	//描画用の四角頂点のの作成
 	void MakeSquereVertex(Vector2 pos);
+
+
+
+
+
+
 
 	//表示する座標のセット
 	void SetDrawingPos(int posX);

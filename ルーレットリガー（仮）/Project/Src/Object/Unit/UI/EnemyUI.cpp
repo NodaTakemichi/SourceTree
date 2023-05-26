@@ -1,8 +1,8 @@
 #include "EnemyUI.h"
 
 EnemyUI::EnemyUI(
-	Vector2 pos, std::string& name,int& nowHp, int& maxHp) :
-	UnitUI(pos, name, nowHp, maxHp)
+	Vector2 pos, std::string& name, int& hp, int& nowHp, int& maxHp) :
+	UnitUI(pos, name, hp, nowHp, maxHp)
 {
 }
 
@@ -50,11 +50,9 @@ void EnemyUI::Draw(void)
 		pos.x - HP_GAUGE_X-10, pos.y + HP_GAUGE_Y - 32,
 		0xffffff, "HP\n%d", nowHp_);
 
-	//HPの割合
-	float ratio = static_cast<float>(nowHp_) / static_cast<float>(maxHp_);
 	//HPシェーダー
 	COLOR_F color = { 0.8f,0.4f,0.4f,1.0f };
-	DrawHpShader(ratio, color);
+	DrawHpShader(color);
 
 	//描画
 	UnitUI::Draw();

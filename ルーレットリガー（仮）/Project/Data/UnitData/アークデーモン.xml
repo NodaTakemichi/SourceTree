@@ -13,10 +13,10 @@
 		<Skill name="ペイン" type="ATTACK" target="ENEMY" times="1.5">
 		</Skill>
 		<!--3-->
-		<Skill name="デュアル" type="ATTACK" target="ENEMY" times="1.0">
+		<Skill name="カース" type="ATTACK" target="ENEMY_ALL" times="1.0">
 		</Skill>
 		<!--4-->
-		<Skill name="デュアル" type="ATTACK" target="ENEMY" times="1.0">
+		<Skill name="カース" type="ATTACK" target="ENEMY_ALL" times="1.0">
 		</Skill>
 		<!--5-->
 		<Skill name="バインド" type="BUFF" target="ENEMY" times="0.0"
@@ -27,10 +27,10 @@
 			   buff="PALALYSIS">
 		</Skill>
 		<!--7-->
-		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1,5">
+		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1,2">
 		</Skill>
 		<!--8-->
-		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1.5">
+		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1.2">
 		</Skill>
 	</Cmd>
 

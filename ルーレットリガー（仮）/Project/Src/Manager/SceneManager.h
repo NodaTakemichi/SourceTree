@@ -41,6 +41,8 @@ public:
 
 	// デルタタイムの取得
 	float GetDeltaTime(void) const;
+	//経過時間の取得
+	float GetTotalTime(void) const;
 
 	//乱数の取得
 	int GetRand(const int& min, const int& max);
@@ -62,6 +64,8 @@ private:
 	// デルタタイム
 	std::chrono::system_clock::time_point mPreTime;
 	float mDeltaTime;
+	//経過時間
+	float totalTime_;
 
 	//乱数生成器
 	std::random_device rd;

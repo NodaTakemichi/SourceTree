@@ -6,15 +6,12 @@
 	<Skill name="ミス" type="MISS" target="NONE" times="0.0"/>
 	<!--1-->
 	<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0"/>
-
 	<!--2-->
-
-	
+	<Skill name="こうげき!" type="ATTACK" target="ENEMY" times="1.2"/>
 	<!--3-->
-
-	
+	<Skill name="会心の一撃" type="ATTACK" target="ENEMY" times="1.5"/>
 	<!--4-->
-
+	<Skill name="必殺の一撃" type="ATTACK" target="ENEMY" times="2.0"/>
 	<!--5-->
 
 	<!--6-->
@@ -25,13 +22,13 @@
 	<Skill name="とける" type="HEAL" target="SELF" times="1.0"/>
 	<Skill name="溶かす" type="ATTACK" target="ENEMY" times="1,5"/>
 	<Skill name="硝酸" type="ATTACK" target="ENEMY" times="1.5"/>
-	<Skill name="ドク液" type="BUFF" target="ENEMY" times="1,0" buff="POISON" />
-	<Skill name="マヒ液" type="BUFF" target="ENEMY" times="1.0"  buff="PALALYSIS"/>
+	<Skill name="ドク液" type="BUFF" target="ENEMY"  buff="POISON" />
+	<Skill name="マヒ液" type="BUFF" target="ENEMY"   buff="PALALYSIS"/>
 	<Skill name="溶解液" type="ATTACK" target="ENEMY_ALL" times="1.5"/>
 	
 	<Skill name="怪力" type="ATTACK" target="ENEMY" times="1.5"/>
 	<Skill name="剛力" type="ATTACK" target="ENEMY" times="2.0"/>
-	<Skill name="万力" type="ATTACK" target="ENEMY" times="2.5"/>
+	<Skill name="万力" type="ATTACK" target="ENEMY" times="2.2"/>
 
 	<Skill name="地ならし" type="ATTACK" target="ENEMY_ALL" times="1.2"/>
 	<Skill name="かみつく" type="ATTACK" target="ENEMY" times="1.2"/>
@@ -41,22 +38,24 @@
 	<Skill name="ペイン" type="ATTACK" target="ENEMY" times="1.5"/>
 	<Skill name="デュアル" type="ATTACK" target="ENEMY" times="1.0"/>
 	<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1,5"/>
-	<Skill name="バインド" type="BUFF" target="ENEMY" times="0.0" buff="PALALYSIS"/>
+	<Skill name="バインド" type="BUFF" target="ENEMY"  buff="PALALYSIS"/>
 
-	<Skill name="ささやき" type="BUFF" target="ENEMY" times="1.0" buff="P_DOWN"/>
-	<Skill name="あまいささやき" type="BUFF" target="PLAYER" times="1.0" buff="P_UP" />
-	<Skill name="ゆうわく" type="BUFF" target="ENEMY" times="1.0" buff="D_DOWN" />
-	<Skill name="あざむく" type="BUFF" target="SELF" times="1.0" buff="AVOIDANCE" />
+	<Skill name="ささやき" type="BUFF" target="ENEMY"  buff="P_DOWN"/>
+	<Skill name="あまいささやき" type="BUFF" target="PLAYER"  buff="P_UP" />
+	<Skill name="ゆうわく" type="BUFF" target="ENEMY"  buff="D_DOWN" />
+	<Skill name="あざむく" type="BUFF" target="SELF"  buff="AVOIDANCE" />
 
 	<Skill name="こごえるいき" type="ATTACK" target="ENEMY_ALL" times="1.5"/>
 	<Skill name="ブリザード" type="ATTACK" target="ENEMY_ALL" times="2.0"/>
-	<Skill name="いあつ" type="BUFF" target="ENEMY" times="1.0" buff="PALALYSIS"/>
+	<Skill name="いあつ" type="BUFF" target="ENEMY"  buff="PALALYSIS"/>
 
 	<Skill name="いやす" type="HEAL" target="PLAYER" times="1.0"/>
 	<Skill name="ヒール" type="HEAL" target="PLAYER" times="1.5"/>
 	<Skill name="キュアシャワー" type="HEAL" target="PLAYER_ALL" times="1.0"/>
-	
-	
+
+	<Skill name="かげがうすい" type="BUFF" target="SELF" buff="AVOIDANCE"/>
+	<Skill name="とりつく" type="BUFF" target="ENEMY"  buff="A_DOWN"/>
+	<Skill name="たたる" type="ATTACK" target="ENEMY"  buff="D_DOWN"/>
 	
 	
 </Cmd>

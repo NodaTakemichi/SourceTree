@@ -13,7 +13,8 @@
 		<Skill name="ブリザード" type="ATTACK" target="ENEMY_ALL" times="2.0">
 		</Skill>
 		<!--3-->
-		<Skill name="ブリザード" type="ATTACK" target="ENEMY_ALL" times="2.0">
+		<Skill name="いあつ" type="BUFF" target="ENEMY" times="1.0"
+			buff="PALALYSIS">
 		</Skill>
 		<!--4-->
 		<Skill name="こごえるいき" type="ATTACK" target="ENEMY_ALL" times="1.5">
@@ -25,8 +26,8 @@
 		<Skill name="かみつく" type="ATTACK" target="ENEMY" times="1.2">
 		</Skill>
 		<!--7-->
-		<Skill name="いあつ" type="BUFF" target="ENEMY" times="1.0"
-			buff="PALALYSIS">
+
+		<Skill name="ブリザード" type="ATTACK" target="ENEMY_ALL" times="2.0">
 		</Skill>
 		<!--8-->
 		<Skill name="かみつく" type="ATTACK" target="ENEMY" times="1.2">

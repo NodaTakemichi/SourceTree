@@ -13,7 +13,8 @@ struct PS_INPUT
 cbuffer cbParam : register(b3)
 {
 	float4 g_color;
-	float g_ratio;
+	float g_nowRatio;
+	float g_hpRatio;
 }
 
 float4 main(PS_INPUT PSInput) : SV_TARGET
@@ -21,17 +22,35 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	//UV座標を受け取る
 	float2 uv = PSInput.TexCoords0;
 
-	float4 color;
-	if (uv.y >= 1.0f - g_ratio)
+
+	float4 color= float4(0.0f, 0.0f, 0.0f, 1.0f);
+	float x = 1 - abs(uv.x - 0.5);
+
+
+	float gBack = g_hpRatio;
+	float gFront = g_nowRatio;
+	float rate = 1.5f;
+	if (g_nowRatio > g_hpRatio)
 	{
-		float x = 1 - abs(uv.x - 0.5) + 0.1;
+		gBack = g_nowRatio;
+		gFront = g_hpRatio;
+		rate = 0.7f;
+	}
+	
+	if (uv.y >= 1.0f - gBack)			//HPゲージ(奥)
+	{
 		color = float4(x, x, x, 1.0f);
+		color.rgb *= rate;
+
+		if (uv.y >= 1.0f - gFront)		//HPゲージ（手前）
+		{
+			color = float4(x, x, x, 1.0f);
+		}
 	}
-	else
-	{
-		color = float4(0.0f, 0.0f, 0.0f, 1.0f);
-	}
+
+
+
+
 
 	return color *= g_color;
-
 }

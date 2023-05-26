@@ -50,13 +50,6 @@ public:
 	void SetAlive(bool alive) { isAlive_ = alive; }	//生死状態をセットする
 
 
-	//状態異常
-	void AbnormalStatus(void);
-	//ステータス変化
-	void ChangeParameter(void);
-
-
-
 private:
 	//所有判定
 	bool isAlive_;

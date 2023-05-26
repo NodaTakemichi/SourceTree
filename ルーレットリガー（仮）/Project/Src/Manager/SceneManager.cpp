@@ -47,6 +47,7 @@ void SceneManager::Init(void)
 
 	// デルタタイム
 	mPreTime = std::chrono::system_clock::now();
+	totalTime_ = 0.0f;
 
 	//乱数生成器の初期化
 	gen = std::mt19937(rd());
@@ -67,7 +68,7 @@ void SceneManager::Update(void)
 	mDeltaTime = static_cast<float>(
 		std::chrono::duration_cast<std::chrono::nanoseconds>(nowTime - mPreTime).count() / 1000000000.0);
 	mPreTime = nowTime;
-
+	totalTime_ += mDeltaTime;
 
 	//修正
 	mFader->Update();
@@ -155,6 +156,11 @@ float SceneManager::GetDeltaTime(void) const
 {
 	//return 1.0f / 60.0f;
 	return mDeltaTime;
+}
+
+float SceneManager::GetTotalTime(void) const
+{
+	return totalTime_;
 }
 
 int SceneManager::GetRand(const int& min, const int& max)

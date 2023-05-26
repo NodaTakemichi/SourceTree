@@ -13,7 +13,7 @@ public:
 	const int  HP_GAUGE_Y = 120;
 
 
-	UnitUI(Vector2 pos, std::string& name,int& nowHp, int& maxHp);
+	UnitUI(Vector2 pos, std::string& name,int& hp,int& nowHp, int& maxHp);
 	virtual ~UnitUI();
 
 
@@ -41,6 +41,7 @@ protected:
 	//ユニットネーム
 	std::string& name_;
 	//最大HP,減少中HP
+	int& hp_;
 	int& maxHp_;
 	int& nowHp_;
 
@@ -48,8 +49,6 @@ protected:
 	int nameFrameImg_;
 	//ターゲット画像
 	int targetImg_;
-
-
 
 	//ダメージフレーム画像
 	int dmgFrameImg_;
@@ -75,7 +74,7 @@ protected:
 	void MakeSquereVertex(Vector2 pos);
 
 	//HPのシェーダー描画
-	void DrawHpShader(const float& ratio, const COLOR_F& color);
+	void DrawHpShader(const COLOR_F& color);
 
 	//HP枠の描画
 	void DrawHpFrame(const Vector2& pos);
