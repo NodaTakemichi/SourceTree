@@ -39,7 +39,7 @@ void UnitUI::Init(void)
 	icon_[9] = LoadGraph("./Data/Image/Icon/D_DOWN.png");
 
 	//ダメージフレーム画像
-	dmgFrameImg_= LoadGraph("./Data/Image/UI/DmgNum.png");
+	dmgFrameImg_= LoadGraph("./Data/Image/UI/DmgNum2.png");
 	//ダメージフォント
 	dmgFontHandle_= CreateFontToHandle("零ゴシック", 40, 20, -1);
 	//ダメージ描画

@@ -19,12 +19,10 @@
 		<Skill name="カース" type="ATTACK" target="ENEMY_ALL" times="1.0">
 		</Skill>
 		<!--5-->
-		<Skill name="バインド" type="BUFF" target="ENEMY" times="0.0"
-			   buff="PALALYSIS">
+		<Skill name="バインド" type="BUFF" target="ENEMY" buff="PALALYSIS">
 		</Skill>
 		<!--6-->
-		<Skill name="バインド" type="BUFF" target="ENEMY" times="0.0"
-			   buff="PALALYSIS">
+		<Skill name="バインド" type="BUFF" target="ENEMY" buff="PALALYSIS">
 		</Skill>
 		<!--7-->
 		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1,2">

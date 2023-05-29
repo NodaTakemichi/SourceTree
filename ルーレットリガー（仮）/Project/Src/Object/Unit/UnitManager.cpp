@@ -109,7 +109,7 @@ void UnitManager::CreateUnit(void)
 		eUnit->Init();
 		units_.push_back(eUnit);
 
-		eUnit = new EnemyUnit("./Data/UnitData/ゴーレム.xml", 2);
+		eUnit = new EnemyUnit("./Data/UnitData/フェアリースネイク.xml", 2);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
