@@ -96,5 +96,6 @@
     </FxCompile>
     <FxCompile Include="Shader\StatusDown.hlsl" />
     <FxCompile Include="Shader\Poison.hlsl" />
+    <FxCompile Include="Shader\Paralysis.hlsl" />
   </ItemGroup>
 </Project>

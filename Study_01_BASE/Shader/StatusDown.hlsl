@@ -62,5 +62,5 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	float3 result = c + (dec * 0.4f);
 
 
-	return float4(result.r, result.g, result.b, srcCol.a);
+	return float4(result, srcCol.a);
 }

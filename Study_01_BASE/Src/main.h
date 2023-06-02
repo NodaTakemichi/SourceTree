@@ -107,6 +107,9 @@ int psStatusDownConstBuf;
 int psPoison;
 int psPoisonConstBuf;
 
+int psParalysis;
+int psParalysisConstBuf;
+
 void Init(void);
 void Release(void);
 void Run(void);
@@ -144,4 +147,5 @@ void DrawNormalMap(void);
 void DrawStatusUp(void);
 void DrawStatusDown(void);
 void DrawPoison(void);
+void DrawParalysis(void);
 
