@@ -1,0 +1,17 @@
+﻿  Geometry.cpp
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\Geometry.cpp(8,55): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\Geometry.cpp(8,43): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\Geometry.cpp(8,32): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\Geometry.cpp(8,23): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\Geometry.cpp(13,99): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\Geometry.cpp(13,76): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\Geometry.cpp(13,54): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\Geometry.cpp(13,34): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  main.cpp
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\main.cpp(256,61): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\main.cpp(256,23): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\main.cpp(270,17): warning C4244: '+=': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\main.cpp(271,17): warning C4244: '+=': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\RayTracing\main.cpp(272,17): warning C4244: '+=': 'float' から 'int' への変換です。データが失われる可能性があります。
+  コードを生成中...
+  RayTracing.vcxproj -> C:\Users\setta\Desktop\学校用\2年授業\数学\二年授業\RayTracing\x64\Debug\RayTracing.exe

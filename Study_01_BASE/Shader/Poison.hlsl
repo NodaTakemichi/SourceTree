@@ -81,6 +81,6 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	//Œ‹‰Ê
 	float3 result = srcCol.rgb + (disCol * pro);
 
-	return float4 (disCol, srcCol.a) + circle;
+	//return float4 (disCol, srcCol.a) + circle;
 	return circle;
 }
