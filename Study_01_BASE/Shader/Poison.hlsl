@@ -14,6 +14,7 @@ struct PS_INPUT
 cbuffer cbParam : register(b3)
 {
 	float g_time;
+	float g_par;
 }
 
 //描画するテクスチャ
@@ -31,56 +32,53 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	float4 srcCol =
 		g_SrcTexture.Sample(g_SrcSampler, uv);
 
-	//進行度
-	float circlePro = 1.0f - (cos(g_time * 2.0f) + 1.0f) / 2.0f;
+	//テクスチャ画像
+	//画像色の進行度
+	float pro = 1.0f - (cos(g_time * 2.0f) + 1.0f) * 0.5f;
+	//紫色（毒)
+	float3 poi = float3(0.54f, 0.168f, 1.0f) ;
+	//色の線形補間
+	float3 disCol = lerp(srcCol.rgb, poi.rgb, min(pro * 2.5f, 2.0f));
+	//float3 disCol = poi.rgb - srcCol.rgb;
+
 
 	//玉模様
-	float2 pos = float2(0.5f, 0.8f);
+	//進行度
+	float circlePro = 1.0f - (cos(g_time * 2.0f) + 1.0f) / 2.0f;
+	//座標
+	float2 pos = float2(0.2f, 0.9f);
+
 	//初期半径
 	float initRadius = 0.0f;
 	//成長率
-	float grow = 0.15f;
+	float grow = 0.12f;
 	//上昇速度
-	float upSpeed = 0.1f;
+	float upSpeed = 0.05f;
 
 	// 上昇
 	float yOffset = upSpeed * g_time;
 	pos.y -= yOffset;
-	
+
 
 	//座標差
 	float2 disPos = uv - pos;
 	float radius = initRadius + grow * circlePro;
-	//玉の最終的な色を決定
+	//円の最終的な色を決定
 	float alpha = saturate(1.0f - length(disPos) / radius);
 	float4 circle = float4(0.64f, 0.218f, 1.0f, alpha * 8.0f);
 
 
 	//光線と座標位置のベクトル計算
-	float2 light = float2(0.0f, 1.0f);
+	float2 light = float2(0.0f, -1.0f);
 	//float2 shadowVec = normalize(disPos);
 	//内積
 	float d = dot(disPos, light);
 	//半径から距離が、遠
 	float len = radius * (0.7f + d);
-	if (length(disPos) >= len)
-	{
-		circle.rg -= float2(0.25f, 0.1f);
-	}
+	circle.rg -= length(disPos) >= len ? float2(0.25f, 0.1f) : 0.0f;
+
+	disCol.rgb = circle.a > 0.0f ? circle.rgb : disCol.rgb;
 
 
-	//画像色の進行度
-	float pro = min(sin(g_time * 2.0f) - 1.0f / 2.0f, 0.6f);
-	//紫色（毒)
-	float3 poi = float3(0.54f, 0.168f, 1.0f);
-	//画像との差分
-	float3 disCol = lerp(poi.rgb, srcCol.rgb, pro);
-	//float3 disCol = poi.rgb - srcCol.rgb;
-
-
-	//結果
-	float3 result = srcCol.rgb + (disCol * pro);
-
-	//return float4 (disCol, srcCol.a) + circle;
-	return circle;
+	return float4 (disCol, max(srcCol.a, circle.a));
 }

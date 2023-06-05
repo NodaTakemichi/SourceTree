@@ -35,6 +35,7 @@ int texWhite;
 int texCircle;		//ロードサークル
 int texCircleMask;	//ロードサークルシェーダ―
 
+
 // シェーダーハンドル
 int psSimpleColor;
 

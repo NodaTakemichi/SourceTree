@@ -1452,10 +1452,15 @@ void DrawPoison(void)
 	////シェーダーにテクスチャを転送
 	SetUseTextureToShader(0, texDragon);
 
+	//完了時間
+	float fTime = 3.0f;
+	fTime -= mTotalTime;
+
 	//ピクセルシェーダー用の定数バッファのアドレスを取得
 	COLOR_F* cbBuf =
 		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
 	cbBuf->r = mTotalTime;
+	cbBuf->g = mTotalTime/fTime;
 
 
 	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
