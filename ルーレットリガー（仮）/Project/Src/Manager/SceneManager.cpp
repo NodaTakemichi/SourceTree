@@ -65,10 +65,10 @@ void SceneManager::Update(void)
 
 	// デルタタイム
 	auto nowTime = std::chrono::system_clock::now();
-	mDeltaTime = static_cast<float>(
+	deltaTime_ = static_cast<float>(
 		std::chrono::duration_cast<std::chrono::nanoseconds>(nowTime - mPreTime).count() / 1000000000.0);
 	mPreTime = nowTime;
-	totalTime_ += mDeltaTime;
+	totalTime_ += deltaTime_;
 
 	//修正
 	mFader->Update();
@@ -155,7 +155,7 @@ SceneManager::SCENE_ID SceneManager::GetmSceneID(void)
 float SceneManager::GetDeltaTime(void) const
 {
 	//return 1.0f / 60.0f;
-	return mDeltaTime;
+	return deltaTime_;
 }
 
 float SceneManager::GetTotalTime(void) const
@@ -182,7 +182,8 @@ SceneManager::SceneManager(void)
 	mIsSceneChanging = false;
 
 	// デルタタイム
-	mDeltaTime = 1.0f / 60.0f;
+	deltaTime_ = 1.0f / 60.0f;
+	totalTime_ = 0.0f;
 
 }
 
@@ -193,7 +194,7 @@ SceneManager::~SceneManager(void)
 
 void SceneManager::ResetDeltaTime(void)
 {
-	mDeltaTime = 0.016f;
+	deltaTime_ = 0.016f;
 	mPreTime = std::chrono::system_clock::now();
 }
 

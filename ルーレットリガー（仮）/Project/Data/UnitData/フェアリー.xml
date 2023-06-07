@@ -2,7 +2,7 @@
 <Unit name="LeaderSlime" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="フェアリー" source="./Data/Image/Unit/フェアリー.png" 
-		  hp="110" attack="60" speed="15" ></Data>
+		  hp="110" attack="60" speed="45" ></Data>
 
 	<!--ユニットのコマンド-->
 	<Cmd>

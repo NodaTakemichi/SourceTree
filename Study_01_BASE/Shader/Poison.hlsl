@@ -28,40 +28,39 @@ float4 PosCircle(float2 uv,float2 pos, float genTime)
 	//”­¶ŽžŠÔ
 	float gTime = g_time - genTime;
 
+	//is“x‚Å”»’f‚·‚é
+	//‰~‚Ì”¼Œa‚ÍsinŠÖ”‚Å‹‚ß‚é
+	float per = gTime * 0.5f;	
+	//1ˆÈã‚É‚È‚ç‚È‚¢
+	if (per >= 1.0f || 0.0f >= per)
+	{
+		return float4(0.0f, 0.0f, 0.0f, 0.0f);
+	}
+
 
 	//is“x
-	//float circlePro = 1.0f - (cos(gTime * 3.0f) + 1.0f) / 2.0f;
-	float circlePro = 1.0f - (cos(gTime) + 1.0f) / 2.0f;
+	//float circlePro = 1.0f - (cos(gTime) + 1.0f) / 2.0f;
 	//‰Šú”¼Œa
 	float initRadius = 0.0f;
 	//¬’·—¦
-	float grow = 0.12f;
+	float grow = 0.4f;
 	//ã¸‘¬“x
-	float upSpeed = 0.1f;
+	float upSpeed = 0.2f;
 
 	// ã¸
-	pos.y -= upSpeed * gTime;
-
-	//’âŽ~‚·‚éŽw•W
-	// E”¼Œa
-	// EŽžŠÔ
-	// EŠ„‡H
-	//
-
-	//if (gTime >= 1.0f)
-	//{
-	//	return float4(0.0f, 0.0f, 0.0f, 0.0f);
-	//}
-
+	pos.y -= gTime > 0.0f ? upSpeed * gTime : 0.0f;
 
 	//À•W·
 	float2 disPos = uv - pos;
 	//‰~‚Ì”¼Œa
-	float radius = initRadius + grow * saturate(circlePro);
+	float circlePer = sin(per*3.0f)/3.0f;
+
+
+	float radius = initRadius + grow * circlePer;	//”½“]
 	//‰~‚Ì”ÍˆÍ“à
 	float alpha = saturate(1.0f - length(disPos) / radius);
 	//‰~‚ÌÅI“I‚ÈF‚ðŒˆ’è
-	float4 circle = float4(0.64f, 0.218f, 1.0f, alpha * 0.8f);
+	float4 circle = float4(0.64f, 0.218f, 1.0f, alpha * 1.9f);
 
 
 	//Œõü‚ÆÀ•WˆÊ’u‚ÌƒxƒNƒgƒ‹ŒvŽZ
@@ -98,7 +97,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 
 	//‹Ê–Í—l
 	//À•W
-	float2 pos = float2(0.8f, 0.8f);
+	float2 pos = float2(0.8f, 0.5f);
 	//”­¶ŽžŠÔ
 	float genTime = 0.0f;
 
@@ -112,17 +111,17 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 
 	//2
 	pos = float2(0.3f, 0.8f);
-	c = PosCircle(uv, pos, 0.4f);
-	circle = c .a > 0.0f ? c : circle;
+	c = PosCircle(uv, pos, 0.8f);
+	circle = c .a > circle.a ? c : circle;
 
 	//3
-	pos = float2(0.2f, 0.6f);
-	c = PosCircle(uv, pos, 0.9f);
-	circle = c.a > 0.0f ? c : circle;
+	pos = float2(0.6f, 0.6f);
+	c = PosCircle(uv, pos, 1.4f);
+	circle = c.a > circle.a ? c : circle;
 	//4
-	pos = float2(0.6f, 0.7f);
-	c = PosCircle(uv, pos, 1.2f);
-	circle = c.a > 0.0f ? c : circle;
+	pos = float2(0.2f, 0.8f);
+	c = PosCircle(uv, pos, 1.8f);
+	circle = c.a > circle.a ? c : circle;
 
 
 	//Œ‹‰Ê

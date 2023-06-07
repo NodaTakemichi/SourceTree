@@ -285,6 +285,12 @@ void Run(void)
 		// ゲーム起動時間
 		mTotalTime += mDeltaTime;
 
+		//リセット
+		if (CheckHitKey(KEY_INPUT_SPACE))
+		{
+			mTotalTime = 0.0f;
+		}
+
 		// メインへ切替
 		SetDrawScreen(mainScreen);
 
@@ -294,6 +300,9 @@ void Run(void)
 		// 背景色の描画
 		//DrawBox(0, 0, SCREEN_X, SCREEN_Y, 0x0, true);
 		DrawBox(0, 0, SCREEN_X, SCREEN_Y, 0x00aaaa, true);
+
+		//時間のv表示
+		DrawFormatString(0.0f, 0.0f, 0x0, "タイム：%0.2f", mTotalTime);
 
 		// 座標の初期化
 		mPosX = 10;

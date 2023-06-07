@@ -44,6 +44,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	float3 bottomColor = float3(1.0f, 0.9f, 0.0f);
 	float3 c = abs(bottomColor.rgb - topColor.rgb);
 
+	//線を動かす
 	uv.y += frac(g_time * 0.8f);	//スピード
 	float grad = frac(uv.y  * 5.0f);//線：縦数
 	c.rgb *= grad;

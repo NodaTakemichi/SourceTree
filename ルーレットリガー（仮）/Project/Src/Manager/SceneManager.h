@@ -63,7 +63,7 @@ private:
 
 	// デルタタイム
 	std::chrono::system_clock::time_point mPreTime;
-	float mDeltaTime;
+	float deltaTime_;
 	//経過時間
 	float totalTime_;
 

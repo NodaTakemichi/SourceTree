@@ -108,7 +108,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 
 
 	// 雷の色をセット
-	float4 lightning =  float4(s, s, s -1.05f, s);
+	float4 lightning =  float4(s, s, s -1.0f, s);
 
 
 

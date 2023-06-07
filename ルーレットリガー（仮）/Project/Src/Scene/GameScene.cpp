@@ -120,7 +120,6 @@ void GameScene::Draw(void)
 	roulette_->Draw();
 
 	//UI関連
-	GameUi_->Draw();
 	DrawString(580, 40, turnString_.c_str(), 0xffffff);
 
 	//フェーズ別描画
