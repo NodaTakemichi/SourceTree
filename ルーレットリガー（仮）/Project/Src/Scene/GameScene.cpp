@@ -8,6 +8,7 @@
 
 #include "../System/BattleSystem.h"
 
+#include "../Manager/EffectManager.h"
 #include "../Object/Unit/UnitManager.h"
 #include "../Object/Unit/UnitBase.h"
 #include "../Object/Roulette.h"
@@ -46,6 +47,10 @@ void GameScene::Init(void)
 	//バトルシステム
 	battleSys_ = new BattleSystem();
 	battleSys_->Init();
+
+	//エフェクトマネージャー
+	efMng_ = new EffectManager();
+	efMng_->Init();
 
 
 	//画像の登録
@@ -93,6 +98,9 @@ void GameScene::Update(void)
 	case GameScene::GAME_PHASE::AIM:
 		UpdateAIM();
 		break;
+	case GameScene::GAME_PHASE::EFFECT:
+		UpdateEffect();
+		break;
 	case GameScene::GAME_PHASE::BATTLE:
 		UpdateBattle();
 		break;
@@ -129,6 +137,8 @@ void GameScene::Draw(void)
 		break;
 	case GameScene::GAME_PHASE::AIM:
 		GameUi_->DrawActivSkill();
+		break;
+	case GameScene::GAME_PHASE::EFFECT:
 		break;
 	case GameScene::GAME_PHASE::BATTLE:
 		break;
@@ -168,6 +178,8 @@ void GameScene::Release(void)
 	delete GameUi_;
 	battleSys_->Release();
 	delete battleSys_;
+	efMng_->Release();
+	delete efMng_;
 
 	//画像解放
 	DeleteGraph(bgImg_);
@@ -203,11 +215,21 @@ void GameScene::UpdateRouTime(void)
 
 void GameScene::UpdateAIM(void)
 {	
-	//対象を選択したら、バトルフェーズに進む
+	//対象を選択したら、エフェクト再生に進む
 	if (battleSys_->SelectUnit(actUnitAoutm_))
 	{
-		ChangeGamePhase(GAME_PHASE::BATTLE);
+		ChangeGamePhase(GAME_PHASE::EFFECT);
 	}
+}
+
+void GameScene::UpdateEffect(void)
+{
+	//エフェクト再生が終了したかどうか判断
+	bool next = efMng_->FinishEffect();
+
+	//エフェクトアニメーションが終了したら、バトルフェーズに進む
+	if (next)ChangeGamePhase(GAME_PHASE::BATTLE);
+
 }
 
 void GameScene::UpdateBattle(void)
@@ -217,6 +239,7 @@ void GameScene::UpdateBattle(void)
 
 	//バトル（ダメージ減少）が終了したら、ターン終了に進む
 	if (next)ChangeGamePhase(GAME_PHASE::TURN_END);
+
 }
 
 void GameScene::UpdateTurnEnd(void)
@@ -227,9 +250,10 @@ void GameScene::UpdateTurnEnd(void)
 	//全滅か判断
 	//全滅ならばゲーム終了、
 	//そうでない且、必要処理終了後ならルーレットフェーズに進む。
-	if (next) {
+	if (next) 
+	{
 		if (unitMng_->IsAnniUnit())ChangeGamePhase(GAME_PHASE::GAME_END);
-		else ChangeGamePhase(GAME_PHASE::RULLET_TIME);
+		else					   ChangeGamePhase(GAME_PHASE::RULLET_TIME);
 	}
 }
 
@@ -287,6 +311,12 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 
 		//操作が自動の場合、ユニットをランダムに決める
 		if (actUnitAoutm_)battleSys_->SetRandUnit();
+
+		break;
+	}
+	case GameScene::GAME_PHASE::EFFECT: {
+		//エフェクト再生
+		efMng_->PlayEffect(0, { 400,300 });
 
 		break;
 	}

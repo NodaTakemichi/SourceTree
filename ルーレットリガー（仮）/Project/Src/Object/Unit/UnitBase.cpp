@@ -455,7 +455,6 @@ void UnitBase::CreateBuff(const Buff::BUFF_TYPE& type)
 		if (checkBuff(Buff::BUFF_TYPE::D_DOWN, Buff::BUFF_TYPE::D_UP))return;
 		if (checkBuff(Buff::BUFF_TYPE::S_UP, Buff::BUFF_TYPE::S_DOWN))return;
 		if (checkBuff(Buff::BUFF_TYPE::S_DOWN, Buff::BUFF_TYPE::S_UP))return;
-
 	}
 
 	//ÉoÉtÇÃê∂ê¨

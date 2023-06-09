@@ -31,20 +31,17 @@ public:
 	virtual void Draw(void);
 	void Release(void);
 	
-	//ダメージ減少処理
-	bool DecHpProcess(void);
+	
+	bool DecHpProcess(void);	//ダメージ減少処理
+	void TurnEndProcess(void);	//行動終了後の処理
 
-	//行動終了後の処理
-	void TurnEndProcess(void);
+	//バフによるステータスの計算
+	int CalcBuffStatus(const int& status, const Buff::BUFF_TYPE& up, const Buff::BUFF_TYPE& down);
 
 	//スピードの取得関数
 	const int& GetSpeed(void);
 	//攻撃力の取得関数
 	const int& GetAttack(void);
-
-	//バフによるステータスの計算
-	int CalcBuffStatus(const int& status,const Buff::BUFF_TYPE& up, const Buff::BUFF_TYPE& down);
-
 	//ユニットの順番取得関数
 	const int& GetUnitNum(void) { return unitNum_; }
 	//ユニットの名前取得関数
@@ -73,6 +70,9 @@ public:
 
 	bool CheckDead(void);		//死亡判定
 	bool CheckOwnBuff(const Buff::BUFF_TYPE& type);	//指定のバフを所有してるかどうか
+
+	//バフシェーダーを再生する
+	void PlayBuffShader(void);
 
 
 protected:
@@ -112,14 +112,10 @@ protected:
 	Vector2 pos_;
 
 
-	//行動済みかどうかの判断
-	bool isActed_;
-	//生きているかどうかの判断
-	bool isAlive_;
-	//狙われているかどうか
-	bool isTargeted_;
-	//現在、行動状態かどうかの判断
-	bool isAct_;
+	bool isActed_;		//行動済みかどうかの判断
+	bool isAlive_;		//生きているかどうかの判断
+	bool isTargeted_;	//狙われているかどうか
+	bool isAct_;		//現在、行動状態かどうかの判断
 
 	//経過時間
 	float totalTime_;
@@ -154,11 +150,24 @@ protected:
 	int psBayerDithe_;
 	int psBayerDitheConstBuf_;
 
+	//ベイヤーディザ描画
+	int psBayerDithe_;
+	int psBayerDitheConstBuf_;
+
+	//ベイヤーディザ描画
+	int psBayerDithe_;
+	int psBayerDitheConstBuf_;
+
+	//ベイヤーディザ描画
+	int psBayerDithe_;
+	int psBayerDitheConstBuf_;
+
+	//ベイヤーディザ描画
+	int psBayerDithe_;
+	int psBayerDitheConstBuf_;
+
 	//描画用の四角頂点のの作成
 	void MakeSquereVertex(Vector2 pos);
-
-
-
 
 
 

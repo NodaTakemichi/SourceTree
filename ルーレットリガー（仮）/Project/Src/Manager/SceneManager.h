@@ -68,8 +68,8 @@ private:
 	float totalTime_;
 
 	//乱数生成器
-	std::random_device rd;
-	std::mt19937 gen;
+	std::random_device rd_;
+	std::mt19937 gen_;
 
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする

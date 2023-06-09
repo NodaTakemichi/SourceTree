@@ -19,6 +19,8 @@ Vector2::~Vector2(void)
 {
 }
 
+
+
 void Vector2::Add(int v)
 {
 	x += v;

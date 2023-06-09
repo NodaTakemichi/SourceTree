@@ -7,6 +7,7 @@ class Roulette;
 class GameUI;
 
 class BattleSystem;
+class EffectManager;
 
 class GameScene : public SceneBase
 {
@@ -17,6 +18,7 @@ public:
 		BATTLE_START,
 		RULLET_TIME,
 		AIM,
+		EFFECT,
 		BATTLE,
 		TURN_END,
 		GAME_END
@@ -37,6 +39,7 @@ public:
 
 	void UpdateRouTime(void);
 	void UpdateAIM(void);
+	void UpdateEffect(void);
 	void UpdateBattle(void);
 	void UpdateTurnEnd(void);
 
@@ -48,6 +51,8 @@ private:
 	Roulette* roulette_;
 	//UI
 	GameUI* GameUi_;
+	//エフェクトマネージャー
+	EffectManager* efMng_;
 
 	//ゲームフェーズ
 	GAME_PHASE phase_;

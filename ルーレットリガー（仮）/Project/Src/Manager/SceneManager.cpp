@@ -50,7 +50,7 @@ void SceneManager::Init(void)
 	totalTime_ = 0.0f;
 
 	//乱数生成器の初期化
-	gen = std::mt19937(rd());
+	gen_ = std::mt19937(rd_());
 
 }
 
@@ -98,7 +98,7 @@ void SceneManager::Draw(void)
 	DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, 0x55aaaa, true);
 
 	// Effekseerにより再生中のエフェクトを更新する。
-	UpdateEffekseer3D();
+	UpdateEffekseer2D();
 
 
 	// 描画
@@ -116,7 +116,7 @@ void SceneManager::Draw(void)
 	}
 
 	// Effekseerにより再生中のエフェクトを描画する。
-	DrawEffekseer3D();
+	DrawEffekseer2D();
 	
 	mFader->Draw();
 
@@ -167,7 +167,7 @@ int SceneManager::GetRand(const int& min, const int& max)
 {
 	//一様分布
 	std::uniform_int_distribution<> dist(min, max);
-	return	dist(gen);
+	return	dist(gen_);
 }
 
 SceneManager::SceneManager(void)
