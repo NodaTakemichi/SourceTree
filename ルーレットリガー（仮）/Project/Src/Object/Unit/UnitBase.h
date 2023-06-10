@@ -150,22 +150,6 @@ protected:
 	int psBayerDithe_;
 	int psBayerDitheConstBuf_;
 
-	//ベイヤーディザ描画
-	int psBayerDithe_;
-	int psBayerDitheConstBuf_;
-
-	//ベイヤーディザ描画
-	int psBayerDithe_;
-	int psBayerDitheConstBuf_;
-
-	//ベイヤーディザ描画
-	int psBayerDithe_;
-	int psBayerDitheConstBuf_;
-
-	//ベイヤーディザ描画
-	int psBayerDithe_;
-	int psBayerDitheConstBuf_;
-
 	//描画用の四角頂点のの作成
 	void MakeSquereVertex(Vector2 pos);
 

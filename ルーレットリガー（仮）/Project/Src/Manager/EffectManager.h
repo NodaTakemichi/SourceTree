@@ -34,6 +34,7 @@ public:
 private:
 	//使用エフェクトのハンドル
 	int effectHandle_;
+	int effectHandle1_;
 
 	//エフェクト情報
 	std::vector<Effect> ef_;

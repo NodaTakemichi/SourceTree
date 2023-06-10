@@ -13,8 +13,11 @@ EffectManager::~EffectManager()
 
 void EffectManager::Init(void)
 {
-	auto test = "./Data/Effect/0.efkefc";
-	effectHandle_ = LoadEffekseerEffect(test);
+
+	effectHandle_ = LoadEffekseerEffect("./Data/Effect/force.efkefc");
+	effectHandle1_ = LoadEffekseerEffect("./Data/Effect/meteo.efkefc");
+
+
 }
 
 void EffectManager::Release(void)
@@ -43,14 +46,14 @@ void EffectManager::PlayEffect(const int& num, const Vector2& pos)
 	//	effectPlay_, pos.x + ef.offset.x, pos.y + ef.offset.y, 0);
 
 	//再生するエフェクト
-	Effect ef = ef_[num];
+	//Effect ef = ef_[num];
 
 	//エフェクトの再生
 	effectPlay_ = PlayEffekseer2DEffect(effectHandle_);
 
-	////エフェクトの大きさ
-	//SetScalePlayingEffekseer2DEffect(
-	//	effectPlay_, ef.scale, ef.scale, ef.scale);
+	//エフェクトの大きさ
+	SetScalePlayingEffekseer2DEffect(
+		effectPlay_,3,3,3);
 	//エフェクトの位置
 	SetPosPlayingEffekseer2DEffect(
 		effectPlay_, pos.x, pos.y, 0);

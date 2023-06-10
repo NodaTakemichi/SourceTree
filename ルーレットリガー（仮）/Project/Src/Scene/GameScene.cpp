@@ -316,7 +316,7 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 	}
 	case GameScene::GAME_PHASE::EFFECT: {
 		//エフェクト再生
-		efMng_->PlayEffect(0, { 400,300 });
+		efMng_->PlayEffect(0, { 0,0 });
 
 		break;
 	}
