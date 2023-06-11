@@ -2,9 +2,9 @@
 <Data name="Cmd" virsion="1.0">
 
 <!--エフェクト-->
-<!--ナンバー、パス、大きさ、単体or複数、-->
+<!--ナンバー、パス、大きさ、オフセット値、単体or複数、-->
 	<!--1-->
-	<Effect num="1" pass="Data/Effect/.efkefc" scale="1.0" target="1"/>
+	<Effect num="1" pass="Data/Effect/.efkefc" scale="1.0" offsetX="0" offsetY="0" target="1"/>
 
 	<!--2-->
 	<!--3-->

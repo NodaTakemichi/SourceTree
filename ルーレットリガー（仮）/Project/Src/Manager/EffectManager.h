@@ -41,6 +41,7 @@ private:
 
 	//再生エフェクト
 	int effectPlay_;
+	int effectPlay1_;
 
 };
 

@@ -140,6 +140,9 @@ void Application::InitEffekseer(void)
 		DxLib_End();
 	}
 
+	//EffekseerÇ2Dï\é¶ÇÃê›íËÇ…Ç∑ÇÈ
+	Effekseer_Set2DSetting(SCREEN_SIZE_X, SCREEN_SIZE_Y);
+
 	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 
 	Effekseer_SetGraphicsDeviceLostCallbackFunctions();

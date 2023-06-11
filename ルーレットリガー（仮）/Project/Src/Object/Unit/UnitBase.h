@@ -8,6 +8,7 @@
 
 class UnitUI;
 
+
 class UnitBase
 {
 public:
@@ -46,6 +47,8 @@ public:
 	const int& GetUnitNum(void) { return unitNum_; }
 	//ユニットの名前取得関数
 	const std::string& GetUnitName(void) { return name_; }
+	//ユニットの座標取得関数
+	const Vector2& GetUnitPos(void) { return pos_; }
 	//ユニットのタイプ取得関数
 	const UNIT_TYPE& GetUnitType(void) { return type_; }
 	//コマンド取得関数

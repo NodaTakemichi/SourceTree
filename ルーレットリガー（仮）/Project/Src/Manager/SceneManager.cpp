@@ -52,6 +52,7 @@ void SceneManager::Init(void)
 	//乱数生成器の初期化
 	gen_ = std::mt19937(rd_());
 
+
 }
 
 
@@ -70,6 +71,7 @@ void SceneManager::Update(void)
 	mPreTime = nowTime;
 	totalTime_ += deltaTime_;
 
+
 	//修正
 	mFader->Update();
 	if (mIsSceneChanging)
@@ -81,6 +83,8 @@ void SceneManager::Update(void)
 		mScene->Update();
 	}
 
+	// Effekseerにより再生中のエフェクトを更新する。
+	UpdateEffekseer2D();
 
 }
 
@@ -94,11 +98,6 @@ void SceneManager::Draw(void)
 	// 画面を初期化
 	ClearDrawScreen();
 
-	// 背景色の描画
-	DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, 0x55aaaa, true);
-
-	// Effekseerにより再生中のエフェクトを更新する。
-	UpdateEffekseer2D();
 
 
 	// 描画

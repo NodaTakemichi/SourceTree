@@ -14,8 +14,7 @@ EffectManager::~EffectManager()
 void EffectManager::Init(void)
 {
 
-	effectHandle_ = LoadEffekseerEffect("./Data/Effect/force.efkefc");
-	effectHandle1_ = LoadEffekseerEffect("./Data/Effect/meteo.efkefc");
+	effectHandle_ = LoadEffekseerEffect("./Data/Effect/cold.efkefc");
 
 
 }
@@ -51,9 +50,12 @@ void EffectManager::PlayEffect(const int& num, const Vector2& pos)
 	//エフェクトの再生
 	effectPlay_ = PlayEffekseer2DEffect(effectHandle_);
 
+	//同じ変数に、プレイしていると、変数の中身が変わってるっぽい
+
+
 	//エフェクトの大きさ
 	SetScalePlayingEffekseer2DEffect(
-		effectPlay_,3,3,3);
+		effectPlay_,20, 20, 20);
 	//エフェクトの位置
 	SetPosPlayingEffekseer2DEffect(
 		effectPlay_, pos.x, pos.y, 0);
@@ -63,8 +65,9 @@ bool EffectManager::FinishEffect(void)
 {
 	bool finish = false;
 	//0:再生中 , -1:再生終了
-	if (IsEffekseer3DEffectPlaying(effectPlay_) == -1)
+	if (IsEffekseer2DEffectPlaying(effectPlay_) == -1)
 	{
+		StopEffekseer2DEffect(effectPlay_);
 		finish = true;
 	}
 

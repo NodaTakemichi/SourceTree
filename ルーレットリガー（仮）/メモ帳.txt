@@ -5,6 +5,12 @@
 ・バフ発生時
 
 
+//バフを全部、一覧に埋めて、オフセット値を求める
+とりま、エフェクトを全部移し替える
+
+//SourceTree
+git@github.com:NodaTakemichi/MyProject.git
+
 
 
 ●エフェクト

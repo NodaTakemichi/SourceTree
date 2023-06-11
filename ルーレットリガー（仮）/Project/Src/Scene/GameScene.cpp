@@ -119,7 +119,7 @@ void GameScene::Update(void)
 void GameScene::Draw(void)
 {
 	//背景
-	DrawGraph(0, 0, bgImg_, true);
+	//DrawGraph(0, 0, bgImg_, true);
 	//フレーム
 	DrawGraph(0, 0, frameImg_, true);
 
@@ -224,6 +224,7 @@ void GameScene::UpdateAIM(void)
 
 void GameScene::UpdateEffect(void)
 {
+
 	//エフェクト再生が終了したかどうか判断
 	bool next = efMng_->FinishEffect();
 
@@ -315,9 +316,19 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 		break;
 	}
 	case GameScene::GAME_PHASE::EFFECT: {
-		//エフェクト再生
-		efMng_->PlayEffect(0, { 0,0 });
 
+		//ターゲットの座標取得
+		Vector2 pos;
+		auto test = battleSys_->GetTargetUnit();
+		for (auto& unit : test)
+		{
+			//ユニットの座標を取得
+			pos=unit->GetUnitPos();
+		}
+
+		//エフェクト再生
+		pos = { pos.x + 75,pos.y + 150 };
+		efMng_->PlayEffect(0, pos);
 		break;
 	}
 	case GameScene::GAME_PHASE::BATTLE: {
