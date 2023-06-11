@@ -1,6 +1,6 @@
 #pragma once
 #include<vector>
-#include<EffekseerForDXLib.h>
+#include<string>
 
 class Vector2;
 class EffectManager
@@ -8,7 +8,9 @@ class EffectManager
 public:
 
 	//エフェクト情報
-	struct Effect
+	
+	
+	struct EffectData
 	{
 		int num;		//エフェクトナンバー
 		int handle;		//エフェクトハンドル
@@ -23,7 +25,7 @@ public:
 	void Release(void);
 
 	//使用エフェクトのロード
-	void EffectLoad(void);
+	std::string EffectLoad(std::string fileName);
 
 	//エフェクトの生成
 	void PlayEffect(const int& num,const Vector2& pos);
@@ -37,7 +39,7 @@ private:
 	int effectHandle1_;
 
 	//エフェクト情報
-	std::vector<Effect> ef_;
+	std::vector<EffectData> ef_;
 
 	//再生エフェクト
 	int effectPlay_;

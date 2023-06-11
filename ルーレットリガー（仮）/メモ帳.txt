@@ -1,5 +1,9 @@
 ●やること
 
+//SourceTree
+git@github.com:NodaTakemichi/MyProject.git
+
+
 ●バフシェーダーの描画タイミング
 ・バフ付与時(GiveBuff())
 ・バフ発生時
@@ -7,17 +11,17 @@
 
 //バフを全部、一覧に埋めて、オフセット値を求める
 とりま、エフェクトを全部移し替える
+xmlを入力
+ロードする
+GameSceneでreturnする//オフセット値を調べる
+現在番号を、Spaceを押した時再生する。
 
-//SourceTree
-git@github.com:NodaTakemichi/MyProject.git
-
+①コマンドにエフェクト番号を入れる
+②攻撃時、エフェクト番号を取得
+③エフェクト番号のエフェクトを再生する
 
 
 ●エフェクト
-一回そのままの大きさで描画する
-int SetSpeedPlayingEffekseer2DEffect(int playingEffectHandle, float speed);
-
-・再生中の2D表示のエフェクトの再生速度を設定する。
 
 https://ameblo.jp/546kw/entry-12617906090.html
 〇エフェクシア　
@@ -28,11 +32,12 @@ https://ameblo.jp/546kw/entry-12617906090.html
 ⑤終了ならば、次フェーズへ遷移
 
 ・エフェクト配列
-ナンバー
+ナンバー（ミスは０）
 ハンドル
 大きさ
+オフセット値
 
-エフェクトの秒数
+（エフェクトの秒数）
 
 全員にエフェクト　or　全体にエフェクト
 

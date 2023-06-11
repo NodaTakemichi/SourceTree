@@ -82,6 +82,14 @@ void GameScene::Update(void)
 	}
 #endif // _DEBUG
 
+
+
+	//オフセット値を調べる
+
+
+
+	return;
+
 	//更新
 	unitMng_->Update();
 	GameUi_->Update();
@@ -327,7 +335,6 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 		}
 
 		//エフェクト再生
-		pos = { pos.x + 75,pos.y + 150 };
 		efMng_->PlayEffect(0, pos);
 		break;
 	}
