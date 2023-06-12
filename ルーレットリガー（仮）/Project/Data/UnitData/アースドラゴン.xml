@@ -7,29 +7,21 @@
 	<!--ユニットのコマンド-->
 	<Cmd>
 		<!--1-->
-		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0">
-		</Skill>
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="4"/>
 		<!--2-->
-		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
-		</Skill>
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="0"/>
 		<!--3-->
-		<Skill name="ミス" type="MISS" target="NONE" times="0.0">
-		</Skill>
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="0"/>
 		<!--4-->
-		<Skill name="地ならし" type="ATTACK" target="ENEMY_ALL" times="1.2">
-		</Skill>
+		<Skill name="地ならし" type="ATTACK" target="ENEMY_ALL" times="1.2" efNum="26"/>
 		<!--5-->
-		<Skill name="地ならし" type="ATTACK" target="ENEMY_ALL" times="1.2">
-		</Skill>
+		<Skill name="地ならし" type="ATTACK" target="ENEMY_ALL" times="1.2" efNum="26"/>
 		<!--6-->
-		<Skill name="かみくだく" type="ATTACK" target="ENEMY" times="1.5">
-		</Skill>
+		<Skill name="かみくだく" type="ATTACK" target="ENEMY" times="1.5" efNum="28"/>
 		<!--7-->
-		<Skill name="かみくだく" type="ATTACK" target="ENEMY" times="1,5">
-		</Skill>
+		<Skill name="かみくだく" type="ATTACK" target="ENEMY" times="1,5" efNum="28"/>
 		<!--8-->
-		<Skill name="隆起" type="ATTACK" target="ENEMY_ALL" times="1.8">
-		</Skill>
+		<Skill name="隆起" type="ATTACK" target="ENEMY_ALL" times="1.8" efNum="26"/>
 	</Cmd>
 
 	

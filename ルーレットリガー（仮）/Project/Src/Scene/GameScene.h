@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "SceneBase.h"
+#include "../Common/Vector2.h"
 
 class UnitManager;
 class Roulette;
@@ -79,6 +80,9 @@ private:
 	//フェーズ変更
 	void ChangeGamePhase(GAME_PHASE phase);
 
-
+	///テスト
+	Vector2 testPos;
+	int testNum;
+	float testScale;
 
 };

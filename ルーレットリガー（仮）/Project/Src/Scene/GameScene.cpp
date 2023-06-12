@@ -64,6 +64,15 @@ void GameScene::Init(void)
 	ChangeGamePhase(GAME_PHASE::RULLET_TIME);
 
 
+
+
+
+	//テスト
+	testNum = 0;
+	testPos = {0,0};
+	testScale = 20.0f;
+
+
 } 
 
 void GameScene::Update(void)
@@ -82,13 +91,26 @@ void GameScene::Update(void)
 	}
 #endif // _DEBUG
 
-
-
+	//エフェクトの調査
 	//オフセット値を調べる
+	//if (CheckHitKey(KEY_INPUT_UP))   testPos.y -= 1;
+	//if (CheckHitKey(KEY_INPUT_DOWN)) testPos.y += 1;
+	//if (CheckHitKey(KEY_INPUT_LEFT)) testPos.x -= 1;
+	//if (CheckHitKey(KEY_INPUT_RIGHT))testPos.x += 1;
+	//if(ins.IsTrgDown(KEY_INPUT_V))testScale++;
+	//if(ins.IsTrgDown(KEY_INPUT_C))testScale--;
+	//if(ins.IsTrgDown(KEY_INPUT_Z))testNum--;
+	//if(ins.IsTrgDown(KEY_INPUT_X))testNum++;
+	//testNum = AsoUtility::Wrap(testNum, 0, 41);
+	//if (CheckHitKey(KEY_INPUT_SPACE)) {
+	//	efMng_->FinishEffect();
+	//	//efMng_->PlayEffect(testNum, { testPos.x + 1000, testPos.y + 220 }, testScale);
+	//}
+	//_dbgDrawFormatString(
+	//	0, 0, 0xffffff, "番号：%d＿座標｛%d,%d｝＿大きさ：%f0.1", 
+	//	testNum, testPos.x, testPos.y,testScale);
+	//return;
 
-
-
-	return;
 
 	//更新
 	unitMng_->Update();
@@ -127,7 +149,7 @@ void GameScene::Update(void)
 void GameScene::Draw(void)
 {
 	//背景
-	//DrawGraph(0, 0, bgImg_, true);
+	DrawGraph(0, 0, bgImg_, true);
 	//フレーム
 	DrawGraph(0, 0, frameImg_, true);
 
@@ -136,6 +158,7 @@ void GameScene::Draw(void)
 	roulette_->Draw();
 
 	//UI関連
+	//現在ターンを表示
 	DrawString(580, 40, turnString_.c_str(), 0xffffff);
 
 	//フェーズ別描画
@@ -147,6 +170,7 @@ void GameScene::Draw(void)
 		GameUi_->DrawActivSkill();
 		break;
 	case GameScene::GAME_PHASE::EFFECT:
+		GameUi_->DrawActivSkill();
 		break;
 	case GameScene::GAME_PHASE::BATTLE:
 		break;
@@ -294,12 +318,8 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 
 
 		//現在の行動ユニットのターン文字
-		if (unitMng_->GetActivUnit()->GetUnitType() == UnitBase::UNIT_TYPE::ENEMY) {
-			turnString_ = "あいてのターン";
-		}
-		else {
-			turnString_ = "おまえのターン";
-		}
+		bool turn = unitMng_->GetActivUnit()->GetUnitType() == UnitBase::UNIT_TYPE::ENEMY;
+		turnString_ = turn ? "あいてのターン" : "おまえのターン";
 
 		break;
 	}
@@ -325,17 +345,28 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 	}
 	case GameScene::GAME_PHASE::EFFECT: {
 
-		//ターゲットの座標取得
-		Vector2 pos;
-		auto test = battleSys_->GetTargetUnit();
-		for (auto& unit : test)
+		//コマンドからエフェクト番号の取得
+		int num = roulette_->GetCmd()->GetEffectNum();
+
+		//ターゲットの座標取得(ターゲットが存在しない場合、自分座標)
+		Vector2 pos = unitMng_->GetActivUnit()->GetUnitPos();
+		auto target = battleSys_->GetTargetUnit();
+
+		if (target.size() <= 0)
+		{
+			//エフェクト再生(ターゲットが存在しない場合)
+			efMng_->PlayEffect(num, pos);
+			return;
+		}
+
+		for (auto& unit : target)
 		{
 			//ユニットの座標を取得
 			pos=unit->GetUnitPos();
+			//エフェクト再生
+			efMng_->PlayEffect(num, pos);
 		}
 
-		//エフェクト再生
-		efMng_->PlayEffect(0, pos);
 		break;
 	}
 	case GameScene::GAME_PHASE::BATTLE: {

@@ -3,6 +3,7 @@
 #include "../Common/GetAttr.h"
 #include "EffectManager.h"
 
+#include "../_debug/_DebugDispOut.h"
 
 EffectManager::EffectManager()
 {
@@ -14,16 +15,22 @@ EffectManager::~EffectManager()
 
 void EffectManager::Init(void)
 {
-
-	effectHandle_ = LoadEffekseerEffect(
-		"./Data/Effect/00_Basic/Simple_Sprite_BillBoard.efkefc");
-
 	//エフェクト集の読み込み
 	EffectLoad("./Data/Effect/EffectData.xml");
 }
 
 void EffectManager::Release(void)
 {
+	//エフェクトの再生終了
+	for (auto& play : effectPlays_)
+	{
+		StopEffekseer2DEffect(play.second);
+	}
+
+
+	//破棄
+	ef_.clear();
+	effectPlays_.clear();
 }
 
 std::string EffectManager::EffectLoad(std::string fileName)
@@ -77,7 +84,8 @@ std::string EffectManager::EffectLoad(std::string fileName)
 			num,
 			handle,
 			scale,
-			Vector2{offsetX,offsetY}
+			Vector2{offsetX,offsetY},
+			target
 		};
 		ef_.push_back(d);
 	}
@@ -89,46 +97,106 @@ std::string EffectManager::EffectLoad(std::string fileName)
 
 void EffectManager::PlayEffect(const int& num, const Vector2& pos)
 {
-	////再生するエフェクト
-	//Effect ef = ef_[num];
-
-	////エフェクトの再生
-	//effectPlay_ = PlayEffekseer2DEffect(ef.handle);
-
-	////エフェクトの大きさ
-	//SetScalePlayingEffekseer2DEffect(
-	//	effectPlay_, ef.scale, ef.scale, ef.scale);
-	////エフェクトの位置
-	//SetPosPlayingEffekseer2DEffect(
-	//	effectPlay_, pos.x + ef.offset.x, pos.y + ef.offset.y, 0);
-
 	//再生するエフェクト
-	//Effect ef = ef_[num];
+	EffectData ef = ef_[num];
+
+	//使用できる再生ハンドルがない場合、作る
+	CreatePlayHandle();
+
+	//全体攻撃エフェクトの場合
+	if (AllTargetEffectPlay(ef,pos))return;
+
 
 	//エフェクトの再生
-	effectPlay_ = PlayEffekseer2DEffect(effectHandle_);
+	for (auto& play : effectPlays_)
+	{
+		//使用中のハンドルは使わない
+		if (!play.first)continue;
 
-	//同じ変数に、プレイしていると、変数の中身が変わってるっぽい
+		play.second = PlayEffekseer2DEffect(ef.handle);
 
+		//エフェクトの大きさ
+		float s = ef.scale;
+		SetScalePlayingEffekseer2DEffect(
+			play.second, s, s, s);
+		//エフェクトの位置
+		SetPosPlayingEffekseer2DEffect(
+			play.second, pos.x + ef.offset.x, pos.y + ef.offset.y, 0);
+		//使用中
+		play.first = false;
 
-	//エフェクトの大きさ
-	SetScalePlayingEffekseer2DEffect(
-		effectPlay_,20, 20, 20);
-	//エフェクトの位置
-	Vector2 offset = { pos.x + 75, pos.y + 100 };
-	SetPosPlayingEffekseer2DEffect(
-		effectPlay_, offset.x, offset.y, 0);
+		break;
+	}
 }
 
 bool EffectManager::FinishEffect(void)
 {
-	bool finish = false;
-	//0:再生中 , -1:再生終了
-	if (IsEffekseer2DEffectPlaying(effectPlay_) == -1)
+	bool finish = true;
+	for (auto& play : effectPlays_)
 	{
-		StopEffekseer2DEffect(effectPlay_);
-		finish = true;
+		if (play.first)continue;
+
+		//0:再生中 , -1:再生終了
+		if (IsEffekseer2DEffectPlaying(play.second) == -1)
+		{
+			StopEffekseer2DEffect(play.second);
+			play.first = true;
+
+			finish = true;
+			continue;
+		}
+
+		finish = false;
+		break;
 	}
 
 	return finish;
+}
+
+void EffectManager::CreatePlayHandle(void)
+{
+	//使用できるハンドルがあるか確認
+	for (auto& play : effectPlays_)
+	{
+		if (play.first == true)return;
+	}
+
+
+	//再生ハンドルの追加
+	effectPlays_.push_back(std::make_pair(true, -1));
+
+}
+
+bool EffectManager::AllTargetEffectPlay(const EffectData& ef, const Vector2& pos)
+{
+	//全体かどうか判断
+	if (ef.target != 0)return false;
+
+	//すでに再生している場合、処理をしない
+	for (auto& play : effectPlays_)
+	{
+		if (play.first == false)return true;
+	}
+
+	//エフェクトの再生
+	for (auto& play : effectPlays_)
+	{
+		//使用中のハンドルは使わない
+		if (!play.first)continue;
+
+		play.second = PlayEffekseer2DEffect(ef.handle);
+
+		//エフェクトの大きさ
+		float s = ef.scale;
+		SetScalePlayingEffekseer2DEffect(
+			play.second, s, s, s);
+		//エフェクトの位置
+		SetPosPlayingEffekseer2DEffect(
+			play.second, pos.x + ef.offset.x, pos.y + ef.offset.y, 0);
+		//使用中
+		play.first = false;
+
+		return true;
+	}
+
 }

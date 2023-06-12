@@ -3,106 +3,141 @@
 
 <!--エフェクト-->
 <!--ナンバー、パス、大きさ、オフセット値、単体or複数、-->
-	<!--1-->
+	<!--ミス-->
+	<Effect num="0" pass="Data/Effect/01_Pierre02/FeatherBomb.efkefc"
+			scale="35.0" offsetX="85" offsetY="100" target="0"/>
+	<!--雷-->
 	<Effect num="1" pass="Data/Effect/00_Basic/Laser02.efkefc" 
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="2" pass="Data/Effect/00_Basic/Simple_Distortion.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
+			scale="20.0" offsetX="85" offsetY="130" target="1"/>
+	<!--回復-->
+	<!--<Effect num="2" pass="Data/Effect/00_Basic/Simple_Distortion.efkefc"
+			scale="20.0" offsetX="85" offsetY="150" target="1"/>-->
+	<Effect num="2" pass="Data/Effect/01_NextSoft01/HealPotion1.efkefc"
+			scale="45.0" offsetX="85" offsetY="160" target="1"/>
+	<!--デバフ-->
 	<Effect num="3" pass="Data/Effect/00_Basic/Simple_Model_UV.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="4" pass="Data/Effect/00_Basic/Simple_Ribbon_Parent.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="5" pass="Data/Effect/00_Basic/Simple_SpawnMethod1.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="6" pass="Data/Effect/00_Basic/Simple_Sprite_BillBoard.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="7" pass="Data/Effect/00_Basic/Simple_Sprite_Fixed.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="8" pass="Data/Effect/00_Basic/Simple_Sprite_FixedYAxis.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
+			scale="20.0" offsetX="85" offsetY="150" target="1"/>
+	<!--衝撃-->
+	<Effect num="4" pass="Data/Effect/00_Basic/Simple_SpawnMethod1.efkefc"
+			scale="20.0" offsetX="85" offsetY="100" target="1"/>
+	<!--毒-->
+	<Effect num="5" pass="Data/Effect/00_Basic/Simple_Sprite_BillBoard.efkefc"
+			scale="20.0" offsetX="85" offsetY="100" target="1"/>
+	<!--聖-->
+	<Effect num="6" pass="Data/Effect/00_Basic/Simple_Sprite_Fixed.efkefc"
+			scale="20.0" offsetX="85" offsetY="100" target="1"/>
+	<!--光-->
+	<Effect num="7" pass="Data/Effect/00_Basic/Simple_Sprite_FixedYAxis.efkefc"
+			scale="20.0" offsetX="85" offsetY="100" target="1"/>
 
-	<Effect num="9" pass="Data/Effect/00_Version16/Aura01.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="10" pass="Data/Effect/00_Version16/Barrior01.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="11" pass="Data/Effect/00_Version16/Barrior02.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="12" pass="Data/Effect/00_Version16/ForceFieldTornado.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
+	<!--風-->
+	<Effect num="8" pass="Data/Effect/00_Version16/Aura01.efkefc"
+			scale="50.0" offsetX="85" offsetY="160" target="1"/>
+	<!--防御力アップ-->
+	<Effect num="9" pass="Data/Effect/00_Version16/Barrior01.efkefc"
+			scale="35.0" offsetX="85" offsetY="160" target="1"/>
+	<!--防御力ダウン-->
+	<Effect num="10" pass="Data/Effect/00_Version16/Barrior02.efkefc"
+			scale="35.0" offsetX="85" offsetY="160" target="1"/>
 
-	<Effect num="13" pass="Data/Effect/01_NextSoft01/HealPotion1.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="14" pass="Data/Effect/01_NextSoft01/HealPotion2.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="15" pass="Data/Effect/01_NextSoft01/HealPotion3.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="16" pass="Data/Effect/01_NextSoft01/MagicCold.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="17" pass="Data/Effect/01_NextSoft01/MagicDark.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="18" pass="Data/Effect/01_NextSoft01/MagicFire1.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="19" pass="Data/Effect/01_NextSoft01/MagicMeteo.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="20" pass="Data/Effect/01_NextSoft01/MagicSword.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="21" pass="Data/Effect/01_NextSoft01/MagicThunder.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="22" pass="Data/Effect/01_NextSoft01/MagicTornade.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="23" pass="Data/Effect/01_NextSoft01/MagicWater.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="24" pass="Data/Effect/01_NextSoft01/PowerUp.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="25" pass="Data/Effect/01_NextSoft01/Spear2.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="26" pass="Data/Effect/01_NextSoft01/Sword1.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
+	<!--回復：小-->
+	<Effect num="11" pass="Data/Effect/01_NextSoft01/HealPotion1.efkefc"
+			scale="45.0" offsetX="85" offsetY="160" target="1"/>
+	<!--回復：中-->
+	<Effect num="12" pass="Data/Effect/01_NextSoft01/HealPotion2.efkefc"
+			scale="45.0" offsetX="85" offsetY="130" target="1"/>
+	<!--回復：大-->
+	<Effect num="13" pass="Data/Effect/01_NextSoft01/HealPotion3.efkefc"
+			scale="30.0" offsetX="85" offsetY="160" target="1"/>
+	<!--氷-->
+	<Effect num="14" pass="Data/Effect/01_NextSoft01/MagicCold.efkefc"
+			scale="30.0" offsetX="85" offsetY="160" target="1"/>
+	<!--闇　毒-->
+	<Effect num="15" pass="Data/Effect/01_NextSoft01/MagicDark.efkefc"
+			scale="30.0" offsetX="85" offsetY="130" target="1"/>
+	<!--炎-->
+	<Effect num="16" pass="Data/Effect/01_NextSoft01/MagicFire1.efkefc"
+			scale="30.0" offsetX="85" offsetY="160" target="1"/>
+	<!--炎-->
+	<Effect num="17" pass="Data/Effect/01_NextSoft01/MagicMeteo.efkefc"
+			scale="30.0" offsetX="85" offsetY="160" target="1"/>
+	<!--雷-->
+	<Effect num="18" pass="Data/Effect/01_NextSoft01/MagicSword.efkefc"
+			scale="30.0" offsetX="85" offsetY="160" target="1"/>
+	<!--雷-->
+	<Effect num="19" pass="Data/Effect/01_NextSoft01/MagicThunder.efkefc"
+			scale="30.0" offsetX="85" offsetY="110" target="1"/>
+	<!--水-->
+	<Effect num="20" pass="Data/Effect/01_NextSoft01/MagicWater.efkefc"
+			scale="30.0" offsetX="85" offsetY="150" target="1"/>
+	<!--バフ-->
+	<Effect num="21" pass="Data/Effect/01_NextSoft01/PowerUp.efkefc"
+			scale="60.0" offsetX="85" offsetY="160" target="1"/>
+	<!--氷-->
+	<Effect num="22" pass="Data/Effect/01_NextSoft01/Spear2.efkefc"
+			scale="40.0" offsetX="50" offsetY="130" target="1"/>
+	<!--斬撃：ノーマル-->
+	<Effect num="23" pass="Data/Effect/01_NextSoft01/Sword1.efkefc"
+			scale="60.0" offsetX="85" offsetY="100" target="1"/>
 
-	<Effect num="27" pass="Data/Effect/01_Pierre01/Flame.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="28" pass="Data/Effect/01_Pierre01/Herald.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="29" pass="Data/Effect/01_Pierre01/HolySandstorm.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="30" pass="Data/Effect/01_Pierre01/PhantasmMeteor_Single.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="31" pass="Data/Effect/01_Pierre01/SonicBoom.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
+	<!--炎-->
+	<Effect num="24" pass="Data/Effect/01_Pierre01/Flame.efkefc"
+			scale="60.0" offsetX="85" offsetY="100" target="0"/>
+	<!--闇-->
+	<Effect num="25" pass="Data/Effect/01_Pierre01/Herald.efkefc"
+			scale="40.0" offsetX="85" offsetY="200" target="1"/>
+	<!--神砂嵐-->
+	<Effect num="26" pass="Data/Effect/01_Pierre01/HolySandstorm.efkefc"
+			scale="60.0" offsetX="85" offsetY="270" target="0"/>
+	<!--闇　爆発-->
+	<Effect num="27" pass="Data/Effect/01_Pierre01/PhantasmMeteor_Single.efkefc"
+			scale="60.0" offsetX="85" offsetY="100" target="0"/>
+	<!--ノーマル　衝撃は-->
+	<Effect num="28" pass="Data/Effect/01_Pierre01/SonicBoom.efkefc"
+			scale="60.0" offsetX="85" offsetY="100" target="0"/>
 
-	<Effect num="32" pass="Data/Effect/01_Pierre02/Benediction.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="33" pass="Data/Effect/01_Pierre02/BloodLance.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="34" pass="Data/Effect/01_Pierre02/CosmicMist.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="35" pass="Data/Effect/01_Pierre02/FeatherBomb.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="36" pass="Data/Effect/01_Pierre02/FireBall.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="37" pass="Data/Effect/01_Pierre02/LossOfBlood.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="38" pass="Data/Effect/01_Pierre02/Sword_Lightning.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="39" pass="Data/Effect/01_Pierre02/Sword_Moonlight.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="40" pass="Data/Effect/01_Pierre02/Sword_Sacredlight.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="41" pass="Data/Effect/01_Pierre02/Sword_Storm.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
+	<!--炎-->
+	<Effect num="29" pass="Data/Effect/01_Pierre02/Benediction.efkefc"
+			scale="45.0" offsetX="85" offsetY="100" target="0"/>
+	<!--処刑-->
+	<Effect num="30" pass="Data/Effect/01_Pierre02/BloodLance.efkefc"
+			scale="40.0" offsetX="85" offsetY="100" target="0"/>
+	<!--風-->
+	<Effect num="31" pass="Data/Effect/01_Pierre02/CosmicMist.efkefc"
+			scale="40.0" offsetX="85" offsetY="100" target="0"/>
+	<!--ノーマル？-->
+	<Effect num="32" pass="Data/Effect/01_Pierre02/FeatherBomb.efkefc"
+			scale="35.0" offsetX="85" offsetY="100" target="0"/>
+	<!--闇-->
+	<Effect num="33" pass="Data/Effect/01_Pierre02/LossOfBlood.efkefc"
+			scale="35.0" offsetX="85" offsetY="100" target="0"/>
+	<!--剣　風-->
+	<Effect num="34" pass="Data/Effect/01_Pierre02/Sword_Moonlight.efkefc"
+			scale="25.0" offsetX="85" offsetY="100" target="0"/>
+	<!--剣　聖-->
+	<Effect num="35" pass="Data/Effect/01_Pierre02/Sword_Sacredlight.efkefc"
+			scale="25.0" offsetX="85" offsetY="100" target="0"/>
+	<!--剣　風-->
+	<Effect num="36" pass="Data/Effect/01_Pierre02/Sword_Storm.efkefc"
+			scale="25.0" offsetX="85" offsetY="100" target="0"/>
 
-	<Effect num="42" pass="Data/Effect/02_Tktk03/Light.efkefc"
-		scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="43" pass="Data/Effect/02_Tktk03/ToonHit.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	<Effect num="44" pass="Data/Effect/02_Tktk03/ToonWater.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
+	<!--炎-->
+	<Effect num="37" pass="Data/Effect/02_Tktk03/Light.efkefc"
+			scale="30.0" offsetX="85" offsetY="160" target="1"/>
+	<!--打撃-->
+	<Effect num="38" pass="Data/Effect/02_Tktk03/ToonHit.efkefc"
+			scale="20.0" offsetX="85" offsetY="110" target="1"/>
+	<!--水流激-->
+	<Effect num="39" pass="Data/Effect/02_Tktk03/ToonWater.efkefc"
+			scale="20.0" offsetX="85" offsetY="160" target="1"/>
 
-	<Effect num="45" pass="Data/Effect/03_Hanmado01/Effect/hit_hanmado_0409.efkefc"
-		scale="1.0" offsetX="0" offsetY="0" target="1"/>
-	
-	<Effect num="46" pass="Data/Effect/01_AndrewFM01/fire.efkefc"
-			scale="1.0" offsetX="0" offsetY="0" target="1"/>
+	<!--連打激-->
+	<Effect num="40" pass="Data/Effect/03_Hanmado01/Effect/hit_hanmado_0409.efkefc"
+			scale="15.0" offsetX="85" offsetY="230" target="1"/>
+
+	<!--炎-->
+	<Effect num="41" pass="Data/Effect/01_AndrewFM01/fire.efkefc"
+			scale="25.0" offsetX="90" offsetY="130" target="1"/>
 	<!--2-->
 	<!--3-->
 	<!--4-->

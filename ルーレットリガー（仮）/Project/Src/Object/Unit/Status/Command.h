@@ -46,6 +46,9 @@ public:
 
 		//バフタイプ(キャスト前)
 		std::string buff_;
+
+		//エフェクト番号
+		int efNum_;
 	};
 
 	Command(Par* par);
@@ -71,6 +74,9 @@ public:
 	//バフのタイプの取得
 	const Buff::BUFF_TYPE& GetCmdBuff(void) { return buff_; }
 
+	//エフェクト番号の取得
+	const int& GetEffectNum(void) { return par_.efNum_; }
+
 private:
 	//情報
 	Par par_;
@@ -81,7 +87,7 @@ private:
 	//ターゲット
 	CMD_TARGET target_;
 
-	//ターゲット
+	//バフの種類
 	Buff::BUFF_TYPE buff_;
 
 

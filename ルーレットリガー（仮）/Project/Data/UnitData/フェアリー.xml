@@ -7,29 +7,21 @@
 	<!--ユニットのコマンド-->
 	<Cmd>
 		<!--1-->
-		<Skill name="ヒール" type="HEAL" target="PLAYER" times="1.5">
-		</Skill>
+		<Skill name="ヒール" type="HEAL" target="PLAYER" times="1.5" efNum="12"/>
 		<!--2-->
-		<Skill name="ヒール" type="HEAL" target="PLAYER" times="1.5">
-		</Skill>
+		<Skill name="ヒール" type="HEAL" target="PLAYER" times="1.5" efNum="12"/>
 		<!--3-->
-		<Skill name="キュアシャワー" type="HEAL" target="PLAYER_ALL" times="1.0">
-		</Skill>
+		<Skill name="キュアシャワー" type="HEAL" target="PLAYER_ALL" times="1.0" efNum="2"/>
 		<!--4-->
-		<Skill name="キュアシャワー" type="HEAL" target="PLAYER_ALL" times="1.0">
-		</Skill>
+		<Skill name="キュアシャワー" type="HEAL" target="PLAYER_ALL" times="1.0" efNum="2"/>
 		<!--5-->
-		<Skill name="いやす" type="HEAL" target="PLAYER" times="1.0">
-		</Skill>
+		<Skill name="いやす" type="HEAL" target="PLAYER" times="1.0" efNum="11"/>
 		<!--6-->
-		<Skill name="いやす" type="HEAL" target="PLAYER" times="1.0">
-		</Skill>
+		<Skill name="いやす" type="HEAL" target="PLAYER" times="1.0" efNum="11"/>
 		<!--7-->
-		<Skill name="ライフ" type="HEAL" target="PLAYER" times="2.0">
-		</Skill>
+		<Skill name="ライフ" type="HEAL" target="PLAYER" times="2.0" efNum="13"/>
 		<!--8-->
-		<Skill name="ライフ" type="HEAL" target="PLAYER" times="2.0">
-		</Skill>
+		<Skill name="ライフ" type="HEAL" target="PLAYER" times="2.0" efNum="13"/>
 	</Cmd>
 
 	
