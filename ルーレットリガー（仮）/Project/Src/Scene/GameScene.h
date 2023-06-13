@@ -67,9 +67,9 @@ private:
 	//フレーム
 	int frameImg_;
 
-	//ターン文字
+	//ターン文字、色
 	std::string turnString_;
-
+	int turnCol_;
 
 	//経過総時間
 	float mTotalTime;

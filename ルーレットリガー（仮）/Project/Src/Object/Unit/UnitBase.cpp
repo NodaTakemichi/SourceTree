@@ -545,7 +545,7 @@ void UnitBase::MakeSquereVertex(Vector2 pos)
 void UnitBase::SetDrawingPos(int x)
 {
 	
-	auto topY = 40;
+	auto topY = 140;
 	auto spanY = 180;
 
 	if (unitNum_ == 1)pos_ = { x, topY + spanY };

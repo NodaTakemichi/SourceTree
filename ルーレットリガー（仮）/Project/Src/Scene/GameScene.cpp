@@ -151,7 +151,7 @@ void GameScene::Draw(void)
 	//背景
 	DrawGraph(0, 0, bgImg_, true);
 	//フレーム
-	DrawGraph(0, 0, frameImg_, true);
+	DrawGraph(0, 100, frameImg_, true);
 
 	//オブジェクト
 	unitMng_->Draw();
@@ -159,7 +159,8 @@ void GameScene::Draw(void)
 
 	//UI関連
 	//現在ターンを表示
-	DrawString(580, 40, turnString_.c_str(), 0xffffff);
+	DrawString(580, 40, turnString_.c_str(), turnCol_);
+	DrawString(580, 40, "\n　　　　のターン", 0xffffff);
 
 	//フェーズ別描画
 	switch (phase_)
@@ -318,8 +319,9 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 
 
 		//現在の行動ユニットのターン文字
-		bool turn = unitMng_->GetActivUnit()->GetUnitType() == UnitBase::UNIT_TYPE::ENEMY;
-		turnString_ = turn ? "あいてのターン" : "おまえのターン";
+		bool turn = unitMng_->GetActivUnit()->GetUnitType() == UnitBase::UNIT_TYPE::PLAYER;
+		turnString_ = unitMng_->GetActivUnit()->GetUnitName();
+		turnCol_ = turn ? 0x00ff00 : 0xff0000;		//緑：赤
 
 		break;
 	}
