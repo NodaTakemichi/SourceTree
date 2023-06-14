@@ -184,7 +184,7 @@ void GameScene::Draw(void)
 	}
 
 
-#ifdef DEBUG
+#ifdef _DEBUG
 	auto cx = Application::SCREEN_SIZE_X;
 	auto cy = Application::SCREEN_SIZE_Y;
 	auto span = 20;
@@ -225,7 +225,7 @@ void GameScene::UpdateRouTime(void)
 	//ルーレットの更新
 	roulette_->Update();
 
-	//ルーレットの停止走査（ユニットによって自動か手動か決める）
+	//ルーレットの停止操作（ユニットによって自動か手動か決める）
 	roulette_->StopRoulette(actUnitAoutm_);
 
 	//バフ判断

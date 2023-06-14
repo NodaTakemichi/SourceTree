@@ -7,9 +7,10 @@ class Roulette
 {
 public:
 	//回転速度
-	const float ROT_SPEED_MAX = -16.0f;
-
-	//ルーレット停止までの待機時間
+	const float ROT_SPEED_MAX = -10.0f;
+	//回転のブレーキ力
+	const float ROT_BRAKE = 120.0f;
+	//オートでのルーレット停止までの待機時間
 	const float STOP_WAIT_TIME_ROU = 0.8f;
 
 	Roulette();
@@ -37,8 +38,10 @@ public:
 
 private:
 
-	//ルーレット画像
-	int rouletteImg_;
+	
+	int rouletteImg_;	//ルーレット画像
+	int rouFrame_;		//枠
+	int center_;		//中央
 	//矢印画像
 	int arrowImg_;
 
