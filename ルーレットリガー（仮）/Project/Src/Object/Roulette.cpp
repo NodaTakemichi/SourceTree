@@ -28,10 +28,13 @@ void Roulette::Init(void)
 
 	//画像登録
 	arrowImg_ = LoadGraph("./Data/Image/UI/arrow.png");
-	rouletteImg_ = LoadGraph("./Data/Image/UI/roulette2.png");
+	rouletteImg_ = LoadGraph("./Data/Image/UI/roulette.png");
+	rouFrame_ = LoadGraph("./Data/Image/UI/RouFrame.png");
+	center_ = LoadGraph("./Data/Image/UI/center.png");
 
 	//フォントの変更
-	fontHandle_=CreateFontToHandle("@ＭＳ 明朝", 22, 10, -1);
+	//fontHandle_=CreateFontToHandle("@ＭＳ 明朝", 22, 10, -1);
+	fontHandle_=CreateFontToHandle("@Noto Serif JP Medium", 22, 10, -1);
 
 }
 
@@ -46,11 +49,18 @@ void Roulette::Draw(void)
 	int cx = Application::SCREEN_SIZE_X;
 	int cy = Application::SCREEN_SIZE_Y;
 
+
 	//矢印描画
 	DrawGraph(cx / 2-50, 150.0f, arrowImg_, true);
 
 	int rouPosX = cx / 2;
 	int rouPosY = 530;
+
+
+	//ルーレット枠描画
+	int x, y;
+	GetGraphSize(rouFrame_, &x, &y);
+	DrawGraph(rouPosX-x/2, rouPosY-y/2, rouFrame_, true);
 
 	//バイリニア補間モード
 	SetDrawMode(DX_DRAWMODE_BILINEAR);
@@ -76,7 +86,7 @@ void Roulette::Draw(void)
 			1.0, 1.0,				//拡大率
 			190.0, 10.0,			//回転の中心座標（相対座標）
 			AsoUtility::Deg2RadF(angle) + (i * rotSpan) + rotReltive,	//角度
-			0x0, fontHandle_, 0x0,	//フォント
+			0x220022, fontHandle_, 0x0,	//フォント
 			true, name);
 
 		//角度をずらす
@@ -86,6 +96,10 @@ void Roulette::Draw(void)
 
 	//ネアレストネイバー法
 	SetDrawMode(DX_DRAWMODE_NEAREST);
+
+	//ルーレット中央
+	GetGraphSize(center_, &x, &y);
+	DrawGraph(rouPosX - x / 2, rouPosY - y / 2, center_, true);
 
 }
 
@@ -147,6 +161,7 @@ Command* Roulette::GetCmd(void)
 	//角度からコマンドを取得する
 	for (size_t i = 0; i <= num; i++)
 	{
+		//角度の以下以上
 		if (angle < rotAmount && rotAmount <= angle + onwAngle)
 		{
 			//コマンドを返す
@@ -160,16 +175,20 @@ Command* Roulette::GetCmd(void)
 
 void Roulette::RotateProcess(void)
 {
-	//減速量
-	const float decSpeed = 0.2f;
+	//停止までのブレーキ力
+	const float stopSpeed = -ROT_SPEED_MAX / ROT_BRAKE;
+
+	float brake = AsoUtility::Lerp(
+		static_cast<float>(rotPower_), 0.0f, 0.1f)*-1.0f;
 
 	//回転量の計算（回転かブレーキで速度変更）
 	//回転状態：最高速度、ブレーキ状態：減速した値
-	rotPower_ = isRouSpin_ ? ROT_SPEED_MAX : rotPower_ + decSpeed;
+	rotPower_ = isRouSpin_ ? ROT_SPEED_MAX : rotPower_ + stopSpeed;
+
 
 
 	//停止状態か判断
-	if (rotPower_ < 0)
+	if (rotPower_ < 0.1f)
 	{
 		//回転量を加える
 		angle += rotPower_;

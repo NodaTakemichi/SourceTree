@@ -309,6 +309,7 @@ std::string UnitBase::LoadData(std::string fileName)
 	//ユニットのコマンド技取得
 	std::string name, type, target,buff;
 	double times = 0.0;
+	int efNum = 0;
 
 	auto cmd = unit->first_node("Cmd");
 
@@ -330,6 +331,9 @@ std::string UnitBase::LoadData(std::string fileName)
 		//バフの種類取得
 		if (!getAttr(skill, "buff", buff))buff = "NONE";
 
+		//エフェクト番号取得
+		if (!getAttr(skill, "efNum", efNum))efNum = 0;
+
 
 		//コマンドの生成
 		Command::Par par = {
@@ -337,7 +341,8 @@ std::string UnitBase::LoadData(std::string fileName)
 			type,
 			target,
 			static_cast<float>(times),
-			buff
+			buff,
+			efNum
 		};
 		CreateCommand(&par);
 	}
@@ -540,7 +545,7 @@ void UnitBase::MakeSquereVertex(Vector2 pos)
 void UnitBase::SetDrawingPos(int x)
 {
 	
-	auto topY = 40;
+	auto topY = 140;
 	auto spanY = 180;
 
 	if (unitNum_ == 1)pos_ = { x, topY + spanY };

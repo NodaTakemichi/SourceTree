@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "SceneBase.h"
+#include "../Common/Vector2.h"
 
 class UnitManager;
 class Roulette;
@@ -66,9 +67,9 @@ private:
 	//フレーム
 	int frameImg_;
 
-	//ターン文字
+	//ターン文字、色
 	std::string turnString_;
-
+	int turnCol_;
 
 	//経過総時間
 	float mTotalTime;
@@ -79,6 +80,9 @@ private:
 	//フェーズ変更
 	void ChangeGamePhase(GAME_PHASE phase);
 
-
+	///テスト
+	Vector2 testPos;
+	int testNum;
+	float testScale;
 
 };
