@@ -115,7 +115,8 @@ bool UnitBase::DecHpProcess(void)
 		//HP減少：未終了
 		return false;
 	}
-	//HP減少：無し
+
+	//HP変動：無し
 	return true;
 }
 

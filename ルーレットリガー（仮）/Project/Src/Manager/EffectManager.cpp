@@ -51,7 +51,7 @@ std::string EffectManager::EffectLoad(std::string fileName)
 	auto getAttr = GetAttr();
 
 	//エフェクトのソースパス
-	std::string pass;
+	std::string path;
 	//エフェクト番号、オフセット値、ターゲット
 	int num, offsetX, offsetY, target;
 	//大きさ
@@ -66,7 +66,7 @@ std::string EffectManager::EffectLoad(std::string fileName)
 		//エフェクトの番号取得
 		if (!getAttr(ef, "num", num))num = 0;
 		//エフェクトのパス取得
-		if (!getAttr(ef, "pass", pass))pass = std::string();
+		if (!getAttr(ef, "path", path))path = std::string();
 		//エフェクトの大きさ取得
 		if (!getAttr(ef, "scale", scale))scale = 0.0f;
 		//エフェクトのオフセット値X取得
@@ -77,7 +77,7 @@ std::string EffectManager::EffectLoad(std::string fileName)
 		if (!getAttr(ef, "target", target))target = 0;
 
 		//エフェクトハンドル
-		auto handle = LoadEffekseerEffect(pass.c_str());
+		auto handle = LoadEffekseerEffect(path.c_str());
 
 		//追加
 		auto d = EffectData{

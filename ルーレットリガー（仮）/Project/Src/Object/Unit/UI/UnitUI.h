@@ -50,6 +50,8 @@ protected:
 	//ターゲット画像
 	int targetImg_;
 
+
+
 	//ダメージフレーム画像
 	int dmgFrameImg_;
 	//ダメージフォント

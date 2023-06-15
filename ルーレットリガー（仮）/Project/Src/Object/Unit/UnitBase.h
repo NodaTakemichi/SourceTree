@@ -130,14 +130,15 @@ protected:
 	//振動による移動値
 	float movePow_;
 
+
+
+
+
 	//シェーダー関連
 	//頂点情報
 	VERTEX2DSHADER vertex_[4];
 	WORD index_[6];
 	
-
-
-
 	//現在のシェーダーハンドル
 	int nowPs_;
 	//シェーダーハンドル
@@ -153,8 +154,9 @@ protected:
 	int psBayerDithe_;
 	int psBayerDitheConstBuf_;
 
-	//描画用の四角頂点のの作成
+	//描画用の四角頂点の作成
 	void MakeSquereVertex(Vector2 pos);
+
 
 
 
