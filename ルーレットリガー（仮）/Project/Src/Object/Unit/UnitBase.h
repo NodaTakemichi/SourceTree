@@ -44,17 +44,17 @@ public:
 	//攻撃力の取得関数
 	const int& GetAttack(void);
 	//ユニットの順番取得関数
-	const int& GetUnitNum(void) { return unitNum_; }
+	const int& GetUnitNum(void) const { return unitNum_; }
 	//ユニットの名前取得関数
-	const std::string& GetUnitName(void) { return name_; }
+	const std::string& GetUnitName(void) const { return name_; }
 	//ユニットの座標取得関数
-	const Vector2& GetUnitPos(void) { return pos_; }
+	const Vector2& GetUnitPos(void) const { return pos_; }
 	//ユニットのタイプ取得関数
-	const UNIT_TYPE& GetUnitType(void) { return type_; }
+	const UNIT_TYPE& GetUnitType(void) const { return type_; }
 	//コマンド取得関数
-	const std::vector<Command*> GetCommands(void) { return commands_; }
+	const std::vector<Command*> GetCommands(void) const { return commands_; }
 	//バフ取得関数
-	const std::vector<Buff*> GetBuffs(void) { return buffs_; }
+	const std::vector<Buff*> GetBuffs(void) const{ return buffs_; }
 
 
 	const bool& IsActed(void) { return isActed_; }	//行動済みかどうか

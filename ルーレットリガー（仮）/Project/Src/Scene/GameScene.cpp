@@ -53,7 +53,9 @@ void GameScene::Init(void)
 	efMng_->Init();
 
 
+
 	//画像の登録
+	mouseImg_ = LoadGraph("./Data/Image/UI/mouse.png");
 	bgImg_ = LoadGraph("./Data/Image/bg/blue_bg.png");
 	//フレーム
 	frameImg_ = LoadGraph("./Data/Image/UI/Frame.png");
@@ -183,8 +185,13 @@ void GameScene::Draw(void)
 		break;
 	}
 
+	//マウス描画
+	//入力
+	auto& ins = InputManager::GetInstance();
+	Vector2 m = ins.GetMousePos();
+	DrawGraph(m.x, m.y, mouseImg_, true);
 
-#ifdef _DEBUG
+#ifdef DEBUG
 	auto cx = Application::SCREEN_SIZE_X;
 	auto cy = Application::SCREEN_SIZE_Y;
 	auto span = 20;

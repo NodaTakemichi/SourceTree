@@ -33,8 +33,8 @@ void Roulette::Init(void)
 	center_ = LoadGraph("./Data/Image/UI/center.png");
 
 	//ƒtƒHƒ“ƒg‚Ì•ÏX
-	//fontHandle_=CreateFontToHandle("@‚l‚r –¾’©", 22, 10, -1);
-	fontHandle_=CreateFontToHandle("@Noto Serif JP Medium", 22, 10, -1);
+	fontHandle_=CreateFontToHandle("@‚l‚r –¾’©", 22, 10, -1);
+	//fontHandle_=CreateFontToHandle("@Noto Serif JP Medium", 22, 10, -1);
 
 }
 

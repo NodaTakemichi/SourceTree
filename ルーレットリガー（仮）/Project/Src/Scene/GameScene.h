@@ -61,7 +61,8 @@ private:
 	//ユニットのバトルシステム
 	BattleSystem* battleSys_;
 
-
+	//マウス
+	int mouseImg_;
 	//背景画像
 	int bgImg_;
 	//フレーム

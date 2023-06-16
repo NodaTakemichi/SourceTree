@@ -3,20 +3,20 @@
 #include "Resource.h"
 #include "ResourceManager.h"
 
-ResourceManager* ResourceManager::mInstance = nullptr;
+ResourceManager* ResourceManager::instance_ = nullptr;
 
 void ResourceManager::CreateInstance(void)
 {
-	if (mInstance == nullptr)
+	if (instance_ == nullptr)
 	{
-		mInstance = new ResourceManager();
+		instance_ = new ResourceManager();
 	}
-	mInstance->Init();
+	instance_->Init();
 }
 
 ResourceManager& ResourceManager::GetInstance(void)
 {
-	return *mInstance;
+	return *instance_;
 }
 
 void ResourceManager::Init(void)
@@ -28,38 +28,39 @@ void ResourceManager::Init(void)
 
 void ResourceManager::Release(void)
 {
-	for (auto& p : mLoadedMap)
+	for (auto& p : loadedMap_)
 	{
 		p.second->Release();
 		delete p.second;
 	}
 
-	mLoadedMap.clear();
+	loadedMap_.clear();
 }
 
-Resource ResourceManager::Load(SRC src)
+//Resource ResourceManager::Load(SRC src)
+//{
+//	Resource* res = _Load(src);
+//	if (res == nullptr)
+//	{
+//		return Resource();
+//	}
+//	Resource ret = *res;
+//	return *res;
+//}
+
+Resource ResourceManager::Load(std::string key, Resource::TYPE type, std::string path)
 {
-	Resource* res = _Load(src);
+	 Resource test = Resource(Resource::TYPE::EFFEKSEER, path);
+	resourcesMap_.emplace(key, test);
+
+	Resource* res = _Load(key);
 	if (res == nullptr)
 	{
 		return Resource();
 	}
 	Resource ret = *res;
 	return *res;
-}
 
-int ResourceManager::LoadModelDuplicate(SRC src)
-{
-	Resource* res = _Load(src);
-	if (res == nullptr)
-	{
-		return -1;
-	}
-
-	int duId = MV1DuplicateModel(res->mHandleId);
-	res->mDuplicateModelIds.push_back(duId);
-
-	return duId;
 }
 
 ResourceManager::ResourceManager(void)
@@ -68,29 +69,51 @@ ResourceManager::ResourceManager(void)
 
 ResourceManager::~ResourceManager(void)
 {
-	delete mInstance;
+	delete instance_;
 }
 
-Resource* ResourceManager::_Load(SRC src)
+Resource* ResourceManager::_Load(std::string key)
 {
-	const auto& lPair = mLoadedMap.find(src);
-	if (lPair != mLoadedMap.end())
-	{
-		return lPair->second;
-	}
 
-	const auto& rPair = mResourcesMap.find(src);
-	if (rPair == mResourcesMap.end())
+	const auto& rPair = resourcesMap_.find(key);
+	if (rPair != resourcesMap_.end())
 	{
-		// “o˜^‚³‚ê‚Ä‚¢‚È‚¢
+		//“o˜^‚³‚ê‚Ä‚¢‚é
 		return nullptr;
+		//return rPair->second;
 	}
 
-	rPair->second.Load();
+	
+	//(*rPair).second->Load();
 
-	// ”O‚Ì‚½‚ßƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	Resource* ret = new Resource(rPair->second);
-	mLoadedMap.emplace(src, ret);
+	 //”O‚Ì‚½‚ßƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	Resource* ret = new Resource((*rPair).second);
+	loadedMap_.emplace(key, ret);
 
 	return ret;
 }
+
+//Resource* ResourceManager::_Load(SRC src)
+//{
+//	//const auto& lPair = mLoadedMap.find(src);
+//	//if (lPair != mLoadedMap.end())
+//	//{
+//	//	“o˜^‚³‚ê‚Ä‚¢‚é
+//	//	return lPair->second;
+//	//}
+//
+//	//const auto& rPair = mResourcesMap.find(src);
+//	//if (rPair == mResourcesMap.end())
+//	//{
+//	//	 “o˜^‚³‚ê‚Ä‚¢‚È‚¢
+//	//	return nullptr;
+//	//}
+//
+//	//rPair->second.Load();
+//
+//	// ”O‚Ì‚½‚ßƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//	//Resource* ret = new Resource(rPair->second);
+//	//mLoadedMap.emplace(src, ret);
+//
+//	//return ret;
+//}

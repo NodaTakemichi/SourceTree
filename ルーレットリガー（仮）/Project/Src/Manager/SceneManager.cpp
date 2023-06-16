@@ -34,6 +34,9 @@ void SceneManager::Init(void)
 	//ウインドがアクティブ状態じゃなくても、処理を続行させる
 	//SetAlwaysRunFlag(false);
 
+	//マウスの非表示
+	SetMouseDispFlag(false);
+
 	mFader = new Fader();
 	mFader->Init();
 
@@ -92,7 +95,6 @@ void SceneManager::Draw(void)
 {
 	
 	// 描画先グラフィック領域の指定
-	// (３Ｄ描画で使用するカメラの設定などがリセットされる)
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	// 画面を初期化
