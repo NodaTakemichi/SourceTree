@@ -68,14 +68,17 @@ void Resource::Load(void)
 			&mHandleIds[0]);
 		break;
 
-	case Resource::TYPE::MODEL:
-		// ƒ‚ƒfƒ‹
-		mHandleId = MV1LoadModel(mPath.c_str());
-		break;
-
 	case Resource::TYPE::EFFEKSEER:
 
 		mHandleId = LoadEffekseerEffect(mPath.c_str());
+		break;
+
+	case Resource::TYPE::SOUND:
+		mHandleId = LoadSoundMem(mPath.c_str());
+		break;
+
+	case Resource::TYPE::P_SHADER:
+		mHandleId = LoadPixelShader(mPath.c_str());
 		break;
 
 	}
@@ -102,20 +105,16 @@ void Resource::Release(void)
 	}
 		break;
 
-	case Resource::TYPE::MODEL:
-	{
-		MV1DeleteModel(mHandleId);
-		auto ids = mDuplicateModelIds;
-		for (auto id : ids)
-		{
-			MV1DeleteModel(id);
-		}
-	}
+	case Resource::TYPE::EFFEKSEER:
+		DeleteEffekseerEffect(mHandleId);
 		break;
 
-	case Resource::TYPE::EFFEKSEER:
+	case Resource::TYPE::SOUND:
+		DeleteSoundMem(mHandleId);
+		break;
 
-		DeleteEffekseerEffect(mHandleId);
+	case Resource::TYPE::P_SHADER:
+		DeleteShader(mHandleId);
 		break;
 
 	}

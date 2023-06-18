@@ -45,14 +45,8 @@ void EnemyUnit::Update(void)
 
 void EnemyUnit::Draw(void)
 {
-	//バイリニア補間モード
-	SetDrawMode(DX_DRAWMODE_BILINEAR);
-
-	//シェーダー描画
-	DrawUnitShader(nowPs_, 0.0f);
-
-	//ネアレストネイバー法
-	SetDrawMode(DX_DRAWMODE_NEAREST);
+	//ユニット画像描画
+	DrawUnitShader(0.0f);
 
 	//UI描画
 	unitUi_->Draw();

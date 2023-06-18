@@ -1,6 +1,7 @@
 #include <algorithm>
 #include "../../Manager/SceneManager.h"
 #include "../../Utility/AsoUtility.h"
+#include "../../Utility/DrawShader.h"
 
 
 #include "../../Common/GetAttr.h"
@@ -358,39 +359,22 @@ std::string UnitBase::LoadData(std::string fileName)
 
 }
 
-void UnitBase::DrawUnitShader(const int& shader, const float& revers)
+void UnitBase::DrawUnitShader(const float& revers)
 {
-	//シェーダーの設定
-	SetUsePixelShader(shader);
-
-	//シェーダーにテクスチャを転送
-	SetUseTextureToShader(0, unitImg_);
-
-	//シェーダー用の定数バッファ
-	auto& cBuf = psTexConstBuf_;
-
 	auto time = SceneManager::GetInstance().GetTotalTime();
 
-	//ピクセルシェーダー用の定数バッファのアドレスを取得
-	COLOR_F* cbBuf =
-		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
-	cbBuf->r = revers;
-	cbBuf->g = time;
-
-	//描画座標
+	//揺れ幅
 	Vector2 shakePos = { pos_.x + static_cast<int>(shakeX_),pos_.y };
-	MakeSquereVertex(shakePos);
-
-	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
-	UpdateShaderConstantBuffer(cBuf);
-
-	//ピクセルシェーダー用の定数バッファを定数バッファレジスタにセット
-	SetShaderConstantBuffer(cBuf, DX_SHADERTYPE_PIXEL, 3);
+	//定数バッファ
+	COLOR_F buf = COLOR_F{
+		revers,
+		time
+	};
 
 	//描画
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
-	DrawPolygonIndexed2DToShader(vertex_, 4, index_, 2);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	DrawShader::GetInstance().DrawExtendGraphToShader(
+		shakePos, { DRAWING_SIZE ,DRAWING_SIZE }, unitImg_, nowPs_, buf
+	);
 
 
 }
@@ -488,60 +472,6 @@ Buff* UnitBase::GetValidBuff(void)
 	return buff;
 }
 
-void UnitBase::MakeSquereVertex(Vector2 pos)
-{
-	//三角形のポリゴンを2つ作って、くっつけている
-
-	int cnt = 0;
-	float sX = static_cast<float>(pos.x);
-	float sY = static_cast<float>(pos.y);
-	float eX = static_cast<float>(pos.x + DRAWING_SIZE - 1);
-	float eY = static_cast<float>(pos.y + DRAWING_SIZE - 1);
-
-	// ４頂点の初期化
-	for (int i = 0; i < 4; i++)
-	{
-		vertex_[i].rhw = 1.0f;
-		vertex_[i].dif = GetColorU8(255, 255, 255, 255);
-		vertex_[i].spc = GetColorU8(255, 255, 255, 255);
-		vertex_[i].su = 0.0f;
-		vertex_[i].sv = 0.0f;
-	}
-
-	// 左上
-	vertex_[cnt].pos = VGet(sX, sY, 0.0f);
-	vertex_[cnt].u = 0.0f;
-	vertex_[cnt].v = 0.0f;
-	cnt++;
-
-	// 右上
-	vertex_[cnt].pos = VGet(eX, sY, 0.0f);
-	vertex_[cnt].u = 1.0f;
-	vertex_[cnt].v = 0.0f;
-	cnt++;
-
-	// 右下
-	vertex_[cnt].pos = VGet(eX, eY, 0.0f);
-	vertex_[cnt].u = 1.0f;
-	vertex_[cnt].v = 1.0f;
-	cnt++;
-
-	// 左下
-	vertex_[cnt].pos = VGet(sX, eY, 0.0f);
-	vertex_[cnt].u = 0.0f;
-	vertex_[cnt].v = 1.0f;
-
-	// 頂点インデックス
-	cnt = 0;
-	index_[cnt++] = 0;
-	index_[cnt++] = 1;
-	index_[cnt++] = 3;
-
-	index_[cnt++] = 1;
-	index_[cnt++] = 2;
-	index_[cnt++] = 3;
-
-}
 
 void UnitBase::SetDrawingPos(int x)
 {
@@ -552,8 +482,6 @@ void UnitBase::SetDrawingPos(int x)
 	if (unitNum_ == 1)pos_ = { x, topY + spanY };
 	else if (unitNum_ == 2)pos_ = { x,topY };
 	else if (unitNum_ == 3)pos_ = { x,topY + spanY * 2 };
-
-	MakeSquereVertex(pos_);
 	
 	return;
 }

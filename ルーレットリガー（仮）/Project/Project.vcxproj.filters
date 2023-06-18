@@ -81,7 +81,7 @@
     <ClCompile Include="Src\Object\Unit\UI\UnitUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\System\BattleSystem.cpp">
+    <ClCompile Include="Src\Battle\BattleSystem.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object\Unit\UI\PlayerUI.cpp">
@@ -97,6 +97,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Manager\EffectManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Battle\DeathStaging.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Utility\DrawShader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,7 +173,7 @@
     <ClInclude Include="Src\Object\Unit\UI\UnitUI.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\System\BattleSystem.h">
+    <ClInclude Include="Src\Battle\BattleSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Unit\UI\PlayerUI.h">
@@ -185,11 +191,18 @@
     <ClInclude Include="Src\Manager\EffectManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Battle\DeathStaging.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Utility\DrawShader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\HpShader.hlsl" />
     <FxCompile Include="Src\Shader\Texture.hlsl" />
     <FxCompile Include="Src\Shader\Monotone.hlsl" />
     <FxCompile Include="Src\Shader\BayerDithe.hlsl" />
+    <FxCompile Include="Src\Shader\DeathShader.hlsl" />
   </ItemGroup>
 </Project>

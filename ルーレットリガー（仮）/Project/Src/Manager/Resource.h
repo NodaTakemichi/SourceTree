@@ -10,11 +10,12 @@ public:
 	// リソースタイプ
 	enum class TYPE
 	{
-		NONE,
-		IMG,
-		IMGS,
-		MODEL,
-		EFFEKSEER
+		NONE=0,
+		IMG=1,
+		IMGS=2,
+		EFFEKSEER=3,
+		SOUND=4,
+		P_SHADER=5,
 	};
 
 	// コンストラクタ

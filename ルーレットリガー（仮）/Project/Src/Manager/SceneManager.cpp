@@ -9,6 +9,7 @@
 
 
 #include "../Utility/Measure.h"
+#include "../Utility/DrawShader.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
@@ -36,6 +37,10 @@ void SceneManager::Init(void)
 
 	//マウスの非表示
 	SetMouseDispFlag(false);
+
+	// シェーダ―描画クラス初期化
+	DrawShader::CreateInstance();
+
 
 	mFader = new Fader();
 	mFader->Init();
@@ -129,6 +134,10 @@ void SceneManager::Release(void)
 	delete mScene;
 
 	delete mFader;
+
+	// シェーダ―描画の解放
+	DrawShader::GetInstance().Release();
+
 
 }
 

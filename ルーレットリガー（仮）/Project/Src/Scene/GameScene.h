@@ -8,6 +8,7 @@ class Roulette;
 class GameUI;
 
 class BattleSystem;
+class DeathStaging;
 class EffectManager;
 
 class GameScene : public SceneBase
@@ -60,6 +61,8 @@ private:
 
 	//ユニットのバトルシステム
 	BattleSystem* battleSys_;
+	//ユニットの死亡演出
+	DeathStaging* deathSta_;;
 
 	//マウス
 	int mouseImg_;

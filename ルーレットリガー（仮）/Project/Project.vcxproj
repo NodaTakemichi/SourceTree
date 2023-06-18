@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Src\Application.cpp" />
+    <ClCompile Include="Src\Battle\DeathStaging.cpp" />
     <ClCompile Include="Src\Common\Fader.cpp" />
     <ClCompile Include="Src\Common\Vector2.cpp" />
     <ClCompile Include="Src\main.cpp" />
@@ -172,14 +173,16 @@
     <ClCompile Include="Src\Scene\GameScene.cpp" />
     <ClCompile Include="Src\Scene\ResultScene.cpp" />
     <ClCompile Include="Src\Scene\SceneBase.cpp" />
-    <ClCompile Include="Src\System\BattleSystem.cpp" />
+    <ClCompile Include="Src\Battle\BattleSystem.cpp" />
     <ClCompile Include="Src\Utility\AsoUtility.cpp" />
+    <ClCompile Include="Src\Utility\DrawShader.cpp" />
     <ClCompile Include="Src\Utility\Measure.cpp" />
     <ClCompile Include="Src\_debug\_DebugConOut.cpp" />
     <ClCompile Include="Src\_debug\_DebugDispOut.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Application.h" />
+    <ClInclude Include="Src\Battle\DeathStaging.h" />
     <ClInclude Include="Src\Common\Fader.h" />
     <ClInclude Include="Src\Common\GetAttr.h" />
     <ClInclude Include="Src\Common\Vector2.h" />
@@ -202,14 +205,21 @@
     <ClInclude Include="Src\Scene\GameScene.h" />
     <ClInclude Include="Src\Scene\ResultScene.h" />
     <ClInclude Include="Src\Scene\SceneBase.h" />
-    <ClInclude Include="Src\System\BattleSystem.h" />
+    <ClInclude Include="Src\Battle\BattleSystem.h" />
     <ClInclude Include="Src\Utility\AsoUtility.h" />
+    <ClInclude Include="Src\Utility\DrawShader.h" />
     <ClInclude Include="Src\Utility\Measure.h" />
     <ClInclude Include="Src\_debug\_DebugConOut.h" />
     <ClInclude Include="Src\_debug\_DebugDispOut.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\BayerDithe.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\DeathShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

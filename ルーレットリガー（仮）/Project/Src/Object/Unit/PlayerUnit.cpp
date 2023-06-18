@@ -52,14 +52,9 @@ void PlayerUnit::Update(void)
 
 void PlayerUnit::Draw(void)
 {
-	//バイリニア補間モード
-	SetDrawMode(DX_DRAWMODE_BILINEAR);
 
-	//シェーダー描画
-	DrawUnitShader(nowPs_,1.0f);
-
-	//ネアレストネイバー法
-	SetDrawMode(DX_DRAWMODE_NEAREST);
+	//ユニット画像描画
+	DrawUnitShader(1.0f);
 
 
 	//UI描画

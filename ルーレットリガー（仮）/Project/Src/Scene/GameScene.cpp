@@ -6,7 +6,10 @@
 #include "../Manager/SceneManager.h"
 #include "../Utility/AsoUtility.h"
 
-#include "../System/BattleSystem.h"
+#include "../Utility/DrawShader.h"
+
+#include "../Battle/BattleSystem.h"
+#include "../Battle/DeathStaging.h"
 
 #include "../Manager/EffectManager.h"
 #include "../Object/Unit/UnitManager.h"
@@ -47,6 +50,10 @@ void GameScene::Init(void)
 	//バトルシステム
 	battleSys_ = new BattleSystem();
 	battleSys_->Init();
+
+	//死亡演出
+	deathSta_ = new DeathStaging();
+	deathSta_->Init();
 
 	//エフェクトマネージャー
 	efMng_ = new EffectManager();
@@ -164,6 +171,10 @@ void GameScene::Draw(void)
 	DrawString(580, 40, turnString_.c_str(), turnCol_);
 	DrawString(580, 40, "\n　　　　のターン", 0xffffff);
 
+	//死亡演出
+	deathSta_->Draw();
+
+
 	//フェーズ別描画
 	switch (phase_)
 	{
@@ -186,7 +197,6 @@ void GameScene::Draw(void)
 	}
 
 	//マウス描画
-	//入力
 	auto& ins = InputManager::GetInstance();
 	Vector2 m = ins.GetMousePos();
 	DrawGraph(m.x, m.y, mouseImg_, true);
@@ -220,6 +230,8 @@ void GameScene::Release(void)
 	delete battleSys_;
 	efMng_->Release();
 	delete efMng_;
+	deathSta_->Release();
+	delete deathSta_;
 
 	//画像解放
 	DeleteGraph(bgImg_);

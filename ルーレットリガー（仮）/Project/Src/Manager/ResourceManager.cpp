@@ -37,30 +37,15 @@ void ResourceManager::Release(void)
 	loadedMap_.clear();
 }
 
-//Resource ResourceManager::Load(SRC src)
-//{
-//	Resource* res = _Load(src);
-//	if (res == nullptr)
-//	{
-//		return Resource();
-//	}
-//	Resource ret = *res;
-//	return *res;
-//}
-
-Resource ResourceManager::Load(std::string key, Resource::TYPE type, std::string path)
+Resource ResourceManager::Load(SRC src)
 {
-	 Resource test = Resource(Resource::TYPE::EFFEKSEER, path);
-	resourcesMap_.emplace(key, test);
-
-	Resource* res = _Load(key);
+	Resource* res = _Load(src);
 	if (res == nullptr)
 	{
 		return Resource();
 	}
 	Resource ret = *res;
 	return *res;
-
 }
 
 ResourceManager::ResourceManager(void)
@@ -72,48 +57,27 @@ ResourceManager::~ResourceManager(void)
 	delete instance_;
 }
 
-Resource* ResourceManager::_Load(std::string key)
+Resource* ResourceManager::_Load(SRC src)
 {
-
-	const auto& rPair = resourcesMap_.find(key);
-	if (rPair != resourcesMap_.end())
+	const auto& lPair = loadedMap_.find(src);
+	if (lPair != loadedMap_.end())
 	{
 		//“o˜^‚³‚ê‚Ä‚¢‚é
-		return nullptr;
-		//return rPair->second;
+		return lPair->second;
 	}
 
-	
-	//(*rPair).second->Load();
+	const auto& rPair = resourcesMap_.find(src);
+	if (rPair == resourcesMap_.end())
+	{
+		 //“o˜^‚³‚ê‚Ä‚¢‚È‚¢
+		return nullptr;
+	}
 
-	 //”O‚Ì‚½‚ßƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	Resource* ret = new Resource((*rPair).second);
-	loadedMap_.emplace(key, ret);
+	rPair->second.Load();
+
+	// ”O‚Ì‚½‚ßƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	Resource* ret = new Resource(rPair->second);
+	loadedMap_.emplace(src, ret);
 
 	return ret;
 }
-
-//Resource* ResourceManager::_Load(SRC src)
-//{
-//	//const auto& lPair = mLoadedMap.find(src);
-//	//if (lPair != mLoadedMap.end())
-//	//{
-//	//	“o˜^‚³‚ê‚Ä‚¢‚é
-//	//	return lPair->second;
-//	//}
-//
-//	//const auto& rPair = mResourcesMap.find(src);
-//	//if (rPair == mResourcesMap.end())
-//	//{
-//	//	 “o˜^‚³‚ê‚Ä‚¢‚È‚¢
-//	//	return nullptr;
-//	//}
-//
-//	//rPair->second.Load();
-//
-//	// ”O‚Ì‚½‚ßƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//	//Resource* ret = new Resource(rPair->second);
-//	//mLoadedMap.emplace(src, ret);
-//
-//	//return ret;
-//}
