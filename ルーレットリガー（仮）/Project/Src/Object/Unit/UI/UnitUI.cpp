@@ -1,6 +1,7 @@
 #include<DxLib.h>
 #include"../../../_debug/_DebugConOut.h"
 #include"../../../Manager/SceneManager.h"
+#include"../../../Utility/DrawShader.h"
 
 #include "UnitUI.h"
 
@@ -21,7 +22,7 @@ void UnitUI::Init(void)
 	targetImg_ = LoadGraph("./Data/Image/UI/target.png");
 
 	//シェーダーの登録
-	//psHpColor_ = LoadPixelShader("./Data/Shader/HpShader.cso");
+	psTextrue_ = LoadPixelShader("./x64/Debug/Textrue.cso");
 	psHpColor_ = LoadPixelShader("./x64/Debug/HpShader.cso");
 	//ピクセルシェーダー用の定数バッファの作成
 	psHpColorConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 8);
@@ -40,10 +41,17 @@ void UnitUI::Init(void)
 
 	//ダメージフレーム画像
 	dmgFrameImg_= LoadGraph("./Data/Image/UI/DmgNum2.png");
-	//ダメージフォント
-	dmgFontHandle_= CreateFontToHandle("零ゴシック", 40, 20, -1);
 	//ダメージ描画
 	dmgNumDrawing_ = false;	//ダメージを true:表示 , false:非表示
+
+	//ダメージフォント
+	dmgFontHandle_ = CreateFontToHandle("零ゴシック", 40, 20, -1);
+	//回復フォント
+	healFontHandle_ = CreateFontToHandle("Noto Serif JP Medium", 40, 20, -1,
+		DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 1);
+	//ユニットフォント
+	unitFontHandle_ = CreateFontToHandle("Noto Serif JP Medium", 18, 20, -1,
+		DX_FONTTYPE_ANTIALIASING_4X4);
 
 }
 
@@ -84,55 +92,42 @@ void UnitUI::SetDmg(const bool& drawing, const int& dmg)
 	return;
 }
 
-void UnitUI::DrawHpShader(const COLOR_F& color)
+void UnitUI::DrawHpShader(const Vector2& pos , const COLOR_F& color)
 {
-	//シェーダーの設定
-	SetUsePixelShader(psHpColor_);
-
-	//シェーダー用の定数バッファ
-	auto& cBuf = psHpColorConstBuf_;
-
 	//HPの割合
 	float nowRatio = static_cast<float>(nowHp_) / static_cast<float>(maxHp_);
 	float hpRatio = static_cast<float>(hp_) / static_cast<float>(maxHp_);
-
-
-	//ピクセルシェーダー用の定数バッファのアドレスを取得
-	COLOR_F* cbBuf =
-		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
-	cbBuf->r = color.r;
-	cbBuf->g = color.g;
-	cbBuf->b = color.b;
-	cbBuf->a = color.a;
-	cbBuf++;
-	cbBuf->r = nowRatio;	//減少HP割合
-	cbBuf->g = hpRatio;		//HP割合
-
-
-	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
-	UpdateShaderConstantBuffer(cBuf);
-
-	//ピクセルシェーダー用の定数バッファを定数バッファレジスタにセット
-	SetShaderConstantBuffer(cBuf, DX_SHADERTYPE_PIXEL, 3);
+	COLOR_F subBuf = COLOR_F{
+		nowRatio,
+		hpRatio
+	};
 
 	//描画
-	DrawPolygonIndexed2DToShader(mVertex, 4, mIndex, 2);
+	DrawShader::GetInstance().DrawExtendGraphToShader(
+		pos, { HP_GAUGE_X ,HP_GAUGE_Y }, -1, psHpColor_, color, subBuf
+	);
 
 }
 
 void UnitUI::DrawHpFrame(const Vector2& pos)
 {
 	//HPフレームの描画
-	auto frame = 2;
+	auto frame = 1;
 	DrawBox(pos.x - frame, pos.y - frame,
 		pos.x + HP_GAUGE_X + frame, pos.y + HP_GAUGE_Y + frame,
 		0xffffff, true);
+
+	//HPの数値表示
+	DrawFormatStringToHandle(
+		pos.x, pos.y + HP_GAUGE_Y + frame,
+		0xffffff, unitFontHandle_, "HP\n%d", nowHp_);
+
 }
 
 void UnitUI::DrawName(const std::string& name, const Vector2& uPos)
 {
 	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
-	Vector2 fPos = { uPos.x - 10,uPos.y + 140 };
+	Vector2 fPos = { uPos.x - 25,uPos.y + 150 };
 	Vector2 nPos = { uPos.x + unitSize / 2,uPos.y + 152 };
 
 	//名前枠の表示
@@ -145,7 +140,8 @@ void UnitUI::DrawName(const std::string& name, const Vector2& uPos)
 	//文字列の（半分の）長さを取得
 	auto fx = GetDrawStringWidth(n, len) / 2;
 	//名前描画
-	DrawString(nPos.x - fx, nPos.y, n, 0xffffff);
+	DrawStringToHandle(
+		nPos.x - fx, nPos.y, n, 0xffffff, unitFontHandle_);
 
 }
 
@@ -153,6 +149,8 @@ void UnitUI::DrawBuffIcon()
 {
 	//バフアイコンの描画
 	int i = 0;
+	int s = 34;
+
 	for (auto& buff : buffs_)
 	{
 		if(!buff->IsAlive())continue;
@@ -196,92 +194,13 @@ void UnitUI::DrawBuffIcon()
 			return;
 		}
 
-		//バイリニア補間モード
-		SetDrawMode(DX_DRAWMODE_BILINEAR);
 
-		int s = 32;
-		Vector2 iPos = { unitPos_.x + (i * 36) + 10, unitPos_.y + 130 };
-		DrawExtendGraph(iPos.x, iPos.y, iPos.x + s, iPos.y + s, icon_[num], true);
+		Vector2 iPos = { unitPos_.x + (i * 36) + 10, unitPos_.y + 120 };
+		DrawShader::GetInstance().DrawExtendGraphToShader
+		(iPos, { s,s }, icon_[num], psTextrue_, COLOR_F{});
 		i++;
 
-		//ネアレストネイバー法
-		SetDrawMode(DX_DRAWMODE_NEAREST);
 	}
-}
-
-void UnitUI::MakeSquereVertex(Vector2 pos)
-{
-	//三角形のポリゴンを2つ作って、くっつけている
-
-	int cnt = 0;
-	float sX = static_cast<float>(pos.x);
-	float sY = static_cast<float>(pos.y);
-	float eX = static_cast<float>(pos.x + HP_GAUGE_X - 1);
-	float eY = static_cast<float>(pos.y + HP_GAUGE_Y - 1);
-
-	// ４頂点の初期化
-	for (int i = 0; i < 4; i++)
-	{
-		mVertex[i].rhw = 1.0f;
-		mVertex[i].dif = GetColorU8(255, 255, 255, 255);
-		mVertex[i].spc = GetColorU8(255, 255, 255, 255);
-		mVertex[i].su = 0.0f;
-		mVertex[i].sv = 0.0f;
-	}
-
-	// 左上
-	mVertex[cnt].pos = VGet(sX, sY, 0.0f);
-	mVertex[cnt].u = 0.0f;
-	mVertex[cnt].v = 0.0f;
-	cnt++;
-
-	// 右上
-	mVertex[cnt].pos = VGet(eX, sY, 0.0f);
-	mVertex[cnt].u = 1.0f;
-	mVertex[cnt].v = 0.0f;
-	cnt++;
-
-	// 右下
-	mVertex[cnt].pos = VGet(eX, eY, 0.0f);
-	mVertex[cnt].u = 1.0f;
-	mVertex[cnt].v = 1.0f;
-	cnt++;
-
-	// 左下
-	mVertex[cnt].pos = VGet(sX, eY, 0.0f);
-	mVertex[cnt].u = 0.0f;
-	mVertex[cnt].v = 1.0f;
-
-	/*
-	　～～～～～～
-		0-----1
-		|     |
-		|     |
-		3-----2
-	　～～～～～～
-		0-----1
-		|  ／
-		|／
-		3
-	　～～～～～～
-			  1
-		   ／ |
-		 ／   |
-		3-----2
-	　～～～～～～
-	*/
-
-
-	// 頂点インデックス
-	cnt = 0;
-	mIndex[cnt++] = 0;
-	mIndex[cnt++] = 1;
-	mIndex[cnt++] = 3;
-
-	mIndex[cnt++] = 1;
-	mIndex[cnt++] = 2;
-	mIndex[cnt++] = 3;
-
 }
 
 

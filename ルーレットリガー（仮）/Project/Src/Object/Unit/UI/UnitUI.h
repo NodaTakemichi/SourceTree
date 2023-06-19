@@ -54,29 +54,28 @@ protected:
 
 	//ダメージフレーム画像
 	int dmgFrameImg_;
-	//ダメージフォント
-	int dmgFontHandle_;
 	//ダメージ描画
 	bool dmgNumDrawing_;	//ダメージを true:表示 , false:非表示
 	//ダメージ値
 	int dmg_;
 
+	//ダメージフォント
+	int dmgFontHandle_;
+	//回復フォント
+	int healFontHandle_;
+	//ユニットフォント
+	int unitFontHandle_;
 
 
 	//HPシェーダー
-	//頂点情報
-	VERTEX2DSHADER mVertex[4];
-	WORD mIndex[6];
-
 	//シェーダーハンドル
 	int psHpColor_;
 	int psHpColorConstBuf_;
-
-	//描画用の四角頂点のの作成
-	void MakeSquereVertex(Vector2 pos);
+	//通常シェーダー
+	int psTextrue_;
 
 	//HPのシェーダー描画
-	void DrawHpShader(const COLOR_F& color);
+	void DrawHpShader(const Vector2& pos ,const COLOR_F& color);
 
 	//HP枠の描画
 	void DrawHpFrame(const Vector2& pos);

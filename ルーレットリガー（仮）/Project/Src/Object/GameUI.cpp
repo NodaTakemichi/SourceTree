@@ -13,18 +13,19 @@ GameUI::~GameUI()
 void GameUI::Init(void)
 {
 	//コマンド名
-	cmdName_ = std::string();
+	cmdName_ = "";
 	cmdPos_ = { 750,190 };
 
-	//文章表示座標
-	cPos_ = { 350,610 };
+	//現在ターンの文字
+	turnString_ = "";
 
 
-	//フォントの変更
-	fontHandle_ = CreateFontToHandle("ＭＳ 明朝", 20, 20, -1);
+	//フォントの登録
+	turnFotnHandle_ = CreateFontToHandle("装甲明朝", 28, -1,
+		DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 1);
 
-	//コメント窓
-	commentWindowImg_ = LoadGraph("./Data/Image/UI/コメントフレーム.png");
+	cmdFontHandle_ = CreateFontToHandle("Noto Serif JP Medium", 18, -1,
+		DX_FONTTYPE_ANTIALIASING_EDGE, -1, 1);
 
 }
 
@@ -34,29 +35,19 @@ void GameUI::Update(void)
 
 void GameUI::Draw(void)
 {
-	auto sy = Application::SCREEN_SIZE_Y;
+	//現在ターンを表示
+ 	auto n = turnString_.c_str();
+	//幅、高さ、行数
+	int sizeX, sizeY, lineCnt;
+	GetDrawStringSizeToHandle(
+		&sizeX, &sizeY, &lineCnt, n, -1, turnFotnHandle_);
 
-	//コメント窓
-	DrawGraph(0, sy - 130, commentWindowImg_, true);
-	//文章
-	DrawTriangle(
-		cPos_.x, cPos_.y,
-		cPos_.x + 20, cPos_.y + 10,
-		cPos_.x, cPos_.y + 20,
-		0xffffff, true);
-
-	Vector2 cPos = { cPos_.x + 30,cPos_.y };
-	int num = 0;
-	for (auto& cmt : cmts_)
-	{
-		//getdrawstringsize
-		DrawStringToHandle(
-			cPos.x, cPos.y + num * 20,
-			cmt.c_str(), fontHandle_, 0xffffff);
-		num++;
-	}
-
-
+	auto fx = sizeX / 2;
+	auto wx = Application::SCREEN_SIZE_X / 2;
+	DrawStringToHandle(
+		wx - fx, 30, n, turnCol_, turnFotnHandle_, 0xffffff);
+	DrawStringToHandle(
+		610, 30, "\nのターン", 0xffffff, turnFotnHandle_, 0x555555);
 
 }
 
@@ -68,10 +59,10 @@ void GameUI::DrawActivSkill(void)
 	//幅、高さ、行数
 	int sizeX, sizeY, lineCnt;
 	GetDrawStringSizeToHandle(
-		&sizeX, &sizeY, &lineCnt, name, -1, fontHandle_);
+		&sizeX, &sizeY, &lineCnt, name, -1, cmdFontHandle_);
 
 	//枠
-	auto diff = 5;
+	auto diff = 3;
 	DrawBox(
 		cmdPos_.x - diff, 
 		cmdPos_.y - diff,
@@ -90,7 +81,7 @@ void GameUI::DrawActivSkill(void)
 	auto sDiff = 5;
 	DrawStringToHandle(
 		cmdPos_.x + sDiff, cmdPos_.y + sDiff, 
-		cmdName_.c_str(), 0xffffff, fontHandle_);
+		cmdName_.c_str(), 0xffffff, cmdFontHandle_);
 
 
 }
@@ -98,8 +89,8 @@ void GameUI::DrawActivSkill(void)
 
 void GameUI::Release(void)
 {
-	DeleteFontToHandle(fontHandle_);
-	DeleteGraph(commentWindowImg_);
+	DeleteFontToHandle(cmdFontHandle_);
+	DeleteFontToHandle(turnFotnHandle_);
 
 }
 
@@ -108,9 +99,10 @@ void GameUI::SetCmdName(std::string name)
 	cmdName_ = name;
 }
 
-void GameUI::AddCommentary(std::string cmt)
+void GameUI::SetTurnString(const std::string& name, const int& color)
 {
-	//文章の追加
-	cmts_.push_back(cmt);
-
+	turnString_ = name;
+	turnCol_ = color;
 }
+
+

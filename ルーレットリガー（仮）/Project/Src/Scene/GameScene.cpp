@@ -61,14 +61,13 @@ void GameScene::Init(void)
 
 
 
-	//画像の登録
-	mouseImg_ = LoadGraph("./Data/Image/UI/mouse.png");
+	//背景画像の登録
 	bgImg_ = LoadGraph("./Data/Image/bg/blue_bg.png");
-	//フレーム
-	frameImg_ = LoadGraph("./Data/Image/UI/Frame.png");
+	frameImg_ = LoadGraph("./Data/Image/UI/frame_full.png");
+	topFrameImg_= LoadGraph("./Data/Image/UI/Turn.png");
 
-	//ターン文字
-	turnString_ = "";
+	mouseImg_ = LoadGraph("./Data/Image/UI/mouse.png");
+
 	//フェーズの変更
 	ChangeGamePhase(GAME_PHASE::RULLET_TIME);
 
@@ -160,19 +159,16 @@ void GameScene::Draw(void)
 	//背景
 	DrawGraph(0, 0, bgImg_, true);
 	//フレーム
-	DrawGraph(0, 100, frameImg_, true);
+	DrawGraph(-20, 110, frameImg_, true);
+	DrawGraph(0, 0, topFrameImg_, true);
 
 	//オブジェクト
 	unitMng_->Draw();
 	roulette_->Draw();
 
 	//UI関連
-	//現在ターンを表示
-	DrawString(580, 40, turnString_.c_str(), turnCol_);
-	DrawString(580, 40, "\n　　　　のターン", 0xffffff);
+	GameUi_->Draw();
 
-	//死亡演出
-	deathSta_->Draw();
 
 
 	//フェーズ別描画
@@ -195,6 +191,9 @@ void GameScene::Draw(void)
 		_dbgDrawFormatString(0, 0, 0xffffff, "ゲーム終了");
 		break;
 	}
+
+	//死亡演出
+	deathSta_->Draw();
 
 	//マウス描画
 	auto& ins = InputManager::GetInstance();
@@ -300,7 +299,6 @@ void GameScene::UpdateTurnEnd(void)
 	//ダメージ減少が終了したかどうか判断（毒ダメージ）
 	bool next = unitMng_->GetActivUnit()->DecHpProcess();
 
-	//全滅か判断
 	//全滅ならばゲーム終了、
 	//そうでない且、必要処理終了後ならルーレットフェーズに進む。
 	if (next) 
@@ -337,10 +335,11 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 		roulette_->ResetRouSpin();
 
 
-		//現在の行動ユニットのターン文字
+		//現在の行動ユニットのターン文字 
 		bool turn = unitMng_->GetActivUnit()->GetUnitType() == UnitBase::UNIT_TYPE::PLAYER;
-		turnString_ = unitMng_->GetActivUnit()->GetUnitName();
-		turnCol_ = turn ? 0x00ff00 : 0xff0000;		//緑：赤
+		auto color = turn ? 0x00ff00 : 0xff0000;		//緑：赤
+		auto name = unitMng_->GetActivUnit()->GetUnitName();
+		GameUi_->SetTurnString(name, color);
 
 		break;
 	}

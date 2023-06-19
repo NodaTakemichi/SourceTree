@@ -18,26 +18,20 @@ public:
 	//コマンド名のセット
 	void SetCmdName(std::string name);
 
-	//文章追加
-	void AddCommentary(std::string cmt);
+	//現在ターンのセット
+	void SetTurnString(const std::string& name,const int& color);
 
 private:
-
-
 	//発動コマンド技の描画
 	Vector2 cmdPos_;		//表示座標
 	std::string cmdName_;	//コマンドネーム
+	int cmdFontHandle_;
 
-	//フォント
-	int fontHandle_;
+	//ターン文字、色、フォント
+	std::string turnString_;
+	int turnCol_;
+	int turnFotnHandle_;
 
-	//コメント窓
-	int commentWindowImg_;
-
-	//文章表示座標
-	Vector2 cPos_;
-	//文章
-	std::vector<std::string>cmts_;
 
 };
 

@@ -121,8 +121,8 @@ void DrawShader::MakeSquereVertex(Vector2 pos, Vector2 size)
 	int cnt = 0;
 	float sX = static_cast<float>(pos.x);
 	float sY = static_cast<float>(pos.y);
-	float eX = static_cast<float>(pos.x + size.x - 1);
-	float eY = static_cast<float>(pos.y + size.y - 1);
+	float eX = static_cast<float>(pos.x + size.x);
+	float eY = static_cast<float>(pos.y + size.y);
 
 	// ÇSí∏ì_ÇÃèâä˙âª
 	for (int i = 0; i < 4; i++)

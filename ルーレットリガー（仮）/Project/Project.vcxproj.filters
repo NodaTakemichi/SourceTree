@@ -204,5 +204,6 @@
     <FxCompile Include="Src\Shader\Monotone.hlsl" />
     <FxCompile Include="Src\Shader\BayerDithe.hlsl" />
     <FxCompile Include="Src\Shader\DeathShader.hlsl" />
+    <FxCompile Include="Src\Shader\ActivUnitName.hlsl" />
   </ItemGroup>
 </Project>

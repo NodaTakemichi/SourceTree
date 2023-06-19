@@ -15,17 +15,12 @@ void PlayerUI::Init(void)
 	//初期化
 	UnitUI::Init();
 
-	//ユニットのサイズ
-	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
-	//HP座標
-	Vector2 pos = { unitPos_.x - 70 ,unitPos_.y + 20 };
-	//四角形ポリゴンの生成(HP用)
-	MakeSquereVertex(pos);
-
 }
 
 void PlayerUI::Draw(void)
 {
+	//ユニットのサイズ
+	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
 
 	//名前描画
 	DrawName(name_, unitPos_);
@@ -42,14 +37,11 @@ void PlayerUI::Draw(void)
 	//HP枠の表示
 	Vector2 pos = { unitPos_.x - 70 ,unitPos_.y + 20 };
 	DrawHpFrame(pos);
-	//HPの数値表示
-	DrawFormatString(
-		pos.x + HP_GAUGE_X +10 , pos.y + HP_GAUGE_Y - 32,
-		0xffffff, "HP\n%d", nowHp_);
 
 	//HPシェーダー
-	COLOR_F color = { 0.4f,0.8f,0.4f,1.0f };
-	DrawHpShader(color);
+	pos = { unitPos_.x - 70 ,unitPos_.y + 20 };
+	COLOR_F color = { 0.4f,0.8f,0.4f,1.0f };	//緑
+	DrawHpShader(pos,color);
 
 	//描画
 	UnitUI::Draw();
