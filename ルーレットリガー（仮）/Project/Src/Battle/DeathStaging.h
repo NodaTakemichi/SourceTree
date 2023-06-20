@@ -10,8 +10,7 @@ public:
 	void Draw(void);
 	void Release(void);
 
-	void DrawStaging(void);
-	void DrawShader(void);
+	void DrawDeathUnit(void);
 
 private:
 
@@ -21,22 +20,21 @@ private:
 	int frameImg_;
 	//死亡ユニット画像
 	int unitImg_;
+	//死亡背景
+	int backImg_;
 
-
+	//通常シェーダー
+	int psReverTex_;
 	//死亡ユニット用シェーダー
-		//シェーダー関連
-	//頂点情報
-	VERTEX2DSHADER vertex_[4];
-	WORD index_[6];
-
-	//シェーダーハンドル
-	//マスク描画
-	int psTex_;
-	int psTexConstBuf_;
+	int deathShader_;
 
 
-	//描画用の四角頂点の作成
-	void MakeSquereVertex(Vector2 pos);
+	//マスクシェーダーハンドル
+	int psMask_;
+
+	//マスクスクリーン
+	int maskScreen_;
+
 
 
 

@@ -30,6 +30,29 @@ void DrawShader::Release(void)
 	delete[] vertex_;
 }
 
+void DrawShader::DrawGraphToShader(const Vector2& pos, const int& handle, const int& ps)
+{
+	//シェーダーの設定
+	SetUsePixelShader(ps);
+
+	//シェーダーにテクスチャを転送
+	SetUseTextureToShader(0, handle);
+
+	//サイズ
+	int x, y;
+	GetGraphSize(handle, &x, &y);
+
+	//描画座標
+	MakeSquereVertex(pos, { x,y });
+
+
+	//描画
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
+	DrawPolygonIndexed2DToShader(vertex_, 4, index_, 2);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+}
+
 void DrawShader::DrawGraphToShader(
 	const Vector2& pos, const int& handle, const int& ps,
 	const COLOR_F& buf, const COLOR_F& subBuf)
@@ -111,7 +134,47 @@ void DrawShader::DrawExtendGraphToShader(
 
 	//ネアレストネイバー法
 	SetDrawMode(DX_DRAWMODE_NEAREST);
+}
 
+void DrawShader::DrawGraphAndSubToShader(
+	const Vector2& pos,
+	const int& mHandle, const int& sHandle, const int& ps, 
+	const COLOR_F& buf, const COLOR_F& subBuf)
+{
+	//シェーダーの設定
+	SetUsePixelShader(ps);
+
+	//シェーダーにテクスチャを転送
+	SetUseTextureToShader(0, mHandle);
+	SetUseTextureToShader(1, sHandle);
+
+	//シェーダー用の定数バッファ
+	auto& cBuf = psConstBuf_;
+
+	//ピクセルシェーダー用の定数バッファのアドレスを取得
+	COLOR_F* cbBuf =
+		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
+	*cbBuf = buf;
+	cbBuf++;
+	*cbBuf = subBuf;
+
+	//サイズ
+	int x, y;
+	GetGraphSize(mHandle, &x, &y);
+	//描画座標
+	MakeSquereVertex(pos, {x,y});
+
+
+	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
+	UpdateShaderConstantBuffer(cBuf);
+
+	//ピクセルシェーダー用の定数バッファを定数バッファレジスタにセット
+	SetShaderConstantBuffer(cBuf, DX_SHADERTYPE_PIXEL, 3);
+
+	//描画
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
+	DrawPolygonIndexed2DToShader(vertex_, 4, index_, 2);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 }
 

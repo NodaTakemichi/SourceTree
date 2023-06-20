@@ -202,6 +202,12 @@ void Init(void)
 	//ピクセルシェーダー用の定数バッファの作成
 	psParalysisConstBuf = CreateShaderConstantBuffer(sizeof(float) * 8);
 
+	//ピクセルシェーダーのロード
+	psDeathUnit = LoadPixelShader(
+		(PATH_SHADER + "DeathUnit.cso").c_str());
+	//ピクセルシェーダー用の定数バッファの作成
+	psDeathUnitConstBuf = CreateShaderConstantBuffer(sizeof(float) * 8);
+
 }
 
 void Release(void)
@@ -233,6 +239,7 @@ void Release(void)
 	DeleteShader(psStatusDown);
 	DeleteShader(psPoison);
 	DeleteShader(psParalysis);
+	DeleteShader(psDeathUnit);
 
 	// ピクセルシェーダー用定数バッファを解放
 	DeleteShaderConstantBuffer(psCustomColorConstBuf);
@@ -258,6 +265,7 @@ void Release(void)
 	DeleteShaderConstantBuffer(psStatusDownConstBuf);
 	DeleteShaderConstantBuffer(psPoisonConstBuf);
 	DeleteShaderConstantBuffer(psParalysisConstBuf);
+	DeleteShaderConstantBuffer(psDeathUnitConstBuf);
 
 
 }
@@ -423,6 +431,10 @@ void Run(void)
 
 		//麻痺
 		DrawParalysis();
+		mPosX += PLUS_X;
+
+		//麻痺
+		DrawDeathUnit();
 		mPosX += PLUS_X;
 
 
@@ -1509,6 +1521,42 @@ void DrawParalysis(void)
 		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
 	cbBuf->r = mTotalTime;
 
+
+	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
+	UpdateShaderConstantBuffer(cBuf);
+
+	//ピクセルシェーダー用の定数バッファを定数バッファレジスタにセット
+	SetShaderConstantBuffer(cBuf, DX_SHADERTYPE_PIXEL, 3);
+
+	//四角ポリゴン（三角2つ）を生成
+	MakeSquereVertex();
+
+	//描画
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+	DrawPolygonIndexed2DToShader(mVertex, 4, mIndex, 2);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	//フレーム
+	DrawFrame();
+
+}
+
+void DrawDeathUnit(void)
+{
+	DrawTitle("死亡描画");
+
+	auto& cBuf = psDeathUnitConstBuf;
+
+	//シェーダーの設定
+	SetUsePixelShader(psDeathUnit);
+
+	////シェーダーにテクスチャを転送
+	SetUseTextureToShader(0, texDragon);
+
+	//ピクセルシェーダー用の定数バッファのアドレスを取得
+	COLOR_F* cbBuf =
+		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
+	cbBuf->r = mTotalTime;
 
 	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
 	UpdateShaderConstantBuffer(cBuf);

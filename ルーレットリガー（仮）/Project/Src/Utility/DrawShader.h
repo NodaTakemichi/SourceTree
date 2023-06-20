@@ -18,7 +18,11 @@ public:
 	// 解放(シーン切替時に一旦解放)
 	void Release(void);
 
-	//描画
+
+	//画像描画（定数なし）
+	void DrawGraphToShader(
+		const Vector2& pos,const int& handle, const int& ps);
+	//画像描画（定数付き）
 	void DrawGraphToShader(
 		const Vector2& pos,const int& handle, const int& ps,
 		const COLOR_F& buf,const COLOR_F& subBuf = COLOR_F{});
@@ -30,8 +34,10 @@ public:
 	
 	
 	//サブテクスチャ付き描画
-	//void DrawGraphToShader(
-	//	const Vector2& pos, const int& handle, const int& ps, const COLOR_F& buf);
+	void DrawGraphAndSubToShader(
+		const Vector2& pos,
+		const int& mHandle, const int& sHandle,
+		const int& ps, const COLOR_F& buf, const COLOR_F& subBuf = COLOR_F{});
 
 
 private:

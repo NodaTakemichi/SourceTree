@@ -111,6 +111,9 @@ int psPoisonConstBuf;
 int psParalysis;
 int psParalysisConstBuf;
 
+int psDeathUnit;
+int psDeathUnitConstBuf;
+
 void Init(void);
 void Release(void);
 void Run(void);
@@ -149,4 +152,5 @@ void DrawStatusUp(void);
 void DrawStatusDown(void);
 void DrawPoison(void);
 void DrawParalysis(void);
+void DrawDeathUnit(void);
 

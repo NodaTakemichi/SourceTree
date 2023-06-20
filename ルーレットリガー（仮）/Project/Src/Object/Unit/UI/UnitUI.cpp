@@ -22,7 +22,7 @@ void UnitUI::Init(void)
 	targetImg_ = LoadGraph("./Data/Image/UI/target.png");
 
 	//シェーダーの登録
-	psTextrue_ = LoadPixelShader("./x64/Debug/Textrue.cso");
+	psTextrue_ = LoadPixelShader("./x64/Debug/ReverseTexture.cso");
 	psHpColor_ = LoadPixelShader("./x64/Debug/HpShader.cso");
 	//ピクセルシェーダー用の定数バッファの作成
 	psHpColorConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 8);

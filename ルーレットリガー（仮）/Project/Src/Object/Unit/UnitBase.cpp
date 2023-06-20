@@ -29,7 +29,7 @@ void UnitBase::Init(void)
 
 	//テクスチャ―シェーダーの登録
 	//psHpColor_ = LoadPixelShader("./Data/Shader/HpShader.cso");
-	psTex_ = LoadPixelShader("./x64/Debug/Texture.cso");
+	psTex_ = LoadPixelShader("./x64/Debug/ReverseTexture.cso");
 	psMonotone_ = LoadPixelShader("./x64/Debug/Monotone.cso");
 	psBayerDithe_ = LoadPixelShader("./x64/Debug/BayerDithe.cso");
 
@@ -195,21 +195,17 @@ void UnitBase::Damage(const int& dmg)
 	float randNum = static_cast<float>(
 		SceneManager::GetInstance().GetRand(90, 100)) / 100.0f;
 	calcDmg = AsoUtility::Round(static_cast<float>(calcDmg) * randNum);
-
 	TRACE("被ダメ値：%d\n", calcDmg);
 
 	//直前HPの保持
 	beforHp_ = hp_;
-
 	//ダメージ計算
 	hp_ -= calcDmg;
-
 	//残り体力
 	TRACE("残り体力:%d\n\n",hp_);
 
 	//ダメージ表記を表示する
 	unitUi_->SetDmg(true, calcDmg);
-
 	//画像の揺れ幅の決定
 	shakeValue_ = 50.0f;
 	movePow_ = 20.0f;
@@ -219,7 +215,6 @@ void UnitBase::Damage(const int& dmg)
 	if (CheckDead())
 	{
 		TRACE("死亡しました\n");
-
 		//シェーダーの変更
 		nowPs_ = psMonotone_;
 
