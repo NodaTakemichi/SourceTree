@@ -87,7 +87,7 @@ void GameScene::Update(void)
 {
 	//デルタタイム
 	auto delta = SceneManager::GetInstance().GetDeltaTime();
-	mTotalTime += delta;
+	totalTime_ += delta;
 
 	//入力
 	auto& ins = InputManager::GetInstance();

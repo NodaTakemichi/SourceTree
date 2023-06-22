@@ -19,28 +19,21 @@ cbuffer cbParam : register(b3)
 //描画するテクスチャ
 Texture2D g_SrcTexture:register(t0);
 
-//サンプラー
+//サンプラー：適切な色を決める
 SamplerState g_SrcSampler:register(s0);
-
 
 float4 main(PS_INPUT PSInput) : SV_TARGET
 {
-	//UV座標調整
+	//UV座標を受け取る
 	float2 uv = PSInput.TexCoords0;
-	float4 color = g_SrcTexture.Sample(g_SrcSampler, uv);
 
-	//周りの画素を取得する（指定方向）
-	float pi = 3.14159265f;
-	float2 direction = float2(cos(pi),sin(pi));
-	float uv_dis = 0.1f;
+	//UV座標とテクスチャを参照して、最適な色を取得する
+	float4 srcCol =
+		g_SrcTexture.Sample(g_SrcSampler, PSInput.TexCoords0);
 
-	color += g_SrcTexture.Sample(g_SrcSampler, uv + direction * uv_dis * 0.25f);
-	color += g_SrcTexture.Sample(g_SrcSampler, uv + direction * uv_dis * 0.50f);
-	color += g_SrcTexture.Sample(g_SrcSampler, uv + direction * uv_dis * 0.75f);
-	color += g_SrcTexture.Sample(g_SrcSampler, uv + direction * uv_dis * 1.00f);
+	float gray = srcCol.r * srcCol.g * srcCol.b / 3.0f;
 
-	//単純平均
-	color /= 5.0f;
+	float3 reverse = 1.0f - srcCol.rbg;
 
-	return color;
+	return float4(reverse, srcCol.a);
 }

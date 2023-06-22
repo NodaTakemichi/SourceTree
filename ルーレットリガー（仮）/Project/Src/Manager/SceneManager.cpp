@@ -4,7 +4,7 @@
 #include "../Application.h"
 #include "../Common/Fader.h"
 
-#include "../Scene/GameScene.h"
+#include "../Scene/TitleScene.h"
 #include "../Scene/GameScene.h"
 
 
@@ -115,6 +115,8 @@ void SceneManager::Draw(void)
 	{
 	case SCENE_ID::TITLE:
 		break;
+	case SCENE_ID::SELECT:
+		break;
 	case SCENE_ID::GAME:
 		break;
 	case SCENE_ID::RESULT:
@@ -222,6 +224,9 @@ void SceneManager::DoChangeScene(void)
 	switch (mSceneID)
 	{
 	case SCENE_ID::TITLE:
+		mScene = new TitleScene();
+		break;
+	case SCENE_ID::SELECT:
 		//mScene = new TitleScene();
 		break;
 	case SCENE_ID::GAME:

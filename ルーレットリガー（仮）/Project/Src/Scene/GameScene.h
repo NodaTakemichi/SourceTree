@@ -72,9 +72,6 @@ private:
 	int frameImg_;
 	int topFrameImg_;
 
-	//経過総時間
-	float mTotalTime;
-
 	//行動ユニットの操作が自動か手動か判断
 	bool actUnitAoutm_;
 

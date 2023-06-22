@@ -25,6 +25,9 @@ SamplerState g_SrcSampler:register(s0);
 float noise(float2 p)
 {
 	return frac(sin(dot(p, float2(12.9898, 78.233))) * 43758.5453);
+
+	//XorShift
+
 }
 
 float CreateLine(

@@ -23,6 +23,8 @@ protected:
 
 	//BGMƒnƒ“ƒhƒ‹
 	int mBgmHandle;
+	//Œo‰ßŽžŠÔ
+	float totalTime_;
 
 
 
