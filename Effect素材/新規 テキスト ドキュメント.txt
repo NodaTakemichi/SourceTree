@@ -1,0 +1,30 @@
+Normal_attack1
+Normal_attack2
+
+Fire_ex1
+Fire_ex2
+
+Water_byte
+
+〇xmlファイルでは属性ごとに分ける
+
+
+Fire_
+Water_
+Earth_
+Wind_
+
+Dark_
+Holy_
+
+Normal_
+
+・全体攻撃	AllAttack
+・爆発		Explosiom
+・衝撃		Impact
+・スラッシュ		Slash
+・エレメント（魔法）	Element
+・支援		Support
+
+
+

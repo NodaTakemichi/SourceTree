@@ -92,7 +92,7 @@ void GameScene::Update(void)
 	//入力
 	auto& ins = InputManager::GetInstance();
 	// シーン遷移
-#ifdef _DEBUG
+#ifdef DEBUG
 	if (ins.IsTrgDown(KEY_INPUT_SPACE))
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME, true);
@@ -101,23 +101,24 @@ void GameScene::Update(void)
 
 	//エフェクトの調査
 	//オフセット値を調べる
-	//if (CheckHitKey(KEY_INPUT_UP))   testPos.y -= 1;
-	//if (CheckHitKey(KEY_INPUT_DOWN)) testPos.y += 1;
-	//if (CheckHitKey(KEY_INPUT_LEFT)) testPos.x -= 1;
-	//if (CheckHitKey(KEY_INPUT_RIGHT))testPos.x += 1;
-	//if(ins.IsTrgDown(KEY_INPUT_V))testScale++;
-	//if(ins.IsTrgDown(KEY_INPUT_C))testScale--;
-	//if(ins.IsTrgDown(KEY_INPUT_Z))testNum--;
-	//if(ins.IsTrgDown(KEY_INPUT_X))testNum++;
-	//testNum = AsoUtility::Wrap(testNum, 0, 41);
-	//if (CheckHitKey(KEY_INPUT_SPACE)) {
-	//	efMng_->FinishEffect();
-	//	//efMng_->PlayEffect(testNum, { testPos.x + 1000, testPos.y + 220 }, testScale);
-	//}
-	//_dbgDrawFormatString(
-	//	0, 0, 0xffffff, "番号：%d＿座標｛%d,%d｝＿大きさ：%f0.1", 
-	//	testNum, testPos.x, testPos.y,testScale);
-	//return;
+	if (CheckHitKey(KEY_INPUT_UP))   testPos.y -= 1;
+	if (CheckHitKey(KEY_INPUT_DOWN)) testPos.y += 1;
+	if (CheckHitKey(KEY_INPUT_LEFT)) testPos.x -= 1;
+	if (CheckHitKey(KEY_INPUT_RIGHT))testPos.x += 1;
+	if(ins.IsTrgDown(KEY_INPUT_V))testScale+=5;
+	if(ins.IsTrgDown(KEY_INPUT_C))testScale-=5;
+	if(ins.IsTrgDown(KEY_INPUT_Z))testNum--;
+	if(ins.IsTrgDown(KEY_INPUT_X))testNum++;
+	testNum = AsoUtility::Wrap(testNum, 0, 160);
+	if (CheckHitKey(KEY_INPUT_SPACE)) {
+		efMng_->FinishEffect();
+		//efMng_->PlayEffect(testNum, { testPos.x + 1000, testPos.y + 220 });
+		efMng_->PlayEffect(testNum, { testPos.x + 1000, testPos.y + 220 }, testScale);
+	}
+	_dbgDrawFormatString(
+		0, 5, 0xffffff, "番号：%d＿大きさ：%d＿座標：｛%d,%d｝", 
+		testNum, (int)testScale, testPos.x, testPos.y);
+	return;
 
 
 	//更新
@@ -193,7 +194,7 @@ void GameScene::Draw(void)
 	}
 
 	//死亡演出
-	deathSta_->Draw();
+	//deathSta_->Draw();
 
 	//マウス描画
 	auto& ins = InputManager::GetInstance();

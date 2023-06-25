@@ -36,7 +36,7 @@ void SceneManager::Init(void)
 	//SetAlwaysRunFlag(false);
 
 	//マウスの非表示
-	SetMouseDispFlag(false);
+	//SetMouseDispFlag(false);
 
 	// シェーダ―描画クラス初期化
 	DrawShader::CreateInstance();
