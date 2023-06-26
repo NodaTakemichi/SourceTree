@@ -2,18 +2,17 @@
 <Unit name="Balloon" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="アモン" source="./Data/UnitData/火山/アモン.png" 
-		  hp="220" attack="65" speed="15" ></Data>
+		  hp="220" attack="65" speed="65" ></Data>
 	
 	<!--ユニットのコマンド-->
 	<Cmd>
 		<Skill name="ようすを見ている" type="MISS" target="NONE" times="0.0" efNum="135"/>
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
-		<Skill name="こんしんの一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
-		
+		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-		<Skill name="鉱石化" type="BUFF" target="SELF"   buff="AVOIDANCE"  efNum="153"/>
-		<Skill name="まもりの要" type="BUFF" target="SELF"   buff="D_UP"  efNum="153"/>
-		<Skill name="石つぶて" type="ATTACK" target="ENEMY" times="1.2" efNum="142"/>
+    <Skill name="ブレイジング" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
+    <Skill name="ノーボルケーノ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
+		<Skill name="エクスラッシュ" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
 	</Cmd>
 
 </Unit>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="Balloon" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="カクレガイ" source="./Data/UnitData/海/カクレガイ.png" 
+		  hp="100" attack="10" speed="60" ></Data>
+	
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="135"/>
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
+		
+
+    <Skill name="かくれる" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
+    <Skill name="みをまもる" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
+		<Skill name="すなつぶて" type="ATTACK" target="ENEMY" times="1.2" efNum="16"/>
+	</Cmd>
+
+</Unit>

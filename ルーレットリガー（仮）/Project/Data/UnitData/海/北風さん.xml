@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="Balloon" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="北風さん" source="./Data/UnitData/海/北風さん.png" 
+		  hp="160" attack="40" speed="50" ></Data>
+	
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<Skill name="ようすを見ている" type="MISS" target="NONE" times="0.0" efNum="135"/>
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
+
+    <Skill name="たつまき" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
+    <Skill name="北風とっぷう" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
+		<Skill name="北風サンダツ" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+	</Cmd>
+
+</Unit>

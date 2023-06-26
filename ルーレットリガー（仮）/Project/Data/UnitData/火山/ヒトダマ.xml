@@ -9,9 +9,9 @@
 		<Skill name="ƒ~ƒX" type="MISS" target="NONE" times="0.0" efNum="135"/>
 		<Skill name="‚±‚¤‚°‚«" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 
-		<Skill name="¦‰Š" type="ATTACK" target="ENEMY" times="1.2" efNum="135"/>
-		<Skill name="‰…‰Š" type="ATTACK" target="ENEMY" times="1.5" efNum="135"/>
-		<Skill name="‚Ù‚Ì‚¨‚Ì‘Ì" type="BUFF" target="SELF"  buff="AVOIDANCE"  efNum="135"/>
+		<Skill name="¦‰Š" type="ATTACK" target="ENEMY" times="1.2" efNum="4"/>
+		<Skill name="‰…‰Š" type="ATTACK" target="ENEMY" times="1.5" efNum="3"/>
+		<Skill name="‚Ù‚Ì‚¨‚Ì‘Ì" type="BUFF" target="SELF"  buff="AVOIDANCE"  efNum="17"/>
 		
 	</Cmd>
 

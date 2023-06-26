@@ -12,8 +12,8 @@
 		<Skill name="‚©‚Ý‚Â‚«" type="ATTACK" target="ENEMY" times="1.0" efNum="150"/>
 		<Skill name="‚½‚¢‚ ‚½‚è" type="ATTACK" target="ENEMY" times="1.2" efNum="150"/>
 		
-		<Skill name="‚¿‚å‚¤‚¨‚ñ‚Ï" type="BUFF" target="ENEMY" buff="PALALYSIS" efNum="127"/>
-		<Skill name="‚Ç‚­‚©‚Ý‚Â‚«" type="BUFF" target="ENEMY" buff="POISON" efNum="127"/>
+		<Skill name="‚¿‚å‚¤‚¨‚ñ‚Ï" type="BUFF" target="ENEMY" buff="PALALYSIS" efNum="23"/>
+		<Skill name="‚¤‚¿‚«‚Î" type="ATTACK" target="ENEMY" times="1.2" efNum="124"/>
 
 	</Cmd>
 

@@ -8,11 +8,11 @@
 	<Cmd>
 		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="135"/>
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
-		<Skill name="たいあたり" type="ATTACK" target="ENEMY" times="1.2" efNum="150"/>
+		<Skill name="たいあたり" type="ATTACK" target="ENEMY" times="1.2" efNum="150"/> 
 
-		<Skill name="ガスアタック" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="135"/>
+		<Skill name="ガスアタック" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="130"/>
 		<Skill name="ガスの体" type="BUFF" target="SELF"  buff="AVOIDANCE"  efNum="135"/>
-		<Skill name="毒ガス" type="BUFF" target="ENEMY" buff="POISON" efNum="127"/>
+		<Skill name="毒ガス" type="BUFF" target="ENEMY" buff="POISON" efNum="110"/>
 	</Cmd>
 
 </Unit>

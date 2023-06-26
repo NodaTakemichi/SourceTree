@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="shift_jis"?>
 <Unit name="Balloon" virsion="1.0">
 	<!--ユニットのデータ-->
-	<Data name="怪狐" source="./Data/UnitData/火山/怪狐.png" 
-		  hp="240" attack="55" speed="50" ></Data>
+	<Data name="ゲンブ" source="./Data/UnitData/海/ゲンブ.png" 
+		  hp="220" attack="65" speed="65" ></Data>
 	
 	<!--ユニットのコマンド-->
 	<Cmd>
 		<Skill name="ようすを見ている" type="MISS" target="NONE" times="0.0" efNum="135"/>
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
-		
 
-		<Skill name="狐火" type="ATTACK" target="ENEMY" times="1.2" efNum="9"/>
-		<Skill name="狐の宴会" type="BUFF" target="PLAYER_ALL"   buff="D_UP"  efNum="18"/>
-		<Skill name="厄火" type="ATTACK" target="ENEMY" times="1.5" efNum="3"/>
+    <Skill name="武神ノ亀甲" type="ATTACK" target="PLAYER_ALL" times="1.2" efNum="12"/>
+    <Skill name="亀卜ノ信託" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
+		<Skill name="玄武ノ大水" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
 	</Cmd>
 
 </Unit>

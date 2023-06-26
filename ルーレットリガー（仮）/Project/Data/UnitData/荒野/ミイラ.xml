@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="shift_jis"?>
 <Unit name="Balloon" virsion="1.0">
 	<!--ユニットのデータ-->
-	<Data name="石人形" source="./Data/UnitData/火山/石人形.png" 
-		  hp="200" attack="27" speed="15" ></Data>
+	<Data name="ミイラ" source="./Data/UnitData/荒野/ミイラ.png" 
+		  hp="220" attack="65" speed="65" ></Data>
 	
 	<!--ユニットのコマンド-->
 	<Cmd>
 		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="135"/>
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
-		
 
-		<Skill name="鉱石化" type="BUFF" target="SELF"   buff="AVOIDANCE"  efNum="64"/>
-		<Skill name="まもりの要" type="BUFF" target="SELF"   buff="D_UP"  efNum="154"/>
-		<Skill name="石つぶて" type="ATTACK" target="ENEMY" times="1.2" efNum="65"/>
+    <Skill name="スキンケア" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
+    <Skill name="ホータイ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
+		<Skill name="ホータイホバク" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
 	</Cmd>
 
 </Unit>
