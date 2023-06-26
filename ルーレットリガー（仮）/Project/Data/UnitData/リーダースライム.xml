@@ -8,23 +8,23 @@
 	<Cmd>
 		<!--1-->
 		<Skill name="“Å‰t" type="BUFF" target="ENEMY" times="1,0"
-			buff="POISON" efNum="5"/>
+			buff="POISON" efNum="130"/>
 		<!--2-->
 		<Skill name="“Å‰t" type="BUFF" target="ENEMY" times="1,0"
-			buff="POISON" efNum="5"/>
+			buff="POISON" efNum="130"/>
 		<!--3-->
 		<Skill name="“Å‰t" type="BUFF" target="ENEMY" times="1,0"
-			buff="POISON" efNum="5"/>
+			buff="POISON" efNum="130"/>
 		<!--4-->
-		<Skill name="—n‰ð‰t" type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="12"/>
+		<Skill name="—n‰ð‰t" type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="27"/>
 		<!--5-->
-		<Skill name="—n‰ð‰t" type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="12"/>
+		<Skill name="—n‰ð‰t" type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="27"/>
 		<!--6-->
-		<Skill name="—n‰ð‰t" type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="12"/>
+		<Skill name="—n‰ð‰t" type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="27"/>
 		<!--7-->
-		<Skill name="ÉŽ_" type="ATTACK" target="ENEMY" times="1,5" efNum="12"/>
+		<Skill name="ÉŽ_" type="ATTACK" target="ENEMY" times="1,5" efNum="21"/>
 		<!--8-->
-		<Skill name="ÉŽ_" type="ATTACK" target="ENEMY" times="1.5" efNum="12"/>
+		<Skill name="ÉŽ_" type="ATTACK" target="ENEMY" times="1.5" efNum="21"/>
 	</Cmd>
 
 	

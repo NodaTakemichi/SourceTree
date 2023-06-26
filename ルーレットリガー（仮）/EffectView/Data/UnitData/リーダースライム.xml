@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="LeaderSlime" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="リーダースライム" source="./Data/Image/Unit/LeaderSlime.png" 
+		  hp="210" attack="50" speed="10" ></Data>
+
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<!--1-->
+		<Skill name="毒液" type="BUFF" target="ENEMY" times="1,0"
+			buff="POISON" efNum="5"/>
+		<!--2-->
+		<Skill name="毒液" type="BUFF" target="ENEMY" times="1,0"
+			buff="POISON" efNum="5"/>
+		<!--3-->
+		<Skill name="毒液" type="BUFF" target="ENEMY" times="1,0"
+			buff="POISON" efNum="5"/>
+		<!--4-->
+		<Skill name="溶解液" type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="12"/>
+		<!--5-->
+		<Skill name="溶解液" type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="12"/>
+		<!--6-->
+		<Skill name="溶解液" type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="12"/>
+		<!--7-->
+		<Skill name="硝酸" type="ATTACK" target="ENEMY" times="1,5" efNum="12"/>
+		<!--8-->
+		<Skill name="硝酸" type="ATTACK" target="ENEMY" times="1.5" efNum="12"/>
+	</Cmd>
+
+	
+			
+</Unit>

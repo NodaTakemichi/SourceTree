@@ -7,21 +7,21 @@
 	<!--ユニットのコマンド-->
 	<Cmd>
 		<!--1-->
-		<Skill name="ペイン" type="ATTACK" target="ENEMY" times="1.5" efNum="25"/>
+		<Skill name="ペイン" type="ATTACK" target="ENEMY" times="1.2" efNum="104"/>
 		<!--2-->
-		<Skill name="ペイン" type="ATTACK" target="ENEMY" times="1.5" efNum="25"/>
+		<Skill name="ペイン" type="ATTACK" target="ENEMY" times="1.2" efNum="104"/>
 		<!--3-->
-		<Skill name="カース" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="25"/>
+		<Skill name="カース" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="109"/>
 		<!--4-->
-		<Skill name="カース" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="25"/>
+		<Skill name="カース" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="109"/>
 		<!--5-->
-		<Skill name="バインド" type="BUFF" target="ENEMY" buff="PALALYSIS" efNum="25"/>
+		<Skill name="バインド" type="BUFF" target="ENEMY" buff="PALALYSIS" efNum="127"/>
 		<!--6-->
-		<Skill name="バインド" type="BUFF" target="ENEMY" buff="PALALYSIS" efNum="25"/>
+		<Skill name="バインド" type="BUFF" target="ENEMY" buff="PALALYSIS" efNum="127"/>
 		<!--7-->
-		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1,2" efNum="15"/>
+		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1,5" efNum="107"/>
 		<!--8-->
-		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1.2" efNum="15"/>
+		<Skill name="ダーク" type="ATTACK" target="ENEMY" times="1.5" efNum="107"/>
 	</Cmd>
 
 	

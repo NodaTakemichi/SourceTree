@@ -11,7 +11,7 @@ public:
 	//回転のブレーキ力
 	const float ROT_BRAKE = 120.0f;
 	//オートでのルーレット停止までの待機時間
-	const float STOP_WAIT_TIME_ROU = 0.8f;
+	const float STOP_WAIT_TIME_ROU = 0.7f;
 
 	Roulette();
 	~Roulette();

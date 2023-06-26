@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="Balloon" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="燃える骸骨" source="./Data/UnitData/火山/Balloon.png" 
+		  hp="40" attack="25" speed="30" ></Data>
+	
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="135"/>
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
+		
+		<Skill name="ひのこ" type="ATTACK" target="ENEMY" times="1.2" efNum="150"/>
+		<Skill name="ほのうのこ" type="ATTACK" target="ENEMY" times="1.5" efNum="150"/>
+		<Skill name="熱いずつき" type="ATTACK" target="ENEMY" times="1.8" efNum="150"/>
+		
+	</Cmd>
+
+</Unit>

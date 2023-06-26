@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="Balloon" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="三頭竜" source="./Data/UnitData/火山/三頭竜.png" 
+		  hp="260" attack="75" speed="15" ></Data>
+	
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<Skill name="ようすを見ている" type="MISS" target="NONE" times="0.0" efNum="135"/>
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
+		<Skill name="こんしんの一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
+		
+
+		<Skill name="鉱石化" type="BUFF" target="SELF"   buff="AVOIDANCE"  efNum="153"/>
+		<Skill name="まもりの要" type="BUFF" target="SELF"   buff="D_UP"  efNum="153"/>
+		<Skill name="石つぶて" type="ATTACK" target="ENEMY" times="1.2" efNum="142"/>
+	</Cmd>
+
+</Unit>

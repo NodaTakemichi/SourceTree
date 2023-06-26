@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="Balloon" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="ガスモーク" source="./Data/UnitData/火山/ガスモーク.png" 
+		  hp="60" attack="15" speed="55" ></Data>
+	
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="135"/>
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
+		<Skill name="たいあたり" type="ATTACK" target="ENEMY" times="1.2" efNum="150"/>
+
+		<Skill name="ガスアタック" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="135"/>
+		<Skill name="ガスの体" type="BUFF" target="SELF"  buff="AVOIDANCE"  efNum="135"/>
+		<Skill name="毒ガス" type="BUFF" target="ENEMY" buff="POISON" efNum="127"/>
+	</Cmd>
+
+</Unit>

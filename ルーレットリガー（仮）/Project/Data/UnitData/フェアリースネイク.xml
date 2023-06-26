@@ -8,29 +8,21 @@
 	<!--ユニットのコマンド-->
 	<Cmd>
 		<!--1-->
-		<Skill name="ささやき" type="BUFF" target="ENEMY" times="1.0"
-			   buff="P_DOWN" efNum="3"/>
+		<Skill name="ささやき" type="BUFF" target="ENEMY"   buff="P_DOWN" efNum="152"/>
 		<!--2-->
-		<Skill name="ささやき" type="BUFF" target="ENEMY" times="1.0"
-			   buff="P_DOWN"  efNum="3"/>
+		<Skill name="ささやき" type="BUFF" target="ENEMY"  buff="P_DOWN"  efNum="152"/>
 		<!--3-->
-		<Skill name="あまいささやき" type="BUFF" target="PLAYER" times="1.0"
-			   buff="P_UP"  efNum="21"/>
+		<Skill name="あまいささやき" type="BUFF" target="PLAYER"    buff="P_UP"  efNum="159"/>
 		<!--4-->
-		<Skill name="あまいささやき" type="BUFF" target="PLAYER" times="1.0"
-			   buff="P_UP" efNum="21"/>
+		<Skill name="あまいささやき" type="BUFF" target="PLAYER"   buff="P_UP" efNum="159"/>
 		<!--5-->
-		<Skill name="ゆうわく" type="BUFF" target="ENEMY" times="1.0"
-			   buff="D_DOWN"  efNum="10"/>
+		<Skill name="ゆうわく" type="BUFF" target="ENEMY"   buff="D_DOWN"  efNum="155"/>
 		<!--6-->
-		<Skill name="ゆうわく" type="BUFF" target="ENEMY" times="1.0"
-			   buff="D_DOWN"  efNum="10"/>
+		<Skill name="ゆうわく" type="BUFF" target="ENEMY"  buff="D_DOWN"  efNum="155"/>
 		<!--7-->
-		<Skill name="あざむく" type="BUFF" target="SELF" times="1.0"
-			   buff="AVOIDANCE"  efNum="6"/>
+		<Skill name="あざむく" type="BUFF" target="SELF"   buff="AVOIDANCE"  efNum="153"/>
 		<!--8-->
-		<Skill name="あざむく" type="BUFF" target="SELF" times="1.0"
-			   buff="AVOIDANCE"  efNum="6"/>
+		<Skill name="あざむく" type="BUFF" target="SELF"   buff="AVOIDANCE"  efNum="153"/>
 	</Cmd>
 	
 			
