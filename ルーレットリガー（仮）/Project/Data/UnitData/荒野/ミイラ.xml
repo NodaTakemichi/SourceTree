@@ -2,7 +2,7 @@
 <Unit name="Balloon" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="ミイラ" source="./Data/UnitData/荒野/ミイラ.png" 
-		  hp="220" attack="65" speed="65" ></Data>
+		  hp="60" attack="10" speed="12" ></Data>
 	
 	<!--ユニットのコマンド-->
 	<Cmd>
@@ -10,9 +10,9 @@
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-    <Skill name="スキンケア" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="ホータイ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="ホータイホバク" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+		<Skill name="スキンケア" type="HEAL" target="SELF" times="1.5" efNum="156"/>
+		<Skill name="ホータイ" type="HEAL" target="PLAYER" times="1.2" efNum="99"/>
+		<Skill name="ホータイホバク" type="BUFF" target="ENEMY" buff="PALALYSIS" efNum="135"/>
 	</Cmd>
 
 </Unit>

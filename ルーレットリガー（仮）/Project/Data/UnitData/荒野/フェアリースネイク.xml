@@ -2,16 +2,16 @@
 <Unit name="Balloon" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="フェアリースネイク" source="./Data/UnitData/荒野/フェアリースネイク.png" 
-		  hp="220" attack="65" speed="65" ></Data>
+		  hp="120" attack="30" speed="45" ></Data>
 	
 	<!--ユニットのコマンド-->
 	<Cmd>
 		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="135"/>
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 
-    <Skill name="あざむく" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="ささやき" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="ゆうわく" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+		<Skill name="あざむく" type="BUFF" target="SELF"   buff="AVOIDANCE" efNum="153"/>
+		<Skill name="ささやき" type="BUFF" target="ENEMY"   buff="P_DOWN" efNum="152"/>
+		<Skill name="ゆうわく" type="BUFF" target="ENEMY"   buff="D_DOWN" efNum="155"/>
 	</Cmd>
 
 </Unit>

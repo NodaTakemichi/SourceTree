@@ -9,9 +9,9 @@
 		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="135"/>
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 
-    <Skill name="とっしん" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="スプラッシュ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="みずのあわ" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+    <Skill name="とっしん" type="ATTACK" target="ENEMY" times="1.2" efNum="134"/>
+    <Skill name="スプラッシュ" type="ATTACK" target="ENEMY" times="1.5" efNum="27"/>
+	<Skill name="みずのあわ" type="ATTACK" target="ENEMY_ALL" times="0.8" efNum="21"/>
 	</Cmd>
 
 </Unit>

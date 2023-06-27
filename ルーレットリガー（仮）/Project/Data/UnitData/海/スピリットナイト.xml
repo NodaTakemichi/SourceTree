@@ -2,7 +2,7 @@
 <Unit name="Balloon" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="スピリットナイト" source="./Data/UnitData/海/スピリットナイト.png" 
-		  hp="220" attack="65" speed="65" ></Data>
+		  hp="240" attack="70" speed="40" ></Data>
 	
 	<!--ユニットのコマンド-->
 	<Cmd>
@@ -10,9 +10,9 @@
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-    <Skill name="アイスランス" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
-    <Skill name="ディスフロクト" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="アイスブルーム" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
+    <Skill name="アイスランス" type="ATTACK" target="ENEMY" times="1.2" efNum="38"/>
+    <Skill name="ディスフロクト" type="ATTACK" target="ENEMY" times="1.5" efNum="35"/>
+    <Skill name="アイスブルーム" type="ATTACK" target="ENEMY" times="1.8" efNum="33"/>
 	
 	</Cmd>
 

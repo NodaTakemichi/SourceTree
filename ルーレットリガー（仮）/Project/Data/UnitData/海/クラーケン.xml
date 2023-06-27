@@ -10,9 +10,9 @@
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-    <Skill name="スミラッシュ" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="スプラッシュ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="触手打" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+    <Skill name="スミラッシュ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="12"/>
+    <Skill name="スプラッシュ" type="ATTACK" target="ENEMY" times="1.2" efNum="27"/>
+	<Skill name="触手打" type="ATTACK" target="ENEMY" times="1.5" efNum="30"/>
 	</Cmd>
 
 </Unit>

@@ -2,7 +2,7 @@
 <Unit name="Balloon" virsion="1.0">
 	<!--ƒ†ƒjƒbƒg‚Ìƒf[ƒ^-->
 	<Data name="ƒQƒ“ƒu" source="./Data/UnitData/ŠC/ƒQƒ“ƒu.png" 
-		  hp="220" attack="65" speed="65" ></Data>
+		  hp="280" attack="50" speed="15" ></Data>
 	
 	<!--ƒ†ƒjƒbƒg‚ÌƒRƒ}ƒ“ƒh-->
 	<Cmd>
@@ -10,9 +10,9 @@
 		<Skill name="‚±‚¤‚°‚«" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="ŸÓg‚ÌˆêŒ‚" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-    <Skill name="•_ƒm‹Tb" type="ATTACK" target="PLAYER_ALL" times="1.2" efNum="12"/>
-    <Skill name="‹T–mƒmM‘õ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="Œº•ƒm‘å…" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+    <Skill name="•_ƒm‹Tb" type="BUFF" target="PLAYER_ALL"   buff="D_UP" efNum="39"/>
+    <Skill name="‹T–mƒmM‘õ" type="HEAL" target="PLAYER" times="1.0" efNum="41"/>
+	<Skill name="Œº•ƒm‘å…" type="ATTACK" target="ENEMY" times="1.5" efNum="25"/>
 	</Cmd>
 
 </Unit>

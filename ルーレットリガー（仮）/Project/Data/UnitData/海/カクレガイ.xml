@@ -8,11 +8,10 @@
 	<Cmd>
 		<Skill name="ƒ~ƒX" type="MISS" target="NONE" times="0.0" efNum="135"/>
 		<Skill name="‚±‚¤‚°‚«" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
-		
 
-    <Skill name="‚©‚­‚ê‚é" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="‚Ý‚ð‚Ü‚à‚é" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="‚·‚È‚Â‚Ô‚Ä" type="ATTACK" target="ENEMY" times="1.2" efNum="16"/>
+		<Skill name="‚©‚­‚ê‚é" type="BUFF" target="SELF"   buff="AVOIDANCE"  efNum="153"/>
+		<Skill name="‚Ý‚ð‚Ü‚à‚é" type="BUFF" target="SELF"   buff="D_UP" efNum="64"/>
+		<Skill name="‚·‚È‚Â‚Ô‚Ä" type="ATTACK" target="ENEMY" times="1.2" efNum="37"/>
 	</Cmd>
 
 </Unit>

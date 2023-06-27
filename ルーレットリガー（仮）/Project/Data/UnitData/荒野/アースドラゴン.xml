@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="shift_jis"?>
 <Unit name="Balloon" virsion="1.0">
 	<!--ユニットのデータ-->
-	<Data name="とつげきピッグ" source="./Data/UnitData/荒野/とつげきピッグ.png" 
-		  hp="220" attack="65" speed="65" ></Data>
+	<Data name="アースドラゴン" source="./Data/UnitData/荒野/アースドラゴン.png" 
+		  hp="260" attack="67" speed="5" ></Data>
 	
 	<!--ユニットのコマンド-->
 	<Cmd>
@@ -10,9 +10,9 @@
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-    <Skill name="アダマント体" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="ロックフォール" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="グラウンドゼロ" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+		<Skill name="アダマント体" type="BUFF" target="SELF" buff="D_UP" efNum="64"/>
+		<Skill name="ロックフォール" type="ATTACK" target="ENEMY" times="1.2" efNum="66"/>
+		<Skill name="グラウンドゼロ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="68"/>
 	</Cmd>
 
 </Unit>

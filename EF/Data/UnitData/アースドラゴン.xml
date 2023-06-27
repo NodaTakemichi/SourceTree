@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="LeaderSlime" virsion="1.0">
+	<!--ユニットのデータ-->
+	<Data name="アースドラゴン" source="./Data/Image/Unit/アースドラゴン.png" 
+		  hp="300" attack="50" speed="5" ></Data>
+
+	<!--ユニットのコマンド-->
+	<Cmd>
+		<!--1-->
+		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="136"/>
+		<!--2-->
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="0"/>
+		<!--3-->
+		<Skill name="ミス" type="MISS" target="NONE" times="0.0" efNum="0"/>
+		<!--4-->
+		<Skill name="土石流" type="ATTACK" target="ENEMY_ALL" times="1.2" efNum="60"/>
+		<!--5-->
+		<Skill name="土石流" type="ATTACK" target="ENEMY_ALL" times="1.2" efNum="60"/>
+		<!--6-->
+		<Skill name="かみくだく" type="ATTACK" target="ENEMY" times="1.5" efNum="28"/>
+		<!--7-->
+		<Skill name="かみくだく" type="ATTACK" target="ENEMY" times="1,5" efNum="28"/>
+		<!--8-->
+		<Skill name="隆起" type="ATTACK" target="ENEMY_ALL" times="1.8" efNum="61"/>
+	</Cmd>
+
+	
+			
+</Unit>

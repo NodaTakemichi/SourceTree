@@ -1,0 +1,19 @@
+#pragma once
+#include "UnitBase.h"
+class PlayerUnit :
+    public UnitBase
+{
+public:
+    PlayerUnit();
+    PlayerUnit(std::string unitFile,int unitNum);
+    ~PlayerUnit();
+
+    void Init(void)override;
+    void Update(void)override;
+    void Draw(void)override;
+    //void Release(void);
+
+
+private:
+};
+

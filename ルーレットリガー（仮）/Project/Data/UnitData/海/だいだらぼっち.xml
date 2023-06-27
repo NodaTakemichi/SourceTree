@@ -10,9 +10,9 @@
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-    <Skill name="グランドダイパン" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="巨人の剛腕" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="巨人の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+    <Skill name="グランドダイパン" type="ATTACK" target="ENEMY_ALL" times="0.8" efNum="143"/>
+    <Skill name="巨人の剛腕" type="ATTACK" target="ENEMY" times="1.2" efNum="29"/>
+	<Skill name="巨人の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="138"/>
 	</Cmd>
 
 </Unit>

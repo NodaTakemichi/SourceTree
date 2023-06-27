@@ -2,7 +2,7 @@
 <Unit name="Balloon" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="とつげきピッグ" source="./Data/UnitData/荒野/とつげきピッグ.png" 
-		  hp="220" attack="65" speed="65" ></Data>
+		  hp="155" attack="65" speed="57" ></Data>
 	
 	<!--ユニットのコマンド-->
 	<Cmd>
@@ -10,9 +10,9 @@
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-    <Skill name="はしりまわり" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="蹄の烙印" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="王者の嘶き" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+		<Skill name="はしりまわり" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="144"/>
+		<Skill name="蹄の烙印"	 type="ATTACK" target="ENEMY" times="1.5" efNum="62"/>
+		<Skill name="王者の嘶き" type="ATTACK" target="ENEMY_ALL" times="1.2" efNum="131"/>
 	</Cmd>
 
 </Unit>

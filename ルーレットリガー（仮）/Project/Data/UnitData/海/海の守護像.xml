@@ -10,9 +10,9 @@
 		<Skill name="‚±‚¤‚°‚«" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="ŸÓg‚ÌˆêŒ‚" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-    <Skill name="ŽçŒìw" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="ŽçŒìƒiƒ]ƒiƒ]" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="ŽçŒìƒAƒ^ƒbƒN" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+		<Skill name="ŽçŒìw" type="BUFF" target="PLAYER"   buff="D_UP" efNum="39"/>
+		<Skill name="ŽçŒìƒiƒ]ƒiƒ]" type="BUFF" target="ENEMY"   buff="P_DOWN" efNum="152"/>
+		<Skill name="ŽçŒìƒAƒ^ƒbƒN" type="ATTACK" target="ENEMY" times="1.2" efNum="20"/>
 	</Cmd>
 
 </Unit>

@@ -2,7 +2,7 @@
 <Unit name="Balloon" virsion="1.0">
 	<!--ユニットのデータ-->
 	<Data name="マミー" source="./Data/UnitData/荒野/マミー.png" 
-		  hp="220" attack="65" speed="65" ></Data>
+		  hp="100" attack="47" speed="20" ></Data>
 	
 	<!--ユニットのコマンド-->
 	<Cmd>
@@ -10,9 +10,9 @@
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-    <Skill name="アレハダ" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="腐食肌" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
-		<Skill name="毒の包帯" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
+		<Skill name="アレハダ" ype="BUFF" target="SELF"   buff="D_DOWN" efNum="110"/>
+		<Skill name="腐食肌" type="ATTACK" target="ENEMY" times="1.2" efNum="113"/>
+		<Skill name="毒の包帯" ype="BUFF" target="SELF"   buff="POISON" efNum="16"/>
 	</Cmd>
 
 </Unit>

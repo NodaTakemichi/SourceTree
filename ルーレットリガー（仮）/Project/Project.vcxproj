@@ -159,6 +159,7 @@
     <ClCompile Include="Src\Manager\Resource.cpp" />
     <ClCompile Include="Src\Manager\ResourceManager.cpp" />
     <ClCompile Include="Src\Manager\SceneManager.cpp" />
+    <ClCompile Include="Src\Manager\SoundManager.cpp" />
     <ClCompile Include="Src\Object\Roulette.cpp" />
     <ClCompile Include="Src\Object\GameUI.cpp" />
     <ClCompile Include="Src\Object\Unit\Status\Buff.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Src\Manager\Resource.h" />
     <ClInclude Include="Src\Manager\ResourceManager.h" />
     <ClInclude Include="Src\Manager\SceneManager.h" />
+    <ClInclude Include="Src\Manager\SoundManager.h" />
     <ClInclude Include="Src\Object\Roulette.h" />
     <ClInclude Include="Src\Object\GameUI.h" />
     <ClInclude Include="Src\Object\Unit\Status\Buff.h" />
