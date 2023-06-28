@@ -22,7 +22,7 @@ protected:
 
 
 	//BGMƒnƒ“ƒhƒ‹
-	int mBgmHandle;
+	int bgmHandle_;
 	//Œo‰ßŽžŠÔ
 	float totalTime_;
 

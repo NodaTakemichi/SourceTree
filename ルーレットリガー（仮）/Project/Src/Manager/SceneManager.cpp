@@ -7,27 +7,27 @@
 #include "../Scene/TitleScene.h"
 #include "../Scene/GameScene.h"
 
-
 #include "../Utility/Measure.h"
 #include "../Utility/DrawShader.h"
 #include "InputManager.h"
-#include "ResourceManager.h"
+#include "SoundManager.h"
+
 #include "SceneManager.h"
 
-SceneManager* SceneManager::mInstance = nullptr;
+SceneManager* SceneManager::instance_ = nullptr;
 
 void SceneManager::CreateInstance()
 {
-	if (mInstance == nullptr)
+	if (instance_ == nullptr)
 	{
-		mInstance = new SceneManager();
+		instance_ = new SceneManager();
 	}
-	mInstance->Init();
+	instance_->Init();
 }
 
 SceneManager& SceneManager::GetInstance(void)
 {
-	return *mInstance;
+	return *instance_;
 }
 
 void SceneManager::Init(void)
@@ -36,10 +36,13 @@ void SceneManager::Init(void)
 	//SetAlwaysRunFlag(false);
 
 	//マウスの非表示
-	//SetMouseDispFlag(false);
+	SetMouseDispFlag(false);
 
 	// シェーダ―描画クラス初期化
 	DrawShader::CreateInstance();
+
+	// 音声管理初期化
+	SoundManager::CreateInstance();
 
 
 	mFader = new Fader();
@@ -54,7 +57,7 @@ void SceneManager::Init(void)
 	mIsSceneChanging = false;
 
 	// デルタタイム
-	mPreTime = std::chrono::system_clock::now();
+	preTime_ = std::chrono::system_clock::now();
 	totalTime_ = 0.0f;
 
 	//乱数生成器の初期化
@@ -75,8 +78,8 @@ void SceneManager::Update(void)
 	// デルタタイム
 	auto nowTime = std::chrono::system_clock::now();
 	deltaTime_ = static_cast<float>(
-		std::chrono::duration_cast<std::chrono::nanoseconds>(nowTime - mPreTime).count() / 1000000000.0);
-	mPreTime = nowTime;
+		std::chrono::duration_cast<std::chrono::nanoseconds>(nowTime - preTime_).count() / 1000000000.0);
+	preTime_ = nowTime;
 	totalTime_ += deltaTime_;
 
 
@@ -140,7 +143,8 @@ void SceneManager::Release(void)
 	// シェーダ―描画の解放
 	DrawShader::GetInstance().Release();
 
-
+	//音声管理クラスの解放
+	SoundManager::GetInstance().Release();
 }
 
 void SceneManager::ChangeScene(SCENE_ID nextId, bool isFading)
@@ -201,20 +205,20 @@ SceneManager::SceneManager(void)
 
 SceneManager::~SceneManager(void)
 {
-	delete mInstance;
+	delete instance_;
 }
 
 void SceneManager::ResetDeltaTime(void)
 {
 	deltaTime_ = 0.016f;
-	mPreTime = std::chrono::system_clock::now();
+	preTime_ = std::chrono::system_clock::now();
 }
 
 void SceneManager::DoChangeScene(void)
 {
 
 	// リソースの解放
-	ResourceManager::GetInstance().Release();
+	//ResourceManager::GetInstance().Release();
 
 	mScene->Release();
 	delete mScene;

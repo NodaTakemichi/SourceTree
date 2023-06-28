@@ -10,8 +10,8 @@
 		<Skill name="こうげき" type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 		<Skill name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 
-    <Skill name="ブレイジング" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
-    <Skill name="ノーボルケーノ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
+		<Skill name="ブレイジング" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
+		<Skill name="ノーボルケーノ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
 		<Skill name="エクスラッシュ" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
 	</Cmd>
 

@@ -1,56 +1,108 @@
 #include <DxLib.h>
-#include "../Application.h"
-#include "Resource.h"
 #include "SoundManager.h"
 
-SoundManager* SoundManager::mInstance = nullptr;
+SoundManager* SoundManager::instance_ = nullptr;
 
 void SoundManager::CreateInstance(void)
 {
-	if (mInstance == nullptr)
+	if (instance_ == nullptr)
 	{
-		mInstance = new SoundManager();
+		instance_ = new SoundManager();
 	}
-	mInstance->Init();
+	instance_->Init();
 }
 
 SoundManager& SoundManager::GetInstance(void)
 {
-	return *mInstance;
+	return *instance_;
 }
 
 void SoundManager::Init(void)
 {
+	std::string res;
+	const std::string pathSound = "Data/Sound/BGM/";
 
-	Resource res;
+	// ƒ^ƒCƒgƒ‹‰æ–ÊBGM
+	res = pathSound + "Title.mp3";
+	resMap_.insert(std::make_pair(SOUND_TYPE::TITLE_BGM, res));
 
-	// ƒXƒ^[ƒgƒƒS
-	//res = Resource(Resource::TYPE::IMG, Application::PATH_IMAGE + "StartLogo.png");
-	//mResourcesMap.emplace(SRC::START_LOGO, res);
+	//ƒZƒŒƒNƒg‰æ–ÊGM
+	res = pathSound + "Select.mp3";
+	resMap_.insert(std::make_pair(SOUND_TYPE::SELECT_BGM, res));
+
+	// ƒoƒgƒ‹‚PBGM
+	res = pathSound + "Battle1.mp3";
+	resMap_.insert(std::make_pair(SOUND_TYPE::BATTLE1_BGN, res));
+
+	// ƒoƒgƒ‹‚QBGM
+	res = pathSound + "BAttle2.mp3";
+	resMap_.insert(std::make_pair(SOUND_TYPE::BATTLE2_BGN, res));
+
+	// ƒoƒgƒ‹‚RBGM
+	res = pathSound + "Battle3.mp3";
+	resMap_.insert(std::make_pair(SOUND_TYPE::BATTLE3_BGN, res));
+
+	// Ÿ—˜BGM
+	res = pathSound + "Victory.mp3";
+	resMap_.insert(std::make_pair(SOUND_TYPE::VICTORY_BGN, res));
+
+	// ”s–kBGM
+	res = pathSound + "Lose.mp3";
+	resMap_.insert(std::make_pair(SOUND_TYPE::LOSE_BGN, res));
+
+	// ƒŠƒUƒ‹ƒg‰æ–ÊBGM
+	res = pathSound + "Result.mp3";
+	resMap_.insert(std::make_pair(SOUND_TYPE::RESULT_BGN, res));
 
 
 }
 
 void SoundManager::Release(void)
 {
-	//for (auto& p : mLoadedMap)
-	//{
-	//	p.second->Release();
-	//	delete p.second;
-	//}
+	InitSoundMem();
 
-	//mLoadedMap.clear();
+	resMap_.clear();
+	loadedMap_.clear();
 }
 
-int SoundManager::LoadSound(SRC src)
+int SoundManager::LoadSound(SOUND_TYPE sound)
 {
-	//Resource* res = _Load(src);
-	//if (res == nullptr)
-	//{
-	//	return Resource();
-	//}
-	//Resource ret = *res;
-	//return *res;
+
+	const auto& lPair = loadedMap_.find(sound);
+	if (lPair != loadedMap_.end())
+	{
+		//“o˜^‚³‚ê‚Ä‚¢‚é
+		return lPair->second;
+	}
+
+	const auto& rPair = resMap_.find(sound);
+	if (rPair == resMap_.end())
+	{
+		// ‘¶Ý‚µ‚È‚¢
+		return -1;
+	}
+
+	//“o˜^‚³‚ê‚Ä‚¢‚È‚¢ê‡
+	int handle = LoadSoundMem(rPair->second.c_str());
+	//’Ç‰Á“o˜^
+	loadedMap_.insert(std::make_pair(sound, handle));
+
+	return handle;
+}
+
+void SoundManager::PlaySoundNormal(const int& handle)
+{
+	PlaySoundMem(handle, DX_PLAYTYPE_NORMAL);
+}
+
+void SoundManager::PlaySoundBack(const int& handle)
+{
+	PlaySoundMem(handle, DX_PLAYTYPE_BACK);
+}
+
+void SoundManager::PlaySoundBGM(const int& handle)
+{
+	PlaySoundMem(handle, DX_PLAYTYPE_LOOP);
 }
 
 SoundManager::SoundManager(void)
@@ -59,29 +111,6 @@ SoundManager::SoundManager(void)
 
 SoundManager::~SoundManager(void)
 {
-	delete mInstance;
+	delete instance_;
 }
 
-//Resource* SoundManager::_Load(SRC src)
-//{
-	//const auto& lPair = mLoadedMap.find(src);
-	//if (lPair != mLoadedMap.end())
-	//{
-	//	return lPair->second;
-	//}
-
-	//const auto& rPair = mResourcesMap.find(src);
-	//if (rPair == mResourcesMap.end())
-	//{
-	//	// “o˜^‚³‚ê‚Ä‚¢‚È‚¢
-	//	return nullptr;
-	//}
-
-	//rPair->second.Load();
-
-	//// ”O‚Ì‚½‚ßƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//Resource* ret = new Resource(rPair->second);
-	//mLoadedMap.emplace(src, ret);
-
-	//return ret;
-//}

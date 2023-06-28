@@ -12,6 +12,7 @@
 #include "../Battle/DeathStaging.h"
 
 #include "../Manager/EffectManager.h"
+#include "../Manager/SoundManager.h"
 #include "../Object/Unit/UnitManager.h"
 #include "../Object/Unit/UnitBase.h"
 #include "../Object/Roulette.h"
@@ -59,8 +60,6 @@ void GameScene::Init(void)
 	efMng_ = new EffectManager();
 	efMng_->Init();
 
-
-
 	//背景画像の登録
 	bgImg_ = LoadGraph("./Data/Image/bg/blue_bg.png");
 	frameImg_ = LoadGraph("./Data/Image/UI/frame_full.png");
@@ -71,14 +70,13 @@ void GameScene::Init(void)
 	//フェーズの変更
 	ChangeGamePhase(GAME_PHASE::RULLET_TIME);
 
+	//サウンドの登録
+	auto& sMng = SoundManager::GetInstance();
+	bgmHandle_ = sMng.LoadSound(SoundManager::SOUND_TYPE::BATTLE1_BGN);
 
+	//BGMの再生
+	sMng.PlaySoundBGM(bgmHandle_);
 
-
-
-	//テスト
-	testNum = 0;
-	testPos = {0,0};
-	testScale = 20.0f;
 
 
 } 
@@ -99,29 +97,6 @@ void GameScene::Update(void)
 	}
 #endif // _DEBUG
 
-
-#ifdef DEBUG
-	//エフェクトの調査
-	//オフセット値を調べる
-	if (CheckHitKey(KEY_INPUT_UP))   testPos.y -= 1;
-	if (CheckHitKey(KEY_INPUT_DOWN)) testPos.y += 1;
-	if (CheckHitKey(KEY_INPUT_LEFT)) testPos.x -= 1;
-	if (CheckHitKey(KEY_INPUT_RIGHT))testPos.x += 1;
-	if(ins.IsTrgDown(KEY_INPUT_V))testScale+=5;
-	if(ins.IsTrgDown(KEY_INPUT_C))testScale-=5;
-	if(ins.IsTrgDown(KEY_INPUT_Z))testNum--;
-	if(ins.IsTrgDown(KEY_INPUT_X))testNum++;
-	testNum = AsoUtility::Wrap(testNum, 0, 160);
-	if (CheckHitKey(KEY_INPUT_SPACE)) {
-		efMng_->FinishEffect();
-		efMng_->PlayEffect(testNum, { testPos.x + 1000, testPos.y + 320 });
-		//efMng_->PlayEffect(testNum, { testPos.x + 1000, testPos.y + 320 }, testScale);
-	}
-	_dbgDrawFormatString(
-		0, 5, 0xffffff, "番号：%d＿大きさ：%d＿座標：｛%d,%d｝", 
-		testNum, (int)testScale, testPos.x, testPos.y);
-	return;
-#endif // _DEBUG
 
 	//更新
 	unitMng_->Update();

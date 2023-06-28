@@ -237,4 +237,5 @@ DrawShader::DrawShader(void)
 
 DrawShader::~DrawShader(void)
 {
+	delete instance_;
 }

@@ -60,7 +60,6 @@ private:
 
 
 
-	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする
 	DrawShader(void);
 

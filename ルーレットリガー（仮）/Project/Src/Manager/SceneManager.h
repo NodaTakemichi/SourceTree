@@ -4,8 +4,6 @@
 #include <random>
 class SceneBase;
 class Fader;
-class ResourceManager;
-class InputManager;
 
 class SceneManager
 {
@@ -50,7 +48,7 @@ public:
 private:
 
 	// 静的インスタンス
-	static SceneManager* mInstance;
+	static SceneManager* instance_;
 
 
 	SCENE_ID mSceneID;
@@ -62,7 +60,7 @@ private:
 	bool mIsSceneChanging;
 
 	// デルタタイム
-	std::chrono::system_clock::time_point mPreTime;
+	std::chrono::system_clock::time_point preTime_;
 	float deltaTime_;
 	//経過時間
 	float totalTime_;

@@ -31,7 +31,6 @@ public:
 
 	//エフェクトの生成
 	void PlayEffect(const int& num,const Vector2& pos);
-	void PlayEffect(const int& num,const Vector2& pos, const float& scale);
 
 	//エフェクトが終了しているかどうか
 	bool FinishEffect(void);
@@ -49,7 +48,6 @@ private:
 
 	//全体攻撃エフェクトの再生
 	bool AllTargetEffectPlay(const EffectData& ef, const Vector2& pos);
-	bool AllTargetEffectPlay(const EffectData& ef, const Vector2& pos, const float& scale);
 
 };
 

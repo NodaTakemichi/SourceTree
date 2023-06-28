@@ -24,7 +24,6 @@ public:
 		BATTLE,
 		TURN_END,
 		GAME_END
-
 	};
 
 
@@ -62,7 +61,7 @@ private:
 	//ユニットのバトルシステム
 	BattleSystem* battleSys_;
 	//ユニットの死亡演出
-	DeathStaging* deathSta_;;
+	DeathStaging* deathSta_;
 
 	//マウス
 	int mouseImg_;
@@ -77,10 +76,5 @@ private:
 
 	//フェーズ変更
 	void ChangeGamePhase(GAME_PHASE phase);
-
-	///テスト
-	Vector2 testPos;
-	int testNum;
-	float testScale;
 
 };

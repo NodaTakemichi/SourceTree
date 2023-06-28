@@ -130,38 +130,6 @@ void EffectManager::PlayEffect(const int& num, const Vector2& pos)
 		break;
 	}
 }
-void EffectManager::PlayEffect(const int& num, const Vector2& pos, const float& scale)
-{
-	//再生するエフェクト
-	EffectData ef = ef_[num];
-
-	//使用できる再生ハンドルがない場合、作る
-	CreatePlayHandle();
-
-	//全体攻撃エフェクトの場合
-	if (AllTargetEffectPlay(ef,pos, scale))return;
-
-
-	//エフェクトの再生
-	for (auto& play : effectPlays_)
-	{
-		//使用中のハンドルは使わない
-		if (!play.first)continue;
-
-		play.second = PlayEffekseer2DEffect(ef.handle);
-
-		//エフェクトの大きさ
-		SetScalePlayingEffekseer2DEffect(
-			play.second, scale, scale, scale);
-		//エフェクトの位置
-		SetPosPlayingEffekseer2DEffect(
-			play.second, pos.x, pos.y, 0);
-		//使用中
-		play.first = false;
-
-		break;
-	}
-}
 
 bool EffectManager::FinishEffect(void)
 {
@@ -235,35 +203,3 @@ bool EffectManager::AllTargetEffectPlay(const EffectData& ef, const Vector2& pos
 
 }
 
-bool EffectManager::AllTargetEffectPlay(const EffectData& ef, const Vector2& pos, const float& scale)
-{
-	//全体かどうか判断
-	if (ef.target != 0)return false;
-
-	//すでに再生している場合、処理をしない
-	for (auto& play : effectPlays_)
-	{
-		if (play.first == false)return true;
-	}
-
-	//エフェクトの再生
-	for (auto& play : effectPlays_)
-	{
-		//使用中のハンドルは使わない
-		if (!play.first)continue;
-
-		play.second = PlayEffekseer2DEffect(ef.handle);
-
-		//エフェクトの大きさ
-		float s = scale;
-		SetScalePlayingEffekseer2DEffect(
-			play.second, s, s, s);
-		//エフェクトの位置
-		SetPosPlayingEffekseer2DEffect(
-			play.second, pos.x, pos.y, 0);
-		//使用中
-		play.first = false;
-
-		return true;
-	}
-}
