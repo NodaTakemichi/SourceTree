@@ -22,12 +22,22 @@ Texture2D g_SrcTexture:register(t0);
 //サンプラー：適切な色を決める
 SamplerState g_SrcSampler:register(s0);
 
+//符号なし整数型の最大値
+static const uint UINT_MAX = 0xffffffffu;
+
+uint XorShift(uint n)
+{
+	n ^= (n << 13);
+	n ^= (n >> 17);
+	n ^= (n << 15);
+	return n;
+}
+
 float noise(float2 p)
 {
-	return frac(sin(dot(p, float2(12.9898, 78.233))) * 43758.5453);
+	//return frac(sin(dot(p, float2(12.9898, 78.233))) * 43758.5453);
 
-	//XorShift
-
+	return float(XorShift(asuint(p.x+p.y))) / float(UINT_MAX);
 }
 
 float CreateLine(
@@ -96,16 +106,19 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	//始点、終点
 	float2 endPos = float2(0.1, 1.2);
 	float2  startPos =
-		float2((cos(g_time*0.001f) + 1.0f) * 0.5f * 0.01f + 0.1f,
-		    	(sin(g_time*0.001) + 1.0f) * 0.5 * 0.01f - 0.2f);
+		float2((cos(g_time*0.001f) + 1.0f) * 0.005f + 0.1f,
+		    	(sin(g_time*0.001) + 1.0f) * 0.005f - 0.2f);
 	//求めた雷模様をk加算
 	s += Lightning(uv, startPos, endPos);
+
+
+
 
 	//始点、終点
 	startPos = float2(0.9, 1.2);
 	endPos =
-		float2((cos(g_time*0.001f) + 1.0f) * 0.5f * 0.01f + 0.9f,
-				(sin(g_time*0.001) + 1.0f) * 0.5 * 0.01f - 0.2f);
+		float2((cos(g_time*0.001f) + 1.0f) * 0.005f  + 0.9f,
+				(sin(g_time*0.001) + 1.0f) * 0.005f  - 0.2f);
 	//求めた雷模様をk加算
 	s += Lightning(uv, startPos, endPos);
 

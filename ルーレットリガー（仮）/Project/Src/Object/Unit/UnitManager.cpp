@@ -89,31 +89,33 @@ UnitBase* UnitManager::GetActivUnit(void)
 
 void UnitManager::CreateUnit(void)
 {
+	const std::string path = "Data/UnitData/";
+
 	//ユニットの生成
 
 	//味方
-		PlayerUnit* pUnit = new PlayerUnit("./Data/UnitData/アースドラゴン.xml", 1);
+	PlayerUnit* pUnit = new PlayerUnit(path + "アースドラゴン.xml", 1);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
-		pUnit = new PlayerUnit("./Data/UnitData/アースドラゴン.xml", 2);
+		pUnit = new PlayerUnit(path + "アースドラゴン.xml", 2);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
-		pUnit = new PlayerUnit("./Data/UnitData/リーダースライム.xml", 3);
+		pUnit = new PlayerUnit(path + "リーダースライム.xml", 3);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
 	//敵
-		EnemyUnit* eUnit = new EnemyUnit("./Data/UnitData/アースドラゴン.xml", 1);
+		EnemyUnit* eUnit = new EnemyUnit(path + "アースドラゴン.xml", 1);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
-		eUnit = new EnemyUnit("./Data/UnitData/アースドラゴン.xml", 2);
+		eUnit = new EnemyUnit(path + "アースドラゴン.xml", 2);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
-		eUnit = new EnemyUnit("./Data/UnitData/アースドラゴン.xml", 3);
+		eUnit = new EnemyUnit(path + "アースドラゴン.xml", 3);
 		eUnit->Init();
 		units_.push_back(eUnit);
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Unit name="UnitData" virsion="1.0">
+
+<!--ユニットテーブル-->
+
+	<!--ユニットのデータ-->
+	<Data name="アモン" source="./Data/UnitData/火山/アモン.png" hp="220" attack="65" speed="65" />
+	
+	<!--0-->
+	<Skill name="ミス" type="MISS" target="NONE" times="0.0"/>
+	
+	
+</Unit>

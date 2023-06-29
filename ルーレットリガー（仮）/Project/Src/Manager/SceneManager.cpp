@@ -5,7 +5,9 @@
 #include "../Common/Fader.h"
 
 #include "../Scene/TitleScene.h"
+#include "../Scene/SelectScene.h"
 #include "../Scene/GameScene.h"
+#include "../Scene/ResultScene.h"
 
 #include "../Utility/Measure.h"
 #include "../Utility/DrawShader.h"
@@ -48,10 +50,10 @@ void SceneManager::Init(void)
 	mFader = new Fader();
 	mFader->Init();
 
-	mScene = new GameScene();
+	mScene = new SelectScene();
 	mScene->Init();
 
-	mSceneID = SCENE_ID::GAME;
+	mSceneID = SCENE_ID::SELECT;
 	mWaitSceneID = SCENE_ID::NONE;
 
 	mIsSceneChanging = false;
@@ -231,14 +233,13 @@ void SceneManager::DoChangeScene(void)
 		mScene = new TitleScene();
 		break;
 	case SCENE_ID::SELECT:
-		//mScene = new TitleScene();
+		mScene = new SelectScene();
 		break;
 	case SCENE_ID::GAME:
 		mScene = new GameScene();
 		break;
 	case SCENE_ID::RESULT:
-		//mScene = new ResultScene();
-		break;
+		mScene = new ResultScene();
 		break;
 	default:
 		break;

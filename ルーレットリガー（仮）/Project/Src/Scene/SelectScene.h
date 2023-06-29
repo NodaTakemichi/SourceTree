@@ -10,7 +10,8 @@ public:
 		NONE,
 		GAME,
 		DECK_EDIT,
-		EXIT
+		EXIT,
+
 	};
 
 	// コンストラクタ
@@ -25,6 +26,12 @@ public:
 	void Release(void) override;
 
 private:
+
+	//敵情報配列
+
+	//デッキ情報
+
+
 
 
 	//背景画像
