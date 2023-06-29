@@ -38,6 +38,9 @@ void GameScene::Init(void)
 {
 	//ユニットマネージャー
 	unitMng_ = new UnitManager();
+	//ここでユニット番号情報がほしい
+
+
 	unitMng_->Init();
 
 	//ルーレット

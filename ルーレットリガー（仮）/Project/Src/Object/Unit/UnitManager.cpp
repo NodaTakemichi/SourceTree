@@ -32,12 +32,12 @@ UnitManager::~UnitManager()
 
 void UnitManager::Init(void)
 {
+
 	//ユニットの生成
 	CreateUnit();
 
 	//スピード降順ソート
 	SpeedSort();
-
 }
 
 void UnitManager::Update(void)
