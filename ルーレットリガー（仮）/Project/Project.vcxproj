@@ -179,6 +179,7 @@
     <ClCompile Include="Src\Scene\SelectScene.cpp" />
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
     <ClCompile Include="Src\Utility\AsoUtility.cpp" />
+    <ClCompile Include="Src\Utility\ButtonUI.cpp" />
     <ClCompile Include="Src\Utility\DrawShader.cpp" />
     <ClCompile Include="Src\Utility\Measure.cpp" />
     <ClCompile Include="Src\_debug\_DebugConOut.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="Src\Scene\SelectScene.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />
     <ClInclude Include="Src\Utility\AsoUtility.h" />
+    <ClInclude Include="Src\Utility\ButtonUI.h" />
     <ClInclude Include="Src\Utility\DrawShader.h" />
     <ClInclude Include="Src\Utility\Measure.h" />
     <ClInclude Include="Src\_debug\_DebugConOut.h" />

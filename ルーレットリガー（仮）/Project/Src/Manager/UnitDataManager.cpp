@@ -27,11 +27,14 @@ void UnitDataManager::Release(void)
 
 void UnitDataManager::LoadUnitData(void)
 {
+
+
 }
 
 const UnitData& UnitDataManager::GetUnitData(const int& num)
 {
-    // TODO: return ステートメントをここに挿入します
+	UnitData data;
+	return data;
 }
 
 const int& UnitDataManager::GetUnitImg(const int& num)

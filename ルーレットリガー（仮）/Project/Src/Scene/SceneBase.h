@@ -20,6 +20,8 @@ public:
 
 protected:
 
+	//”wŒi‰æ‘œ
+	int bgImg_;
 
 	//BGMƒnƒ“ƒhƒ‹
 	int bgmHandle_;
@@ -28,6 +30,8 @@ protected:
 
 
 
+
+private:
 
 };
 

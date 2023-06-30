@@ -2,20 +2,24 @@
 #include<string>
 #include<vector>
 #include<unordered_map>
+
+//ユニットのデータ
+struct UnitData
+{
+	int num;					//ユニット番号
+	std::string name;			//名前
+	std::string imgPath;		//画像パス・・・ハンドルに入れ替えてもいいかも
+	int hp;						//体力
+	int attack;					//攻撃力
+	int speed;					//素早さ
+	std::vector<int> cmdNum;	//コマンド番号
+};
+
 class UnitDataManager
 {
+
+
 public:
-	struct UnitData 
-	{
-		int num;					//ユニット番号
-		std::string name;			//名前
-		std::string imgPath;		//画像パス・・・ハンドルに入れ替えてもいいかも
-		int hp;						//体力
-		int attack;					//攻撃力
-		int speed;					//素早さ
-		std::vector<int> cmdNum;	//コマンド番号
-	};
-	 
 	// 明示的にインステンスを生成する
 	static void CreateInstance(void);
 

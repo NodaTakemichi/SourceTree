@@ -3,45 +3,45 @@
 
 <!--コマンドテーブル-->
 	<!--火山-->
-  <Skill num="0" name="ひのこ"		 type="ATTACK" target="ENEMY" times="1.2" efNum="13"/>
+  <Skill num="0" name="ひのこ"	   type="ATTACK" target="ENEMY" times="1.2" efNum="13"/>
   <Skill num="1" name="ほのうのこ" type="ATTACK" target="ENEMY" times="1.5" efNum="8"/>
   <Skill num="2" name="熱いずつき" type="ATTACK" target="ENEMY" times="1.8" efNum="14"/>
 
   <Skill num="3" name="ガスアタック" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="130"/>
-  <Skill num="4" name="ガスの体"		 type="BUFF" target="SELF"  buff="AVOIDANCE"  efNum="135"/>
-  <Skill num="5" name="毒ガス"			 type="BUFF" target="ENEMY" buff="POISON" efNum="110"/>
+  <Skill num="4" name="ガスの体"	 type="BUFF" target="SELF"  buff="AVOIDANCE"  efNum="135"/>
+  <Skill num="5" name="毒ガス"		 type="BUFF" target="ENEMY" buff="POISON" efNum="110"/>
 
   <Skill num="6" name="ちょうおんぱ" type="BUFF" target="ENEMY" buff="PALALYSIS" efNum="23"/>
-  <Skill num="7" name="うちきば" type="ATTACK" target="ENEMY" times="1.2" efNum="124"/>
+  <Skill num="7" name="うちきば"	 type="ATTACK" target="ENEMY" times="1.2" efNum="124"/>
 
-  <Skill num="8" name="太陽光" type="BUFF" target="ENEMY"   buff="D_DOWN"  efNum="138"/>
-  <Skill num="9" name="太陽とっしん" type="ATTACK" target="10" times="1.2" efNum="10"/>
+  <Skill num="8" name="太陽光"		  type="BUFF" target="ENEMY"   buff="D_DOWN"  efNum="138"/>
+  <Skill num="9" name="太陽とっしん"  type="ATTACK" target="10" times="1.2" efNum="10"/>
   <Skill num="10" name="太陽サンサン" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="5"/>
 
-  <Skill num="11" name="鉱石化" type="BUFF" target="SELF"   buff="AVOIDANCE"  efNum="64"/>
+  <Skill num="11" name="鉱石化"		type="BUFF" target="SELF"   buff="AVOIDANCE"  efNum="64"/>
   <Skill num="12" name="まもりの要" type="BUFF" target="SELF"   buff="D_UP"  efNum="154"/>
-  <Skill num="13"  name="石つぶて" type="ATTACK" target="ENEMY" times="1.2" efNum="65"/>
+  <Skill num="13"  name="石つぶて"  type="ATTACK" target="ENEMY" times="1.2" efNum="65"/>
 
-  <Skill num="14" name="恨炎" type="ATTACK" target="ENEMY" times="1.2" efNum="4"/>
-  <Skill num="15" name="怨炎" type="ATTACK" target="ENEMY" times="1.5" efNum="3"/>
+  <Skill num="14" name="恨炎"		type="ATTACK" target="ENEMY" times="1.2" efNum="4"/>
+  <Skill num="15" name="怨炎"		type="ATTACK" target="ENEMY" times="1.5" efNum="3"/>
   <Skill num="16" name="ほのおの体" type="BUFF" target="SELF"  buff="AVOIDANCE"  efNum="17"/>
 
-  <Skill num="17" name="狐火" type="ATTACK" target="ENEMY" times="1.2" efNum="9"/>
-  <Skill num="18" name="狐の宴会" type="BUFF" target="PLAYER_ALL"   buff="D_UP"  efNum="18"/>
-  <Skill num="19" name="厄火" type="ATTACK" target="ENEMY" times="1.5" efNum="3"/>
+  <Skill num="17" name="狐火"		type="ATTACK" target="ENEMY" times="1.2" efNum="9"/>
+  <Skill num="18" name="狐の宴会"   type="BUFF" target="PLAYER_ALL"   buff="D_UP"  efNum="18"/>
+  <Skill num="19" name="厄火"		type="ATTACK" target="ENEMY" times="1.5" efNum="3"/>
 
-  <Skill num="20" name="ゲヘナフレイム" type="ATTACK" target="ENEMY" times="1.2" efNum="11"/>
-  <Skill num="21" name="フローガ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="0"/>
+  <Skill num="20" name="ゲヘナフレイム"   type="ATTACK" target="ENEMY" times="1.2" efNum="11"/>
+  <Skill num="21" name="フローガ"		  type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="0"/>
   <Skill num="22" name="ヴェノムファング" type="BUFF" target="ENEMY"   buff="POISON"  efNum="118"/>
 
-  <Skill num="23" name="ブレイジング" type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
+  <Skill num="23" name="ブレイジング"   type="ATTACK" target="ENEMY" times="1.2" efNum="12"/>
   <Skill num="24" name="ノーボルケーノ" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="6"/>
   <Skill num="25" name="エクスラッシュ" type="ATTACK" target="ENEMY" times="1.5" efNum="16"/>
 
-  <Skill num="26" name="フラム"			 type="ATTACK" target="ENEMY" times="1.2" efNum="7"/>
+  <Skill num="26" name="フラム"		  type="ATTACK" target="ENEMY" times="1.2" efNum="7"/>
   <Skill num="27" name="インフェルノ" type="ATTACK" target="ENEMY" times="1.5" efNum="2"/>
-  <Skill num="28" name="ボルカニク"	 type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="11"/>
-  <Skill num="29" name="ノヴァ"			 type="ATTACK" target="ENEMY_ALL" times="1.8" efNum="1"/>
+  <Skill num="28" name="ボルカニク"	  type="ATTACK" target="ENEMY_ALL" times="1.5" efNum="11"/>
+  <Skill num="29" name="ノヴァ"	      type="ATTACK" target="ENEMY_ALL" times="1.8" efNum="1"/>
   
   
   <!--通常技-->
@@ -51,7 +51,7 @@
 	<Skill num="1" name="こうげき"	 type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
 	<Skill num="2" name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
 	<Skill num="3" name="必殺の一撃" type="ATTACK" target="ENEMY" times="2.0" efNum="142"/>
-  <Skill num="4" name="たいあたり" type="ATTACK" target="ENEMY" times="1.2" efNum="150"/>
+    <Skill num="4" name="たいあたり" type="ATTACK" target="ENEMY" times="1.2" efNum="150"/>
 
   
   

@@ -65,8 +65,6 @@ private:
 
 	//マウス
 	int mouseImg_;
-	//背景画像
-	int bgImg_;
 	//フレーム
 	int frameImg_;
 	int topFrameImg_;

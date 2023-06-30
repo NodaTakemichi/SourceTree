@@ -1,17 +1,24 @@
 #pragma once
+#include<vector>
+#include "../Common/Vector2.h"
 #include "SceneBase.h"
+
+//class Vector2;
+class ButtonUI;
+
 class SelectScene :
     public SceneBase
 {
 public:
 
-	enum class select
+	enum class SELECT_MODE
 	{
-		NONE,
-		GAME,
-		DECK_EDIT,
-		EXIT,
-
+		BATTLE	  = 0,
+		DECK_EDIT = 1,
+		RULE_BOOK = 2,
+		CREDIT	  = 3,
+		EXIT	  = 4,
+		MAX		  = 5
 	};
 
 	// コンストラクタ
@@ -25,6 +32,9 @@ public:
 	void Draw(void) override;
 	void Release(void) override;
 
+	//ボタンUI生成
+	void CerateBtnUI(void);
+
 private:
 
 	//敵情報配列
@@ -33,11 +43,20 @@ private:
 
 
 
+	//選択ボタン
+	std::vector<ButtonUI*>buttons_;
+	//ボタンUI画像
+	int backBtnImg_;
+	std::map<SELECT_MODE, int>btnImg_;
 
-	//背景画像
 
-	//ルーレット画像
+	//つかいま画像
+	int devilImg_;
+	Vector2 devilPos_;
+	int shakeY_;
 
-	//ルーレット角度
+
+	//シェーダー
+	int psTex_;
 };
 

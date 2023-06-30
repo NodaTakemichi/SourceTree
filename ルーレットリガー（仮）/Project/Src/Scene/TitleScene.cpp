@@ -16,7 +16,7 @@ void TitleScene::Init(void)
 {
 	//画像の登録
 	titleImg_ = LoadGraph("./Data/Image/UI/title.png");
-	backImg_ = LoadGraph("./Data/Image/UI/title.png");
+	backImg_ = LoadGraph("./Data/Image/bg/title_bg.jpg");
 
 	//シェーダー登録
 
@@ -34,7 +34,7 @@ void TitleScene::Update(void)
 	auto& ins = InputManager::GetInstance();
 	if (ins.IsClickMouseLeft())
 	{
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME, true);
+		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::SELECT, true);
 	}
 
 	//デルタタイム
