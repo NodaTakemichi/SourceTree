@@ -158,6 +158,16 @@ bool InputManager::IsTrgMouseRight(void) const
 	return FindMouse(MOUSE_INPUT_RIGHT).keyTrgDown;
 }
 
+bool InputManager::IsTrgMouseLeftUp(void) const
+{
+	return FindMouse(MOUSE_INPUT_LEFT).keyTrgUp;
+}
+
+bool InputManager::IsTrgMouseRightUp(void) const
+{
+	return FindMouse(MOUSE_INPUT_RIGHT).keyTrgUp;
+}
+
 InputManager::InputManager(void)
 {
 	mouseInput_ = -1;

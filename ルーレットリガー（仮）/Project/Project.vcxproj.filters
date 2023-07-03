@@ -120,6 +120,9 @@
     <ClCompile Include="Src\Utility\ButtonUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Manager\DataManager\CmdManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Application.h">
@@ -227,6 +230,9 @@
     <ClInclude Include="Src\Utility\ButtonUI.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Manager\DataManager\CmdManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\HpShader.hlsl" />
@@ -237,5 +243,7 @@
     <FxCompile Include="Src\Shader\ActivUnitName.hlsl" />
     <FxCompile Include="Src\Shader\Mask.hlsl" />
     <FxCompile Include="Src\Shader\DeathUnit.hlsl" />
+    <FxCompile Include="Src\Shader\OnButton.hlsl" />
+    <FxCompile Include="Src\Shader\Texture.hlsl" />
   </ItemGroup>
 </Project>

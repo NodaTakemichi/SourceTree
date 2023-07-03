@@ -45,14 +45,18 @@
   
   
   <!--通常技-->
-	<Skill num="0" name="ミス" type="MISS" target="NONE" times="0.0" efNum="135"/>
-	<Skill num="0" name="様子を見ている" type="MISS" target="NONE" times="0.0" efNum="135"/>
-	<Skill num="0" name="見下している" type="MISS" target="NONE" times="0.0" efNum="135"/>
-	<Skill num="1" name="こうげき"	 type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
-	<Skill num="2" name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
-	<Skill num="3" name="必殺の一撃" type="ATTACK" target="ENEMY" times="2.0" efNum="142"/>
-    <Skill num="4" name="たいあたり" type="ATTACK" target="ENEMY" times="1.2" efNum="150"/>
+	<Skill num="30" name="ミス" type="MISS" target="NONE" times="0.0" efNum="135"/>
+	<Skill num="31" name="様子を見ている" type="MISS" target="NONE" times="0.0" efNum="135"/>
+	<Skill num="32" name="見下している" type="MISS" target="NONE" times="0.0" efNum="135"/>
+	<Skill num="33" name="こうげき"	 type="ATTACK" target="ENEMY" times="1.0" efNum="142"/>
+	<Skill num="34" name="かみつき"	 type="ATTACK" target="ENEMY" times="1.0" efNum="150"/>
+	<Skill num="35" name="渾身の一撃" type="ATTACK" target="ENEMY" times="1.5" efNum="142"/>
+	<Skill num="36" name="必殺の一撃" type="ATTACK" target="ENEMY" times="2.0" efNum="142"/>
+  <Skill num="37" name="ぶちかまし" type="ATTACK" target="ENEMY_ALL" times="1.2" efNum="150"/>
 
+  
+  
+  
   
   
 	<Skill name="とける" type="HEAL" target="SELF" times="1.0"/>

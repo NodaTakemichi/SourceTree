@@ -6,9 +6,9 @@
 //ユニットのデータ
 struct UnitData
 {
-	int num;					//ユニット番号
+	//int num;					//ユニット番号
 	std::string name;			//名前
-	std::string imgPath;		//画像パス・・・ハンドルに入れ替えてもいいかも
+	int imgPath;				//画像パス・・・ハンドルに入れ替えてもいいかも
 	int hp;						//体力
 	int attack;					//攻撃力
 	int speed;					//素早さ
@@ -41,15 +41,14 @@ public:
 	//指定ユニットの画像取得
 	const int& GetUnitImg(const int& num);
 private:
-
 	// 静的インスタンス
 	static UnitDataManager* instance_;
 
-	// リソース管理の対象
-	std::unordered_map<int,UnitData> resMap_;
+	//ファイル名
+	std::string failName_;
+	// ユニットデータ（番号をキー値とする）
+	std::unordered_map<int,UnitData> unitDataMap_;
 
-	// 読み込み済みリソース
-	std::unordered_map<int,UnitData> loadedMap_;
 
 	// 外部から生成できない様にする
 	UnitDataManager(void);

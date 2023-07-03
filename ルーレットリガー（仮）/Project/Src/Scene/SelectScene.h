@@ -32,8 +32,18 @@ public:
 	void Draw(void) override;
 	void Release(void) override;
 
+	//各ボタン処理
+	void BtnProcess();
+
 	//ボタンUI生成
 	void CerateBtnUI(void);
+
+	//各ボタン処理
+	void BattleBtnProcess(void);
+	void EditBtnProcess(void);
+	void RuleBtnProcess(void);
+	void CreditBtnProcess(void);
+	void ExitBtnProcess(void);
 
 private:
 

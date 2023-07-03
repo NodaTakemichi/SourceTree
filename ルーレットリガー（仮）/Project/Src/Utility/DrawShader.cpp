@@ -19,15 +19,41 @@ DrawShader& DrawShader::GetInstance(void)
 
 void DrawShader::Init(void)
 {
+	//通病描画シェーダー
+	psTex_ = LoadPixelShader("./x64/Debug/Txture.cso");
+
+	//定数バッファ
 	psConstBuf_= CreateShaderConstantBuffer(sizeof(float) * 8);
 }
 
 void DrawShader::Release(void)
 {
+	DeleteShader(psTex_);
 	DeleteShaderConstantBuffer(psConstBuf_);
 
 	delete[] index_;
 	delete[] vertex_;
+}
+
+void DrawShader::DrawGraph(const Vector2& pos, const int& handle)
+{
+	//シェーダーの設定
+	SetUsePixelShader(psTex_);
+
+	//シェーダーにテクスチャを転送
+	SetUseTextureToShader(0, handle);
+
+	//サイズ
+	int x, y;
+	GetGraphSize(handle, &x, &y);
+
+	//描画座標
+	MakeSquereVertex(pos, { x,y });
+
+	//描画
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
+	DrawPolygonIndexed2DToShader(vertex_, 4, index_, 2);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 void DrawShader::DrawGraphToShader(const Vector2& pos, const int& handle, const int& ps)

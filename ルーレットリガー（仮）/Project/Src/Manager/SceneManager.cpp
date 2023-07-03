@@ -13,6 +13,7 @@
 #include "../Utility/DrawShader.h"
 #include "InputManager.h"
 #include "SoundManager.h"
+#include "UnitDataManager.h"
 
 #include "SceneManager.h"
 
@@ -45,6 +46,9 @@ void SceneManager::Init(void)
 
 	// 音声管理初期化
 	SoundManager::CreateInstance();
+
+	// ユニットデータ管理初期化
+	UnitDataManager::CreateInstance();
 
 
 	mFader = new Fader();
@@ -147,6 +151,9 @@ void SceneManager::Release(void)
 
 	//音声管理クラスの解放
 	SoundManager::GetInstance().Release();
+
+	//ユニットデータ管理クラスの開放
+	UnitDataManager::GetInstance().Release();
 }
 
 void SceneManager::ChangeScene(SCENE_ID nextId, bool isFading)

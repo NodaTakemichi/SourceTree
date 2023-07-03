@@ -17,6 +17,9 @@ public:
 	//クリック判定
 	bool PushButton(void);
 
+	//決定（ボタンから離したとき）
+	bool ButtonDecision(void);
+
 private:
 
 	//座標
@@ -32,17 +35,17 @@ private:
 	//ボタン画像シェーダー
 	int buttonPs_;
 	//シェーダー
-	int psTex_;
 	int psOnButton_;
 
 	
-
+	//ボタンフレームの濃さ
+	float darkness_;
 
 	//ボタンの上にマウスが乗っているかどうか
 	bool onButton_;
 
 	//ボタンの上にマウスが乗っているかどうか
-	bool OnButton(void);
+	bool MouseOnButton(void);
 	//四角形上に座標があるかの確認
 	bool IsMouseInRect(
 		const Vector2& inside,const Vector2& outside,const Vector2& size);

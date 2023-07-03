@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include <cstdlib>
 #include "../Application.h"
 #include "../Manager/SceneManager.h"
 #include "../Manager/SoundManager.h"
@@ -47,24 +48,19 @@ void SelectScene::Init(void)
 
 void SelectScene::Update(void)
 {
-	//シーン遷移
-	//auto& ins = InputManager::GetInstance();
-	//if (ins.IsClickMouseLeft())
-	//{
-	//	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::SELECT, true);
-	//}
 
 	//デルタタイム
 	auto delta = SceneManager::GetInstance().GetDeltaTime();
 	totalTime_ += delta;
 
 	//つかいま座標
-	shakeY_ = sinf(totalTime_) * 30.0f;
+	shakeY_ = sinf(totalTime_) * 20.0f;
 
-	for  (auto& btn:buttons_)
-	{
-		btn->Draw();
-	}
+	//各ボタン更新
+	BtnProcess();
+
+
+
 
 }
 
@@ -83,6 +79,13 @@ void SelectScene::Draw(void)
 	ds.DrawGraphToShader(
 		{devilPos_.x ,devilPos_.y + shakeY_ }, devilImg_, psTex_
 	);
+
+	//ボタン
+	for (auto& btn : buttons_)
+	{
+		btn->Draw();
+	}
+
 
 
 #ifdef DEBUG
@@ -103,16 +106,95 @@ void SelectScene::Release(void)
 {
 }
 
+void SelectScene::BtnProcess()
+{
+	for (auto& btn : buttons_)
+	{
+		btn->Update();
+	}
+
+	//ボタンの上にマウスが乗っているか確認
+	for (auto& btn : buttons_)
+	{
+	}
+
+
+	//ボタンクリック処理
+	for (auto& btn : buttons_)
+	{
+		btn->PushButton();
+	}
+
+
+	//ボタン決定処理
+	if (buttons_[0]->ButtonDecision())
+	{
+		BattleBtnProcess();
+	}
+	if (buttons_[4]->ButtonDecision())
+	{
+		ExitBtnProcess();
+	}
+
+}
+
 void SelectScene::CerateBtnUI(void)
 {
+	//スクリーンサイズ
+	auto& sx = Application::SCREEN_SIZE_X;
+	auto& sy = Application::SCREEN_SIZE_Y;
 
+	//背面画像
 	backBtnImg_ = LoadGraph("./Data/Image/UI/BackBtnImg.png");
+	int x, y;
+	GetGraphSize(backBtnImg_, &x, &y);
 
-	int handle = LoadGraph("");
+	//手前画像
+	std::vector<int> handle;
+	handle.push_back(LoadGraph("./Data/Image/UI/バトル.png"));
+	handle.push_back(LoadGraph("./Data/Image/UI/デッキ編集.png"));
+	handle.push_back(LoadGraph("./Data/Image/UI/ルールブック.png"));
+	handle.push_back(LoadGraph("./Data/Image/UI/クレジット.png"));
+	handle.push_back(LoadGraph("./Data/Image/UI/退出.png"));
 
 	//作成
-	ButtonUI* b = new ButtonUI();
-	b->Create({ 500,500 }, { 0,0 }, backBtnImg_, -1);
-	buttons_.emplace_back(b);
+	int cout = 5;
+	for (int i = 0; i < cout; i++)
+	{
+		ButtonUI* b = new ButtonUI();
 
+		int r = i % 2;
+		//座標
+		Vector2 pos = {
+			(sx / 2) - (x * 2) - (x / 2) + (x * i)  ,
+			sy - y };
+
+		b->Create(pos, { 0,0 }, backBtnImg_, handle[i]);
+		buttons_.emplace_back(b);
+	}
+
+
+}
+
+void SelectScene::BattleBtnProcess(void)
+{
+	//シーン遷移
+	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME, true);
+}
+
+void SelectScene::EditBtnProcess(void)
+{
+}
+
+void SelectScene::RuleBtnProcess(void)
+{
+}
+
+void SelectScene::CreditBtnProcess(void)
+{
+}
+
+void SelectScene::ExitBtnProcess(void)
+{
+	exit(0);
 }

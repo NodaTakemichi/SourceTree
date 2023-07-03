@@ -14,15 +14,24 @@ ButtonUI::~ButtonUI()
 void ButtonUI::Init(void)
 {
 	//シェーダー登録
-	psTex_ = LoadPixelShader("./x64/Debug/ReverseTexture.cso");
+	psOnButton_= LoadPixelShader("./x64/Debug/OnButton.cso");
 
-	buttonPs_ = psTex_;
+	darkness_ = 1.0f;
 }
 
 void ButtonUI::Update(void)
 {
 	//マウスがボタン上にあるか確認
-	OnButton();
+	if (MouseOnButton())
+	{
+		darkness_ = 2.0f;
+	}
+
+	//ボタンがクリックされたか確認
+	if (PushButton())
+	{
+		darkness_ = 1.0f;
+	}
 }
 
 void ButtonUI::Draw(void)
@@ -30,17 +39,29 @@ void ButtonUI::Draw(void)
 	auto& ds = DrawShader::GetInstance();
 
 	//背面画像
-	ds.DrawGraphToShader(
-		pos_, backImg_, buttonPs_);
+	if (!MouseOnButton())
+	{
+		DrawGraph(pos_.x, pos_.y, backImg_, true);
+		//ds.DrawGraph(pos_, backImg_);
+	}else
+	{
+		COLOR_F buf = COLOR_F{
+			darkness_
+		};
+		ds.DrawGraphToShader(
+			pos_, backImg_, psOnButton_, buf);
+	}
 
 	//手前画像
-	ds.DrawGraphToShader(
-		pos_, frontImg_, psTex_);
+	ds.DrawGraph(pos_, frontImg_);
+	//ds.DrawGraphToShader(
+	//	pos_, frontImg_, psTex_);
 
 }
 
 void ButtonUI::Release(void)
 {
+	DeleteShader(psOnButton_);
 }
 
 void ButtonUI::Create(Vector2 pos, Vector2 size, int back, int front)
@@ -60,21 +81,28 @@ void ButtonUI::Create(Vector2 pos, Vector2 size, int back, int front)
 bool ButtonUI::PushButton(void)
 {
 	auto& ins = InputManager::GetInstance();
-	if (OnButton() && ins.IsClickMouseLeft())
-	{
-		return true;
-	}
+	if (MouseOnButton() && ins.IsClickMouseLeft())return true;
 
 	return false;
 }
 
-bool ButtonUI::OnButton(void)
+bool ButtonUI::ButtonDecision(void)
+{
+	auto& ins = InputManager::GetInstance();
+	if (MouseOnButton() && ins.IsTrgMouseLeftUp())return true;
+
+	return false;
+}
+
+
+bool ButtonUI::MouseOnButton(void)
 {
 	//マウス位置
 	auto& ins = InputManager::GetInstance();
 	Vector2 mPos = ins.GetMousePos();
 
 	if (IsMouseInRect(mPos, pos_, size_))return true;
+
 
 	return false;
 }

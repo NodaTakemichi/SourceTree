@@ -18,7 +18,9 @@ public:
 	// 解放(シーン切替時に一旦解放)
 	void Release(void);
 
-
+	//画像通常描画
+	void DrawGraph(
+		const Vector2& pos, const int& handle);
 	//画像描画（定数なし）
 	void DrawGraphToShader(
 		const Vector2& pos,const int& handle, const int& ps);
@@ -52,6 +54,9 @@ private:
 
 	//シェーダー定数バッファ
 	int psConstBuf_;
+
+	//通常描画シェーダー
+	int psTex_;
 
 	//描画用の四角頂点の作成
 	void MakeSquereVertex(Vector2 pos, Vector2 size);
