@@ -11,6 +11,8 @@
 
 #include "../Utility/Measure.h"
 #include "../Utility/DrawShader.h"
+
+#include "DataManager/CmdManager.h"
 #include "InputManager.h"
 #include "SoundManager.h"
 #include "UnitDataManager.h"
@@ -50,14 +52,17 @@ void SceneManager::Init(void)
 	// ユニットデータ管理初期化
 	UnitDataManager::CreateInstance();
 
+	// コマンドデータ管理初期化
+	CmdManager::CreateInstance();
+
 
 	mFader = new Fader();
 	mFader->Init();
 
-	mScene = new SelectScene();
+	mScene = new GameScene();
 	mScene->Init();
 
-	mSceneID = SCENE_ID::SELECT;
+	mSceneID = SCENE_ID::GAME;
 	mWaitSceneID = SCENE_ID::NONE;
 
 	mIsSceneChanging = false;
@@ -154,6 +159,9 @@ void SceneManager::Release(void)
 
 	//ユニットデータ管理クラスの開放
 	UnitDataManager::GetInstance().Release();
+
+	//コマンドデータ管理クラスの開放
+	CmdManager::GetInstance().Release();
 }
 
 void SceneManager::ChangeScene(SCENE_ID nextId, bool isFading)

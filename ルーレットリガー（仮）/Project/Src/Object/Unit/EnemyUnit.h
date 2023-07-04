@@ -4,8 +4,8 @@ class EnemyUnit :
     public UnitBase
 {
 public:
-    EnemyUnit();
-    EnemyUnit(std::string unitFile, int unitNum);
+    //EnemyUnit();
+    EnemyUnit(const int& dataNum, const int& unitNum);
     ~EnemyUnit();
 
     void Init(void)override;

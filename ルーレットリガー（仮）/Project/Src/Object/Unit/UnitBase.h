@@ -24,7 +24,7 @@ public:
 		ENEMY,
 	};
 
-	UnitBase();
+	UnitBase(const int& dataNum,const int& unitNum);
 	virtual ~UnitBase();
 
 	virtual void Init(void);
@@ -82,11 +82,14 @@ protected:
 	//ユニットUI
 	UnitUI* unitUi_;
 
+	//ユニットのデータ番号
+	const int& dataNum_;
+	//ユニットの順番
+	const int& unitNum_;
+
+
 	//ユニットのタイプ
 	UNIT_TYPE type_;
-
-	//ユニットデータがあるファイルパス
-	std::string unitFile_;
 
 	//ユニット画像
 	int unitImg_;
@@ -109,8 +112,6 @@ protected:
 	//バフ
 	std::vector <Buff*> buffs_;
 
-	//ユニットの順番
-	int unitNum_;
 	//表示座標
 	Vector2 pos_;
 
@@ -158,7 +159,7 @@ protected:
 	void SetDrawingPos(int posX);
 
 	//ユニットデータの取得（xmlデータの読み込み）
-	std::string LoadData(std::string fileName);
+	void LoadData(void);
 
 	//シェーダ―によるユニット描画
 	void DrawUnitShader(const float& revers);
@@ -170,7 +171,7 @@ private:
 	void UnitImgShake(const float& leap);
 
 	//コマンドの生成
-	void CreateCommand(Command::Par* par);
+	void CreateCommand(const int& num);
 
 	//バフの生成
 	void CreateBuff(const Buff::BUFF_TYPE& type);

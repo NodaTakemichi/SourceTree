@@ -4,17 +4,13 @@
 #include "./UI/PlayerUI.h"
 #include "PlayerUnit.h"
 
-PlayerUnit::PlayerUnit()
-{
-}
 
-PlayerUnit::PlayerUnit(std::string unitFile,int unitNum)
+PlayerUnit::PlayerUnit(const int& dataNum, const int& unitNum) :
+	UnitBase(dataNum, unitNum)
 {
-	unitFile_ = unitFile;
-	unitNum_ = unitNum;
-
 	type_ = UNIT_TYPE::PLAYER;
 }
+
 
 PlayerUnit::~PlayerUnit()
 {
@@ -22,9 +18,6 @@ PlayerUnit::~PlayerUnit()
 
 void PlayerUnit::Init(void)
 {
-	//ユニットデータのロード
-	LoadData(unitFile_.c_str());
-
 	//座標初期化
 	SetDrawingPos(DRAWING_OFFSET_X);
 

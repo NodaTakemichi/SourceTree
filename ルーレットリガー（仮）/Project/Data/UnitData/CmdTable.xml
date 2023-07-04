@@ -15,11 +15,11 @@
   <Skill num="7" name="‚¤‚¿‚«‚Î"	 type="ATTACK" target="ENEMY" times="1.2" efNum="124"/>
 
   <Skill num="8" name="‘¾—zŒõ"		  type="BUFF" target="ENEMY"   buff="D_DOWN"  efNum="138"/>
-  <Skill num="9" name="‘¾—z‚Æ‚Á‚µ‚ñ"  type="ATTACK" target="10" times="1.2" efNum="10"/>
+  <Skill num="9" name="‘¾—z‚Æ‚Á‚µ‚ñ"  type="ATTACK" target="ENEMY" times="1.2" efNum="10"/>
   <Skill num="10" name="‘¾—zƒTƒ“ƒTƒ“" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="5"/>
 
-  <Skill num="11" name="zÎ‰»"		type="BUFF" target="SELF"   buff="AVOIDANCE"  efNum="64"/>
-  <Skill num="12" name="‚Ü‚à‚è‚Ì—v" type="BUFF" target="SELF"   buff="D_UP"  efNum="154"/>
+  <Skill num="11" name="zÎ‰»"		type="BUFF" target="SELF"   buff="D_UP"  efNum="64"/>
+  <Skill num="12" name="‚Ü‚à‚è‚Ì—v" type="BUFF" target="PLAYER"   buff="D_UP"  efNum="154"/>
   <Skill num="13"  name="Î‚Â‚Ô‚Ä"  type="ATTACK" target="ENEMY" times="1.2" efNum="65"/>
 
   <Skill num="14" name="¦‰Š"		type="ATTACK" target="ENEMY" times="1.2" efNum="4"/>
@@ -27,7 +27,7 @@
   <Skill num="16" name="‚Ù‚Ì‚¨‚Ì‘Ì" type="BUFF" target="SELF"  buff="AVOIDANCE"  efNum="17"/>
 
   <Skill num="17" name="ŒÏ‰Î"		type="ATTACK" target="ENEMY" times="1.2" efNum="9"/>
-  <Skill num="18" name="ŒÏ‚Ì‰ƒ‰ï"   type="BUFF" target="PLAYER_ALL"   buff="D_UP"  efNum="18"/>
+  <Skill num="18" name="ŒÏ‚Ì‰ƒ‰ï"   type="BUFF" target="PLAYER_ALL"   buff="P_UP"  efNum="18"/>
   <Skill num="19" name="–ï‰Î"		type="ATTACK" target="ENEMY" times="1.5" efNum="3"/>
 
   <Skill num="20" name="ƒQƒwƒiƒtƒŒƒCƒ€"   type="ATTACK" target="ENEMY" times="1.2" efNum="11"/>

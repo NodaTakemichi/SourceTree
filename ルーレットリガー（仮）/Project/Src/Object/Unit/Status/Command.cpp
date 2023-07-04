@@ -1,9 +1,10 @@
+#include"../../../Manager/DataManager/CmdManager.h"
 #include"../../../_debug/_DebugConOut.h"
 #include "Command.h"
 
-Command::Command(Par* par)
+
+Command::Command(const int& num):num_(num)
 {
-	par_ = (*par);
 }
 
 Command::~Command()
@@ -12,6 +13,26 @@ Command::~Command()
 
 void Command::Init(void)
 {
+	//ƒRƒ}ƒ“ƒh‚Ìî•ñ‚Ìæ“¾
+	auto test = CmdManager::GetInstance().GetCmdData(num_);
+
+	//Par& p = Par{
+	//	test.name,
+	//	test.type,
+	//	test.target,
+	//	test.times,
+	//	test.buff,
+	//	test.efNum
+	//};
+	//par_ = p;
+
+	par_.name_ = test.name;
+	par_.type_ = test.type;
+	par_.target_ = test.target;
+	par_.times_ = test.times;
+	par_.buff_ = test.buff;
+	par_.efNum_ = test.efNum;
+
 	//U‚è•ª‚¯
 	CastCmdType(par_.type_);
 	CastCmdTarget(par_.target_);

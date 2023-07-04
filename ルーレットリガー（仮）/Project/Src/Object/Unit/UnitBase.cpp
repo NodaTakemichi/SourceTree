@@ -1,17 +1,17 @@
 #include <algorithm>
 #include "../../Manager/SceneManager.h"
+#include "../../Manager/UnitDataManager.h"
 #include "../../Utility/AsoUtility.h"
 #include "../../Utility/DrawShader.h"
 
-
-#include "../../Common/GetAttr.h"
-#include "UI/UnitUI.h"
-
 #include"../../_debug/_DebugConOut.h"
 
+#include "UI/UnitUI.h"
 #include "UnitBase.h"
 
-UnitBase::UnitBase()
+
+UnitBase::UnitBase(const int& dataNum, const int& unitNum) :
+	dataNum_(dataNum), unitNum_(unitNum)
 {
 }
 
@@ -21,6 +21,9 @@ UnitBase::~UnitBase()
 
 void UnitBase::Init(void)
 {
+	//ユニットデータの登録
+	LoadData();
+
 	//生死状態、行動状態、現在行動状態をセットする
 	SetAlive(true);
 	SetActed(false);
@@ -264,93 +267,26 @@ bool UnitBase::CheckOwnBuff(const Buff::BUFF_TYPE& type)
 	return false;
 }
 
-std::string UnitBase::LoadData(std::string fileName)
+void UnitBase::LoadData(void)
 {
-	//ドキュメントを保存する変数
-	rapidxml::xml_document<> actDoc;
-	//ファイルのオープン
-	rapidxml::file<>xmlFile = fileName.c_str();
-	//解析構文して、変数にデータを格納
-	actDoc.parse<0>(xmlFile.data());
+	//ユニットデーターの取得
+	auto& data = UnitDataManager::GetInstance().GetUnitData(dataNum_);
 
-	//tmxの情報を取得（中身にアクセス）
-	auto unit = actDoc.first_node("Unit");
-	if (unit == nullptr)return std::string();
-
-	//アトリビュート取得関数
-	auto getAttr = GetAttr();
-	
-	//画像のソースパス
-	std::string source;
-
-	//ユニットのデータの取得
-#pragma region ユニットの基本情報
-	auto data = unit->first_node();
-	if (data == nullptr)return std::string();
-	//ユニットの名前取得
-	if (!getAttr(data, "name", name_))return std::string();
-	//ユニットの画像パス取得
-	if (!getAttr(data, "source", source))return std::string();
-	//ユニットのHP取得
-	if (!getAttr(data, "hp", hp_))return std::string();
-	//ユニットの攻撃力取得
-	if (!getAttr(data, "attack", attack_))return std::string();
-	//ユニットのスピード取得
-	if (!getAttr(data, "speed", speed_))return std::string();
-	//ユニットのスピード取得
-	if (!getAttr(data, "speed", speed_))return std::string();
-#pragma endregion
-
-	
-
-	//ユニットのコマンド技取得
-	std::string name, type, target,buff;
-	double times = 0.0;
-	int efNum = 0;
-
-	auto cmd = unit->first_node("Cmd");
-
-
-	if (cmd == nullptr)return std::string();
-	for (auto skill = cmd->first_node();
-		skill != nullptr;
-		skill = skill->next_sibling())
+	//パラメータセット
+	name_ = data.name;
+	unitImg_ = data.imgHandle;
+	hp_ = data.hp;
+	attack_ = data.attack;
+	speed_ = data.speed;
+	//コマンドセット
+	for (auto& cmd : data.cmdNum)
 	{
-		//技の名前取得
-		if (!getAttr(skill, "name", name))name = std::string();
-		//技のタイプ取得
-		if (!getAttr(skill, "type", type))type = std::string();
-		//技の技対象取得
-		if (!getAttr(skill, "target", target))target = std::string();
-		//技の倍率取得
-		if (!getAttr(skill, "times", times))times = 0.0;
-
-		//バフの種類取得
-		if (!getAttr(skill, "buff", buff))buff = "NONE";
-
-		//エフェクト番号取得
-		if (!getAttr(skill, "efNum", efNum))efNum = 0;
-
-
-		//コマンドの生成
-		Command::Par par = {
-			name,
-			type,
-			target,
-			static_cast<float>(times),
-			buff,
-			efNum
-		};
-		CreateCommand(&par);
+		//コマンドの作成
+		CreateCommand(cmd);
 	}
-
 
 	//HP関連の初期化
 	maxHp_ = beforHp_= nowHp_ = hp_;
-
-	//画像の登録
-	unitImg_ = LoadGraph(source.c_str());
-	return std::string();
 
 }
 
@@ -400,10 +336,10 @@ void UnitBase::UnitImgShake(const float& leap)
 	}
 }
 
-void UnitBase::CreateCommand(Command::Par* par)
+void UnitBase::CreateCommand(const int& num)
 {
 	//コマンドの生成
-	auto cmd = new Command(par);
+	auto cmd = new Command(num);
 	cmd->Init();
 	commands_.push_back(cmd);
 }

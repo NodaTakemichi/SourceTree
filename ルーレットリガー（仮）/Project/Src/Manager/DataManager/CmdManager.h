@@ -3,23 +3,23 @@
 #include<vector>
 #include<unordered_map>
 
-struct Par
+struct Parameter
 {
 	//コマンド名
-	std::string name_;
+	std::string name;
 	//コマンドタイプ(キャスト前)
-	std::string type_;
+	std::string type;
 	//ターゲット(キャスト前)
-	std::string target_;
+	std::string target;
 
 	//技：倍率
-	float times_;
+	float times;
 
 	//バフタイプ(キャスト前)
-	std::string buff_;
+	std::string buff;
 
 	//エフェクト番号
-	int efNum_;
+	int efNum;
 };
 
 class CmdManager
@@ -42,7 +42,7 @@ public:
 	void LoadCmdData(void);
 
 	//指定コマンドの取得（検索）
-	const Par& GetCmdData(const int& num);
+	const Parameter& GetCmdData(const int& num);
 
 private:
 	// 静的インスタンス
@@ -51,7 +51,7 @@ private:
 	//ファイル名
 	std::string fileName_;
 	// コマンドデータ（番号をキー値とする）
-	std::unordered_map<int, Par> cmdDataMap_;
+	std::unordered_map<int, Parameter> cmdDataMap_;
 
 
 	// 外部から生成できない様にする

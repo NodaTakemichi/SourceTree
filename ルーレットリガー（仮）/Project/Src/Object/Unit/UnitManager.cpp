@@ -94,42 +94,30 @@ void UnitManager::CreateUnit(void)
 	//ユニットの生成
 
 	//味方
-	PlayerUnit* pUnit = new PlayerUnit(path + "アースドラゴン.xml", 1);
+	PlayerUnit* pUnit = new PlayerUnit(2, 1);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
-		pUnit = new PlayerUnit(path + "アースドラゴン.xml", 2);
+		pUnit = new PlayerUnit(8, 2);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
-		pUnit = new PlayerUnit(path + "リーダースライム.xml", 3);
+		pUnit = new PlayerUnit(3, 3);
 		pUnit->Init();
 		units_.push_back(pUnit);
 
 	//敵
-		EnemyUnit* eUnit = new EnemyUnit(path + "アースドラゴン.xml", 1);
+		EnemyUnit* eUnit = new EnemyUnit(1, 1);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
-		eUnit = new EnemyUnit(path + "アースドラゴン.xml", 2);
+		eUnit = new EnemyUnit(6, 2);
 		eUnit->Init();
 		units_.push_back(eUnit);
 
-		eUnit = new EnemyUnit(path + "アースドラゴン.xml", 3);
+		eUnit = new EnemyUnit(5, 3);
 		eUnit->Init();
 		units_.push_back(eUnit);
-
-		//敵の種類
-		// スライム
-		// リーダースライム
-		// フロストレオ
-		// アースドラゴン
-		// ゴーレム
-		// ゴースト
-		// バルーン
-		// アークデーモン
-		// フェアリー
-		// フェアリースネイク
 		
 }
 

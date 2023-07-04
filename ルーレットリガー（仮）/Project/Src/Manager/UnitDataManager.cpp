@@ -99,8 +99,9 @@ void UnitDataManager::LoadUnitData(void)
 		}
 #pragma endregion
 
-		//画像ハンドル
-		int handle = LoadGraph(source.c_str());
+		//画像のロード
+		std::string path = UNIT_IMG_PATH + source;
+		int handle = LoadGraph(path.c_str());
 
 		//データの挿入
 		UnitData paramter = {
@@ -124,14 +125,16 @@ void UnitDataManager::LoadUnitData(void)
 
 const UnitData& UnitDataManager::GetUnitData(const int& num)
 {
-	UnitData data;
+	auto& data = unitDataMap_.at(num);
 	return data;
 }
 
 const int& UnitDataManager::GetUnitImg(const int& num)
 {
-	return 0;
+	auto& data = unitDataMap_.at(num);
+	return data.imgHandle;
 }
+
 
 UnitDataManager::UnitDataManager(void)
 {

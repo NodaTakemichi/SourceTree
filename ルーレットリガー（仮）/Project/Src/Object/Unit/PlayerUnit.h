@@ -4,8 +4,7 @@ class PlayerUnit :
     public UnitBase
 {
 public:
-    PlayerUnit();
-    PlayerUnit(std::string unitFile,int unitNum);
+    PlayerUnit(const int& dataNum, const int& unitNum);
     ~PlayerUnit();
 
     void Init(void)override;

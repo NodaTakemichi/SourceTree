@@ -3,12 +3,15 @@
 #include<vector>
 #include<unordered_map>
 
+//ユニット画像のパス
+const std::string UNIT_IMG_PATH = "Data/Image/Unit/";
+
 //ユニットのデータ
 struct UnitData
 {
 	//int num;					//ユニット番号
 	std::string name;			//名前
-	int imgPath;				//画像パス・・・ハンドルに入れ替えてもいいかも
+	int imgHandle;				//画像ハンドル
 	int hp;						//体力
 	int attack;					//攻撃力
 	int speed;					//素早さ
@@ -17,9 +20,9 @@ struct UnitData
 
 class UnitDataManager
 {
-
-
 public:
+
+
 	// 明示的にインステンスを生成する
 	static void CreateInstance(void);
 
@@ -40,6 +43,7 @@ public:
 
 	//指定ユニットの画像取得
 	const int& GetUnitImg(const int& num);
+
 private:
 	// 静的インスタンス
 	static UnitDataManager* instance_;

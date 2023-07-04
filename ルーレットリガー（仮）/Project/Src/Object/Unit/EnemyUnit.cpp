@@ -2,17 +2,12 @@
 #include "./UI//EnemyUI.h"
 #include "EnemyUnit.h"
 
-EnemyUnit::EnemyUnit()
-{
-}
 
-EnemyUnit::EnemyUnit(std::string unitFile, int unitNum)
-{
-	unitFile_ = unitFile;
-	unitNum_ = unitNum;
 
+EnemyUnit::EnemyUnit(const int& dataNum, const int& unitNum) :
+	UnitBase(dataNum, unitNum)
+{
 	type_ = UNIT_TYPE::ENEMY;
-
 }
 
 EnemyUnit::~EnemyUnit()
@@ -21,9 +16,6 @@ EnemyUnit::~EnemyUnit()
 
 void EnemyUnit::Init(void)
 {
-	//ユニットデータのロード
-	LoadData(unitFile_.c_str());
-
 	//座標初期化
 	auto ScreenX = Application::SCREEN_SIZE_X;
 	SetDrawingPos(ScreenX - DRAWING_SIZE - DRAWING_OFFSET_X);

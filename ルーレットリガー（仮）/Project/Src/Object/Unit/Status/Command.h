@@ -2,6 +2,27 @@
 #include<vector>
 #include<string>
 #include"./Buff.h"
+
+struct Par
+{
+	//コマンド名
+	std::string name_;
+	//コマンドタイプ(キャスト前)
+	std::string type_;
+	//ターゲット(キャスト前)
+	std::string target_;
+
+	//技：倍率
+	float times_;
+
+	//バフタイプ(キャスト前)
+	std::string buff_;
+
+	//エフェクト番号
+	int efNum_;
+};
+
+
 class Command
 {
 public:
@@ -32,31 +53,10 @@ public:
 		END
 	};
 
-	struct Par
-	{
-		//コマンド名
-		std::string name_;
-		//コマンドタイプ(キャスト前)
-		std::string type_;
-		//ターゲット(キャスト前)
-		std::string target_;
-	
-		//技：倍率
-		float times_;
-
-		//バフタイプ(キャスト前)
-		std::string buff_;
-
-		//エフェクト番号
-		int efNum_;
-	};
-
-	Command(Par* par);
+	Command(const int& num);
 	~Command();
 
 	void Init(void);
-	//void Update(void);
-	//void Draw(void);
 	void Release(void);
 
 	//名前の取得
@@ -78,8 +78,11 @@ public:
 	const int& GetEffectNum(void) { return par_.efNum_; }
 
 private:
-	//情報
+	//コマンド情報
 	Par par_;
+
+	//コマンド番号
+	const int& num_;
 
 	//コマンドタイプ
 	CMD_TYPE type_;

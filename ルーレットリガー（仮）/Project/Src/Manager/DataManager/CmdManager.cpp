@@ -6,10 +6,6 @@ CmdManager* CmdManager::instance_ = nullptr;
 
 void CmdManager::CreateInstance(void)
 {
-}
-
-CmdManager& CmdManager::GetInstance(void)
-{
 	if (instance_ == nullptr)
 	{
 		instance_ = new CmdManager();
@@ -17,9 +13,14 @@ CmdManager& CmdManager::GetInstance(void)
 	instance_->Init();
 }
 
+CmdManager& CmdManager::GetInstance(void)
+{
+	return *instance_;
+}
+
 void CmdManager::Init(void)
 {
-	fileName_ = "./Data/UnitData/SmdData.xml";
+	fileName_ = "./Data/UnitData/CmdTable.xml";
 	LoadCmdData();
 }
 
@@ -72,7 +73,7 @@ void CmdManager::LoadCmdData(void)
 
 
 		//コマンドの生成
-		Par par = {
+		Parameter par = {
 			name,
 			type,
 			target,
@@ -85,9 +86,10 @@ void CmdManager::LoadCmdData(void)
 
 }
 
-const Par& CmdManager::GetCmdData(const int& num)
+const Parameter& CmdManager::GetCmdData(const int& num)
 {
-    // TODO: return ステートメントをここに挿入します
+	Parameter& par = cmdDataMap_.at(num);
+	return par;
 }
 
 CmdManager::CmdManager(void)
