@@ -3,51 +3,95 @@
 
 <!--ユニットテーブル-->
 
-	<!--ユニットのデータ-->
-
+  <!--火山-->
   <Unit>
-    <Par num ="0" name="燃える骸骨" source="火山/燃える骸骨.png" hp="40" attack="25" speed="30"  />
-    <Cmd > 0, 0, 1, 1, 2, 2, 30, 33</Cmd>
+    <Par num ="0" name="燃える髑髏" source="火山/燃える骸骨.png" hp="40" attack="25" speed="30"  />
+    <Cmd > 0, 0, 1, 1, 2, 2, 60, 63</Cmd>
   </Unit>
   <Unit>
     <Par num ="1" name="ガスモーク" source="火山/ガスモーク.png" hp="60" attack="15" speed="55"/>
-    <Cmd > 3, 3, 4, 4, 5, 5, 30, 33</Cmd>
+    <Cmd > 3, 3, 4, 4, 5, 5, 60, 63</Cmd>
   </Unit>
   <Unit>
     <Par num ="2" name="オオコウモリ" source="火山/オオコウモリ.png" hp="75" attack="15" speed="65"  />
-    <Cmd > 6, 6, 7, 7, 7, 30, 30, 33</Cmd>
+    <Cmd > 6, 6, 7, 7, 7, 60, 60, 63</Cmd>
   </Unit>
   
   <Unit>
     <Par num ="3" name="太陽さん" source="火山/太陽さん.png" hp="170" attack="45" speed="25"/>
-    <Cmd > 33, 30, 30, 8, 8, 9, 9, 10</Cmd>
+    <Cmd > 63, 60, 60, 8, 8, 9, 9, 10</Cmd>
   </Unit>
   <Unit>
     <Par num ="4" name="石人形" source="火山/石人形.png" hp="200" attack="27" speed="15"/>
-    <Cmd > 13, 12, 12, 11, 11, 33, 33, 33</Cmd>
+    <Cmd > 13, 12, 12, 11, 11, 63, 63, 63</Cmd>
   </Unit>
   <Unit>
     <Par num ="5" name="ヒトダマ" source="火山/ヒトダマ.png" hp="120" attack="30" speed="65" />
-    <Cmd > 16, 15, 15, 14, 14, 14, 30, 30</Cmd>
+    <Cmd > 16, 15, 15, 14, 14, 14, 60, 60</Cmd>
   </Unit>
   
   <Unit>
     <Par num ="6" name="妖狐" source="火山/妖狐.png" hp="240" attack="55" speed="50"/>
-    <Cmd > 31, 31, 34, 34, 17, 17, 18, 19</Cmd>
+    <Cmd > 61, 61, 64, 64, 17, 17, 18, 19</Cmd>
   </Unit>
   <Unit>
     <Par num ="7" name="三頭竜" source="火山/三頭竜.png" hp="260" attack="75" speed="20" />
-    <Cmd > 31, 31, 31, 20, 20, 21, 21, 22</Cmd>
+    <Cmd > 61, 61, 61, 20, 20, 21, 21, 22</Cmd>
   </Unit>
   <Unit>
     <Par num ="8" name="アモン" source="火山/アモン.png" hp="220" attack="65" speed="65" />
-    <Cmd > 25, 24, 23, 23, 24, 33, 33, 31</Cmd>
+    <Cmd > 25, 24, 23, 23, 24, 63, 63, 61</Cmd>
   </Unit> 
   
   <Unit>
     <Par num ="9" name="火龍" source="火山/火龍.png" hp="400" attack="80" speed="40" />
-    <Cmd >  32, 32, 26, 27, 32, 32, 28, 29</Cmd>
+    <Cmd >  62, 62, 26, 27, 62, 62, 28, 29</Cmd>
   </Unit> 
+  
+	<!--海-->
+    <Unit>
+        <Par num ="10" name="ライギョ" source="海/ライギョ.png" hp="70" attack="25" speed="40" />
+        <Cmd>  60, 60, 30, 31, 32, 32, 64, 64</Cmd>
+    </Unit> 
+	<Unit>
+        <Par num ="11" name="カクレガイ" source="海/カクレガイ.png" hp="100" attack="10" speed="60" />
+        <Cmd>  36, 36, 37, 37, 38, 38, 63, 63</Cmd>
+    </Unit> 
+  	<Unit>
+        <Par num ="12" name="モチフニャ" source="海/モチフニャ.png" hp="50" attack="10" speed="55" />
+        <Cmd>  63, 63, 33, 33, 34, 34, 35, 35</Cmd>
+    </Unit> 
+	
+    <Unit>
+        <Par num ="13" name="クラーケン" source="海/クラーケン.png" hp="167" attack="45" speed="30" />
+        <Cmd>  60, 60, 40, 39, 39, 40, 41, 41</Cmd>
+    </Unit> 
+	<Unit>
+        <Par num ="14" name="海の守護像" source="海/海の守護像.png" hp="195" attack="22" speed="5" />
+        <Cmd>  42, 42, 43, 43, 44, 44, 63, 63</Cmd>
+    </Unit> 
+  	<Unit>
+        <Par num ="15" name="北風さん" source="海/北風さん.png" hp="155" attack="40" speed="50" />
+        <Cmd>  45, 46, 47, 60, 60, 45, 46, 47</Cmd>
+    </Unit> 
+  
+    <Unit>
+        <Par num ="16" name="ゲンブ" source="海/ゲンブ.png" hp="280" attack="54" speed="15" />
+        <Cmd>  48, 48, 49, 49, 61, 61, 50, 50</Cmd>
+    </Unit> 
+	<Unit>
+        <Par num ="17" name="スピリットナイト" source="海/スピリットナイト.png" hp="240" attack="72" speed="40" />
+        <Cmd>  65, 51, 51, 52, 52, 61, 61, 63</Cmd>
+    </Unit> 
+  	<Unit>
+        <Par num ="18" name="うみぼうず" source="海/うみぼうず.png" hp="295" attack="51" speed="6" />
+        <Cmd>  54, 54, 55, 56, 67, 61, 63, 63</Cmd>
+    </Unit> 
+  
+ 	<Unit>
+        <Par num ="19" name="水龍" source="海/水龍.png"  hp="400" attack="80" speed="65" />
+        <Cmd>  57, 57, 62, 62, 58, 58, 62, 59</Cmd>
+    </Unit> 
   
 
 	

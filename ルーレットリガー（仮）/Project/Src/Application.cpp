@@ -3,7 +3,6 @@
 #include "_debug/_DebugConOut.h"
 #include "_debug/_DebugDispOut.h"
 #include "Manager/InputManager.h"
-#include "Manager/ResourceManager.h"
 #include "Manager/SceneManager.h"
 #include "Utility/Measure.h"
 
@@ -60,9 +59,6 @@ void Application::Init(void)
 
 	// デバッグ機能初期化
 	Measure::CreateInstance();
-
-	// リソース管理初期化
-	ResourceManager::CreateInstance();
 
 	// シーン管理初期化
 	SceneManager::CreateInstance();

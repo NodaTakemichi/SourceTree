@@ -12,10 +12,12 @@
 #include "../Utility/Measure.h"
 #include "../Utility/DrawShader.h"
 
-#include "DataManager/CmdManager.h"
 #include "InputManager.h"
-#include "SoundManager.h"
-#include "UnitDataManager.h"
+#include "DataManager/CmdManager.h"
+#include "DataManager/SoundManager.h"
+#include "DataManager/UnitDataManager.h"
+#include "DataManager/EffectManager.h"
+#include "DataManager/BattleDataManager.h"
 
 #include "SceneManager.h"
 
@@ -41,7 +43,7 @@ void SceneManager::Init(void)
 	//SetAlwaysRunFlag(false);
 
 	//マウスの非表示
-	//SetMouseDispFlag(false);
+	SetMouseDispFlag(false);
 
 	// シェーダ―描画クラス初期化
 	DrawShader::CreateInstance();
@@ -52,17 +54,23 @@ void SceneManager::Init(void)
 	// ユニットデータ管理初期化
 	UnitDataManager::CreateInstance();
 
+	// エフェクトデータ管理初期化
+	EffectManager::CreateInstance();
+
 	// コマンドデータ管理初期化
 	CmdManager::CreateInstance();
+
+	// バトルデータ管理初期化
+	BattleDataManager::CreateInstance();
 
 
 	mFader = new Fader();
 	mFader->Init();
 
-	mScene = new GameScene();
+	mScene = new SelectScene();
 	mScene->Init();
 
-	mSceneID = SCENE_ID::GAME;
+	mSceneID = SCENE_ID::SELECT;
 	mWaitSceneID = SCENE_ID::NONE;
 
 	mIsSceneChanging = false;
@@ -74,6 +82,8 @@ void SceneManager::Init(void)
 	//乱数生成器の初期化
 	gen_ = std::mt19937(rd_());
 
+	//マウス画像
+	mouseImg_ = LoadGraph("./Data/Image/UI/mouse.png");
 
 }
 
@@ -142,6 +152,11 @@ void SceneManager::Draw(void)
 	
 	mFader->Draw();
 
+	//マウス描画
+	auto& ins = InputManager::GetInstance();
+	Vector2 m = ins.GetMousePos();
+	DrawGraph(m.x, m.y, mouseImg_, true);
+
 }
 
 void SceneManager::Release(void)
@@ -150,6 +165,8 @@ void SceneManager::Release(void)
 	delete mScene;
 
 	delete mFader;
+
+	DeleteGraph(mouseImg_);
 
 	// シェーダ―描画の解放
 	DrawShader::GetInstance().Release();
@@ -162,6 +179,12 @@ void SceneManager::Release(void)
 
 	//コマンドデータ管理クラスの開放
 	CmdManager::GetInstance().Release();
+
+	//エフェクトデータ管理クラスの開放
+	EffectManager::GetInstance().Release();
+
+	//バトルデータ管理クラスの開放
+	BattleDataManager::GetInstance().Release();
 }
 
 void SceneManager::ChangeScene(SCENE_ID nextId, bool isFading)
@@ -234,8 +257,6 @@ void SceneManager::ResetDeltaTime(void)
 void SceneManager::DoChangeScene(void)
 {
 
-	// リソースの解放
-	//ResourceManager::GetInstance().Release();
 
 	mScene->Release();
 	delete mScene;
@@ -255,6 +276,8 @@ void SceneManager::DoChangeScene(void)
 		break;
 	case SCENE_ID::RESULT:
 		mScene = new ResultScene();
+		//ロードしたエフェクトの解放
+		EffectManager::GetInstance().LoadedEffectRelease();
 		break;
 	default:
 		break;

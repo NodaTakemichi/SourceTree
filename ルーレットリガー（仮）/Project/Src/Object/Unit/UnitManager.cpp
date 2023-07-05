@@ -33,11 +33,6 @@ UnitManager::~UnitManager()
 void UnitManager::Init(void)
 {
 
-	//ユニットの生成
-	CreateUnit();
-
-	//スピード降順ソート
-	SpeedSort();
 }
 
 void UnitManager::Update(void)
@@ -69,6 +64,44 @@ void UnitManager::Release(void)
 	units_.clear();
 }
 
+void UnitManager::CreateUnit(const Deck& pDeck, const Deck& eDeck)
+{
+	//ユニットの生成
+	//味方
+	int pNum = 1;
+	for (auto& unitNum : pDeck)
+	{
+		//生成しない
+		if (unitNum == -1)return;
+
+		PlayerUnit* pUnit = new PlayerUnit(unitNum, pNum);
+		pUnit->Init();
+		units_.push_back(pUnit);
+
+		pNum++;
+	}
+
+	//敵
+	int eNum = 1;
+	for (auto& unitNum : eDeck)
+	{
+		//生成しない
+		if (unitNum == -1)return;
+
+		EnemyUnit* eUnit = new EnemyUnit(unitNum, eNum);
+		eUnit->Init();
+		units_.push_back(eUnit);
+
+		eNum++;
+	}
+
+
+
+	//スピード降順ソート
+	SpeedSort();
+
+}
+
 std::vector<Command*> UnitManager::GetCommand(void)
 {
 	//行動ユニットのコマンドを渡す
@@ -87,39 +120,6 @@ UnitBase* UnitManager::GetActivUnit(void)
 	}
 }
 
-void UnitManager::CreateUnit(void)
-{
-	const std::string path = "Data/UnitData/";
-
-	//ユニットの生成
-
-	//味方
-	PlayerUnit* pUnit = new PlayerUnit(2, 1);
-		pUnit->Init();
-		units_.push_back(pUnit);
-
-		pUnit = new PlayerUnit(8, 2);
-		pUnit->Init();
-		units_.push_back(pUnit);
-
-		pUnit = new PlayerUnit(3, 3);
-		pUnit->Init();
-		units_.push_back(pUnit);
-
-	//敵
-		EnemyUnit* eUnit = new EnemyUnit(1, 1);
-		eUnit->Init();
-		units_.push_back(eUnit);
-
-		eUnit = new EnemyUnit(6, 2);
-		eUnit->Init();
-		units_.push_back(eUnit);
-
-		eUnit = new EnemyUnit(5, 3);
-		eUnit->Init();
-		units_.push_back(eUnit);
-		
-}
 
 void UnitManager::SpeedSort(void)
 {

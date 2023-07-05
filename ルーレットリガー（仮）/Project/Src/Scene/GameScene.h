@@ -52,8 +52,6 @@ private:
 	Roulette* roulette_;
 	//UI
 	GameUI* GameUi_;
-	//エフェクトマネージャー
-	EffectManager* efMng_;
 
 	//ゲームフェーズ
 	GAME_PHASE phase_;
@@ -63,8 +61,6 @@ private:
 	//ユニットの死亡演出
 	DeathStaging* deathSta_;
 
-	//マウス
-	int mouseImg_;
 	//フレーム
 	int frameImg_;
 	int topFrameImg_;

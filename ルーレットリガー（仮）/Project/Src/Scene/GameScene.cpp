@@ -1,18 +1,17 @@
 #include <cmath>
 #include <DxLib.h>
 #include "../Application.h"
-#include "../Manager/ResourceManager.h"
 #include "../Manager/InputManager.h"
 #include "../Manager/SceneManager.h"
+#include "../Manager/DataManager/EffectManager.h"
+#include "../Manager/DataManager/SoundManager.h"
+#include "../Manager/DataManager/BattleDataManager.h"
+
 #include "../Utility/AsoUtility.h"
-
 #include "../Utility/DrawShader.h"
-
 #include "../Battle/BattleSystem.h"
 #include "../Battle/DeathStaging.h"
 
-#include "../Manager/EffectManager.h"
-#include "../Manager/SoundManager.h"
 #include "../Object/Unit/UnitManager.h"
 #include "../Object/Unit/UnitBase.h"
 #include "../Object/Roulette.h"
@@ -25,6 +24,8 @@
 
 #include "GameScene.h"
 
+
+
 GameScene::GameScene(void)
 {
 
@@ -36,12 +37,6 @@ GameScene::~GameScene(void)
 
 void GameScene::Init(void)
 {
-	//ユニットマネージャー
-	unitMng_ = new UnitManager();
-	//ここでユニット番号情報がほしい
-
-
-	unitMng_->Init();
 
 	//ルーレット
 	roulette_ = new Roulette();
@@ -59,16 +54,20 @@ void GameScene::Init(void)
 	deathSta_ = new DeathStaging();
 	deathSta_->Init();
 
-	//エフェクトマネージャー
-	efMng_ = new EffectManager();
-	efMng_->Init();
+	//ユニットマネージャー
+	unitMng_ = new UnitManager();
+	unitMng_->Init();
+	//ユニットの生成
+	auto& bd = BattleDataManager::GetInstance().GetBattleData();
+	unitMng_->CreateUnit(bd.pDeck, bd.eDeck);
+
+
 
 	//背景画像の登録
 	bgImg_ = LoadGraph("./Data/Image/bg/blue_bg.png");
 	frameImg_ = LoadGraph("./Data/Image/UI/frame_full.png");
 	topFrameImg_= LoadGraph("./Data/Image/UI/Turn.png");
 
-	mouseImg_ = LoadGraph("./Data/Image/UI/mouse.png");
 
 	//フェーズの変更
 	ChangeGamePhase(GAME_PHASE::RULLET_TIME);
@@ -78,7 +77,7 @@ void GameScene::Init(void)
 	bgmHandle_ = sMng.LoadSound(SoundManager::SOUND_TYPE::BATTLE1_BGN);
 
 	//BGMの再生
-	sMng.PlaySoundBGM(bgmHandle_);
+	//sMng.PlaySoundBGM(bgmHandle_);
 
 
 
@@ -176,11 +175,6 @@ void GameScene::Draw(void)
 	//死亡演出
 	//deathSta_->Draw();
 
-	//マウス描画
-	auto& ins = InputManager::GetInstance();
-	Vector2 m = ins.GetMousePos();
-	DrawGraph(m.x, m.y, mouseImg_, true);
-
 #ifdef DEBUG
 	auto cx = Application::SCREEN_SIZE_X;
 	auto cy = Application::SCREEN_SIZE_Y;
@@ -208,8 +202,6 @@ void GameScene::Release(void)
 	delete GameUi_;
 	battleSys_->Release();
 	delete battleSys_;
-	efMng_->Release();
-	delete efMng_;
 	deathSta_->Release();
 	delete deathSta_;
 
@@ -258,7 +250,7 @@ void GameScene::UpdateEffect(void)
 {
 
 	//エフェクト再生が終了したかどうか判断
-	bool next = efMng_->FinishEffect();
+	bool next = EffectManager::GetInstance().FinishEffect();
 
 	//エフェクトアニメーションが終了したら、バトルフェーズに進む
 	if (next)ChangeGamePhase(GAME_PHASE::BATTLE);
@@ -356,7 +348,7 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 		if (target.size() <= 0)
 		{
 			//エフェクト再生(ターゲットが存在しない場合)
-			efMng_->PlayEffect(num, pos);
+			EffectManager::GetInstance().PlayEffect(num, pos);
 			return;
 		}
 
@@ -365,7 +357,7 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 			//ユニットの座標を取得
 			pos=unit->GetUnitPos();
 			//エフェクト再生
-			efMng_->PlayEffect(num, pos);
+			EffectManager::GetInstance().PlayEffect(num, pos);
 		}
 
 		break;

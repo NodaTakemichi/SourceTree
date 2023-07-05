@@ -1,4 +1,5 @@
 #include"../../../Manager/DataManager/CmdManager.h"
+#include"../../../Manager/DataManager/EffectManager.h"
 #include"../../../_debug/_DebugConOut.h"
 #include "Command.h"
 
@@ -14,24 +15,27 @@ Command::~Command()
 void Command::Init(void)
 {
 	//コマンドの情報の取得
-	auto test = CmdManager::GetInstance().GetCmdData(num_);
+	auto& cmd = CmdManager::GetInstance().GetCmdData(num_);
 
-	//Par& p = Par{
-	//	test.name,
-	//	test.type,
-	//	test.target,
-	//	test.times,
-	//	test.buff,
-	//	test.efNum
-	//};
-	//par_ = p;
+	Par p = Par{
+		cmd.name,
+		cmd.type,
+		cmd.target,
+		cmd.times,
+		cmd.buff,
+		cmd.efNum
+	};
+	par_ = p;
 
-	par_.name_ = test.name;
-	par_.type_ = test.type;
-	par_.target_ = test.target;
-	par_.times_ = test.times;
-	par_.buff_ = test.buff;
-	par_.efNum_ = test.efNum;
+	//使用エフェクトの登録
+	EffectManager::GetInstance().EffectLoad(cmd.efNum);
+
+	//par_.name_ = cmd.name;
+	//par_.type_ = cmd.type;
+	//par_.target_ = cmd.target;
+	//par_.times_ = cmd.times;
+	//par_.buff_ = cmd.buff;
+	//par_.efNum_ = cmd.efNum;
 
 	//振り分け
 	CastCmdType(par_.type_);

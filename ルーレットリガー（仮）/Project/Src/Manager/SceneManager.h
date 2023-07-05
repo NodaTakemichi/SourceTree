@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 #include <memory>
+#include <array>
 #include <random>
 class SceneBase;
 class Fader;
@@ -19,6 +20,7 @@ public:
 		GAME,
 		RESULT,
 	};
+
 	
 	// インスタンスの生成
 	static void CreateInstance(void);
@@ -68,6 +70,9 @@ private:
 	//乱数生成器
 	std::random_device rd_;
 	std::mt19937 gen_;
+
+	//マウス画像
+	int mouseImg_;
 
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする

@@ -1,8 +1,8 @@
 #include <DxLib.h>
 #include <cstdlib>
 #include "../Application.h"
+#include "../Manager/DataManager/SoundManager.h"
 #include "../Manager/SceneManager.h"
-#include "../Manager/SoundManager.h"
 #include "../Manager/InputManager.h"
 #include "../Common/Vector2.h"
 #include "../Utility/DrawShader.h"

@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<array>
 #include<map>
 
 class UnitBase;
@@ -7,6 +8,7 @@ class PlayerUnit;
 class EnemyUnit;
 class Command;
 
+using Deck = std::array<int, 3>;
 
 class UnitManager
 {
@@ -24,6 +26,10 @@ public:
 	void Update(void);
 	void Draw(void);
 	void Release(void);
+
+	//ユニットの生成
+	void CreateUnit(const Deck& pDeck, const Deck& eDeck);
+
 
 	//行動中のユニットのコマンド名を取得
 	std::vector<Command*> GetCommand(void);
@@ -47,13 +53,8 @@ private:
 	std::vector<UnitBase*> units_;
 
 
-
-	//キャラ情報の取得
-	void CreateUnit(void);
-
 	//スピードが速い順に並び変える
 	void SpeedSort(void);
-
 
 	//全ユニットを行動中ユニットからはずす
 	void NotActUnitAll(void);
