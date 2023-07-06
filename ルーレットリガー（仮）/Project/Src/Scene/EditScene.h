@@ -35,6 +35,8 @@ private:
 
 	//バックボタン
 	CircleButton* backBtn_;
+	//ボタン画像
+	int backImg_;
 
 
 	//シェーダー

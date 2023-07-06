@@ -14,13 +14,16 @@ public:
     void Release(void)override;
 
     //ボタン生成
-    void Create(Vector2 pos, int back, int front);
+    void Create(Vector2 center, int back, int front);
 
     //ボタンの上にマウスが乗っているかどうか
     bool MouseOnButton(void);
 
 
 private:
+    //中心座標
+    Vector2 center_;
+
     //ボタン半径
     int rad_;
 

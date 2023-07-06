@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include "../Application.h"
 #include "../Manager/SceneManager.h"
 #include "../Utility/Button/CircleButton.h"
 #include "EditScene.h"
@@ -17,9 +18,13 @@ void EditScene::Init(void)
 	bgImg_ = LoadGraph("Data/Image/bg/EditScene_bg.png");
 	//editFrameImg_ = LoadGraph("");
 
+	//ボタン画像
+	backImg_ = LoadGraph("Data/Image/UI/BackBtn.png");
+	int sy = Application::SCREEN_SIZE_Y;
+
 	//バックボタンの生成
 	backBtn_ = new CircleButton();
-	backBtn_->Init();
+	backBtn_->Create({ 0,sy }, backImg_, -1);
 
 }
 

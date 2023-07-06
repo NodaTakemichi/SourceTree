@@ -263,5 +263,6 @@
     <FxCompile Include="Src\Shader\DeathUnit.hlsl" />
     <FxCompile Include="Src\Shader\OnButton.hlsl" />
     <FxCompile Include="Src\Shader\Texture.hlsl" />
+    <FxCompile Include="Src\Shader\OnCircleButton.hlsl" />
   </ItemGroup>
 </Project>

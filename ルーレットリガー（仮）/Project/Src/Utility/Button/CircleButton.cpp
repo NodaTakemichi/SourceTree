@@ -14,6 +14,11 @@ CircleButton::~CircleButton()
 
 void CircleButton::Init(void)
 {
+    //シェーダー登録
+    psOnButton_ = LoadPixelShader("./x64/Debug/OnCircleButton.cso");
+
+    darkness_ = 1.0f;
+
 }
 
 void CircleButton::Update(void)
@@ -61,18 +66,22 @@ void CircleButton::Release(void)
 {
 }
 
-void CircleButton::Create(Vector2 pos,int back, int front)
+void CircleButton::Create(Vector2 center,int back, int front)
 {
     //初期化
     Init();
 
-    pos_ = pos;
+    center_ = center;
     backImg_ = back;
     frontImg_ = front;
 
     int x, y;
     GetGraphSize(back, &x, &y);
     rad_ = x / 2;
+
+    //表示位置にずらす
+    pos_ = { center_.x - rad_,center_.y - rad_ };
+
 }
 
 bool CircleButton::MouseOnButton(void)
@@ -80,7 +89,7 @@ bool CircleButton::MouseOnButton(void)
     //マウス位置
     Vector2 mPos = InputManager::GetInstance().GetMousePos();
 
-    if (IsMouseInCircle(pos_, mPos,  rad_))return true;
+    if (IsMouseInCircle(center_, mPos,  rad_))return true;
 
     return false;
 }
@@ -90,7 +99,10 @@ bool CircleButton::IsMouseInCircle(const Vector2& cPos, const Vector2& mPos, con
 {
     //半径
     int dis = static_cast<int>(AsoUtility::Distance(cPos, mPos));
-    if (dis < rad)return true;
+    if (dis < rad)
+    {
+        return true;
+    }
 
     return false;
 }
