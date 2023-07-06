@@ -1,31 +1,29 @@
 #pragma once
-#include"../Common/Vector2.h"
+#include"../../Common/Vector2.h"
 class ButtonUI
 {
 public:
 	ButtonUI();
 	~ButtonUI();
 
-	void Init(void);
-	void Update(void);
-	void Draw(void);
-	void Release(void);
+	virtual void Init(void) = 0;
+	virtual void Update(void) = 0;
+	virtual void Draw(void) = 0;
+	virtual void Release(void) = 0;
 
-	//ボタン生成
-	void Create(Vector2 pos, Vector2 size, int back, int front);
 
+
+	//ボタンの上にマウスが乗っているかどうか
+	virtual bool MouseOnButton(void) = 0;
 	//クリック判定
 	bool PushButton(void);
-
 	//決定（ボタンから離したとき）
 	bool ButtonDecision(void);
 
-private:
+protected:
 
 	//座標
 	Vector2 pos_;
-	//ボタンサイズ
-	Vector2 size_;
 
 	//背面画像
 	int backImg_;
@@ -44,10 +42,8 @@ private:
 	//ボタンの上にマウスが乗っているかどうか
 	bool onButton_;
 
-	//ボタンの上にマウスが乗っているかどうか
-	bool MouseOnButton(void);
-	//四角形上に座標があるかの確認
-	bool IsMouseInRect(
-		const Vector2& inside,const Vector2& outside,const Vector2& size);
+
+private:
+
 };
 

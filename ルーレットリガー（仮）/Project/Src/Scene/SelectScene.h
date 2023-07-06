@@ -4,7 +4,7 @@
 #include "SceneBase.h"
 
 //class Vector2;
-class ButtonUI;
+class RectButton;
 
 class SelectScene :
     public SceneBase
@@ -54,13 +54,13 @@ private:
 
 
 	//選択ボタン
-	std::vector<ButtonUI*>buttons_;
+	std::vector<RectButton*>buttons_;
 	//ボタンUI画像
 	int backBtnImg_;
 	std::map<SELECT_MODE, int>btnImg_;
 
 
-	//つかいま画像
+	//マスコット画像
 	int devilImg_;
 	Vector2 devilPos_;
 	int shakeY_;

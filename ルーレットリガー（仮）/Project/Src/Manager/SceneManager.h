@@ -17,6 +17,7 @@ public:
 		NONE,
 		TITLE,
 		SELECT,
+		DECK_EDIT,
 		GAME,
 		RESULT,
 	};

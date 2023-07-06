@@ -23,8 +23,6 @@ private:
 
 	//タイトル画像
 	int titleImg_;
-	//背景画像
-	int backImg_;
 
 	//モンスター画像
 	std::vector<int> monsters_;

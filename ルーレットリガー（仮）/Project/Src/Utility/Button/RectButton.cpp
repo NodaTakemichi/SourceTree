@@ -1,25 +1,26 @@
 #include <DxLib.h>
-#include "../Manager/InputManager.h"
-#include "../Utility/DrawShader.h"
-#include "ButtonUI.h"
+#include "../../Manager/InputManager.h"
+#include "../../Utility/DrawShader.h"
+#include "RectButton.h"
 
-ButtonUI::ButtonUI()
+RectButton::RectButton()
 {
 }
 
-ButtonUI::~ButtonUI()
+RectButton::~RectButton()
 {
 }
 
-void ButtonUI::Init(void)
+void RectButton::Init(void)
 {
 	//シェーダー登録
-	psOnButton_= LoadPixelShader("./x64/Debug/OnButton.cso");
+	psOnButton_ = LoadPixelShader("./x64/Debug/OnButton.cso");
 
 	darkness_ = 1.0f;
+
 }
 
-void ButtonUI::Update(void)
+void RectButton::Update(void)
 {
 	//マウスがボタン上にあるか確認
 	if (MouseOnButton())
@@ -32,9 +33,10 @@ void ButtonUI::Update(void)
 	{
 		darkness_ = 1.0f;
 	}
+
 }
 
-void ButtonUI::Draw(void)
+void RectButton::Draw(void)
 {
 	auto& ds = DrawShader::GetInstance();
 
@@ -43,7 +45,8 @@ void ButtonUI::Draw(void)
 	{
 		DrawGraph(pos_.x, pos_.y, backImg_, true);
 		//ds.DrawGraph(pos_, backImg_);
-	}else
+	}
+	else
 	{
 		COLOR_F buf = COLOR_F{
 			darkness_
@@ -59,12 +62,13 @@ void ButtonUI::Draw(void)
 
 }
 
-void ButtonUI::Release(void)
+void RectButton::Release(void)
 {
 	DeleteShader(psOnButton_);
+
 }
 
-void ButtonUI::Create(Vector2 pos, Vector2 size, int back, int front)
+void RectButton::Create(Vector2 pos, Vector2 size, int back, int front)
 {
 	//初期化
 	Init();
@@ -78,24 +82,7 @@ void ButtonUI::Create(Vector2 pos, Vector2 size, int back, int front)
 
 }
 
-bool ButtonUI::PushButton(void)
-{
-	auto& ins = InputManager::GetInstance();
-	if (MouseOnButton() && ins.IsClickMouseLeft())return true;
-
-	return false;
-}
-
-bool ButtonUI::ButtonDecision(void)
-{
-	auto& ins = InputManager::GetInstance();
-	if (MouseOnButton() && ins.IsTrgMouseLeftUp())return true;
-
-	return false;
-}
-
-
-bool ButtonUI::MouseOnButton(void)
+bool RectButton::MouseOnButton(void)
 {
 	//マウス位置
 	auto& ins = InputManager::GetInstance();
@@ -107,8 +94,7 @@ bool ButtonUI::MouseOnButton(void)
 	return false;
 }
 
-bool ButtonUI::IsMouseInRect(
-	const Vector2& inside, const Vector2& outside, const Vector2& size)
+bool RectButton::IsMouseInRect(const Vector2& inside, const Vector2& outside, const Vector2& size)
 {
 	if (
 		inside.x > outside.x &&
@@ -122,4 +108,3 @@ bool ButtonUI::IsMouseInRect(
 
 	return false;
 }
-

@@ -45,7 +45,8 @@ void UnitUI::Init(void)
 	dmgNumDrawing_ = false;	//ダメージを true:表示 , false:非表示
 
 	//ダメージフォント
-	dmgFontHandle_ = CreateFontToHandle("零ゴシック", 40, 20, -1);
+	dmgFontHandle_ = CreateFontToHandle("零ゴシック", 40, 20, -1,
+		DX_FONTTYPE_ANTIALIASING_4X4);
 	//回復フォント
 	healFontHandle_ = CreateFontToHandle("Noto Serif JP Medium", 40, 20, -1,
 		DX_FONTTYPE_ANTIALIASING_EDGE_4X4, -1, 1);
@@ -128,7 +129,7 @@ void UnitUI::DrawName(const std::string& name, const Vector2& uPos)
 {
 	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
 	Vector2 fPos = { uPos.x - 25,uPos.y + 150 };
-	Vector2 nPos = { uPos.x + unitSize / 2,uPos.y + 152 };
+	Vector2 nPos = { uPos.x + unitSize / 2,uPos.y + 154 };
 
 	//名前枠の表示
 	DrawGraph(fPos.x, fPos.y, nameFrameImg_, true);

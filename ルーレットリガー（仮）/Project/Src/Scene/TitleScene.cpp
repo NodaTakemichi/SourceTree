@@ -16,7 +16,7 @@ void TitleScene::Init(void)
 {
 	//‰æ‘œ‚Ì“o˜^
 	titleImg_ = LoadGraph("./Data/Image/UI/title.png");
-	backImg_ = LoadGraph("./Data/Image/bg/title_bg.jpg");
+	bgImg_ = LoadGraph("./Data/Image/bg/title_bg.jpg");
 
 	//ƒVƒF[ƒ_[“o˜^
 
@@ -49,7 +49,7 @@ void TitleScene::Draw(void)
 	auto& draw = DrawShader::GetInstance();
 
 	//”wŒi•`‰æ
-	DrawGraph(0, 0, backImg_, true);
+	DrawGraph(0, 0, bgImg_, true);
 	//ƒ‚ƒ“ƒXƒ^[•`‰æ
 
 	//ƒ^ƒCƒgƒ‹•`‰æ
@@ -65,7 +65,7 @@ void TitleScene::Draw(void)
 void TitleScene::Release(void)
 {
 	DeleteGraph(titleImg_);
-	DeleteGraph(backImg_);
+	DeleteGraph(bgImg_);
 
 	monsters_.clear();
 

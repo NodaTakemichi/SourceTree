@@ -6,7 +6,7 @@
 #include "../Manager/InputManager.h"
 #include "../Common/Vector2.h"
 #include "../Utility/DrawShader.h"
-#include "../Utility/ButtonUI.h"
+#include "../Utility/Button/RectButton.h"
 
 #include"../_debug/_DebugDispOut.h"
 
@@ -161,7 +161,7 @@ void SelectScene::CerateBtnUI(void)
 	int cout = 5;
 	for (int i = 0; i < cout; i++)
 	{
-		ButtonUI* b = new ButtonUI();
+		RectButton* b = new RectButton();
 
 		int r = i % 2;
 		//À•W

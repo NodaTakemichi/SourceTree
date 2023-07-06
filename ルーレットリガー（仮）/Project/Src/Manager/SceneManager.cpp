@@ -6,6 +6,7 @@
 
 #include "../Scene/TitleScene.h"
 #include "../Scene/SelectScene.h"
+#include "../Scene/EditScene.h"
 #include "../Scene/GameScene.h"
 #include "../Scene/ResultScene.h"
 
@@ -67,10 +68,10 @@ void SceneManager::Init(void)
 	mFader = new Fader();
 	mFader->Init();
 
-	mScene = new SelectScene();
+	mScene = new EditScene();
 	mScene->Init();
 
-	mSceneID = SCENE_ID::SELECT;
+	mSceneID = SCENE_ID::DECK_EDIT;
 	mWaitSceneID = SCENE_ID::NONE;
 
 	mIsSceneChanging = false;
@@ -140,6 +141,8 @@ void SceneManager::Draw(void)
 	case SCENE_ID::TITLE:
 		break;
 	case SCENE_ID::SELECT:
+		break;
+	case SCENE_ID::DECK_EDIT:
 		break;
 	case SCENE_ID::GAME:
 		break;
@@ -270,6 +273,9 @@ void SceneManager::DoChangeScene(void)
 		break;
 	case SCENE_ID::SELECT:
 		mScene = new SelectScene();
+		break;
+	case SCENE_ID::DECK_EDIT:
+		mScene = new EditScene();
 		break;
 	case SCENE_ID::GAME:
 		mScene = new GameScene();

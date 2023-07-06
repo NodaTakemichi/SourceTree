@@ -173,6 +173,7 @@
     <ClCompile Include="Src\Object\Unit\PlayerUnit.cpp" />
     <ClCompile Include="Src\Object\Unit\UnitManager.cpp" />
     <ClCompile Include="Src\Object\Unit\UI\UnitUI.cpp" />
+    <ClCompile Include="Src\Scene\EditScene.cpp" />
     <ClCompile Include="Src\Scene\GameScene.cpp" />
     <ClCompile Include="Src\Scene\ResultScene.cpp" />
     <ClCompile Include="Src\Scene\SceneBase.cpp" />
@@ -180,7 +181,9 @@
     <ClCompile Include="Src\Scene\SelectScene.cpp" />
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
     <ClCompile Include="Src\Utility\AsoUtility.cpp" />
-    <ClCompile Include="Src\Utility\ButtonUI.cpp" />
+    <ClCompile Include="Src\Utility\Button\ButtonUI.cpp" />
+    <ClCompile Include="Src\Utility\Button\CircleButton.cpp" />
+    <ClCompile Include="Src\Utility\Button\RectButton.cpp" />
     <ClCompile Include="Src\Utility\DrawShader.cpp" />
     <ClCompile Include="Src\Utility\Measure.cpp" />
     <ClCompile Include="Src\_debug\_DebugConOut.cpp" />
@@ -211,6 +214,7 @@
     <ClInclude Include="Src\Object\Unit\PlayerUnit.h" />
     <ClInclude Include="Src\Object\Unit\UnitManager.h" />
     <ClInclude Include="Src\Object\Unit\UI\UnitUI.h" />
+    <ClInclude Include="Src\Scene\EditScene.h" />
     <ClInclude Include="Src\Scene\GameScene.h" />
     <ClInclude Include="Src\Scene\ResultScene.h" />
     <ClInclude Include="Src\Scene\SceneBase.h" />
@@ -218,7 +222,9 @@
     <ClInclude Include="Src\Scene\SelectScene.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />
     <ClInclude Include="Src\Utility\AsoUtility.h" />
-    <ClInclude Include="Src\Utility\ButtonUI.h" />
+    <ClInclude Include="Src\Utility\Button\ButtonUI.h" />
+    <ClInclude Include="Src\Utility\Button\CircleButton.h" />
+    <ClInclude Include="Src\Utility\Button\RectButton.h" />
     <ClInclude Include="Src\Utility\DrawShader.h" />
     <ClInclude Include="Src\Utility\Measure.h" />
     <ClInclude Include="Src\_debug\_DebugConOut.h" />
