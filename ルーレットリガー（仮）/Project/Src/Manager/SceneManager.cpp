@@ -19,6 +19,7 @@
 #include "DataManager/UnitDataManager.h"
 #include "DataManager/EffectManager.h"
 #include "DataManager/BattleDataManager.h"
+#include "DeckManager.h"
 
 #include "SceneManager.h"
 
@@ -63,6 +64,9 @@ void SceneManager::Init(void)
 
 	// バトルデータ管理初期化
 	BattleDataManager::CreateInstance();
+
+	// デッキ管理初期化
+	DeckManager::CreateInstance();
 
 
 	mFader = new Fader();
@@ -188,6 +192,9 @@ void SceneManager::Release(void)
 
 	//バトルデータ管理クラスの開放
 	BattleDataManager::GetInstance().Release();
+
+	//デッキ管理クラスの開放
+	DeckManager::GetInstance().Release();
 }
 
 void SceneManager::ChangeScene(SCENE_ID nextId, bool isFading)

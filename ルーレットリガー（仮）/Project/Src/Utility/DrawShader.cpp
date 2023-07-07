@@ -119,6 +119,29 @@ void DrawShader::DrawGraphToShader(
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
+void DrawShader::DrawExtendGraphToShader(const Vector2& pos, const Vector2& size, const int& handle)
+{
+	//シェーダーの設定
+	SetUsePixelShader(psTex_);
+
+	//シェーダーにテクスチャを転送
+	SetUseTextureToShader(0, handle);
+
+	//描画座標
+	MakeSquereVertex(pos, size);
+
+	//バイリニア補間モード
+	SetDrawMode(DX_DRAWMODE_BILINEAR);
+
+	//描画
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 0);
+	DrawPolygonIndexed2DToShader(vertex_, 4, index_, 2);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	//ネアレストネイバー法
+	SetDrawMode(DX_DRAWMODE_NEAREST);
+}
+
 void DrawShader::DrawExtendGraphToShader(
 	const Vector2& pos, const Vector2& size, 
 	const int& handle, const int& ps, 

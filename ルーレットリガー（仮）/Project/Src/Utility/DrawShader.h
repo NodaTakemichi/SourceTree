@@ -28,6 +28,9 @@ public:
 	void DrawGraphToShader(
 		const Vector2& pos,const int& handle, const int& ps,
 		const COLOR_F& buf,const COLOR_F& subBuf = COLOR_F{});
+	//サイズ指定描画（通常）
+	void DrawExtendGraphToShader(
+		const Vector2& pos, const Vector2& size , const int& handle);
 	//サイズ指定描画
 	void DrawExtendGraphToShader(
 		const Vector2& pos, const Vector2& size , 

@@ -132,6 +132,9 @@
     <ClCompile Include="Src\Utility\Button\CircleButton.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Utility\Button\UnitButton.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Application.h">
@@ -251,6 +254,9 @@
     <ClInclude Include="Src\Utility\Button\CircleButton.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Utility\Button\UnitButton.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\HpShader.hlsl" />
@@ -264,5 +270,6 @@
     <FxCompile Include="Src\Shader\OnButton.hlsl" />
     <FxCompile Include="Src\Shader\Texture.hlsl" />
     <FxCompile Include="Src\Shader\OnCircleButton.hlsl" />
+    <FxCompile Include="Src\Shader\CardFrame.hlsl" />
   </ItemGroup>
 </Project>

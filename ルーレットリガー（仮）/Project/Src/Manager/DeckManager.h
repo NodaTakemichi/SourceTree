@@ -3,7 +3,7 @@
 #include<array>
 
 //戦闘デッキ（最大数：３体）
-using Deck = std::array<int, 3>;
+//using Deck = std::array<int, 3>;
 
 class DeckManager
 {
@@ -24,7 +24,12 @@ public:
 	void LoadCmdData(void);
 
 	//デッキ情報の取得
-	const Deck& GetDeck(void) { return deck_; }
+	const std::array<int, 3>& GetDeck(void) { return deck_; }
+	//ユニットプール情報の取得
+	const std::vector<int>& GetUnitPool(void) { return unitPool_; }
+
+	//デッキ情報のセット
+	void SetDeck(std::array<int, 3> deck);
 
 	//ユニットの追加
 	void AddUnit(const int& unitNum);
@@ -34,7 +39,7 @@ private:
 	static DeckManager* instance_;
 
 	//デッキカード
-	Deck deck_;
+	std::array<int, 3> deck_;
 
 	//ユニットプール
 	std::vector<int>unitPool_;

@@ -18,6 +18,12 @@ DeckManager& DeckManager::GetInstance(void)
 
 void DeckManager::Init(void)
 {
+	//初期デッキ
+	deck_ = { 3,4,5 };
+
+	//初期ユニット
+	unitPool_ = { 3,4,5,6,7,8,13 };
+
 }
 
 void DeckManager::Release(void)
@@ -28,11 +34,17 @@ void DeckManager::LoadCmdData(void)
 {
 }
 
+void DeckManager::SetDeck(std::array<int, 3> deck)
+{
+	deck_ = deck;
+}
+
 void DeckManager::AddUnit(const int& unitNum)
 {
 	unitPool_.push_back(unitNum);
 
-	deck_ = { 1,1,1 };
+	//ソート
+
 }
 
 DeckManager::DeckManager(void)

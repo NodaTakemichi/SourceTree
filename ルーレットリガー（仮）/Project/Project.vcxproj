@@ -184,6 +184,7 @@
     <ClCompile Include="Src\Utility\Button\ButtonUI.cpp" />
     <ClCompile Include="Src\Utility\Button\CircleButton.cpp" />
     <ClCompile Include="Src\Utility\Button\RectButton.cpp" />
+    <ClCompile Include="Src\Utility\Button\UnitButton.cpp" />
     <ClCompile Include="Src\Utility\DrawShader.cpp" />
     <ClCompile Include="Src\Utility\Measure.cpp" />
     <ClCompile Include="Src\_debug\_DebugConOut.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="Src\Utility\Button\ButtonUI.h" />
     <ClInclude Include="Src\Utility\Button\CircleButton.h" />
     <ClInclude Include="Src\Utility\Button\RectButton.h" />
+    <ClInclude Include="Src\Utility\Button\UnitButton.h" />
     <ClInclude Include="Src\Utility\DrawShader.h" />
     <ClInclude Include="Src\Utility\Measure.h" />
     <ClInclude Include="Src\_debug\_DebugConOut.h" />
@@ -238,6 +240,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\BayerDithe.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\CardFrame.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
