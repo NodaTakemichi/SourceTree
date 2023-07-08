@@ -183,6 +183,7 @@
     <ClCompile Include="Src\Utility\AsoUtility.cpp" />
     <ClCompile Include="Src\Utility\Button\ButtonUI.cpp" />
     <ClCompile Include="Src\Utility\Button\CircleButton.cpp" />
+    <ClCompile Include="Src\Utility\Button\CmdButton.cpp" />
     <ClCompile Include="Src\Utility\Button\RectButton.cpp" />
     <ClCompile Include="Src\Utility\Button\UnitButton.cpp" />
     <ClCompile Include="Src\Utility\DrawShader.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="Src\Utility\AsoUtility.h" />
     <ClInclude Include="Src\Utility\Button\ButtonUI.h" />
     <ClInclude Include="Src\Utility\Button\CircleButton.h" />
+    <ClInclude Include="Src\Utility\Button\CmdButton.h" />
     <ClInclude Include="Src\Utility\Button\RectButton.h" />
     <ClInclude Include="Src\Utility\Button\UnitButton.h" />
     <ClInclude Include="Src\Utility\DrawShader.h" />

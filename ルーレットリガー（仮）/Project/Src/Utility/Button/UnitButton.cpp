@@ -2,7 +2,8 @@
 #include "../../Manager/DataManager/UnitDataManager.h"
 #include "../../Manager/SceneManager.h"
 #include "../../Manager/InputManager.h"
-#include "../../Utility/DrawShader.h"
+#include "../DrawShader.h"
+#include "../AsoUtility.h"
 #include "UnitButton.h"
 
 UnitButton::UnitButton()
@@ -17,7 +18,7 @@ void UnitButton::Init(void)
 {
 
 	//フォントの登録
-	fontHandle_ = CreateFontToHandle("游明朝", 14, 20,
+	fontHandle_ = CreateFontToHandle("游明朝", 10, 20,
 		DX_FONTTYPE_ANTIALIASING_4X4);
 
 	//フレームシェーダー
@@ -73,14 +74,12 @@ void UnitButton::Draw(void)
 	//ユニット
 	ds.DrawExtendGraphToShader({ pos_.x,pos_.y+20 }, { size_.x,size_.x }, unitImg_);
 
-	//名前文字
+
+
+	//中心位置
 	int center = pos_.x + size_.x / 2;
-	//名前　文字列
-	auto n = name_.c_str();
-	//文字列の文字数の取得
-	int len = strlen(n);
 	//文字列の（半分の）長さを取得
-	center -= GetDrawStringWidthToHandle(n, len, fontHandle_) / 2;
+	center -= AsoUtility::StringLength(name_, fontHandle_) / 2;
 	DrawStringToHandle(center, pos_.y + 150, name_.c_str(), 0x111111, fontHandle_);
 }
 

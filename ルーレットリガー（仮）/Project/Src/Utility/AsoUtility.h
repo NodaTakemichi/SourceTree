@@ -101,5 +101,8 @@ public:
 	//‘Ò‹@ŽžŠÔ
 	static bool OverTime(float& totalTime, const float& waitTime);
 
+	//•¶Žš—ñ‚Ì’·‚³‚ðŽæ“¾
+	static int StringLength(const std::string& string, const int& font);
+
 };
 

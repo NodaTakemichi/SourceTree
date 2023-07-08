@@ -3,10 +3,11 @@
 #include<array>
 #include<map>
 #include "SceneBase.h"
+#include "../Manager/DataManager/UnitDataManager.h"
 
 class CircleButton;
 class UnitButton;
-class UnitData;
+class CmdButton;
 
 class EditScene :
     public SceneBase
@@ -43,12 +44,28 @@ private:
 	int backImg_;
 
 
-
+	//ピックアップユニット
+	int pickUpUnit_;
 	//ステータスフォントハンドル
 	int sFontHandle_;
 	int sFontColor_;
-	//ピックアップユニット
-	int pickUpUnit_;
+
+	//ピックアップユニットデータ
+	UnitData pickUpUnitData_;
+
+	//HP、攻撃力、スピードアイコン
+	int hpIcon_;
+	int attackIcon_;
+	int speedIcon_;
+
+	//コマンドボタン
+	std::vector<CmdButton*> cmdBtns_;
+
+
+	Vector2 testPos = { 915, 500 };
+
+
+
 
 
 	//ユニットカードの背面画像

@@ -415,6 +415,18 @@ bool AsoUtility::OverTime(float& totalTime, const float& waitTime)
     return false;
 }
 
+int AsoUtility::StringLength(const std::string& string, const int& font)
+{
+    //–¼‘O@•¶š—ñ
+    auto n = string.c_str();
+    //•¶š—ñ‚Ì•¶š”‚Ìæ“¾
+    int len = strlen(n);
+    //•¶š—ñ‚Ì’·‚³‚ğæ“¾
+    int l = GetDrawStringWidthToHandle(n, len, font);
+
+    return l;
+}
+
 //VECTOR AsoUtility::VNormalize(const VECTOR& v)
 //{
 //    if (AsoUtility::EqualsVZero(v))
