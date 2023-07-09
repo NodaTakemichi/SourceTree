@@ -44,12 +44,22 @@ void EditScene::Init(void)
 	auto& dataMng = UnitDataManager::GetInstance();
 
 	//デッキユニットの取得
+	int noDeck = 0;
 	for (auto& num : deckMng.GetDeck())
 	{
-		auto u = dataMng.GetUnitData(num);
-		deck_.emplace_back(u);
-	}
+		//ユニットデータ
+		auto u = dataMng.GetUnitData(num);	
+		//表示座標
+		Vector2 cardPos = FIRST_UNIT_DECK_POS;
+		cardPos.x += OFFSET_UNIT_DECK_POS * noDeck;
 
+		//ボタン生成
+		UnitButton* ub = new UnitButton();
+		ub->Create(cardPos, unitBack_, u);
+		deck_.emplace(std::make_pair(num, ub));
+
+		noDeck++;
+	}
 
 	//所持ユニットの取得
 	int no = 0;
@@ -90,38 +100,42 @@ void EditScene::Init(void)
 	hpIcon_ = LoadGraph("Data/Image/Icon/HP.png");
 	attackIcon_ = LoadGraph("Data/Image/Icon/Attack.png");
 	speedIcon_ = LoadGraph("Data/Image/Icon/Speed.png");
+	
+	//ページ
+	page_ = 1;
 }
 
 void EditScene::Update(void)
 {
-	//バックボタン
-	backBtn_->Update();
-
+	//バック処理
 	if (backBtn_->ButtonDecision())
 	{
+		//デッキの確定
+		DeckDecision();
 		//シーン遷移
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::SELECT, true);
 	}
 
 	//ボタン更新
+	//バックボタン
+	backBtn_->Update();
+	//デッキ
+	for (auto& deck : deck_)
+	{
+		deck.second->Update();
+	}
+	//ユニットカードプール
 	for (auto& card : unitCards_)
 	{
 		card.second->Update();
 	}
 
 
+	//デッキ編集処理
+	DeckEditProcess();
 	//押したユニットカードをセット
 	SelectPickUpUnit();
 
-
-
-
-	//座標
-	if (CheckHitKey(KEY_INPUT_RIGHT))testPos.x++;
-	if (CheckHitKey(KEY_INPUT_LEFT))testPos.x--;
-	if (CheckHitKey(KEY_INPUT_DOWN))testPos.y++;
-	if (CheckHitKey(KEY_INPUT_UP))testPos.y--;
-	_dbgDrawFormatString(0, 0, 0xffffff, "座標：{%d,%d}", testPos.x, testPos.y);
 }
 
 void EditScene::Draw(void)
@@ -132,8 +146,10 @@ void EditScene::Draw(void)
 
 	//ボタンUI
 	//マイデッキ
-
-
+	for (auto& deck : deck_)
+	{
+		deck.second->Draw();
+	}
 	//ユニットプール
 	for (auto& card : unitCards_)
 	{
@@ -148,7 +164,7 @@ void EditScene::Draw(void)
 	//バックボタン
 	backBtn_->Draw();
 
-#ifdef _DEBUG
+#ifdef DEBUG
 	auto cx = Application::SCREEN_SIZE_X;
 	auto cy = Application::SCREEN_SIZE_Y;
 	auto span = 20;
@@ -161,8 +177,6 @@ void EditScene::Draw(void)
 		DrawLine(i * span, 0, i * span, cy, 0x0000ff);
 	}
 #endif // _DEBUG
-
-
 
 }
 
@@ -222,10 +236,37 @@ void EditScene::DrawUnitStatus(void)
 	{
 		cmdBtn->Draw();
 	}
+}
 
-	DrawBox(testPos.x, testPos.y, 
-		testPos.x+40, testPos.y+40, 0xffffff, true);
+void EditScene::DeckEditProcess(void)
+{
+	if (pickUpUnit_ == -1)return;
 
+	//ピックアップユニットをセットする
+	for (auto& deck : deck_)
+	{
+		if (!deck.second->ButtonDecision())continue;
+
+		//デッキに同じユニットが存在したら、スキップ
+		auto u = deck_.find(pickUpUnit_);
+		if (u != deck_.end())
+		{
+			return;
+		}
+
+		//古いキーの値を取得
+		UnitButton* c = deck_[deck.first];
+		//削除
+		deck_.erase(deck.first);
+
+		//ボタンのデータ更新
+		c->ChengeUnitData(pickUpUnitData_);
+
+		//新しいキーで要素を追加
+		deck_[pickUpUnit_] = c;
+
+		return;
+	}
 }
 
 void EditScene::SelectPickUpUnit(void)
@@ -245,13 +286,14 @@ void EditScene::SelectPickUpUnit(void)
 			//コマンドボタンの生成
 			int noX, noY;
 			noX = noY = 0;
-			Vector2 size = { 160,40 };
+			Vector2 size = { 163,40 };
+			Vector2 posBase = { 915, 500 };
 			for (auto& cmd : pickUpUnitData_.cmdNum)
 			{
 				CmdButton* b = new CmdButton();
 
 				//座標決め
-				Vector2 pos = { testPos.x + size.x * noX, testPos.y + size.y * noY };
+				Vector2 pos = { posBase.x + size.x * noX, posBase.y + size.y * noY };
 				b->Create(pos, size, cmd);
 				cmdBtns_.push_back(b);
 
@@ -288,4 +330,15 @@ void EditScene::SelectPickUpUnit(void)
 
 		return;
 	}
+}
+
+void EditScene::DeckDecision(void)
+{
+	auto& dMng = DeckManager::GetInstance();
+	std::vector<int>  num;
+	for (auto& deck : deck_)
+	{
+		num.push_back(deck.first);
+	}
+	dMng.SetDeck({ num[0],num[1],num[2] });
 }

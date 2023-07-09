@@ -50,10 +50,6 @@ void GameScene::Init(void)
 	battleSys_ = new BattleSystem();
 	battleSys_->Init();
 
-	//死亡演出
-	deathSta_ = new DeathStaging();
-	deathSta_->Init();
-
 	//ユニットマネージャー
 	unitMng_ = new UnitManager();
 	unitMng_->Init();
@@ -99,6 +95,8 @@ void GameScene::Update(void)
 	}
 #endif // _DEBUG
 
+
+	return;
 
 	//更新
 	unitMng_->Update();
@@ -173,7 +171,7 @@ void GameScene::Draw(void)
 	}
 
 	//死亡演出
-	//deathSta_->Draw();
+	DeathStaging::GetInstance().Draw();
 
 #ifdef DEBUG
 	auto cx = Application::SCREEN_SIZE_X;
@@ -202,8 +200,6 @@ void GameScene::Release(void)
 	delete GameUi_;
 	battleSys_->Release();
 	delete battleSys_;
-	deathSta_->Release();
-	delete deathSta_;
 
 	//画像解放
 	DeleteGraph(bgImg_);

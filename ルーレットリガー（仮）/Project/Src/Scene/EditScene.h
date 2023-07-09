@@ -16,6 +16,9 @@ public:
 	const Vector2 FIRST_UNIT_POOL_POS = { 106, 291 };
 	const Vector2 OFFSET_UNIT_POOL_POS = { 151, 207 };
 
+	const Vector2 FIRST_UNIT_DECK_POS = { 336, 47 };
+	const int OFFSET_UNIT_DECK_POS = 148;
+
 
 	// コンストラクタ
 	EditScene(void);
@@ -31,7 +34,7 @@ public:
 
 private:
 	//マイデッキ
-	std::vector<UnitData> deck_;
+	std::map<int, UnitButton*> deck_;
 
 	//所持ユニットカード
 	std::map<int, UnitButton*> unitCards_;
@@ -61,9 +64,8 @@ private:
 	//コマンドボタン
 	std::vector<CmdButton*> cmdBtns_;
 
-
-	Vector2 testPos = { 915, 500 };
-
+	//ページ数
+	int page_;
 
 
 
@@ -74,8 +76,14 @@ private:
 	//カードステータスの描画
 	void DrawUnitStatus(void);
 
+	//デッキ編集
+	void DeckEditProcess(void);
+
 	//ピックアップユニットの選択
 	void SelectPickUpUnit(void);
+
+	//デッキの確定
+	void DeckDecision(void);
 
 };
 

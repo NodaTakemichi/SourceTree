@@ -1,7 +1,7 @@
 #pragma once
 #pragma <string>
 #include "ButtonUI.h"
-class UnitData;
+#include "../../Manager/DataManager/UnitDataManager.h"
 
 class UnitButton :
     public ButtonUI
@@ -21,6 +21,9 @@ public:
 
     //ボタンの上にマウスが乗っているかどうか
     bool MouseOnButton(void);
+
+    //ユニットデータの更新
+    void ChengeUnitData(const UnitData& data);
 
 
 private:

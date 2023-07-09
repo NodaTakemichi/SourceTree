@@ -131,6 +131,12 @@ void SelectScene::BtnProcess()
 	{
 		BattleBtnProcess();
 	}
+
+	if (buttons_[1]->ButtonDecision())
+	{
+		EditBtnProcess();
+	}
+
 	if (buttons_[4]->ButtonDecision())
 	{
 		ExitBtnProcess();
@@ -184,6 +190,8 @@ void SelectScene::BattleBtnProcess(void)
 
 void SelectScene::EditBtnProcess(void)
 {
+	//ÉVÅ[ÉìëJà⁄
+	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::DECK_EDIT, true);
 }
 
 void SelectScene::RuleBtnProcess(void)

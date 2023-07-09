@@ -17,7 +17,8 @@ void CmdButton::Init(void)
 {
 	//シェーダー登録
 	psOnButton_ = LoadPixelShader("./x64/Debug/OnButton.cso");
-	//背面ボタン（シェーダー）
+	//背面ボタン
+	btnImg_ = LoadGraph("Data/Image/UI/CmdBtn.png");
 
 
 	darkness_ = 1.0f;
@@ -36,11 +37,10 @@ void CmdButton::Draw(void)
 
 	//枠
 	ds.DrawExtendGraphToShader(
-		pos_, size_, -1, -1, COLOR_F{}
-	);
+		pos_, size_, btnImg_);
 
 	//コマンド名座標
-	Vector2 nPos = { pos_.x,pos_.y + 5 };
+	Vector2 nPos = { pos_.x,pos_.y + 14 };
 	nPos.x += size_.x / 2;
 	nPos.x -= AsoUtility::StringLength(cmdName_, fontHandle_) / 2;
 	//コマンド名

@@ -113,6 +113,11 @@ bool UnitBase::DecHpProcess(void)
 			//経過時間のリセット
 			totalTime_ = 0.0f;
 
+			//もし死亡していた場合、死亡演出の発動
+			if (!IsAlive());
+			//発動→Update関数にて処理中→終了関数にて論理値判定
+			if (false)return false;
+
 			//HP減少：終了
 			return true;
 		}

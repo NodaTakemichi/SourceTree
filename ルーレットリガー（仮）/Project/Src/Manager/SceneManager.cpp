@@ -21,6 +21,8 @@
 #include "DataManager/BattleDataManager.h"
 #include "DeckManager.h"
 
+#include"../Battle/DeathStaging.h"
+
 #include "SceneManager.h"
 
 SceneManager* SceneManager::instance_ = nullptr;
@@ -68,14 +70,17 @@ void SceneManager::Init(void)
 	// デッキ管理初期化
 	DeckManager::CreateInstance();
 
+	// 死亡演出初期化
+	DeathStaging::CreateInstance();
+
 
 	mFader = new Fader();
 	mFader->Init();
 
-	mScene = new EditScene();
+	mScene = new GameScene();
 	mScene->Init();
 
-	mSceneID = SCENE_ID::DECK_EDIT;
+	mSceneID = SCENE_ID::GAME;
 	mWaitSceneID = SCENE_ID::NONE;
 
 	mIsSceneChanging = false;
@@ -195,6 +200,9 @@ void SceneManager::Release(void)
 
 	//デッキ管理クラスの開放
 	DeckManager::GetInstance().Release();
+
+	//死亡演習クラスの開放
+	DeathStaging::GetInstance().Release();
 }
 
 void SceneManager::ChangeScene(SCENE_ID nextId, bool isFading)

@@ -150,8 +150,9 @@ void DrawShader::DrawExtendGraphToShader(
 	//シェーダーの設定
 	SetUsePixelShader(ps);
 
+	
 	//シェーダーにテクスチャを転送
-	SetUseTextureToShader(0, handle);
+	if (handle != -1)SetUseTextureToShader(0, handle);
 
 	//シェーダー用の定数バッファ
 	auto& cBuf = psConstBuf_;

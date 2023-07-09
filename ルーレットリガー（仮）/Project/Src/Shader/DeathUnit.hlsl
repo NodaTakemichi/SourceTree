@@ -29,6 +29,9 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	//UV座標とテクスチャを参照して、最適な色を取得する
 	float4 srcCol =
 		g_Texture.Sample(g_SrcSampler, uv);
+		
 
-	return float4(srcCol.rgb,1.0f);
+    float3 reverse = 1.0f - srcCol.rbg;
+	
+    return float4(reverse, srcCol.a);
 }

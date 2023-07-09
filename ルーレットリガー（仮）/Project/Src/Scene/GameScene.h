@@ -58,8 +58,6 @@ private:
 
 	//ユニットのバトルシステム
 	BattleSystem* battleSys_;
-	//ユニットの死亡演出
-	DeathStaging* deathSta_;
 
 	//フレーム
 	int frameImg_;

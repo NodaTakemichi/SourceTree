@@ -38,7 +38,7 @@ private:
         const Vector2& inside, const Vector2& outside, const Vector2& size);
 
     //コマンドボタンシェーダー
-    int psCmdBtn_;
+    int btnImg_;
 
 };
 

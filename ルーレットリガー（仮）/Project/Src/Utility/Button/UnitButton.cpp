@@ -114,6 +114,14 @@ bool UnitButton::MouseOnButton(void)
 	return false;
 }
 
+void UnitButton::ChengeUnitData(const UnitData& data)
+{
+	//‰æ‘œ
+	unitImg_ = data.imgHandle;
+	//–¼‘O
+	name_ = data.name;
+}
+
 bool UnitButton::IsMouseInRect(const Vector2& inside, const Vector2& outside, const Vector2& size)
 {
 	if (

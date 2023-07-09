@@ -212,6 +212,9 @@ bool BattleSystem::FinishedDecHP(void)
 	bool finish = true;
 	for (auto& unit : targetUnits_)
 	{
+		//死亡演出をしている場合、処理を停止
+		if (false)return;
+
 		//ユニットのHPを徐々に減少させる処理
 		//一つでも未終了がある場合、finishをfalseにする
 		finish &= unit->DecHpProcess();

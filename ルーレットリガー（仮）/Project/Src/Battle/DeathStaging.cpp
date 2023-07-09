@@ -12,23 +12,42 @@ DeathStaging::~DeathStaging()
 {
 }
 
+void DeathStaging::CreateInstance(void)
+{
+	if (instance_ == nullptr)
+	{
+		instance_ = new DeathStaging();
+	}
+	instance_->Init();
+}
+
+DeathStaging& DeathStaging::GetInstance(void)
+{
+	return *instance_;
+}
+
 void DeathStaging::Init(void)
 {
 	//画像の登録
 	frameImg_ = LoadGraph("./Data/Image/UI/Dead_Frame.png");
 	maskImg_ = LoadGraph("./Data/Image/UI/Dead_Mask.png");
-	unitImg_ = LoadGraph("./Data/Image/Unit/フロストレオ.png");
-	backImg_ = LoadGraph("./Data/Image/bg/背景.png");
+	unitImg_ = LoadGraph("./Data/Image/Unit/FairySnake.png");
+	backImg_ = LoadGraph("./Data/Image/bg/DeadBack.png");
 
 	//シェーダーの登録
 	//psTex_ = LoadPixelShader("./x64/Debug/DeathShader.cso");
 	psReverTex_ = LoadPixelShader("./x64/Debug/ReverseTexture.cso");
 	psMask_ = LoadPixelShader("./x64/Debug/Mask.cso");
+	psDeathShader_ = LoadPixelShader("./x64/Debug/DeathUnit.cso");
 
 	//スクリーンの作成
 	maskScreen_ = MakeScreen(
 		Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);
 
+}
+
+void DeathStaging::Update(void)
+{
 }
 
 void DeathStaging::Draw(void)
@@ -42,7 +61,7 @@ void DeathStaging::Draw(void)
 	sha.DrawGraphToShader({ 0,0 }, backImg_, psReverTex_, COLOR_F{});
 	//ユニット描画
 	sha.DrawExtendGraphToShader(
-		{ 700,150 }, { 400,400 }, unitImg_, psReverTex_, COLOR_F{});
+		{ 700,150 }, { 400,400 }, unitImg_, psDeathShader_, COLOR_F{});
 
 	//描画先指定
 	SetDrawScreen(DX_SCREEN_BACK);
