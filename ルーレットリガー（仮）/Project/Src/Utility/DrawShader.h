@@ -44,6 +44,12 @@ public:
 		const int& mHandle, const int& sHandle,
 		const int& ps, const COLOR_F& buf, const COLOR_F& subBuf = COLOR_F{});
 
+	//サブテクスチャ付き描画(マスクサイズ)
+	void DrawGraphAndSubToShader(
+		const Vector2& pos, const Vector2& size,
+		const int& mHandle, const int& sHandle,
+		const int& ps, const COLOR_F& buf, const COLOR_F& subBuf = COLOR_F{});
+
 
 private:
 

@@ -33,6 +33,18 @@ SamplerState g_SrcSampler:register(s0);
 
 float4 main(PS_INPUT PSInput) : SV_TARGET
 {
+	//UV座標とテクスチャを参照して、最適な色を取得する
+    float2 uv = PSInput.TexCoords0;
+    float2 revers = float2(abs(g_revers - uv.x), uv.y);
+    float4 srcCol =
+		g_SrcTexture.Sample(g_SrcSampler, revers);
+    if (srcCol.a < 0.01f)
+    {
+		//描画しない
+        discard;
+    }
+
+	
 	//変移速度
 	int speed = 4;
 
@@ -40,7 +52,6 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	float s = (sin(g_time * speed) + 1.0f) / 2.0f;
 	//ベイヤーレベル
 	float level = s * 14.0f;
-
 	//UV基準
 	int x = round(PSInput.TexCoords0.x * 200);
 	int y = round(PSInput.TexCoords0.y * 200);
@@ -50,17 +61,6 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 		discard;
 	}
 
-	//UV座標とテクスチャを参照して、最適な色を取得する
-	float2 uv = PSInput.TexCoords0;
-	float2 revers = float2(abs(g_revers - uv.x), uv.y);
-	float4 srcCol =
-		g_SrcTexture.Sample(g_SrcSampler, revers);
-
-	if (srcCol.a < 0.01f)
-	{
-		//描画しない
-		discard;
-	}
 
 	return srcCol;
 }

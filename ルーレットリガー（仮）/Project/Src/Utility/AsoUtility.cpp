@@ -320,56 +320,6 @@ double AsoUtility::Distance(const Vector2& v1, const Vector2& v2)
     return sqrt(pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2));
 }
 
-//double AsoUtility::Distance(const VECTOR& v1, const VECTOR& v2)
-//{
-//    return sqrt(pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2) + pow(v2.z - v1.z, 2));
-//}
-//
-//double AsoUtility::SqrMagnitude(const VECTOR& v1, const VECTOR& v2)
-//{
-//    return pow(v2.x - v1.x, 2) + pow(v2.y - v1.y, 2) + pow(v2.z - v1.z, 2);
-//}
-//
-//bool AsoUtility::IsHitSpheres(const VECTOR& pos1, float radius1, const VECTOR& pos2, float radius2)
-//{
-//    // ‹…‘Ì“¯m‚ÌÕ“Ë”»’è
-//    bool ret = false;
-//
-//    // ‚¨Œİ‚¢‚Ì”¼Œa‚Ì‡Œv
-//    float radius = radius1 + radius2;
-//
-//    // À•W‚Ì·‚©‚ç‚¨Œİ‚¢‚Ì‹——£‚ğæ‚é
-//    VECTOR diff = VSub(pos2, pos1);
-//
-//    // O•½•û‚Ì’è—‚Å”äŠr(SqrMagnitude‚Æ“¯‚¶)
-//    float dis = (diff.x * diff.x) + (diff.y * diff.y) + (diff.z * diff.z);
-//    if (dis < (radius * radius))
-//    {
-//        ret = true;
-//    }
-//
-//    return ret;
-//}
-//
-//bool AsoUtility::Equals(const VECTOR& v1, const VECTOR& v2)
-//{
-//    if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
-//    {
-//        return true;
-//    }
-//    return false;
-//}
-//
-//bool AsoUtility::EqualsVZero(const VECTOR& v1)
-//{
-//    const VECTOR& v2 = VECTOR_ZERO;
-//    if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
-//    {
-//        return true;
-//    }
-//    return false;
-//}
-
 VECTOR AsoUtility::Normalize(const Vector2& v)
 {
     VECTOR ret = VGet(

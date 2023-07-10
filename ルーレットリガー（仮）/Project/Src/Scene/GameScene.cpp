@@ -38,6 +38,9 @@ GameScene::~GameScene(void)
 void GameScene::Init(void)
 {
 
+	// 死亡演出初期化
+	DeathStaging::CreateInstance();
+
 	//ルーレット
 	roulette_ = new Roulette();
 	roulette_->Init();
@@ -96,11 +99,13 @@ void GameScene::Update(void)
 #endif // _DEBUG
 
 
-	return;
-
 	//更新
 	unitMng_->Update();
 	GameUi_->Update();
+
+	//死亡演習の更新
+	DeathStaging::GetInstance().Update();
+
 
 
 	//フェーズ別更新
@@ -171,13 +176,13 @@ void GameScene::Draw(void)
 	}
 
 	//死亡演出
-	DeathStaging::GetInstance().Draw();
+	DeathStaging::GetInstance().PlayDeathStaging();
 
 #ifdef DEBUG
 	auto cx = Application::SCREEN_SIZE_X;
 	auto cy = Application::SCREEN_SIZE_Y;
 	auto span = 20;
-	for (size_t i = 0; i < 60; i++)
+	for (size_t i = 0; i < 100; i++)
 	{
 		//X
 		DrawLine(0, i * span, cx, i * span, 0xff0000);
@@ -191,6 +196,9 @@ void GameScene::Draw(void)
 
 void GameScene::Release(void)
 {
+	//死亡演習クラスの開放
+	DeathStaging::GetInstance().Release();
+
 	//破棄
 	unitMng_->Release();
 	delete unitMng_;
@@ -258,6 +266,17 @@ void GameScene::UpdateBattle(void)
 	//ダメージ減少が終了したかどうか判断
 	bool next = battleSys_->FinishedDecHP();
 
+	//死亡演出中の場合、進行しない
+	if(!DeathStaging::GetInstance().PlayingStaging())return;
+
+	//状態異常シェーダー観測地点ーーーーーーーーーーーーーーーーーーーーーーーーーー
+	//if (false)return;
+
+
+
+
+
+
 	//バトル（ダメージ減少）が終了したら、ターン終了に進む
 	if (next)ChangeGamePhase(GAME_PHASE::TURN_END);
 
@@ -267,6 +286,12 @@ void GameScene::UpdateTurnEnd(void)
 {
 	//ダメージ減少が終了したかどうか判断（毒ダメージ）
 	bool next = unitMng_->GetActivUnit()->DecHpProcess();
+
+	//状態異常シェーダー観測地点ーーーーーーーーーーーーーーーーーーーーーーーーーー
+
+
+
+
 
 	//全滅ならばゲーム終了、
 	//そうでない且、必要処理終了後ならルーレットフェーズに進む。

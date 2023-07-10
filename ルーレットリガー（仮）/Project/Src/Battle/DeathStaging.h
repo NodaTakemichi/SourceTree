@@ -11,35 +11,32 @@ public:
 
 	void Init(void);
 	void Update(void);
-	void Draw(void);
 	void Release(void);
-
-	void DrawDeathUnit(void);
-
-	//死亡ユニットのセット
-	void SetDeathUnit(const int& unitNum);
 
 	//死亡演出の再生
 	void PlayDeathStaging(void);
 
+	//死亡ユニットのセット
+	void SetDeathUnit(const int& img,const float& r);
+
+
 	//死亡演出の終了
-	bool FinishStaging(void);
+	bool PlayingStaging(void);
 
 
 private:
 	// 静的インスタンス
 	static DeathStaging* instance_;
 
-
-	//ユニット画像
-	int duImg_;
-
 	//死亡ユニット画像
 	int unitImg_;
-
 	//再生中か判断
 	bool isPlaying_;
 
+	//合計時間
+	float totalTime_;
+	//マスク画像の大きさ
+	int mSizeX_;
 
 	//マスク画像
 	int maskImg_;
@@ -59,6 +56,11 @@ private:
 
 	//マスクスクリーン
 	int maskScreen_;
+	//死亡演出描画スクリーン
+	int deathStagingScreen_;
+
+	//画面反転
+	float revers_;
 
 
 	DeathStaging();

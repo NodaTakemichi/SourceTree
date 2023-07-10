@@ -4,6 +4,8 @@
 #include "../../Utility/AsoUtility.h"
 #include "../../Utility/DrawShader.h"
 
+#include "../../Battle/DeathStaging.h"
+
 #include"../../_debug/_DebugConOut.h"
 
 #include "UI/UnitUI.h"
@@ -32,9 +34,15 @@ void UnitBase::Init(void)
 
 	//テクスチャ―シェーダーの登録
 	//psHpColor_ = LoadPixelShader("./Data/Shader/HpShader.cso");
-	psTex_ = LoadPixelShader("./x64/Debug/ReverseTexture.cso");
-	psMonotone_ = LoadPixelShader("./x64/Debug/Monotone.cso");
-	psBayerDithe_ = LoadPixelShader("./x64/Debug/BayerDithe.cso");
+	psTex_			= LoadPixelShader("./x64/Debug/ReverseTexture.cso");
+	psMonotone_		= LoadPixelShader("./x64/Debug/Monotone.cso");
+	psBayerDithe_	= LoadPixelShader("./x64/Debug/BayerDithe.cso");
+
+	psStatusUp_		= LoadPixelShader("./x64/Debug/StatusUp.cso");
+	psStatusDown_	= LoadPixelShader("./x64/Debug/StatusDown.cso");
+	psPoison_		= LoadPixelShader("./x64/Debug/Poison.cso");
+	psParalysis_	= LoadPixelShader("./x64/Debug/sParalysis_.cso");
+	psAvoidance_	= LoadPixelShader("./x64/Debug/Avoidance_.cso");
 
 	//ピクセルシェーダー用の定数バッファの作成
 	psTexConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 4);
@@ -66,7 +74,6 @@ void UnitBase::Draw(void)
 
 	//狙われているユニット
 	if (IsTargeted())unitUi_->DrawRockOn();
-
 }
 
 void UnitBase::Release(void)
@@ -90,7 +97,7 @@ void UnitBase::Release(void)
 bool UnitBase::DecHpProcess(void)
 {
 	//HP変化がある時、現在HPが０以上の時のみ
-	if (nowHp_ != hp_ && nowHp_ >= 0)
+	if (changeHp_ != hp_ && changeHp_ >= 0)
 	{
 		auto changeTime = 1.0f;		//完了時間
 
@@ -100,23 +107,35 @@ bool UnitBase::DecHpProcess(void)
 		auto progress = 1.0f - (changeTime - totalTime_) / changeTime;
 
 		//ダメージ後とダメージ前の線形補間を行う
-		nowHp_ = AsoUtility::Lerp(beforHp_, hp_, progress);
+		changeHp_ = AsoUtility::Lerp(beforHp_, hp_, progress);
 
-		//画像を揺らす
-		if (hp_ < nowHp_)UnitImgShake(progress);
+		//被ダメの時、画像を揺らす
+		if (hp_ < changeHp_)UnitImgShake(progress);
 
-		//超過している、もしくはHPが現在HPに追いついた時
-		if (progress >= 1.0f || nowHp_ == hp_)
+
+		//超過している、もしくは変化中HPが現在HPに追いついた時
+		if (progress >= 1.0f || changeHp_ == hp_ || changeHp_ <= 0)
 		{
 			//ダメージ表記を非表示する
 			unitUi_->SetDmg(false, 0);
 			//経過時間のリセット
 			totalTime_ = 0.0f;
 
-			//もし死亡していた場合、死亡演出の発動
-			if (!IsAlive());
-			//発動→Update関数にて処理中→終了関数にて論理値判定
-			if (false)return false;
+			if (!IsAlive()) {
+				changeHp_ = 0;
+				hp_ = 0;
+
+				//死亡演出の発動
+				float reverse;
+				if (GetUnitType() == UNIT_TYPE::ENEMY)
+				{
+					reverse = 0.0f;
+				}
+				else {
+					reverse = 1.0f;
+				}
+				DeathStaging::GetInstance().SetDeathUnit(unitImg_, reverse);
+			}
 
 			//HP減少：終了
 			return true;
@@ -172,7 +191,8 @@ const int& UnitBase::GetAttack(void)
 	return nowAttack;
 }
 
-int UnitBase::CalcBuffStatus(const int& status, const Buff::BUFF_TYPE& up, const Buff::BUFF_TYPE& down)
+int UnitBase::CalcBuffStatus(const int& status, 
+	const Buff::BUFF_TYPE& up, const Buff::BUFF_TYPE& down)
 {
 	float value = static_cast<float>(status);
 
@@ -248,6 +268,9 @@ void UnitBase::GiveBuff(const Buff::BUFF_TYPE& type)
 
 	//UIにバフの登録
 	unitUi_->SetBuff(buffs_);
+
+	//バフシェーダーを行う
+
 }
 
 bool UnitBase::CheckDead(void)
@@ -291,7 +314,7 @@ void UnitBase::LoadData(void)
 	}
 
 	//HP関連の初期化
-	maxHp_ = beforHp_= nowHp_ = hp_;
+	maxHp_ = beforHp_= changeHp_ = hp_;
 
 }
 

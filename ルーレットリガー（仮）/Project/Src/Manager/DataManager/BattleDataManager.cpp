@@ -20,8 +20,8 @@ void BattleDataManager::Init(void)
 {
     //‰Šú‰»
     bData_ = {
-        {3,5,8},
-        {13,15,18},
+        {0,1,2},
+        {10,11,12},
         0,
         0
     };

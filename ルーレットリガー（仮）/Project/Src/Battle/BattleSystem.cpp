@@ -8,6 +8,7 @@
 
 #include "../_debug/_DebugDispOut.h"
 
+#include"DeathStaging.h"
 #include "BattleSystem.h"
 
 
@@ -212,8 +213,9 @@ bool BattleSystem::FinishedDecHP(void)
 	bool finish = true;
 	for (auto& unit : targetUnits_)
 	{
-		//死亡演出をしている場合、処理を停止
-		if (false)return;
+		//死亡演出が終了していない場合、処理を停止
+		auto st = DeathStaging::GetInstance().PlayingStaging();
+		if (st)return false;
 
 		//ユニットのHPを徐々に減少させる処理
 		//一つでも未終了がある場合、finishをfalseにする

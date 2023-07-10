@@ -99,7 +99,7 @@ protected:
 	//ヒットポイント
 	int hp_;
 	int beforHp_;
-	int nowHp_;
+	int changeHp_;
 	int maxHp_;
 	//ユニット：攻撃力
 	int attack_;
@@ -151,6 +151,16 @@ protected:
 	int psBayerDithe_;
 	int psBayerDitheConstBuf_;
 
+	//ステータスアップ
+	int psStatusUp_;
+	//ステータスダウン
+	int psStatusDown_;
+	//麻痺
+	int psParalysis_;
+	//毒
+	int psPoison_;
+	//回避
+	int psAvoidance_;
 
 
 

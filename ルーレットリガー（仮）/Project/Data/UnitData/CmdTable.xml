@@ -109,7 +109,7 @@
   
   
   
-  
+  <!--
 	<Skill name="‚Æ‚¯‚é" type="HEAL" target="SELF" times="1.0"/>
 	<Skill name="—n‚©‚·" type="ATTACK" target="ENEMY" times="1,5"/>
 	<Skill name="ÉŽ_" type="ATTACK" target="ENEMY" times="1.5"/>
@@ -147,6 +147,6 @@
 	<Skill name="‚©‚°‚ª‚¤‚·‚¢" type="BUFF" target="SELF" buff="AVOIDANCE"/>
 	<Skill name="‚Æ‚è‚Â‚­" type="BUFF" target="ENEMY"  buff="A_DOWN"/>
 	<Skill name="‚½‚½‚é" type="ATTACK" target="ENEMY"  buff="D_DOWN"/>
-	
+	-->
 	
 </Cmd>

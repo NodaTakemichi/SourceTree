@@ -9,10 +9,7 @@ struct PS_INPUT
 	float2 TexCoords0		:TEXCOORD0;
 };
 
-//定数バッファ：スロット番号3番目（b3）
-cbuffer cbParam : register(b3)
-{
-}
+
 
 //描画するテクスチャ
 Texture2D g_Texture : register(t0);

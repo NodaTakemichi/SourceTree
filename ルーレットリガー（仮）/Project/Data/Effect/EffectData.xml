@@ -134,7 +134,7 @@
   <Effect num="97" path="Data/Effect/Holy_Slash5.efkefc"	scale="50.0" offsetX="850" offsetY="80" target="1"/>
   <Effect num="98" path="Data/Effect/Holy_Slash6.efkefc"	scale="30.0" offsetX="85" offsetY="120" target="1"/>
   <!--¹QŽx‰‡-->
-  <Effect num="99" path="Data/Effect/Holy_Support1.efkefc"	scale="10.0" offsetX="85" offsetY="180" target="1"/>
+  <Effect num="99" path="Data/Effect/Holy_Support1.efkefc"	scale="10.0" offsetX="85" offsetY="150" target="1"/>
   <Effect num="100" path="Data/Effect/Holy_Support2.efkefc"	scale="70.0" offsetX="85" offsetY="150" target="1"/>
 
 

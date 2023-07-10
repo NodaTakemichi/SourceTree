@@ -72,7 +72,7 @@ void UnitManager::CreateUnit(const Deck& pDeck, const Deck& eDeck)
 	for (auto& unitNum : pDeck)
 	{
 		//¶¬‚µ‚È‚¢
-		if (unitNum == -1)return;
+		if (unitNum == -1)continue;
 
 		PlayerUnit* pUnit = new PlayerUnit(unitNum, pNum);
 		pUnit->Init();
@@ -86,7 +86,7 @@ void UnitManager::CreateUnit(const Deck& pDeck, const Deck& eDeck)
 	for (auto& unitNum : eDeck)
 	{
 		//¶¬‚µ‚È‚¢
-		if (unitNum == -1)return;
+		if (unitNum == -1)continue;
 
 		EnemyUnit* eUnit = new EnemyUnit(unitNum, eNum);
 		eUnit->Init();

@@ -70,9 +70,6 @@ void SceneManager::Init(void)
 	// デッキ管理初期化
 	DeckManager::CreateInstance();
 
-	// 死亡演出初期化
-	DeathStaging::CreateInstance();
-
 
 	mFader = new Fader();
 	mFader->Init();
@@ -201,8 +198,6 @@ void SceneManager::Release(void)
 	//デッキ管理クラスの開放
 	DeckManager::GetInstance().Release();
 
-	//死亡演習クラスの開放
-	DeathStaging::GetInstance().Release();
 }
 
 void SceneManager::ChangeScene(SCENE_ID nextId, bool isFading)

@@ -277,5 +277,6 @@
     <FxCompile Include="Src\Shader\Texture.hlsl" />
     <FxCompile Include="Src\Shader\OnCircleButton.hlsl" />
     <FxCompile Include="Src\Shader\CardFrame.hlsl" />
+    <FxCompile Include="Src\Shader\StatusUp.hlsl" />
   </ItemGroup>
 </Project>

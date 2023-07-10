@@ -39,9 +39,5 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 		discard;
 	}
 
-	//‰æ‘œ‚ğŒŒõ‚ß‚É‚·‚é
-
-
-
 	return srcCol;
 }

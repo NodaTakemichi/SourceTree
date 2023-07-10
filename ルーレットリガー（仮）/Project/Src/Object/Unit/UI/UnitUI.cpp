@@ -1,6 +1,7 @@
 #include<DxLib.h>
 #include"../../../_debug/_DebugConOut.h"
 #include"../../../Manager/SceneManager.h"
+#include"../../../Utility/AsoUtility.h"
 #include"../../../Utility/DrawShader.h"
 
 #include "UnitUI.h"
@@ -129,20 +130,16 @@ void UnitUI::DrawName(const std::string& name, const Vector2& uPos)
 {
 	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
 	Vector2 fPos = { uPos.x - 25,uPos.y + 150 };
-	Vector2 nPos = { uPos.x + unitSize / 2,uPos.y + 154 };
+	Vector2 nPos = { uPos.x + unitSize / 2,uPos.y + 155 };
 
 	//名前枠の表示
 	DrawGraph(fPos.x, fPos.y, nameFrameImg_, true);
 
-	//名前　文字列
-	auto n = name.c_str();
-	//文字列の文字数の取得
-	int len = strlen(n);
 	//文字列の（半分の）長さを取得
-	auto fx = GetDrawStringWidth(n, len) / 2;
+	auto fx = AsoUtility::StringLength(name, unitFontHandle_)/2;
 	//名前描画
 	DrawStringToHandle(
-		nPos.x - fx, nPos.y, n, 0xffffff, unitFontHandle_);
+		nPos.x - fx, nPos.y, name.c_str(), 0xffffff, unitFontHandle_);
 
 }
 
