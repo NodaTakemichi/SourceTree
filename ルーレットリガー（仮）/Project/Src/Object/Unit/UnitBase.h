@@ -28,7 +28,7 @@ public:
 	virtual ~UnitBase();
 
 	virtual void Init(void);
-	virtual void Update(void);
+	virtual void Update(void) = 0;
 	virtual void Draw(void);
 	void Release(void);
 	
@@ -61,11 +61,13 @@ public:
 	const bool& IsAlive(void) { return isAlive_; }	//生きているかどうか
 	const bool& IsAct(void)   { return isAct_; }	//現在、行動状態かどうか
 	const bool& IsTargeted(void)   { return isTargeted_; }	//現在、ロックオン状態かどうか
+	const bool& IsBuffEf(void)   { return isPlayBuffEf_; }	//現在、バフエフェクトを再生中かどうかかどうか
 
 	void SetActed(bool acted) { isActed_ = acted; }	//行動状態をセットする
 	void SetAlive(bool alive) { isAlive_ = alive; }	//生死状態をセットする
 	void SetAct(bool act)	  { isAct_ = act; }		//現在の行動状態をセットする
 	void SetTargeted(bool target) { isTargeted_ = target; }	//現在のロックオン状態をセットする
+	void SetBuffEf(bool buffEf) { isPlayBuffEf_ = buffEf; }	//現在のバフエフェクト再生状況をセットする
 
 	void Damage(const int& dmg);				//ダメージ関数
 	void Heal(const int& heal);					//回復関数
@@ -74,8 +76,8 @@ public:
 	bool CheckDead(void);		//死亡判定
 	bool CheckOwnBuff(const Buff::BUFF_TYPE& type);	//指定のバフを所有してるかどうか
 
-	//バフシェーダーを再生する
-	void PlayBuffShader(void);
+	//バフエフェクトを再生する
+	bool PlayBuffEffect(void);
 
 
 protected:
@@ -132,6 +134,10 @@ protected:
 	float movePow_;
 
 
+	//バフエフェクト再生中かどうかの判断
+	bool isPlayBuffEf_;
+	//バフエフェクト再生時間
+	float buffEfTime_;
 
 
 
@@ -187,6 +193,9 @@ private:
 	void CreateBuff(const Buff::BUFF_TYPE& type);
 	//有効なバフを取得
 	Buff* GetValidBuff(void);
+
+	//バフシェーダーの選択
+	int SelectBuffShader(const Buff::BUFF_TYPE& type);
 
 };
 

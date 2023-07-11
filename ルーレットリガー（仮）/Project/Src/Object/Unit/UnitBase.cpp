@@ -36,13 +36,12 @@ void UnitBase::Init(void)
 	//psHpColor_ = LoadPixelShader("./Data/Shader/HpShader.cso");
 	psTex_			= LoadPixelShader("./x64/Debug/ReverseTexture.cso");
 	psMonotone_		= LoadPixelShader("./x64/Debug/Monotone.cso");
-	psBayerDithe_	= LoadPixelShader("./x64/Debug/BayerDithe.cso");
 
 	psStatusUp_		= LoadPixelShader("./x64/Debug/StatusUp.cso");
 	psStatusDown_	= LoadPixelShader("./x64/Debug/StatusDown.cso");
 	psPoison_		= LoadPixelShader("./x64/Debug/Poison.cso");
 	psParalysis_	= LoadPixelShader("./x64/Debug/sParalysis_.cso");
-	psAvoidance_	= LoadPixelShader("./x64/Debug/Avoidance_.cso");
+	psAvoidance_	= LoadPixelShader("./x64/Debug/BayerDithe.cso");
 
 	//ピクセルシェーダー用の定数バッファの作成
 	psTexConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 4);
@@ -60,12 +59,6 @@ void UnitBase::Init(void)
 
 }
 
-void UnitBase::Update(void)
-{
-
-
-
-}
 
 void UnitBase::Draw(void)
 {
@@ -87,11 +80,16 @@ void UnitBase::Release(void)
 	//シェーダーの解放
 	DeleteShader(psTex_);
 	DeleteShader(psMonotone_);
-	DeleteShader(psBayerDithe_);
+
+	DeleteShader(psStatusUp_);
+	DeleteShader(psStatusDown_);
+	DeleteShader(psPoison_);
+	DeleteShader(psParalysis_);
+	DeleteShader(psAvoidance_);
+
 	//シェーダーの定数バッファの解放
 	DeleteShaderConstantBuffer(psTexConstBuf_);
 	DeleteShaderConstantBuffer(psMonotoneConstBuf_);
-	DeleteShaderConstantBuffer(psBayerDitheConstBuf_);
 }
 
 bool UnitBase::DecHpProcess(void)
@@ -270,6 +268,10 @@ void UnitBase::GiveBuff(const Buff::BUFF_TYPE& type)
 	unitUi_->SetBuff(buffs_);
 
 	//バフシェーダーを行う
+	isPlayBuffEf_ = true;
+	buffEfTime_ = 0.0f;
+	//シェーダーの選択
+	nowPs_ = SelectBuffShader(type);
 
 }
 
@@ -291,6 +293,23 @@ bool UnitBase::CheckOwnBuff(const Buff::BUFF_TYPE& type)
 
 		//指定バフを所有している
 		if (buff->CheckOwnBuff(type))return true;
+	}
+	return false;
+}
+
+bool UnitBase::PlayBuffEffect(void)
+{
+	//バフエフェクトの再生終了判断
+	float wait = 2.5f;
+	if (AsoUtility::OverTime(buffEfTime_, wait))
+	{
+		isPlayBuffEf_ = false;
+
+		//ユニットシェーダーを戻す
+		nowPs_ = psTex_;
+
+		return true;
+
 	}
 	return false;
 }
@@ -327,15 +346,13 @@ void UnitBase::DrawUnitShader(const float& revers)
 	//定数バッファ
 	COLOR_F buf = COLOR_F{
 		revers,
-		time
+		buffEfTime_
 	};
 
 	//描画
 	DrawShader::GetInstance().DrawExtendGraphToShader(
 		shakePos, { DRAWING_SIZE ,DRAWING_SIZE }, unitImg_, nowPs_, buf
 	);
-
-
 }
 
 void UnitBase::UnitImgShake(const float& leap)
@@ -429,6 +446,46 @@ Buff* UnitBase::GetValidBuff(void)
 	buffs_.push_back(buff);
 
 	return buff;
+}
+
+int UnitBase::SelectBuffShader(const Buff::BUFF_TYPE& type)
+{
+	int buffPs;
+
+	switch (type)
+	{
+	case Buff::BUFF_TYPE::A_UP: 
+	case Buff::BUFF_TYPE::D_UP: 
+	case Buff::BUFF_TYPE::S_UP: {
+		buffPs = psStatusUp_;
+		break;
+	}
+	case Buff::BUFF_TYPE::A_DOWN: 
+	case Buff::BUFF_TYPE::D_DOWN: 
+	case Buff::BUFF_TYPE::S_DOWN: {
+		buffPs = psStatusDown_;
+		break;
+	}
+	case Buff::BUFF_TYPE::PALALYSIS: {
+		//buffPs = psParalysis_;
+		buffPs = psStatusDown_;
+		break;
+	}
+	case Buff::BUFF_TYPE::POISON: {
+		buffPs = psPoison_;
+		break;
+	}
+	case Buff::BUFF_TYPE::AVOIDANCE: {
+		//buffPs = psAvoidance_;
+		buffPs = psStatusDown_;
+		break;
+	}
+	default:
+		break;
+	}
+
+
+	return buffPs;
 }
 
 

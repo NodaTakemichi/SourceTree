@@ -22,6 +22,7 @@ public:
 		AIM,
 		EFFECT,
 		BATTLE,
+		BUFF_EFFECT,
 		TURN_END,
 		GAME_END
 	};
@@ -42,6 +43,7 @@ public:
 	void UpdateAIM(void);
 	void UpdateEffect(void);
 	void UpdateBattle(void);
+	void UpdateBuffEffect(void);
 	void UpdateTurnEnd(void);
 
 
@@ -55,9 +57,12 @@ private:
 
 	//ゲームフェーズ
 	GAME_PHASE phase_;
+	//ネクストフェーズ
+	GAME_PHASE nextPhase_;
 
 	//ユニットのバトルシステム
 	BattleSystem* battleSys_;
+
 
 	//フレーム
 	int frameImg_;

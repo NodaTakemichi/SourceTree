@@ -91,7 +91,7 @@ void GameScene::Update(void)
 	//入力
 	auto& ins = InputManager::GetInstance();
 	// シーン遷移
-#ifdef DEBUG
+#ifdef _DEBUG
 	if (ins.IsTrgDown(KEY_INPUT_SPACE))
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME, true);
@@ -103,7 +103,7 @@ void GameScene::Update(void)
 	unitMng_->Update();
 	GameUi_->Update();
 
-	//死亡演習の更新
+	//死亡演出の更新
 	DeathStaging::GetInstance().Update();
 
 
@@ -124,6 +124,9 @@ void GameScene::Update(void)
 		break;
 	case GameScene::GAME_PHASE::BATTLE:
 		UpdateBattle();
+		break;
+	case GameScene::GAME_PHASE::BUFF_EFFECT :
+		UpdateBuffEffect();
 		break;
 	case GameScene::GAME_PHASE::TURN_END:
 		UpdateTurnEnd();
@@ -166,6 +169,8 @@ void GameScene::Draw(void)
 		GameUi_->DrawActivSkill();
 		break;
 	case GameScene::GAME_PHASE::BATTLE:
+		break;
+	case GameScene::GAME_PHASE::BUFF_EFFECT:
 		break;
 	case GameScene::GAME_PHASE::TURN_END:
 		break;
@@ -212,6 +217,7 @@ void GameScene::Release(void)
 	//画像解放
 	DeleteGraph(bgImg_);
 	DeleteGraph(frameImg_);
+	DeleteGraph(topFrameImg_);
 
 }
 
@@ -232,33 +238,41 @@ void GameScene::UpdateRouTime(void)
 
 		//麻痺状態の場合、ターンエンドする
 		ChangeGamePhase(GAME_PHASE::TURN_END);
+		return;
 	}
 
 	//ルーレットが停止したら、フェーズ移動
-	if (roulette_->GetRouStop())
-	{
-		ChangeGamePhase(GAME_PHASE::AIM);
-	}
+	bool next = roulette_->GetRouStop();
+	if(next)ChangeGamePhase(GAME_PHASE::AIM);
+	
 }
 
 void GameScene::UpdateAIM(void)
 {	
 	//対象を選択したら、エフェクト再生に進む
-	if (battleSys_->SelectUnit(actUnitAoutm_))
-	{
-		ChangeGamePhase(GAME_PHASE::EFFECT);
-	}
+	bool next = battleSys_->SelectUnit(actUnitAoutm_);
+	if(next)ChangeGamePhase(GAME_PHASE::EFFECT);
 }
 
 void GameScene::UpdateEffect(void)
 {
-
 	//エフェクト再生が終了したかどうか判断
 	bool next = EffectManager::GetInstance().FinishEffect();
 
-	//エフェクトアニメーションが終了したら、バトルフェーズに進む
-	if (next)ChangeGamePhase(GAME_PHASE::BATTLE);
-
+	//コマンドタイプによって、フェーズ先を変更
+	if (next) {
+		//エフェクトアニメーションが終了したら
+		if (roulette_->GetCmd()->GetCmdType() == Command::CMD_TYPE::BUFF)
+		{
+			//バフエフェクトフェーズに進む
+			ChangeGamePhase(GAME_PHASE::BUFF_EFFECT);
+		}
+		else
+		{
+			//バトルフェーズに進む
+			ChangeGamePhase(GAME_PHASE::BATTLE);
+		}
+	}
 }
 
 void GameScene::UpdateBattle(void)
@@ -267,19 +281,24 @@ void GameScene::UpdateBattle(void)
 	bool next = battleSys_->FinishedDecHP();
 
 	//死亡演出中の場合、進行しない
-	if(!DeathStaging::GetInstance().PlayingStaging())return;
-
-	//状態異常シェーダー観測地点ーーーーーーーーーーーーーーーーーーーーーーーーーー
-	//if (false)return;
-
-
-
-
-
+	if(DeathStaging::GetInstance().PlayingStaging())return;
 
 	//バトル（ダメージ減少）が終了したら、ターン終了に進む
 	if (next)ChangeGamePhase(GAME_PHASE::TURN_END);
+}
 
+void GameScene::UpdateBuffEffect(void)
+{
+	//バフエフェクト処理
+	bool next = battleSys_->FinishedBuffEffect();
+
+	//状態異常シェーダー観測地点ーーーーーーーーーーーーーーーーーーーーーーーーーー
+	nextPhase_ = GAME_PHASE::TURN_END;
+
+
+
+	//バフエフェクト終了時、次のフェーズに進む
+	if(next)ChangeGamePhase(nextPhase_);
 }
 
 void GameScene::UpdateTurnEnd(void)
@@ -288,6 +307,7 @@ void GameScene::UpdateTurnEnd(void)
 	bool next = unitMng_->GetActivUnit()->DecHpProcess();
 
 	//状態異常シェーダー観測地点ーーーーーーーーーーーーーーーーーーーーーーーーーー
+	//nextPhase_ = GAME_PHASE::TURN_END;
 
 
 
@@ -384,9 +404,14 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 		break;
 	}
 	case GameScene::GAME_PHASE::BATTLE: {
-		//ダメージ処理
+		//コマンド処理
 		battleSys_->CmdProcess();
 
+		break;
+	}
+	case GameScene::GAME_PHASE::BUFF_EFFECT: {
+		//コマンド処理
+		battleSys_->CmdProcess();
 		break;
 	}
 	case GameScene::GAME_PHASE::TURN_END: {

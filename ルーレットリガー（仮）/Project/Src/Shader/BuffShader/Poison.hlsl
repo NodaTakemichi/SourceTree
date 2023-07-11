@@ -2,34 +2,35 @@
 struct PS_INPUT
 {
 	//座標（プロジェクション空間）
-	float4 Position			:SV_POSITION;
+	float4 Position : SV_POSITION;
 	//ディフーズカラー
-	float4 Diffuse			:COLORO;
+	float4 Diffuse : COLORO;
 	//テクスチャ座標
-	float2 TexCoords0		:TEXCOORD0;
+	float2 TexCoords0 : TEXCOORD0;
 
 };
 
 //定数バッファ：スロット番号3番目（b3）
 cbuffer cbParam : register(b3)
 {
+	float g_revers;
 	float g_time;
 }
 
 //描画するテクスチャ
-Texture2D g_SrcTexture:register(t0);
+Texture2D g_SrcTexture : register(t0);
 
 //サンプラー：適切な色を決める
-SamplerState g_SrcSampler:register(s0);
+SamplerState g_SrcSampler : register(s0);
 
-float4 PosCircle(float2 uv,float2 pos, float genTime)
+float4 PosCircle(float2 uv, float2 pos, float genTime)
 {
 	//発生時間
 	float gTime = g_time - genTime;
 
 	//進行度で判断する
 	//円の半径はsin関数で求める
-	float per = gTime * 0.5f;	
+	float per = gTime * 0.5f;
 	//1以上にならない
 	if (per >= 1.0f || 0.0f >= per)
 	{
@@ -52,7 +53,7 @@ float4 PosCircle(float2 uv,float2 pos, float genTime)
 	//座標差
 	float2 disPos = uv - pos;
 	//円の半径
-	float circlePer = sin(per*3.0f)/3.0f;
+	float circlePer = sin(per * 3.0f) / 3.0f;
 
 
 	float radius = initRadius + grow * circlePer;	//反転
@@ -77,18 +78,17 @@ float4 PosCircle(float2 uv,float2 pos, float genTime)
 
 float4 main(PS_INPUT PSInput) : SV_TARGET
 {
-	//UV座標を受け取る
-	float2 uv = PSInput.TexCoords0;
-
 	//UV座標とテクスチャを参照して、最適な色を取得する
+	float2 uv = PSInput.TexCoords0;
+	float2 revers = float2(abs(g_revers - uv.x), uv.y);
 	float4 srcCol =
-		g_SrcTexture.Sample(g_SrcSampler, uv);
+		g_SrcTexture.Sample(g_SrcSampler, revers);
 
 	//テクスチャ画像
 	//画像色の進行度
 	float pro = 1.0f - (cos(g_time * 2.0f) + 1.0f) * 0.5f;
 	//紫色（毒)
-	float3 poi = float3(0.54f, 0.168f, 1.0f) ;
+	float3 poi = float3(0.54f, 0.168f, 1.0f);
 	//色の線形補間
 	float3 disCol = lerp(srcCol.rgb, poi.rgb, min(pro * 2.5f, 2.0f));
 	//float3 disCol = poi.rgb - srcCol.rgb;
@@ -111,7 +111,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	//2
 	pos = float2(0.3f, 0.8f);
 	c = PosCircle(uv, pos, 0.8f);
-	circle = c .a > circle.a ? c : circle;
+	circle = c.a > circle.a ? c : circle;
 
 	//3
 	pos = float2(0.6f, 0.6f);

@@ -213,13 +213,26 @@ bool BattleSystem::FinishedDecHP(void)
 	bool finish = true;
 	for (auto& unit : targetUnits_)
 	{
-		//死亡演出が終了していない場合、処理を停止
+		//死亡演出中の場合、処理を停止
 		auto st = DeathStaging::GetInstance().PlayingStaging();
 		if (st)return false;
 
 		//ユニットのHPを徐々に減少させる処理
 		//一つでも未終了がある場合、finishをfalseにする
 		finish &= unit->DecHpProcess();
+	}
+
+	return finish;
+}
+
+bool BattleSystem::FinishedBuffEffect(void)
+{
+	bool finish = true;
+	for (auto& unit : targetUnits_)
+	{
+		//ユニットのバフエフェクトを再生する処理
+		//一つでも未終了がある場合、finishをfalseにする
+		finish &= unit->PlayBuffEffect();
 	}
 
 	return finish;

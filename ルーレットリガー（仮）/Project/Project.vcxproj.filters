@@ -268,7 +268,7 @@
     <FxCompile Include="Src\Shader\HpShader.hlsl" />
     <FxCompile Include="Src\Shader\ReverseTexture.hlsl" />
     <FxCompile Include="Src\Shader\Monotone.hlsl" />
-    <FxCompile Include="Src\Shader\BayerDithe.hlsl" />
+    <FxCompile Include="Src\Shader\BuffShader\BayerDithe.hlsl" />
     <FxCompile Include="Src\Shader\DeathShader.hlsl" />
     <FxCompile Include="Src\Shader\ActivUnitName.hlsl" />
     <FxCompile Include="Src\Shader\Mask.hlsl" />
@@ -277,6 +277,9 @@
     <FxCompile Include="Src\Shader\Texture.hlsl" />
     <FxCompile Include="Src\Shader\OnCircleButton.hlsl" />
     <FxCompile Include="Src\Shader\CardFrame.hlsl" />
-    <FxCompile Include="Src\Shader\StatusUp.hlsl" />
+    <FxCompile Include="Src\Shader\BuffShader\StatusUp.hlsl" />
+    <FxCompile Include="Src\Shader\BuffShader\StatusDown.hlsl" />
+    <FxCompile Include="Src\Shader\BuffShader\Poison.hlsl" />
+    <FxCompile Include="Src\Shader\BuffShader\Paralysis.hlsl" />
   </ItemGroup>
 </Project>

@@ -35,6 +35,9 @@ public:
 	//HPのダメージ減少が終了したか判断（ture:終了 , false:未終了）
 	bool FinishedDecHP(void);
 
+	//ユニットのバフエフェクトが終了したか判断（ture:終了 , false:未終了）
+	bool FinishedBuffEffect(void);
+
 	//攻撃ターゲットユニットの座標取得
 	const std::vector<UnitBase*>& GetTargetUnit(void) { return targetUnits_; }
 
