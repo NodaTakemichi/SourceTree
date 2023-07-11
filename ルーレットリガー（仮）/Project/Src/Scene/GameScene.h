@@ -74,4 +74,5 @@ private:
 	//フェーズ変更
 	void ChangeGamePhase(GAME_PHASE phase);
 
+
 };

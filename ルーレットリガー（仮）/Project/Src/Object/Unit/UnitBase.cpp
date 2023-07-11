@@ -7,6 +7,7 @@
 #include "../../Battle/DeathStaging.h"
 
 #include"../../_debug/_DebugConOut.h"
+#include"../../_debug/_DebugDispOut.h"
 
 #include "UI/UnitUI.h"
 #include "UnitBase.h"
@@ -40,7 +41,7 @@ void UnitBase::Init(void)
 	psStatusUp_		= LoadPixelShader("./x64/Debug/StatusUp.cso");
 	psStatusDown_	= LoadPixelShader("./x64/Debug/StatusDown.cso");
 	psPoison_		= LoadPixelShader("./x64/Debug/Poison.cso");
-	psParalysis_	= LoadPixelShader("./x64/Debug/sParalysis_.cso");
+	psParalysis_	= LoadPixelShader("./x64/Debug/Paralysis.cso");
 	psAvoidance_	= LoadPixelShader("./x64/Debug/BayerDithe.cso");
 
 	//ピクセルシェーダー用の定数バッファの作成
@@ -73,9 +74,6 @@ void UnitBase::Release(void)
 {
 	//解放
 	unitUi_->Release();
-
-	//画像の解放
-	DeleteGraph(unitImg_);
 
 	//シェーダーの解放
 	DeleteShader(psTex_);
@@ -299,8 +297,13 @@ bool UnitBase::CheckOwnBuff(const Buff::BUFF_TYPE& type)
 
 bool UnitBase::PlayBuffEffect(void)
 {
+	_dbgDrawFormatString(0, 0, 0xffffff, "Time:%0.2f", buffEfTime_);
+	//float test = sinf(buffEfTime_);
+	float test = 1.0f - sin(buffEfTime_ / (2.0f / 2.0f));
+	_dbgDrawFormatString(0, 16, 0xffffff, "Test:%0.2f", test);
+
 	//バフエフェクトの再生終了判断
-	float wait = 2.5f;
+	float wait = 2.0f;
 	if (AsoUtility::OverTime(buffEfTime_, wait))
 	{
 		isPlayBuffEf_ = false;
@@ -467,8 +470,7 @@ int UnitBase::SelectBuffShader(const Buff::BUFF_TYPE& type)
 		break;
 	}
 	case Buff::BUFF_TYPE::PALALYSIS: {
-		//buffPs = psParalysis_;
-		buffPs = psStatusDown_;
+		buffPs = psParalysis_;
 		break;
 	}
 	case Buff::BUFF_TYPE::POISON: {

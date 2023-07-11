@@ -75,6 +75,8 @@ void UnitUI::Draw(void)
 void UnitUI::Release(void)
 {
 	DeleteGraph(nameFrameImg_);
+	DeleteGraph(targetImg_);
+	DeleteGraph(dmgFrameImg_);
 
 	//シェーダーの解放
 	DeleteShader(psHpColor_);

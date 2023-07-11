@@ -55,16 +55,16 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 
 
 	
-	float efTime = 2.5f;
+	float efTime = 2.0f;
 	
 
 	//ŠÔŒo‰ß‚Å”–‚­‚È‚é
-	float a = max(1.0f - sin(g_time / efTime * 2.0f), 0.0f);
+	float a = 1.0f - sin(g_time / (efTime / 2.0f));
 	//float a = max(1.0f - sin(g_time / efTime), 0.4f);
 	//ÅIŒ‹‰Ê‚Ì·•ª
 	float3 dec = srcCol.rgb - c;
 	//·•ª‚ğ‰ÁZ‚·‚é
-	float3 result = c + (dec * a);
+	float3 result = c + (dec * abs(a));
 
 
 	return float4(result, srcCol.a);

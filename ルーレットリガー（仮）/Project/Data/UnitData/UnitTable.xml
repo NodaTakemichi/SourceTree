@@ -93,12 +93,19 @@
       <Cmd>  57, 57, 62, 62, 58, 58, 62, 59</Cmd>
   </Unit> 
   
+	
+	
    	<Unit>
       <Par num ="100" name="ŽEC" source="ŠC/…—´.png"  hp="400" attack="100" speed="100" />
       <Cmd>  29,29,29,29,29,29,29,29</Cmd>
-  </Unit> 
-  
+  </Unit>
+    <Unit>
+	    <Par num ="101" name="ƒoƒtƒ}ƒ“" source="ŠC/ƒ‚ƒ`ƒtƒjƒƒ.png" hp="350" attack="210" speed="255" />
+	    <Cmd>  45,45,45,45, 34, 34, 34,34</Cmd>
+    </Unit>
 
-	
-	
+
+
+
+
 </Data>

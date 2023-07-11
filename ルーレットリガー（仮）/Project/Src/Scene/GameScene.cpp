@@ -88,13 +88,14 @@ void GameScene::Update(void)
 	auto delta = SceneManager::GetInstance().GetDeltaTime();
 	totalTime_ += delta;
 
+
 	//“ü—Í
 	auto& ins = InputManager::GetInstance();
 	// ƒV[ƒ“‘JˆÚ
 #ifdef _DEBUG
 	if (ins.IsTrgDown(KEY_INPUT_SPACE))
 	{
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME, true);
+		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::SELECT, true);
 	}
 #endif // _DEBUG
 

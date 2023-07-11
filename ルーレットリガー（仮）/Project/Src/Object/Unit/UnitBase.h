@@ -197,6 +197,8 @@ private:
 	//バフシェーダーの選択
 	int SelectBuffShader(const Buff::BUFF_TYPE& type);
 
+
+
 };
 
 

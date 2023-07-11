@@ -64,7 +64,7 @@
 	<Skill num="43" name="守護ナゾナゾ" type="BUFF" target="ENEMY"   buff="P_DOWN" efNum="152"/>
 	<Skill num="44" name="守護アタック" type="ATTACK" target="ENEMY" times="1.2" efNum="20"/>
 	
-	<Skill num="45" name="たつまき" type="ATTACK" target="ENEMY" times="1.2" efNum="50"/>
+	<Skill num="45" name="おいかぜ" type="BUFF" target="PLAYER_ALL" buff="S_UP" efNum="47"/>
 	<Skill num="46" name="北風とっぷう" type="ATTACK" target="ENEMY_ALL" times="1.0" efNum="47"/>
 	<Skill num="47" name="北風サンダツ" type="ATTACK" target="ENEMY" times="1.5" efNum="34"/>
 	
