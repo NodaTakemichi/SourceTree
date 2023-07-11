@@ -15,6 +15,7 @@ cbuffer cbParam : register(b3)
 {
 	float g_revers;
 	float g_time;
+	float g_compTime;
 }
 
 //描画するテクスチャ
@@ -102,7 +103,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	float s = 0.0f;
 
 	//始点、終点
-	float2 endPos = float2(0.1, 1.2);
+	float2 endPos = float2(0.1, 1);
 	float2  startPos =
 		float2((cos(g_time * 0.001f) + 1.0f) * 0.005f + 0.1f,
 				(sin(g_time * 0.001) + 1.0f) * 0.005f - 0.2f);
@@ -111,8 +112,8 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 
 
 	//始点、終点
-	startPos = float2(0.9, 1.2);
-	endPos =
+    endPos = float2(0.9, 1);
+    startPos =
 		float2((cos(g_time * 0.001f) + 1.0f) * 0.005f + 0.9f,
 				(sin(g_time * 0.001) + 1.0f) * 0.005f - 0.2f);
 	//求めた雷模様をk加算
@@ -125,8 +126,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 
 
 	//画像色の進行度
-	//float pro = min(1.0f - (sin(g_time * 3.0f) + 1.0f) / 2.0f, 0.8f);
-	float pro = (cos(g_time * 2.0f) + 1.0f) / 2.0f;
+    float pro = 1.0f - sin(g_time * g_compTime);
 	//黒色
 	float3 black = 0.0f;
 	//画像との差分

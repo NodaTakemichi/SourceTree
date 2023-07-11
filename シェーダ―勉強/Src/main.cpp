@@ -1553,6 +1553,8 @@ void DrawDeathUnit(void)
 	////シェーダーにテクスチャを転送
 	SetUseTextureToShader(0, texDragon);
 
+	float test = mTotalTime / 10.0f;
+
 	//ピクセルシェーダー用の定数バッファのアドレスを取得
 	COLOR_F* cbBuf =
 		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);

@@ -13,7 +13,7 @@ struct PS_INPUT
 //定数バッファ：スロット番号3番目（b3）
 cbuffer cbParam : register(b3)
 {
-	float4 g_color;
+	float4 g_time;
 }
 
 //描画するテクスチャ
@@ -30,10 +30,15 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	//UV座標とテクスチャを参照して、最適な色を取得する
 	float4 srcCol =
 		g_SrcTexture.Sample(g_SrcSampler, PSInput.TexCoords0);
+	
+	
+    float3 sinScl = srcCol;
+	
+    sinScl.rgb = sin(g_time);
+	
+    return float4(sinScl, srcCol.a);
 
 	float gray = srcCol.r * srcCol.g * srcCol.b / 3.0f;
-
 	float3 reverse = 1.0f - srcCol.rbg;
-
 	return float4(reverse, srcCol.a);
 }

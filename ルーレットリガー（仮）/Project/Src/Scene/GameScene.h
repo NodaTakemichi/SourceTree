@@ -17,6 +17,7 @@ class GameScene : public SceneBase
 public:
 	enum class GAME_PHASE
 	{
+		NONE,
 		BATTLE_START,
 		RULLET_TIME,
 		AIM,

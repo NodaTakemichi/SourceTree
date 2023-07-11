@@ -21,7 +21,7 @@ void BattleDataManager::Init(void)
     //‰Šú‰»
     bData_ = {
         {101,-1,-1},
-        {10,101,101},
+        {0,10,-1},
         0,
         0
     };

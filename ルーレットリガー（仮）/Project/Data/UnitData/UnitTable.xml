@@ -101,7 +101,7 @@
   </Unit>
     <Unit>
 	    <Par num ="101" name="バフマン" source="海/モチフニャ.png" hp="350" attack="210" speed="255" />
-	    <Cmd>  45,45,45,45, 34, 34, 34,34</Cmd>
+	    <Cmd>  6,6,6,6,6,6,6,6</Cmd>
     </Unit>
 
 

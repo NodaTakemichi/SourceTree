@@ -265,12 +265,8 @@ void UnitBase::GiveBuff(const Buff::BUFF_TYPE& type)
 	//UIにバフの登録
 	unitUi_->SetBuff(buffs_);
 
-	//バフシェーダーを行う
-	isPlayBuffEf_ = true;
-	buffEfTime_ = 0.0f;
-	//シェーダーの選択
-	nowPs_ = SelectBuffShader(type);
-
+	//バフエフェクトの発動
+	ActivBuffEf(type);
 }
 
 bool UnitBase::CheckDead(void)
@@ -290,7 +286,13 @@ bool UnitBase::CheckOwnBuff(const Buff::BUFF_TYPE& type)
 		if (!buff->IsAlive())continue;
 
 		//指定バフを所有している
-		if (buff->CheckOwnBuff(type))return true;
+		if (buff->CheckOwnBuff(type))
+		{
+			//バフエフェクトの発動
+			ActivBuffEf(type);
+
+			return true;
+		}
 	}
 	return false;
 }
@@ -298,12 +300,9 @@ bool UnitBase::CheckOwnBuff(const Buff::BUFF_TYPE& type)
 bool UnitBase::PlayBuffEffect(void)
 {
 	_dbgDrawFormatString(0, 0, 0xffffff, "Time:%0.2f", buffEfTime_);
-	//float test = sinf(buffEfTime_);
-	float test = 1.0f - sin(buffEfTime_ / (2.0f / 2.0f));
-	_dbgDrawFormatString(0, 16, 0xffffff, "Test:%0.2f", test);
 
 	//バフエフェクトの再生終了判断
-	float wait = 2.0f;
+	float wait = 3.14f / BAUU_EFFECT_COMP_TIME;
 	if (AsoUtility::OverTime(buffEfTime_, wait))
 	{
 		isPlayBuffEf_ = false;
@@ -348,8 +347,9 @@ void UnitBase::DrawUnitShader(const float& revers)
 	Vector2 shakePos = { pos_.x + static_cast<int>(shakeX_),pos_.y };
 	//定数バッファ
 	COLOR_F buf = COLOR_F{
-		revers,
-		buffEfTime_
+		revers,					//反転するかどうか
+		buffEfTime_,			//経過時間
+		BAUU_EFFECT_COMP_TIME	//バフエフェクト完了時間
 	};
 
 	//描画
@@ -478,8 +478,7 @@ int UnitBase::SelectBuffShader(const Buff::BUFF_TYPE& type)
 		break;
 	}
 	case Buff::BUFF_TYPE::AVOIDANCE: {
-		//buffPs = psAvoidance_;
-		buffPs = psStatusDown_;
+		buffPs = psAvoidance_;
 		break;
 	}
 	default:
@@ -488,6 +487,14 @@ int UnitBase::SelectBuffShader(const Buff::BUFF_TYPE& type)
 
 
 	return buffPs;
+}
+
+void UnitBase::ActivBuffEf(const Buff::BUFF_TYPE& type)
+{
+	isPlayBuffEf_ = true;
+	buffEfTime_ = 0.0f;
+	//シェーダーの選択
+	nowPs_ = SelectBuffShader(type);
 }
 
 

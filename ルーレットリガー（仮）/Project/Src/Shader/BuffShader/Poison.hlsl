@@ -15,6 +15,7 @@ cbuffer cbParam : register(b3)
 {
 	float g_revers;
 	float g_time;
+	float g_compTime;
 }
 
 //描画するテクスチャ
@@ -84,9 +85,8 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	float4 srcCol =
 		g_SrcTexture.Sample(g_SrcSampler, revers);
 
-	//テクスチャ画像
 	//画像色の進行度
-	float pro = 1.0f - (cos(g_time * 2.0f) + 1.0f) * 0.5f;
+    float pro = sin(g_time * g_compTime);
 	//紫色（毒)
 	float3 poi = float3(0.54f, 0.168f, 1.0f);
 	//色の線形補間

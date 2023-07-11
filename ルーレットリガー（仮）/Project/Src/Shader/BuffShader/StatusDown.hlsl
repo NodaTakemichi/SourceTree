@@ -15,6 +15,7 @@ cbuffer cbParam : register(b3)
 {
 	float g_revers;
 	float g_time;
+    float g_compTime;
 }
 
 //描画するテクスチャ
@@ -54,18 +55,13 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	c += topColor;
 
 
-	
-	float efTime = 2.0f;
-	
-
 	//時間経過で薄くなる
-	float a = 1.0f - sin(g_time / (efTime / 2.0f));
-	//float a = max(1.0f - sin(g_time / efTime), 0.4f);
+    float pro = 1.0f - sin(g_time * g_compTime);
+    pro = max(pro, 0.2f);
 	//最終結果の差分
-	float3 dec = srcCol.rgb - c;
+    float3 dec = srcCol.rgb - c;
 	//差分を加算する
-	float3 result = c + (dec * abs(a));
-
+    float3 result = c + (dec * pro);
 
 	return float4(result, srcCol.a);
 }

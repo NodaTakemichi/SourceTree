@@ -17,6 +17,9 @@ public:
 	//ゲームシーンで描画するユニットのオフセット値
 	static constexpr int DRAWING_OFFSET_X = 100;
 
+	//バフエフェクト完了時間
+	static constexpr float BAUU_EFFECT_COMP_TIME = 1.5f;
+
 	//ユニットのタイプ
 	enum class UNIT_TYPE
 	{
@@ -171,6 +174,7 @@ protected:
 
 
 
+
 	//表示する座標のセット
 	void SetDrawingPos(int posX);
 
@@ -196,6 +200,9 @@ private:
 
 	//バフシェーダーの選択
 	int SelectBuffShader(const Buff::BUFF_TYPE& type);
+	//バフエフェクトの発動
+	void ActivBuffEf(const Buff::BUFF_TYPE& type);
+
 
 
 

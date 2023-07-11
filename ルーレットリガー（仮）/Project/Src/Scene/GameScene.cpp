@@ -237,8 +237,9 @@ void GameScene::UpdateRouTime(void)
 		TRACE(unitMng_->GetActivUnit()->GetUnitName().c_str());
 		TRACE("はマヒしている\n\n");
 
-		//麻痺状態の場合、ターンエンドする
-		ChangeGamePhase(GAME_PHASE::TURN_END);
+		//麻痺状態の場合、バフエフェクト再生後ターンエンドする
+		nextPhase_ = GAME_PHASE::TURN_END;
+		ChangeGamePhase(GAME_PHASE::BUFF_EFFECT);
 		return;
 	}
 
@@ -266,6 +267,7 @@ void GameScene::UpdateEffect(void)
 		if (roulette_->GetCmd()->GetCmdType() == Command::CMD_TYPE::BUFF)
 		{
 			//バフエフェクトフェーズに進む
+			nextPhase_ = GAME_PHASE::NONE;
 			ChangeGamePhase(GAME_PHASE::BUFF_EFFECT);
 		}
 		else
@@ -290,7 +292,10 @@ void GameScene::UpdateBattle(void)
 
 void GameScene::UpdateBuffEffect(void)
 {
-	//バフエフェクト処理
+	//(行動時)バフエフェクト処理
+	if (!unitMng_->GetActivUnit()->PlayBuffEffect())return;
+
+	//(付与時)バフエフェクト処理
 	bool next = battleSys_->FinishedBuffEffect();
 
 	//状態異常シェーダー観測地点ーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -306,12 +311,6 @@ void GameScene::UpdateTurnEnd(void)
 {
 	//ダメージ減少が終了したかどうか判断（毒ダメージ）
 	bool next = unitMng_->GetActivUnit()->DecHpProcess();
-
-	//状態異常シェーダー観測地点ーーーーーーーーーーーーーーーーーーーーーーーーーー
-	//nextPhase_ = GAME_PHASE::TURN_END;
-
-
-
 
 
 	//全滅ならばゲーム終了、
@@ -411,6 +410,9 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 		break;
 	}
 	case GameScene::GAME_PHASE::BUFF_EFFECT: {
+		//コマンド処理をしない
+		if (nextPhase_ == GameScene::GAME_PHASE::TURN_END)return;
+
 		//コマンド処理
 		battleSys_->CmdProcess();
 		break;

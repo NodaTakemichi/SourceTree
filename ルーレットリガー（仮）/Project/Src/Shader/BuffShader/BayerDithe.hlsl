@@ -15,6 +15,7 @@ cbuffer cbParam : register(b3)
 {
 	float g_revers;
 	float g_time;
+	float g_compTime;
 }
 
 //ベイヤー配列
@@ -49,9 +50,9 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	int speed = 4;
 
 	//サイン範囲
-	float s = (sin(g_time * speed) + 1.0f) / 2.0f;
+    float pro = sin(g_time * g_compTime);
 	//ベイヤーレベル
-	float level = s * 14.0f;
+	float level = pro * 15.0f;
 	//UV基準
 	int x = round(PSInput.TexCoords0.x * 200);
 	int y = round(PSInput.TexCoords0.y * 200);
@@ -62,5 +63,5 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	}
 
 
-	return srcCol;
+    return srcCol * 1.2f;
 }
