@@ -23,17 +23,21 @@ private:
 
 	//タイトル画像
 	int titleImg_;
+	int titleImgNor_;
+	//タイトルバック画像
+	int titleBackImg_;
 
 	//モンスター画像
-	std::vector<int> monsters_;
+	std::vector<int> unitsImg_;
 
 	//モンスター画像表示シェーダー
-	int psMon_;
+	int psIumi_;
 	//タイトル画像シェーダー
 	int psTitle_;
 
 	//フォントハンドル
 	int fontHandle_;
 	int fontColor_;
+
 };
 

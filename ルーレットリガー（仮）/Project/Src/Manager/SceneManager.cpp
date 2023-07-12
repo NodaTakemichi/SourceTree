@@ -74,10 +74,10 @@ void SceneManager::Init(void)
 	mFader = new Fader();
 	mFader->Init();
 
-	mScene = new GameScene();
+	mScene = new SelectScene();
 	mScene->Init();
 
-	mSceneID = SCENE_ID::GAME;
+	mSceneID = SCENE_ID::SELECT;
 	mWaitSceneID = SCENE_ID::NONE;
 
 	mIsSceneChanging = false;

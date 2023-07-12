@@ -24,6 +24,8 @@ SamplerState g_SrcSampler:register(s0);
 
 float4 main(PS_INPUT PSInput) : SV_TARGET
 {
+
+
 	//UVç¿ïWÇéÛÇØéÊÇÈ
 	float2 uv = PSInput.TexCoords0;
 
@@ -31,12 +33,6 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 	float4 srcCol =
 		g_SrcTexture.Sample(g_SrcSampler, PSInput.TexCoords0);
 	
-	
-    float3 sinScl = srcCol;
-	
-    sinScl.rgb = sin(g_time);
-	
-    return float4(sinScl, srcCol.a);
 
 	float gray = srcCol.r * srcCol.g * srcCol.b / 3.0f;
 	float3 reverse = 1.0f - srcCol.rbg;

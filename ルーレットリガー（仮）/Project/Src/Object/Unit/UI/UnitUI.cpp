@@ -25,8 +25,7 @@ void UnitUI::Init(void)
 	//シェーダーの登録
 	psTextrue_ = LoadPixelShader("./x64/Debug/ReverseTexture.cso");
 	psHpColor_ = LoadPixelShader("./x64/Debug/HpShader.cso");
-	//ピクセルシェーダー用の定数バッファの作成
-	psHpColorConstBuf_ = CreateShaderConstantBuffer(sizeof(float) * 8);
+	psIumiFrame_ = LoadPixelShader("./x64/Debug/IumiFrame.cso");
 
 	//テスト
 	icon_[0] = LoadGraph("./Data/Image/Icon/麻痺.png");
@@ -80,7 +79,6 @@ void UnitUI::Release(void)
 
 	//シェーダーの解放
 	DeleteShader(psHpColor_);
-	DeleteShaderConstantBuffer(psHpColorConstBuf_);
 }
 
 void UnitUI::SetBuff(std::vector<Buff*> buffs)
@@ -124,7 +122,7 @@ void UnitUI::DrawHpFrame(const Vector2& pos)
 	//HPの数値表示
 	DrawFormatStringToHandle(
 		pos.x, pos.y + HP_GAUGE_Y + frame,
-		0xffffff, unitFontHandle_, "HP\n%d", nowHp_);
+		0xeeeeee, unitFontHandle_, "HP\n%d", nowHp_);
 
 }
 

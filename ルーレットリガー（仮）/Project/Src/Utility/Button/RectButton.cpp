@@ -56,16 +56,13 @@ void RectButton::Draw(void)
 	}
 
 	//Žè‘O‰æ‘œ
-	ds.DrawGraph(pos_, frontImg_);
-	//ds.DrawGraphToShader(
-	//	pos_, frontImg_, psTex_);
+	ds.DrawExtendGraphToShader(pos_, size_, frontImg_);
 
 }
 
 void RectButton::Release(void)
 {
 	DeleteShader(psOnButton_);
-
 }
 
 void RectButton::Create(Vector2 pos, Vector2 size, int back, int front)

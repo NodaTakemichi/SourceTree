@@ -26,8 +26,7 @@ void EditScene::Init(void)
 	bgImg_ = LoadGraph("Data/Image/bg/EditScene_bg.png");
 
 	//ユニットカード裏
-	unitBack_ = LoadGraph("Data/Image/UI/UnitBack.png");
-
+	unitBackImg_ = LoadGraph("Data/Image/UI/UnitBack.png");
 
 	//ボタン画像
 	backImg_ = LoadGraph("Data/Image/UI/BackBtn.png");
@@ -55,7 +54,7 @@ void EditScene::Init(void)
 
 		//ボタン生成
 		UnitButton* ub = new UnitButton();
-		ub->Create(cardPos, unitBack_, u);
+		ub->Create(cardPos, unitBackImg_, u);
 		deck_.emplace(std::make_pair(num, ub));
 
 		noDeck++;
@@ -79,7 +78,7 @@ void EditScene::Init(void)
 		}
 		//ボタン生成
 		UnitButton* ub = new UnitButton();
-		ub->Create(cardPos, unitBack_, u);
+		ub->Create(cardPos, unitBackImg_, u);
 		unitCards_.emplace(std::make_pair(num, ub));
 
 		no++;
@@ -159,29 +158,40 @@ void EditScene::Draw(void)
 	//ユニット情報
 	DrawUnitStatus();
 
-	//追加ボタン
 
 	//バックボタン
 	backBtn_->Draw();
-
-#ifdef DEBUG
-	auto cx = Application::SCREEN_SIZE_X;
-	auto cy = Application::SCREEN_SIZE_Y;
-	auto span = 20;
-	for (size_t i = 0; i < 60; i++)
-	{
-		//X
-		DrawLine(0, i * span, cx, i * span, 0xff0000);
-
-		//Y
-		DrawLine(i * span, 0, i * span, cy, 0x0000ff);
-	}
-#endif // _DEBUG
 
 }
 
 void EditScene::Release(void)
 {
+	//画像の解放
+	DeleteGraph(bgImg_);
+	DeleteGraph(unitBackImg_);
+	DeleteGraph(backImg_);
+
+	DeleteGraph(hpIcon_);
+	DeleteGraph(attackIcon_);
+	DeleteGraph(speedIcon_);
+
+	DeleteFontToHandle(sFontHandle_);
+
+	for (auto& du : deck_)
+	{
+		du.second->Release();
+		delete du.second;
+	}
+	deck_.clear();
+
+	for (auto& cu : unitCards_)
+	{
+		cu.second->Release();
+		delete cu.second;
+	}
+	unitCards_.clear();
+
+
 	backBtn_->Release();
 	delete backBtn_;
 }

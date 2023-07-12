@@ -51,7 +51,6 @@ protected:
 	int targetImg_;
 
 
-
 	//ダメージフレーム画像
 	int dmgFrameImg_;
 	//ダメージ描画
@@ -66,13 +65,13 @@ protected:
 	//ユニットフォント
 	int unitFontHandle_;
 
-
-	//HPシェーダー
 	//シェーダーハンドル
+	//HPシェーダー
 	int psHpColor_;
-	int psHpColorConstBuf_;
 	//通常シェーダー
 	int psTextrue_;
+	//枠強調シェーダー
+	int psIumiFrame_;
 
 	//HPのシェーダー描画
 	void DrawHpShader(const Vector2& pos ,const COLOR_F& color);

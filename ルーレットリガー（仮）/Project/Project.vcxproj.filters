@@ -270,7 +270,6 @@
     <FxCompile Include="Src\Shader\Monotone.hlsl" />
     <FxCompile Include="Src\Shader\BuffShader\BayerDithe.hlsl" />
     <FxCompile Include="Src\Shader\DeathShader.hlsl" />
-    <FxCompile Include="Src\Shader\ActivUnitName.hlsl" />
     <FxCompile Include="Src\Shader\Mask.hlsl" />
     <FxCompile Include="Src\Shader\DeathUnit.hlsl" />
     <FxCompile Include="Src\Shader\OnButton.hlsl" />
@@ -281,5 +280,7 @@
     <FxCompile Include="Src\Shader\BuffShader\StatusDown.hlsl" />
     <FxCompile Include="Src\Shader\BuffShader\Poison.hlsl" />
     <FxCompile Include="Src\Shader\BuffShader\Paralysis.hlsl" />
+    <FxCompile Include="Src\Shader\NormalMap.hlsl" />
+    <FxCompile Include="Src\Shader\IumiFrame.hlsl" />
   </ItemGroup>
 </Project>

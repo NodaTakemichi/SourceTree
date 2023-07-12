@@ -351,8 +351,8 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 
 		//現在の行動ユニットのターン文字 
 		bool turn = unitMng_->GetActivUnit()->GetUnitType() == UnitBase::UNIT_TYPE::PLAYER;
-		auto color = turn ? 0x00ff00 : 0xff0000;		//緑：赤
-		auto name = unitMng_->GetActivUnit()->GetUnitName();
+		int color = turn ? 0x00ff00 : 0xff0000;		//緑：赤
+		auto& name = unitMng_->GetActivUnit()->GetUnitName();
 		GameUi_->SetTurnString(name, color);
 
 		break;
@@ -384,7 +384,7 @@ void GameScene::ChangeGamePhase(GAME_PHASE phase)
 
 		//ターゲットの座標取得(ターゲットが存在しない場合、自分座標)
 		Vector2 pos = unitMng_->GetActivUnit()->GetUnitPos();
-		auto target = battleSys_->GetTargetUnit();
+		auto& target = battleSys_->GetTargetUnit();
 
 		if (target.size() <= 0)
 		{

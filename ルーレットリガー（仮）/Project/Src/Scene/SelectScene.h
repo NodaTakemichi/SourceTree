@@ -17,7 +17,7 @@ public:
 		DECK_EDIT = 1,
 		RULE_BOOK = 2,
 		CREDIT	  = 3,
-		EXIT	  = 4,
+		Title	  = 4,
 		MAX		  = 5
 	};
 
@@ -32,6 +32,46 @@ public:
 	void Draw(void) override;
 	void Release(void) override;
 
+
+private:
+
+	//バトル相手情報
+	//std::array<int, 3> enemys_;
+	//デッキ情報
+
+
+	//モードボックス画像
+	Vector2 modePos_;
+	std::string nowMode_;
+	int modeBox_;
+	int modeFontHandle_;
+
+
+	//コメントボックス
+	Vector2 cmtPos_;
+	std::string devilCmt_;
+	int cmtBox_;
+	int cmtFontHandle_;
+
+	//マスコット画像
+	int devilImg_;
+	Vector2 devilPos_;
+	int shakeY_;
+
+	//選択ボタン
+	std::vector<RectButton*>buttons_;
+	//ボタンUI画像
+	int backBtnImg_;
+	std::map<SELECT_MODE, int>btnImg_;
+
+
+	//シェーダーハンドル
+	//反転有りシェーダー
+	int psTex_;
+
+
+
+
 	//各ボタン処理
 	void BtnProcess();
 
@@ -43,30 +83,15 @@ public:
 	void EditBtnProcess(void);
 	void RuleBtnProcess(void);
 	void CreditBtnProcess(void);
-	void ExitBtnProcess(void);
+	void TitleBtnProcess(void);
 
-private:
+	//モードボックス描画
+	void DrawModeBox(void);
+	//コメントボックス描画
+	void DrawCmtBox(void);
 
-	//敵情報配列
+	//デビルのコメントセット
+	void SetDevilCmt(const std::string& cmt);
 
-	//デッキ情報
-
-
-
-	//選択ボタン
-	std::vector<RectButton*>buttons_;
-	//ボタンUI画像
-	int backBtnImg_;
-	std::map<SELECT_MODE, int>btnImg_;
-
-
-	//マスコット画像
-	int devilImg_;
-	Vector2 devilPos_;
-	int shakeY_;
-
-
-	//シェーダー
-	int psTex_;
 };
 

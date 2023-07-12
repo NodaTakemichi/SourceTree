@@ -64,13 +64,15 @@ void DeathStaging::Update(void)
 {
 	if (isPlaying_)
 	{
-		//サイズ変更
+		//Xサイズ変更
 		int x,y;
 		GetGraphSize(maskImg_, &x, &y);
-		mSizeX_ = min(2 * totalTime_ * x, x);
+		//速度
+		float speed = 2.5f;
+		mSizeX_ = min(speed * totalTime_ * x, x);
 
 		//時間経過
-		float wait = 1.5f;
+		float wait = 1.5f;		//演出時間
 		bool finish = AsoUtility::OverTime(totalTime_, wait);
 		if (finish)
 		{

@@ -98,5 +98,6 @@
     <FxCompile Include="Shader\Poison.hlsl" />
     <FxCompile Include="Shader\Paralysis.hlsl" />
     <FxCompile Include="Shader\DeathUnit.hlsl" />
+    <FxCompile Include="Shader\IumiFrame.hlsl" />
   </ItemGroup>
 </Project>

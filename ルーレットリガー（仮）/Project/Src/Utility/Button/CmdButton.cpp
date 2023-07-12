@@ -51,6 +51,10 @@ void CmdButton::Draw(void)
 
 void CmdButton::Release(void)
 {
+	DeleteGraph(btnImg_);
+	DeleteFontToHandle(fontHandle_);
+	DeleteShader(psOnButton_);
+
 }
 
 void CmdButton::Create(const Vector2& pos,const Vector2& size, const int& cmdNum)

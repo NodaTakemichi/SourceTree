@@ -35,6 +35,9 @@ int texWhite;
 int texCircle;		//ロードサークル
 int texCircleMask;	//ロードサークルシェーダ―
 
+//枠画像
+int frameImg_;
+
 
 // シェーダーハンドル
 int psSimpleColor;
@@ -114,6 +117,9 @@ int psParalysisConstBuf;
 int psDeathUnit;
 int psDeathUnitConstBuf;
 
+int psIumiFrame;
+int psIumiFrameConstBuf;
+
 void Init(void);
 void Release(void);
 void Run(void);
@@ -153,4 +159,5 @@ void DrawStatusDown(void);
 void DrawPoison(void);
 void DrawParalysis(void);
 void DrawDeathUnit(void);
+void DrawIumiFrame(void);
 

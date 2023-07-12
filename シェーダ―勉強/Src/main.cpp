@@ -52,6 +52,9 @@ void Init(void)
 	// 描画に使用する画像の読み込み
 	texCircleMask = LoadGraph("Data/loadMask.png");
 
+	// 描画に使用する画像の読み込み
+	frameImg_ = LoadGraph("Data/NameFrame.png");
+
 
 
 	//ピクセルシェーダーのロード
@@ -208,6 +211,12 @@ void Init(void)
 	//ピクセルシェーダー用の定数バッファの作成
 	psDeathUnitConstBuf = CreateShaderConstantBuffer(sizeof(float) * 8);
 
+	//ピクセルシェーダーのロード
+	psIumiFrame = LoadPixelShader(
+		(PATH_SHADER + "IumiFrame.cso").c_str());
+	//ピクセルシェーダー用の定数バッファの作成
+	psIumiFrameConstBuf = CreateShaderConstantBuffer(sizeof(float) * 8);
+
 }
 
 void Release(void)
@@ -240,6 +249,7 @@ void Release(void)
 	DeleteShader(psPoison);
 	DeleteShader(psParalysis);
 	DeleteShader(psDeathUnit);
+	DeleteShader(psIumiFrame);
 
 	// ピクセルシェーダー用定数バッファを解放
 	DeleteShaderConstantBuffer(psCustomColorConstBuf);
@@ -266,6 +276,7 @@ void Release(void)
 	DeleteShaderConstantBuffer(psPoisonConstBuf);
 	DeleteShaderConstantBuffer(psParalysisConstBuf);
 	DeleteShaderConstantBuffer(psDeathUnitConstBuf);
+	DeleteShaderConstantBuffer(psIumiFrameConstBuf);
 
 
 }
@@ -435,6 +446,10 @@ void Run(void)
 
 		//麻痺
 		DrawDeathUnit();
+		mPosX += PLUS_X;
+
+		//発光枠
+		DrawIumiFrame();
 		mPosX += PLUS_X;
 
 
@@ -1558,6 +1573,45 @@ void DrawDeathUnit(void)
 	//ピクセルシェーダー用の定数バッファのアドレスを取得
 	COLOR_F* cbBuf =
 		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
+	cbBuf->r = mTotalTime;
+
+	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する
+	UpdateShaderConstantBuffer(cBuf);
+
+	//ピクセルシェーダー用の定数バッファを定数バッファレジスタにセット
+	SetShaderConstantBuffer(cBuf, DX_SHADERTYPE_PIXEL, 3);
+
+	//四角ポリゴン（三角2つ）を生成
+	MakeSquereVertex();
+
+	//描画
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+	DrawPolygonIndexed2DToShader(mVertex, 4, mIndex, 2);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+	//フレーム
+	DrawFrame();
+
+}
+
+void DrawIumiFrame(void)
+{
+
+	DrawTitle("発光枠");
+
+	auto& cBuf = psIumiFrameConstBuf;
+
+	//シェーダーの設定
+	SetUsePixelShader(psIumiFrame);
+
+	//シェーダーにテクスチャを転送
+	SetUseTextureToShader(0, frameImg_);
+
+	//ピクセルシェーダー用の定数バッファのアドレスを取得
+	COLOR_F* cbBuf =
+		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
+	*cbBuf = COLOR_F{ 1.0f,0.0f,0.0f,1.0f };
+	cbBuf++;
 	cbBuf->r = mTotalTime;
 
 	//ピクセルシェーダー用の定数バッファを更新して書き込んだ内容を反映する

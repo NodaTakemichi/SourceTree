@@ -71,7 +71,7 @@ private:
 
 
 	//ユニットカードの背面画像
-	int unitBack_;
+	int unitBackImg_;
 
 	//カードステータスの描画
 	void DrawUnitStatus(void);

@@ -85,6 +85,9 @@ void UnitButton::Draw(void)
 
 void UnitButton::Release(void)
 {
+	DeleteFontToHandle(fontHandle_);
+
+	DeleteShader(psCardFrame_);
 }
 
 void UnitButton::Create(Vector2 pos, int back, UnitData unit)
