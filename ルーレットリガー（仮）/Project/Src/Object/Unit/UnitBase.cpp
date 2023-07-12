@@ -289,7 +289,7 @@ bool UnitBase::CheckOwnBuff(const Buff::BUFF_TYPE& type)
 		if (buff->CheckOwnBuff(type))
 		{
 			//バフエフェクトの発動
-			ActivBuffEf(type);
+			//ActivBuffEf(type);
 
 			return true;
 		}

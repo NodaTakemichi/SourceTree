@@ -36,12 +36,36 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
 		return srcCol;
 	}
 
-	//光
-
 
 
 	//回転
+	//回転ベクトル
+    float speed = 1.0f;
+    float rotCos = cos(g_time * speed);
+    float rotSin = sin(g_time * speed);
+
+	//2次元の回転行列
+    float2x2 mat = { rotCos, -rotSin, rotSin, rotCos };
+
+	//UV座標を受け取る(中心地を真ん中にする)
+    uv = PSInput.TexCoords0 - 0.5f;
+	//uvスクロール
+    uv = mul(uv, mat) + 0.5f;
 
 
-	return srcCol;
+
+    float2 center = float2(0.5f, 0.5f);
+	//中心線に近かったら照らす
+    float lr = 1.0f - distance(uv.x, center.x);
+	
+    float3 light = float3(lr, 0.0f, 0.0f);
+    float3 white = float3(1.0f, 1.0f, 1.0f);
+	
+    white - light;
+	
+	//光
+    float3 result = lerp(white, light, lr);
+
+
+    return float4(result, 1.0f);
 }

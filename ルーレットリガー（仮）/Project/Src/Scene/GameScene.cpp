@@ -293,7 +293,7 @@ void GameScene::UpdateBattle(void)
 void GameScene::UpdateBuffEffect(void)
 {
 	//(行動時)バフエフェクト処理
-	if (!unitMng_->GetActivUnit()->PlayBuffEffect())return;
+	//if (!unitMng_->GetActivUnit()->PlayBuffEffect())return;
 
 	//(付与時)バフエフェクト処理
 	bool next = battleSys_->FinishedBuffEffect();
