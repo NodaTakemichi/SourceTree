@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<array>
 #include "../Common/Vector2.h"
 #include "SceneBase.h"
 
@@ -63,9 +64,14 @@ private:
 	//ボタン画像
 	int backImg_;
 
+	//選択画面の進行
+	int page;
 
 	//バトル相手情報
-	std::map < SELECT_STAGE, std::vector<std::array<int, 3>>>enemys_;
+	//std::map < SELECT_STAGE, std::vector<std::array<int, 3>>>enemys_;
+	std::vector<std::array<int, 3>>enemys_;
+	//現enemys番号
+	int enemysNum_;
 	
 	//デッキ情報
 
@@ -75,7 +81,7 @@ private:
 	//モードボタン
 	std::map<SELECT_MODE, ModeData>modeBtn_;
 	//モードボタン画像
-	int modeBtnImg_;
+	int modeBackBtnImg_;
 
 
 	//モードボックス画像
@@ -130,6 +136,9 @@ private:
 
 	//バトル相手情報の登録
 	void BattleEnemyInit(void);
+
+	//エネミーの選択
+	void SelectEnemy(void);
 
 
 };

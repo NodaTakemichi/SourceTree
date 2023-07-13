@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include <cstdlib>
 #include "../Application.h"
+#include "../Manager/DataManager/UnitDataManager.h"
 #include "../Manager/DataManager/BattleDataManager.h"
 #include "../Manager/DeckManager.h"
 #include "../Manager/DataManager/SoundManager.h"
@@ -78,6 +79,12 @@ void SelectScene::Init(void)
 	//バトル相手情報の登録
 	BattleEnemyInit();
 
+	//ホイール初期化
+	GetMouseWheelRotVol();
+	enemysNum_ = 0;
+
+	page = 1;
+
 }
 
 void SelectScene::Update(void)
@@ -90,15 +97,27 @@ void SelectScene::Update(void)
 	//つかいま座標
 	shakeY_ = sinf(totalTime_) * 30.0f;
 
-	//各モードボタン更新
-	BtnProcess();
-
-
-	//バックボタン
-	backBtn_->Update();
-	if (backBtn_->ButtonDecision())
+	if (page == 1)
 	{
-		//前フェーズに戻る
+
+		//各モードボタン更新
+		BtnProcess();
+	}
+	else
+	{
+
+		//対戦相手選択
+		SelectEnemy();
+
+		//バックボタン
+		backBtn_->Update();
+		if (backBtn_->ButtonDecision())
+		{
+			//前フェーズに戻る
+			page--;
+		}
+
+		//決定ボタン
 
 	}
 
@@ -117,19 +136,8 @@ void SelectScene::Draw(void)
 
 	//つかいま描画
 	ds.DrawGraphToShader(
-		{devilPos_.x ,devilPos_.y + shakeY_ }, devilImg_, psTex_
+		{ devilPos_.x ,devilPos_.y + shakeY_ }, devilImg_, psTex_
 	);
-
-	//モードボタン
-	for (auto& btn : modeBtn_)
-	{
-		btn.second.btn->Draw();
-	}
-
-	//セレクトモード画像
-	if (mode_ != SELECT_MODE::MAX)DrawGraph(700, 300, modeBtn_.at(mode_).modeImg, true);
-	
-
 
 	//モードボックス描画
 	DrawModeBox();
@@ -137,9 +145,45 @@ void SelectScene::Draw(void)
 	//コメントボックス
 	DrawCmtBox();
 
-	//バックボタン
-	backBtn_->Draw();
 
+	if (page == 1)
+	{
+		//モードボタン
+		for (auto& btn : modeBtn_)
+		{
+			btn.second.btn->Draw();
+		}
+
+		//セレクトモード画像
+		if (mode_ != SELECT_MODE::MAX)DrawGraph(700, 300, modeBtn_.at(mode_).modeImg, true);
+
+	}
+	else
+	{
+
+		//バックボタン
+		backBtn_->Draw();
+
+		//バトルエネミー
+		auto& uMng = UnitDataManager::GetInstance();
+		 
+
+		int i = enemys_[enemysNum_][1];
+		if (i == -1)return;
+		int uImg = uMng.GetUnitImg(i);
+		DrawGraph(600, 300, uImg, true);
+
+		i = enemys_[enemysNum_][0];
+		if (i == -1)return;
+		uImg = uMng.GetUnitImg(i);
+		DrawGraph(800, 200, uImg, true);
+
+		i = enemys_[enemysNum_][2];
+		if (i == -1)return;
+		uImg = uMng.GetUnitImg(i);
+		DrawGraph(1000, 300, uImg, true);
+
+	}
 
 #ifdef DEBUG
 	auto span = 50;
@@ -157,7 +201,7 @@ void SelectScene::Draw(void)
 
 void SelectScene::Release(void)
 {
-	DeleteGraph(modeBtnImg_);
+	DeleteGraph(modeBackBtnImg_);
 
 	backBtn_->Release();
 	delete backBtn_;
@@ -196,7 +240,6 @@ void SelectScene::BtnProcess()
 		btn.second.btn->Update();
 	}
 
-
 	//ボタン：マウスがボタン上にあるか判断
 	for (auto& btn : modeBtn_)
 	{
@@ -205,7 +248,6 @@ void SelectScene::BtnProcess()
 			ChangeSelectMode(btn.first);
 		}
 	}
-
 
 	//ボタン：クリック判定
 	for (auto& btn : modeBtn_)
@@ -219,15 +261,20 @@ void SelectScene::BtnProcess()
 
 void SelectScene::BattleBtnProcess(void)
 {
-	//デッキのセット
-	auto deck = DeckManager::GetInstance().GetDeck();
-	std::array<int, 3> enemys = { 1,2,3 };
-	BattleDataManager::GetInstance().SetBattleData({
-		deck,enemys,0,0 });
+	SetDevilCmt("ホイールで相手を選べるぜ！");
 
 
-	//シーン遷移
-	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME, true);
+	page++;
+
+	////デッキのセット
+	//auto deck = DeckManager::GetInstance().GetDeck();
+	//std::array<int, 3> enemys =enemys_[enemysNum_];
+	//BattleDataManager::GetInstance().SetBattleData({
+	//	deck,enemys,0,0 });
+
+
+	////シーン遷移
+	//SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME, true);
 }
 
 void SelectScene::EditBtnProcess(void)
@@ -257,9 +304,9 @@ void SelectScene::CreateModeBtn(void)
 	auto& sy = Application::SCREEN_SIZE_Y;
 
 	//モードボタンの背面画像
-	modeBtnImg_ = LoadGraph("./Data/Image/UI/ModeBtnImg.png");
+	modeBackBtnImg_ = LoadGraph("./Data/Image/UI/ModeBtnImg.png");
 	int btnSizeX, btnSizeY;
-	GetGraphSize(modeBtnImg_, &btnSizeX, &btnSizeY);
+	GetGraphSize(modeBackBtnImg_, &btnSizeX, &btnSizeY);
 
 
 	std::string path = "Data/Image/UI/";
@@ -281,7 +328,7 @@ void SelectScene::CreateModeBtn(void)
 
 		//ボタン生成
 		RectButton* b = new RectButton();
-		b->Create(pos, { 0,0 }, modeBtnImg_, btnImg);
+		b->Create(pos, { 0,0 }, modeBackBtnImg_, btnImg);
 
 		//挿入
 		ModeData md = { modeImg,b };
@@ -336,7 +383,7 @@ void SelectScene::ChangeSelectMode(const SELECT_MODE& mode)
 	switch (mode_)
 	{
 	case SelectScene::SELECT_MODE::BATTLE:
-		SetDevilCmt("モンスター同士を戦わせるモードだぜ");
+		SetDevilCmt("モンスター同士を戦わせるモードだぞ\n勝てる相手を選ぶんだぜ");
 
 		break;
 	case SelectScene::SELECT_MODE::DECK_EDIT:
@@ -352,7 +399,7 @@ void SelectScene::ChangeSelectMode(const SELECT_MODE& mode)
 
 		break;
 	case SelectScene::SELECT_MODE::TITLE:
-		SetDevilCmt("タイトルに戻るぜ。");
+		SetDevilCmt("タイトルに戻るぜ");
 
 		break;
 	case SelectScene::SELECT_MODE::MAX:
@@ -370,15 +417,28 @@ void SelectScene::SetDevilCmt(const std::string& cmt)
 void SelectScene::BattleEnemyInit(void)
 {
 	//エネミーの登録
-	auto regEnemys = [&](SELECT_STAGE stage, std::array<int, 3> nums) {
-		enemys_.emplace(std::make_pair(stage, nums));
-	};
+	//auto regEnemys = [&](SELECT_STAGE stage, std::array<int, 3> nums) {
+	//	enemys_.emplace(std::make_pair(stage, nums));
+	//};
 
-	//森
-	regEnemys(SELECT_STAGE::FOREST, { 0,1,2 });
-	regEnemys(SELECT_STAGE::FOREST, { 0,1,2 });
-	regEnemys(SELECT_STAGE::FOREST, { 0,1,2 });
+	enemys_.push_back({ 0,1,2 });
+	enemys_.push_back({ 3,4,5 });
+	enemys_.push_back({ 6,7,8 });
+	enemys_.push_back({ 9,-1,-1 });
 
+	enemys_.push_back({ 10,11,12 });
+	enemys_.push_back({ 13,14,15 });
+	enemys_.push_back({ 16,17,18 });
+	enemys_.push_back({ 19,-1,-1 });
+}
+
+void SelectScene::SelectEnemy(void)
+{
+	enemysNum_ -= GetMouseWheelRotVol();
+	enemysNum_ = AsoUtility::Wrap(enemysNum_, 0, enemys_.size());
+	_dbgDrawFormatString(0, 0, 0xffffff, "NUM:%d", enemysNum_);
+
+	enemys_[enemysNum_];
 }
 
 
