@@ -68,7 +68,7 @@ public:
 
 	void SetActed(bool acted) { isActed_ = acted; }	//行動状態をセットする
 	void SetAlive(bool alive) { isAlive_ = alive; }	//生死状態をセットする
-	void SetAct(bool act)	  { isAct_ = act; }		//現在の行動状態をセットする
+	void SetAct(bool act);							//現在の行動状態をセットする
 	void SetTargeted(bool target) { isTargeted_ = target; }	//現在のロックオン状態をセットする
 	void SetBuffEf(bool buffEf) { isPlayBuffEf_ = buffEf; }	//現在のバフエフェクト再生状況をセットする
 
@@ -135,6 +135,9 @@ protected:
 	float shakeValue_;
 	//振動による移動値
 	float movePow_;
+
+	//アクティブ状態のユニット座標（ずらし）
+	int shigtPosX_;
 
 
 	//バフエフェクト再生中かどうかの判断

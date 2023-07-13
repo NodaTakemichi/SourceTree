@@ -58,14 +58,15 @@ void UnitBase::Init(void)
 	shakeValue_ = 0.0f;
 	movePow_ = 0.0f;
 
+	//ずらし座標
+	shigtPosX_ = 0;
+
+
 }
 
 
 void UnitBase::Draw(void)
 {
-	//行動中ユニット
-	if (IsAct())unitUi_->DrawActUnit();
-
 	//狙われているユニット
 	if (IsTargeted())unitUi_->DrawRockOn();
 }
@@ -206,6 +207,17 @@ int UnitBase::CalcBuffStatus(const int& status,
 	return static_cast<int>(floor(value));
 }
 
+void UnitBase::SetAct(bool act)
+{
+	//ユニットの表示座標
+	shigtPosX_ = act ? 70 : 0;
+	//ずらし値
+	shigtPosX_ *= UNIT_TYPE::PLAYER == type_ ? 1 : -1;
+
+
+	isAct_ = act;
+}
+
 void UnitBase::Damage(const int& dmg)
 {
 	TRACE(name_.c_str());
@@ -343,10 +355,10 @@ void UnitBase::DrawUnitShader(const float& revers)
 {
 	auto time = SceneManager::GetInstance().GetTotalTime();
 
-	//揺れ幅
-	Vector2 shakePos = { pos_.x + static_cast<int>(shakeX_),pos_.y };
+	//現在座標　＋　揺れ幅　＋　ずらし値
+	Vector2 pos = { pos_.x + static_cast<int>(shakeX_) + shigtPosX_,pos_.y };
 	//定数バッファ
-	COLOR_F buf = COLOR_F{
+	COLOR_F buf = {
 		revers,					//反転するかどうか
 		buffEfTime_,			//経過時間
 		BAUU_EFFECT_COMP_TIME	//バフエフェクト完了時間
@@ -354,7 +366,7 @@ void UnitBase::DrawUnitShader(const float& revers)
 
 	//描画
 	DrawShader::GetInstance().DrawExtendGraphToShader(
-		shakePos, { DRAWING_SIZE ,DRAWING_SIZE }, unitImg_, nowPs_, buf
+		pos, { DRAWING_SIZE ,DRAWING_SIZE }, unitImg_, nowPs_, buf
 	);
 }
 

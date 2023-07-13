@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>C:\DxLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -181,6 +181,7 @@
     <ClCompile Include="Src\Scene\SelectScene.cpp" />
     <ClCompile Include="Src\Scene\TitleScene.cpp" />
     <ClCompile Include="Src\Utility\AsoUtility.cpp" />
+    <ClCompile Include="Src\Utility\Button\BackButton.cpp" />
     <ClCompile Include="Src\Utility\Button\ButtonUI.cpp" />
     <ClCompile Include="Src\Utility\Button\CircleButton.cpp" />
     <ClCompile Include="Src\Utility\Button\CmdButton.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="Src\Scene\SelectScene.h" />
     <ClInclude Include="Src\Scene\TitleScene.h" />
     <ClInclude Include="Src\Utility\AsoUtility.h" />
+    <ClInclude Include="Src\Utility\Button\BackButton.h" />
     <ClInclude Include="Src\Utility\Button\ButtonUI.h" />
     <ClInclude Include="Src\Utility\Button\CircleButton.h" />
     <ClInclude Include="Src\Utility\Button\CmdButton.h" />
@@ -247,6 +249,9 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Src\Shader\BuffShader\Poison.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

@@ -7,8 +7,8 @@
 #include "UnitUI.h"
 
 UnitUI::UnitUI(
-	Vector2 pos, std::string& name, int& hp, int& nowHp, int& maxHp) :
-	unitPos_(pos), name_(name), hp_(hp), nowHp_(nowHp), maxHp_(maxHp)
+	Vector2 pos, std::string& name, int& hp, int& nowHp, int& maxHp, bool& active) :
+	unitPos_(pos), name_(name), hp_(hp), nowHp_(nowHp), maxHp_(maxHp), active_(active)
 {
 }
 
@@ -54,6 +54,8 @@ void UnitUI::Init(void)
 	unitFontHandle_ = CreateFontToHandle("Noto Serif JP Medium", 18, 20, -1,
 		DX_FONTTYPE_ANTIALIASING_4X4);
 
+	totalTime_ = 0.0f;
+
 }
 
 void UnitUI::Draw(void)
@@ -78,7 +80,9 @@ void UnitUI::Release(void)
 	DeleteGraph(dmgFrameImg_);
 
 	//シェーダーの解放
+	DeleteShader(psTextrue_);
 	DeleteShader(psHpColor_);
+	DeleteShader(psIumiFrame_);
 }
 
 void UnitUI::SetBuff(std::vector<Buff*> buffs)
@@ -126,14 +130,25 @@ void UnitUI::DrawHpFrame(const Vector2& pos)
 
 }
 
-void UnitUI::DrawName(const std::string& name, const Vector2& uPos)
+void UnitUI::DrawName(const std::string& name, const Vector2& uPos, const COLOR_F& color)
 {
+	totalTime_ = SceneManager::GetInstance().GetTotalTime();
+
 	auto unitSize = static_cast<int>(UnitBase::DRAWING_SIZE);
 	Vector2 fPos = { uPos.x - 25,uPos.y + 150 };
 	Vector2 nPos = { uPos.x + unitSize / 2,uPos.y + 155 };
 
 	//名前枠の表示
-	DrawGraph(fPos.x, fPos.y, nameFrameImg_, true);
+	//アクティブ状態かどうかで色を変更
+	COLOR_F c = active_ ? color : COLOR_F{ 1.0f,1.0f,1.0f,1.0f };
+	COLOR_F buf = COLOR_F{
+		c.r,
+		c.g,
+		c.b,
+		totalTime_
+	};
+	auto& ds = DrawShader::GetInstance();
+	ds.DrawGraphToShader(fPos, nameFrameImg_, psIumiFrame_, buf);
 
 	//文字列の（半分の）長さを取得
 	auto fx = AsoUtility::StringLength(name, unitFontHandle_)/2;

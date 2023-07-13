@@ -57,13 +57,12 @@ void CircleButton::Draw(void)
 
     //Žè‘O‰æ‘œ
     ds.DrawGraph(pos_, frontImg_);
-    //ds.DrawGraphToShader(
-    //	pos_, frontImg_, psTex_);
 
 }
 
 void CircleButton::Release(void)
 {
+    DeleteShader(psOnButton_);
 }
 
 void CircleButton::Create(Vector2 center,int back, int front)

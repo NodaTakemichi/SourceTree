@@ -97,7 +97,7 @@ void DrawShader::DrawGraphToShader(
 		(COLOR_F*)GetBufferShaderConstantBuffer(cBuf);
 	*cbBuf = buf;
 	cbBuf++;
-	*cbBuf = buf;
+	*cbBuf = subBuf;
 
 	//ÉTÉCÉY
 	int x, y;

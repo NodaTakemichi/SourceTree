@@ -11,6 +11,8 @@
 #include "../Utility/AsoUtility.h"
 #include "../Utility/DrawShader.h"
 #include "../Utility/Button/RectButton.h"
+#include "../Utility/Button/CircleButton.h"
+
 
 #include"../_debug/_DebugDispOut.h"
 
@@ -26,6 +28,15 @@ SelectScene::~SelectScene(void)
 
 void SelectScene::Init(void)
 {
+	//ボタン画像
+	backImg_ = LoadGraph("Data/Image/UI/BackBtn.png");
+
+	//バックボタンの生成
+	int sy = Application::SCREEN_SIZE_Y + 20;
+	backBtn_ = new CircleButton();
+	backBtn_->Create({ 0,sy }, backImg_, -1);
+
+
 	//初期化
 	totalTime_ = 0.0f;
 
@@ -59,7 +70,13 @@ void SelectScene::Init(void)
 	psTex_ = LoadPixelShader("x64/Debug/ReverseTexture.cso");
 
 	//ボタンUI生成
-	CerateBtnUI();
+	CreateModeBtn();
+
+	//モード
+	ChangeSelectMode(SELECT_MODE::MAX);
+
+	//バトル相手情報の登録
+	BattleEnemyInit();
 
 }
 
@@ -73,8 +90,17 @@ void SelectScene::Update(void)
 	//つかいま座標
 	shakeY_ = sinf(totalTime_) * 30.0f;
 
-	//各ボタン更新
+	//各モードボタン更新
 	BtnProcess();
+
+
+	//バックボタン
+	backBtn_->Update();
+	if (backBtn_->ButtonDecision())
+	{
+		//前フェーズに戻る
+
+	}
 
 }
 
@@ -95,10 +121,15 @@ void SelectScene::Draw(void)
 	);
 
 	//モードボタン
-	for (auto& btn : buttons_)
+	for (auto& btn : modeBtn_)
 	{
-		btn->Draw();
+		btn.second.btn->Draw();
 	}
+
+	//セレクトモード画像
+	if (mode_ != SELECT_MODE::MAX)DrawGraph(700, 300, modeBtn_.at(mode_).modeImg, true);
+	
+
 
 	//モードボックス描画
 	DrawModeBox();
@@ -106,9 +137,12 @@ void SelectScene::Draw(void)
 	//コメントボックス
 	DrawCmtBox();
 
+	//バックボタン
+	backBtn_->Draw();
+
 
 #ifdef DEBUG
-	auto span = 20;
+	auto span = 50;
 	for (size_t i = 0; i < 60; i++)
 	{
 		//X
@@ -123,82 +157,64 @@ void SelectScene::Draw(void)
 
 void SelectScene::Release(void)
 {
+	DeleteGraph(modeBtnImg_);
+
+	backBtn_->Release();
+	delete backBtn_;
+}
+
+void SelectScene::DrawModeBox(void)
+{
+	DrawGraph(modePos_.x, modePos_.y, modeBox_, true);
+	int x, y;
+	GetGraphSize(modeBox_, &x, &y);
+
+	auto len = AsoUtility::StringLength(nowMode_, modeFontHandle_) / 2;
+	DrawFormatStringToHandle(
+		modePos_.x + (x / 2) - len,
+		modePos_.y + 60,
+		0xdddddd, modeFontHandle_, nowMode_.c_str());
+}
+
+void SelectScene::DrawCmtBox(void)
+{
+	DrawGraph(cmtPos_.x, cmtPos_.y, cmtBox_, true);
+
+	Vector2 offset = { cmtPos_.x + 40,cmtPos_.y + 40 };
+	DrawFormatStringToHandle(
+		offset.x, offset.y,
+		0xdddddd, cmtFontHandle_, devilCmt_.c_str());
+
 }
 
 void SelectScene::BtnProcess()
 {
-	for (auto& btn : buttons_)
-	{
-		btn->Update();
-	}
 
-	//ボタンの上にマウスが乗っているか確認
-	for (auto& btn : buttons_)
+	//ボタン更新
+	for (auto& btn : modeBtn_)
 	{
+		btn.second.btn->Update();
 	}
 
 
-	//ボタンクリック処理
-	for (auto& btn : buttons_)
+	//ボタン：マウスがボタン上にあるか判断
+	for (auto& btn : modeBtn_)
 	{
-		btn->PushButton();
+		if (btn.second.btn->MouseOnButton())
+		{
+			ChangeSelectMode(btn.first);
+		}
 	}
 
 
-	//ボタン決定処理
-	if (buttons_[0]->ButtonDecision())
+	//ボタン：クリック判定
+	for (auto& btn : modeBtn_)
 	{
-		BattleBtnProcess();
+		if (!btn.second.btn->ButtonDecision())continue;
+
+		//ボタンが押された場合、そのボタン処理を行う
+		SelectBtnProcess();
 	}
-
-	if (buttons_[1]->ButtonDecision())
-	{
-		EditBtnProcess();
-	}
-
-	if (buttons_[4]->ButtonDecision())
-	{
-		TitleBtnProcess();
-	}
-
-}
-
-void SelectScene::CerateBtnUI(void)
-{
-	//スクリーンサイズ
-	auto& sx = Application::SCREEN_SIZE_X;
-	auto& sy = Application::SCREEN_SIZE_Y;
-
-	//モードボタンの背面画像
-	backBtnImg_ = LoadGraph("./Data/Image/UI/BackBtnImg.png");
-	int x, y;
-	GetGraphSize(backBtnImg_, &x, &y);
-
-	//手前画像
-	std::vector<int> handle;
-	handle.push_back(LoadGraph("./Data/Image/UI/バトル.png"));
-	handle.push_back(LoadGraph("./Data/Image/UI/デッキ編集.png"));
-	handle.push_back(LoadGraph("./Data/Image/UI/ルールブック.png"));
-	handle.push_back(LoadGraph("./Data/Image/UI/クレジット.png"));
-	handle.push_back(LoadGraph("./Data/Image/UI/退出.png"));
-
-	//作成
-	int cout = 5;
-	for (int i = 0; i < cout; i++)
-	{
-		RectButton* b = new RectButton();
-
-		int r = i % 2;
-		//座標
-		Vector2 pos = {
-			(sx / 2) - (x * 2) - (x / 2) + (x * i)  ,
-			sy - y };
-
-		b->Create(pos, { 0,0 }, backBtnImg_, handle[i]);
-		buttons_.emplace_back(b);
-	}
-
-
 }
 
 void SelectScene::BattleBtnProcess(void)
@@ -234,31 +250,135 @@ void SelectScene::TitleBtnProcess(void)
 	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE, true);
 }
 
-void SelectScene::DrawModeBox(void)
+void SelectScene::CreateModeBtn(void)
 {
-	DrawGraph(modePos_.x, modePos_.y, modeBox_, true);
-	int x, y;
-	GetGraphSize(modeBox_, &x, &y);
+	//スクリーンサイズ
+	auto& sx = Application::SCREEN_SIZE_X;
+	auto& sy = Application::SCREEN_SIZE_Y;
 
-	auto len = AsoUtility::StringLength(nowMode_, modeFontHandle_) / 2;
-	DrawFormatStringToHandle(
-		modePos_.x + (x / 2) - len, 
-		modePos_.y + 60, 
-		0xdddddd,modeFontHandle_, nowMode_.c_str());
+	//モードボタンの背面画像
+	modeBtnImg_ = LoadGraph("./Data/Image/UI/ModeBtnImg.png");
+	int btnSizeX, btnSizeY;
+	GetGraphSize(modeBtnImg_, &btnSizeX, &btnSizeY);
+
+
+	std::string path = "Data/Image/UI/";
+	int n = 0;
+	// ボタン生成ラムダ
+	auto createBtn = [&](SELECT_MODE mode, std::string btnImgPath, std::string modeImgPath) {
+
+		//モード画像
+		std::string fileName = path + modeImgPath;
+		int modeImg = LoadGraph(fileName.c_str());
+
+		//座標
+		Vector2 pos = {
+			(sx / 2) - (btnSizeX * 2) - (btnSizeX / 2) + (btnSizeX * n)  ,
+			sy - btnSizeY };
+		//ボタン画像
+		fileName = path + btnImgPath;
+		int btnImg = LoadGraph(fileName.c_str());
+
+		//ボタン生成
+		RectButton* b = new RectButton();
+		b->Create(pos, { 0,0 }, modeBtnImg_, btnImg);
+
+		//挿入
+		ModeData md = { modeImg,b };
+		modeBtn_.emplace(std::make_pair(mode, md));
+
+		n++;
+	};
+
+
+	createBtn(SELECT_MODE::BATTLE,		"バトル.png",		"Select/Mode_Battle.png");
+	createBtn(SELECT_MODE::DECK_EDIT,	"デッキ編集.png",	"Select/Mode_DeckEdit.png");
+	createBtn(SELECT_MODE::RULE_BOOK,	"ルールブック.png", "");
+	createBtn(SELECT_MODE::CREDIT,		"クレジット.png",	"");
+	createBtn(SELECT_MODE::TITLE,		"退出.png",			"Select/Mode_Title.png");
 }
 
-void SelectScene::DrawCmtBox(void)
+void SelectScene::SelectBtnProcess(void)
 {
-	DrawGraph(cmtPos_.x, cmtPos_.y, cmtBox_, true);
+	switch (mode_)
+	{
+	case SelectScene::SELECT_MODE::BATTLE:
+		BattleBtnProcess();
+		break;
+	case SelectScene::SELECT_MODE::DECK_EDIT:
+		EditBtnProcess();
+		break;
+	case SelectScene::SELECT_MODE::RULE_BOOK:
+		RuleBtnProcess();
+		break;
+	case SelectScene::SELECT_MODE::CREDIT:
+		CreditBtnProcess();
+		break;
+	case SelectScene::SELECT_MODE::TITLE:
+		TitleBtnProcess();
+		break;
+	case SelectScene::SELECT_MODE::MAX:
+		break;
+	default:
+		break;
+	}
+}
 
-	Vector2 offset = { cmtPos_.x + 40,cmtPos_.y + 40 };
-	DrawFormatStringToHandle(
-		offset.x, offset.y,
-		0xdddddd, cmtFontHandle_, devilCmt_.c_str());
+void SelectScene::ChangeSelectMode(const SELECT_MODE& mode)
+{
+	//同じだった場合、何もしない
+	if (mode_ == mode)return;
 
+	mode_ = mode;
+
+	//音声を鳴らす
+
+	switch (mode_)
+	{
+	case SelectScene::SELECT_MODE::BATTLE:
+		SetDevilCmt("モンスター同士を戦わせるモードだぜ");
+
+		break;
+	case SelectScene::SELECT_MODE::DECK_EDIT:
+		SetDevilCmt("戦わせるユニットを選べるぜ");
+
+		break;
+	case SelectScene::SELECT_MODE::RULE_BOOK:
+		SetDevilCmt("現在、開発中です");
+
+		break;
+	case SelectScene::SELECT_MODE::CREDIT:
+		SetDevilCmt("現在、開発中です");
+
+		break;
+	case SelectScene::SELECT_MODE::TITLE:
+		SetDevilCmt("タイトルに戻るぜ。");
+
+		break;
+	case SelectScene::SELECT_MODE::MAX:
+		break;
+	default:
+		break;
+	}
 }
 
 void SelectScene::SetDevilCmt(const std::string& cmt)
 {
 	devilCmt_ = cmt;
 }
+
+void SelectScene::BattleEnemyInit(void)
+{
+	//エネミーの登録
+	auto regEnemys = [&](SELECT_STAGE stage, std::array<int, 3> nums) {
+		enemys_.emplace(std::make_pair(stage, nums));
+	};
+
+	//森
+	regEnemys(SELECT_STAGE::FOREST, { 0,1,2 });
+	regEnemys(SELECT_STAGE::FOREST, { 0,1,2 });
+	regEnemys(SELECT_STAGE::FOREST, { 0,1,2 });
+
+}
+
+

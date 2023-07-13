@@ -4,7 +4,7 @@ class EnemyUI :
     public UnitUI
 {
 public:
-	EnemyUI(Vector2 pos, std::string& name, int& hp, int& nowHp, int& maxHp);
+	EnemyUI(Vector2 pos, std::string& name, int& hp, int& nowHp, int& maxHp, bool& active);
 	~EnemyUI();
 
 	void Init(void)override;

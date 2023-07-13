@@ -5,6 +5,12 @@
 
 //class Vector2;
 class RectButton;
+class CircleButton;
+
+struct ModeData {
+	int modeImg;		//モード選択画像
+	RectButton* btn;	//モードボタン
+};
 
 class SelectScene :
     public SceneBase
@@ -17,9 +23,27 @@ public:
 		DECK_EDIT = 1,
 		RULE_BOOK = 2,
 		CREDIT	  = 3,
-		Title	  = 4,
-		MAX		  = 5
+		TITLE	  = 4,
+		MAX		  
 	};
+
+
+	enum class SELECT_STAGE
+	{
+		FOREST,
+		SEE,
+		MAX
+	};
+
+	enum class SELECT_ENEMYS
+	{
+		EASY,
+		NORMAL,
+		HARD,
+		LUNATIC,
+		MAX
+	};
+	
 
 	// コンストラクタ
 	SelectScene(void);
@@ -32,12 +56,26 @@ public:
 	void Draw(void) override;
 	void Release(void) override;
 
-
 private:
+	//バックボタン
+	//BackButton* backBtn_;
+	CircleButton* backBtn_;
+	//ボタン画像
+	int backImg_;
+
 
 	//バトル相手情報
-	//std::array<int, 3> enemys_;
+	std::map < SELECT_STAGE, std::vector<std::array<int, 3>>>enemys_;
+	
 	//デッキ情報
+
+
+	//現在モード
+	SELECT_MODE mode_;
+	//モードボタン
+	std::map<SELECT_MODE, ModeData>modeBtn_;
+	//モードボタン画像
+	int modeBtnImg_;
 
 
 	//モードボックス画像
@@ -58,26 +96,19 @@ private:
 	Vector2 devilPos_;
 	int shakeY_;
 
-	//選択ボタン
-	std::vector<RectButton*>buttons_;
-	//ボタンUI画像
-	int backBtnImg_;
-	std::map<SELECT_MODE, int>btnImg_;
-
-
 	//シェーダーハンドル
 	//反転有りシェーダー
 	int psTex_;
 
 
+	//モードボックス描画
+	void DrawModeBox(void);
+	//コメントボックス描画
+	void DrawCmtBox(void);
 
 
-	//各ボタン処理
+	//ボタン処理
 	void BtnProcess();
-
-	//ボタンUI生成
-	void CerateBtnUI(void);
-
 	//各ボタン処理
 	void BattleBtnProcess(void);
 	void EditBtnProcess(void);
@@ -85,13 +116,21 @@ private:
 	void CreditBtnProcess(void);
 	void TitleBtnProcess(void);
 
-	//モードボックス描画
-	void DrawModeBox(void);
-	//コメントボックス描画
-	void DrawCmtBox(void);
+	//モードボタン生成
+	void CreateModeBtn(void);
 
-	//デビルのコメントセット
+	//モードの変更
+	void ChangeSelectMode(const SELECT_MODE& mode);
+
+	//クリックしたボタンの処理
+	void SelectBtnProcess(void);
+
+	//マスコットのコメントセット
 	void SetDevilCmt(const std::string& cmt);
+
+	//バトル相手情報の登録
+	void BattleEnemyInit(void);
+
 
 };
 

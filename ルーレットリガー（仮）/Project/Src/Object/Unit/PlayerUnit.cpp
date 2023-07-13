@@ -23,7 +23,7 @@ void PlayerUnit::Init(void)
 
 
 	//UIèÓïÒÇÃèâä˙âª
-	unitUi_ = new PlayerUI(pos_, name_, hp_ ,changeHp_, maxHp_);
+	unitUi_ = new PlayerUI(pos_, name_, hp_ ,changeHp_, maxHp_, isAct_);
 	unitUi_->Init();
 
 	//èâä˙âª
@@ -33,13 +33,6 @@ void PlayerUnit::Init(void)
 
 void PlayerUnit::Update(void)
 {
-	//if (CheckHitKey(KEY_INPUT_UP))pos_.y -= 1;
-	//if (CheckHitKey(KEY_INPUT_DOWN))pos_.y += 1;
-	//if (CheckHitKey(KEY_INPUT_LEFT))pos_.x -= 1;
-	//if (CheckHitKey(KEY_INPUT_RIGHT))pos_.x += 1;
-	//
-	//_dbgDrawFormatString(0.0f, 150.0f, 0xff00ff, "{%d,%d}", pos_.x, pos_.y);
-
 
 }
 

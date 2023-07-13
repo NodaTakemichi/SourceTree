@@ -1,8 +1,8 @@
 #include "EnemyUI.h"
 
 EnemyUI::EnemyUI(
-	Vector2 pos, std::string& name, int& hp, int& nowHp, int& maxHp) :
-	UnitUI(pos, name, hp, nowHp, maxHp)
+	Vector2 pos, std::string& name, int& hp, int& nowHp, int& maxHp, bool& active) :
+	UnitUI(pos, name, hp, nowHp, maxHp,active)
 {
 }
 
@@ -19,8 +19,10 @@ void EnemyUI::Init(void)
 
 void EnemyUI::Draw(void)
 {
+	COLOR_F color = { 0.8f,0.4f,0.4f,1.0f };	//赤
+
 	//名前描画
-	DrawName(name_, unitPos_);
+	DrawName(name_, unitPos_, color);
 
 
 	//HPが0以下の時、HPゲージを描画しない
@@ -39,7 +41,6 @@ void EnemyUI::Draw(void)
 
 	//HPシェーダー
 	pos = { unitPos_.x + unitSize + 50 , unitPos_.y + 20 };
-	COLOR_F color = { 0.8f,0.4f,0.4f,1.0f };	//赤
 	DrawHpShader(pos,color);
 
 	//描画

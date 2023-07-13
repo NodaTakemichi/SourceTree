@@ -13,7 +13,7 @@ public:
 	const int  HP_GAUGE_Y = 120;
 
 
-	UnitUI(Vector2 pos, std::string& name,int& hp,int& nowHp, int& maxHp);
+	UnitUI(Vector2 pos, std::string& name,int& hp,int& nowHp, int& maxHp, bool& active);
 	virtual ~UnitUI();
 
 
@@ -44,6 +44,7 @@ protected:
 	int& hp_;
 	int& maxHp_;
 	int& nowHp_;
+	bool& active_;
 
 	//ネームフレーム画像
 	int nameFrameImg_;
@@ -73,6 +74,9 @@ protected:
 	//枠強調シェーダー
 	int psIumiFrame_;
 
+	//合計時間
+	float totalTime_;
+
 	//HPのシェーダー描画
 	void DrawHpShader(const Vector2& pos ,const COLOR_F& color);
 
@@ -80,7 +84,7 @@ protected:
 	void DrawHpFrame(const Vector2& pos);
 
 	//名前の描画
-	void DrawName(const std::string& name,const Vector2& uPos);
+	void DrawName(const std::string& name,const Vector2& uPos,const COLOR_F& color);
 	
 	//バフアイコンの描画
 	void DrawBuffIcon();
