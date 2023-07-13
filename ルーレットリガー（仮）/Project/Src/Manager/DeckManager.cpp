@@ -22,7 +22,7 @@ void DeckManager::Init(void)
 	deck_ = { 0,1,2 };
 
 	//Šƒ†ƒjƒbƒg
-	unitPool_ = { 0,1,2,4,5,6,7,17,13 };
+	unitPool_ = { 0,1,2,4,5 ,10,11,12};
 
 }
 

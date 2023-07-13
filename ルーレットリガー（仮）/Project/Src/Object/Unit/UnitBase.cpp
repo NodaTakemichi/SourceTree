@@ -311,7 +311,7 @@ bool UnitBase::CheckOwnBuff(const Buff::BUFF_TYPE& type)
 
 bool UnitBase::PlayBuffEffect(void)
 {
-	_dbgDrawFormatString(0, 0, 0xffffff, "Time:%0.2f", buffEfTime_);
+	//_dbgDrawFormatString(0, 0, 0xffffff, "Time:%0.2f", buffEfTime_);
 
 	//バフエフェクトの再生終了判断
 	float wait = 3.14f / BAUU_EFFECT_COMP_TIME;

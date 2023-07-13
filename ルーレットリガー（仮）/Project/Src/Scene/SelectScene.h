@@ -64,6 +64,11 @@ private:
 	//ボタン画像
 	int backImg_;
 
+	//決定ボタン
+	RectButton* deciBtn_;
+	//ボタン画像
+	int deciBtnImg_;
+
 	//選択画面の進行
 	int page;
 
@@ -73,7 +78,8 @@ private:
 	//現enemys番号
 	int enemysNum_;
 	
-	//デッキ情報
+	//エネミーズ背景
+	int enemysBackImg_;
 
 
 	//現在モード
@@ -82,6 +88,7 @@ private:
 	std::map<SELECT_MODE, ModeData>modeBtn_;
 	//モードボタン画像
 	int modeBackBtnImg_;
+
 
 
 	//モードボックス画像

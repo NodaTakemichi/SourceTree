@@ -31,11 +31,16 @@ void SelectScene::Init(void)
 {
 	//ボタン画像
 	backImg_ = LoadGraph("Data/Image/UI/BackBtn.png");
-
 	//バックボタンの生成
 	int sy = Application::SCREEN_SIZE_Y + 20;
 	backBtn_ = new CircleButton();
 	backBtn_->Create({ 0,sy }, backImg_, -1);
+
+	//決定ボタン画像
+	deciBtnImg_ = LoadGraph("Data/Image/UI/Select/DeciBtnBack.png");
+	//決定ボタンの生成
+	deciBtn_ = new RectButton();
+	deciBtn_->Create({ 820,610 },{ 120,80 }, deciBtnImg_, -1);
 
 
 	//初期化
@@ -46,6 +51,8 @@ void SelectScene::Init(void)
 
 	modeBox_ = LoadGraph("Data/Image/UI/ModeBox.png");
 	cmtBox_ = LoadGraph("Data/Image/UI/CommentBox.png");
+
+	enemysBackImg_ = LoadGraph("Data/Image/UI/Select/EnemysBack.png");
 
 
 	//モードボックス
@@ -118,6 +125,20 @@ void SelectScene::Update(void)
 		}
 
 		//決定ボタン
+		deciBtn_->Update();
+		if (deciBtn_->ButtonDecision())
+		{
+			//デッキのセット
+			auto deck = DeckManager::GetInstance().GetDeck();
+			std::array<int, 3> enemys =enemys_[enemysNum_];
+			BattleDataManager::GetInstance().SetBattleData({
+				deck,enemys,0,0 });
+
+
+			//シーン遷移
+			SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME, true);
+
+		}
 
 	}
 
@@ -164,24 +185,26 @@ void SelectScene::Draw(void)
 		//バックボタン
 		backBtn_->Draw();
 
+		//
+		DrawGraph(580, 80, enemysBackImg_, true);
+
 		//バトルエネミー
 		auto& uMng = UnitDataManager::GetInstance();
+
+		//決定ボタン
+		deciBtn_->Draw();
 		 
 
-		int i = enemys_[enemysNum_][1];
-		if (i == -1)return;
-		int uImg = uMng.GetUnitImg(i);
-		DrawGraph(600, 300, uImg, true);
+		auto drawEu = [&](int num,int posX,int posY) {
+			int i = enemys_[enemysNum_][num];
+			if (i == -1)return;
+			int uImg = uMng.GetUnitImg(i);
+			DrawGraph(posX, posY, uImg, true);
+		};
 
-		i = enemys_[enemysNum_][0];
-		if (i == -1)return;
-		uImg = uMng.GetUnitImg(i);
-		DrawGraph(800, 200, uImg, true);
-
-		i = enemys_[enemysNum_][2];
-		if (i == -1)return;
-		uImg = uMng.GetUnitImg(i);
-		DrawGraph(1000, 300, uImg, true);
+		drawEu(1, 600, 250);
+		drawEu(0, 800, 150);
+		drawEu(2, 1000, 250);
 
 	}
 
@@ -202,6 +225,7 @@ void SelectScene::Draw(void)
 void SelectScene::Release(void)
 {
 	DeleteGraph(modeBackBtnImg_);
+	DeleteGraph(enemysBackImg_);
 
 	backBtn_->Release();
 	delete backBtn_;
@@ -436,7 +460,7 @@ void SelectScene::SelectEnemy(void)
 {
 	enemysNum_ -= GetMouseWheelRotVol();
 	enemysNum_ = AsoUtility::Wrap(enemysNum_, 0, enemys_.size());
-	_dbgDrawFormatString(0, 0, 0xffffff, "NUM:%d", enemysNum_);
+	//_dbgDrawFormatString(0, 0, 0xffffff, "NUM:%d", enemysNum_);
 
 	enemys_[enemysNum_];
 }
